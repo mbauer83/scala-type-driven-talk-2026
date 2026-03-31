@@ -1,0 +1,42 @@
+# Scala / sbt / Scala 3
+*.class
+*.log
+*.scala_dependencies
+*.swp
+
+# sbt
+/target/
+/project/target/
+/project/project/
+
+# Metals / Bloop / BSP
+.bloop/
+.metals/
+.bsp/
+
+# IntelliJ
+.idea/
+*.iml
+
+# VS Code (workspace-local state)
+.vscode/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Idris 2
+**/build/
+**/build_exec/
+**/.idris2/
+**/*.ttc
+**/*.ttm
+**/*.ibc
+
+# Idris package/build helper outputs
+.idris2-pack/
+
+# AI Agent helper directories
+.codex
+.codex/
+.claude/
