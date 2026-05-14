@@ -1,0 +1,3 @@
+[debug] not up to date. inChanged = true, force = false
+[debug] Updating ProjectRef(uri("file:/home/mb/workspace/scala-type-driven-talk/06-scala3-payment/project/"), "root-06-scala3-payment-build")...
+[debug] Done updating ProjectRef(uri("file:/home/mb/workspace/scala-type-driven-talk/06-scala3-payment/project/"), "root-06-scala3-payment-build")

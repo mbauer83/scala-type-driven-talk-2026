@@ -1,0 +1,17 @@
+[debug] Created transactional ClassFileManager with tempDir = /home/mb/workspace/scala-type-driven-talk/06-scala3-payment/target/scala-3.8.3/classes.bak
+[debug] About to delete class files:
+[debug] 	PaymentDemo.class
+[debug] 	PaymentDemo$.class
+[debug] 	PaymentDemo.tasty
+[debug] 	PaymentDemo$.tasty
+[debug] We backup class files:
+[debug] 	PaymentDemo.class
+[debug] 	PaymentDemo$.class
+[debug] 	PaymentDemo.tasty
+[debug] 	PaymentDemo$.tasty
+[debug] Registering generated classes:
+[debug] 	PaymentDemo$.class
+[debug] 	PaymentDemo.class
+[debug] 	PaymentDemo$.tasty
+[debug] 	PaymentDemo.tasty
+[debug] Removing the temporary directory used for backing up class files: /home/mb/workspace/scala-type-driven-talk/06-scala3-payment/target/scala-3.8.3/classes.bak

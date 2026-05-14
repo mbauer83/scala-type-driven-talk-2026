@@ -62,13 +62,13 @@ Use this as the default live schedule:
 1. `00:00-00:30` personal intro
 2. `00:30-04:00` cold open with incidents
 3. `04:00-10:30` history, motivation, lambda-cube map
-4. `10:30-13:30` JS + simple Java
-5. `13:30-17:00` generics + function pipelines
-6. `17:00-21:00` records/sealed
-7. `21:00-27:00` Java typestate
-8. `27:00-35:00` Scala 3
-9. `35:00-42:00` Idris 2
-10. `42:00-45:00` return to opening promise, summarize, horizon
+4. `10:30-13:30` Stage 0 + Stage 1: JS and simple Java as a comparative moment
+5. `13:30-15:30` Stage 2 + Stage 3: one beat — "architectural wins, bug still compiles" (generics as a live mention; function pipelines as a 30-second spoken reference, no demo)
+6. `15:30-21:00` Stage 4: records/sealed — the Java payoff (5.5 min; include the live delete-Medium-case moment)
+7. `21:00-27:00` Stage 5: Java typestate — lifecycle as type (6 min)
+8. `27:00-35:00` Stage 6: Scala 3 — a higher rung (8 min)
+9. `35:00-41:00` Stage 7: Idris 2 — the runtime-to-type bridge (6 min)
+10. `41:00-45:00` return to opening promise, Capture Checking pointer, closing horizon
 
 This schedule is intentionally back-loaded toward Java typestate, Scala 3, and Idris 2. Those are the stages where the audience gets the strongest “this changes what programs are expressible” payoff.
 
@@ -113,10 +113,10 @@ Use runtime output actively:
 If time pressure hits, these are the points that absolutely must land:
 
 1. Some production incidents exist because invalid programs are expressible.
-2. Each increase in type-level expressivity removes a more realistic class of bug.
-3. Java can already go surprisingly far with ADTs and typestate-style encodings.
-4. Scala 3 lets us encode protocol structure and duality directly.
-5. Idris 2 removes the remaining runtime-to-type bridge.
+2. Each increase in type-level expressivity removes a more realistic class of bug — and a class of test.
+3. Modern Java already goes surprisingly far: sealed interfaces, records, and phantom generics let us encode sum types, ADTs, and typestate-style lifecycle enforcement.
+4. Scala 3 makes match types, phantom indexing, refined types, and compiler-derived evidence available as first-class tools — each removes a class of invalid construction — and session types with duality make protocol mismatches a compile error.
+5. Full dependent types remove the remaining runtime-to-type bridge.
 
 Everything else is subordinate to these five points.
 
@@ -133,7 +133,7 @@ The audience should first feel:
 - these are bugs I have seen,
 - these are bugs that cost sleep, money, and trust,
 - these are bugs that were not caused by stupidity,
-- these are bugs that a stronger language/design could have prevented.
+- these are bugs that a stronger type-level design could have prevented.
 
 Do not mention the solution yet. Let the pain stand on its own for a moment.
 
@@ -325,350 +325,412 @@ The tone here should be calm and slightly provocative, not evangelical.
 
 ## Theory Section: What It Must Achieve
 
-This section is not a survey course. Its job is to answer three questions:
+This section is not a survey course. Its job is to answer three questions for an audience of practitioners:
 
-1. Why has formalizing reasoning mattered for so long?
-2. Why do types exist at all?
-3. What kind of additional expressive and checking power are we gaining as we move through the examples?
+1. Why has formalizing reasoning mattered for so long, and why should an engineer care?
+2. Why do types exist — not as a Java feature, but as a mathematical necessity?
+3. What does it mean to gain expressive power, and where does each stage of this talk sit on that map?
 
-If the audience finishes this section thinking “I now know all of proof theory,” it went wrong.
+If the audience finishes thinking “I now know proof theory,” it went wrong. If they finish thinking “types have deep roots, those roots explain why stronger types give stronger guarantees, and I have a map for what I’m about to see,” it worked.
 
-If they finish thinking “I see that types are part of a long tradition of formalizing valid reasoning, and I have a map for the stronger guarantees and checks we’re about to gain,” it worked.
+## Theory Section: Spine
 
-## Theory Section: Recommended Arc
+The entire theory section hangs off a single sentence, stated explicitly at the start:
 
-This section should take `6-7 minutes`, not `10`, in the default version of the talk.
+> Humans have spent 2,500 years trying to formalize the difference between valid and invalid reasoning. Types are the latest — and most practically useful — expression of that project. Your compiler’s type checker is a direct descendent.
 
-Prepare a longer variant for special occasions, but the 45-minute version needs a strict cut.
+Every historical name and every concept introduced should serve this sentence. Nothing else earns its place.
 
-### Part 1: Formalizing thought is an old ambition
+## Theory Section: Three Beats
 
-Keep this brisk.
+This section should take `6-7 minutes` in the default version of the talk. Prepare a `9-10 minute` variant for audiences that are visibly engaged with the theory. In either version, each beat has a single aha moment — identify it, land it, move on.
 
-Possible arc:
+### Beat 1: The old ambition — formalizing valid inference (~90 sec)
 
-- Aristotle, `4th century BCE`: early formal logic as a study of valid inference.
-- Euclid, around `300 BCE`: a canonical example of systematic axiomatic reasoning.
-- Immanuel Kant, `1724-1804`: logic as a condition on rational thought, though still pre-symbolic in the modern sense.
-- George Boole, `1815-1864`: algebraic treatment of logic.
-- Charles Sanders Peirce, `1839-1914`: formal logic and relational thinking.
-- Gottlob Frege, `1848-1925`: predicate logic and a far more expressive formal language.
+**Arc:** Aristotle → Frege as a single motion.
 
-Message:
+Every generation has asked the same question: how do we make valid reasoning explicit enough that *invalid* reasoning cannot sneak through?
 
-- logic became increasingly explicit, symbolic, and structurally precise.
+- **Aristotle, 4th century BCE**: first formal grammar for valid inference — the syllogism. Not about what is true, but about what *follows* from what.
+- **Euclid, ~300 BCE**: what it looks like to derive consequences that *must* follow from explicit premises — and nothing else.
+- **Frege, 1879** (*Begriffsschrift*): the first predicate logic powerful enough to express almost anything we would want to say. And that is where the trouble started.
 
-### Part 2: Precision created both power and paradox
+The motion from Aristotle to Frege is not a progression of ideas about truth. It is a progression of precision about what a *valid step* looks like. Each generation made the fence tighter.
 
-Names to touch briefly:
+**Aha moment:** formal systems restrict what can be said, so that what *can* be said can be trusted. This is not a limitation — it is the whole idea.
 
-- Bertrand Russell, `1872-1970`: paradoxes force us to confront unrestricted self-reference.
-- David Hilbert, `1862-1943`: formalization, consistency, and proof as objects of study.
-- Alfred Tarski, `1901-1983`: semantics and truth in formal languages.
-- Kurt Gödel, `1906-1978`: hard limits on what formal systems can prove about themselves.
+### Beat 2: Precision created paradox, and the answer was types (~90 sec)
 
-Message:
+**Arc:** Russell → Gödel → types as the formal solution.
 
-- formal systems are powerful, but naive expressiveness is dangerous;
-- “types” are not decoration, they are one answer to controlling expressive power so that stronger guarantees remain sound.
+Frege’s system was powerful enough to eat itself. Russell (1901) showed that “the set of all sets that don’t contain themselves” is a contradiction. Formalizing everything naïvely is inconsistent — the system proves things it shouldn’t.
 
-### Part 3: Logic and computation become deeply connected
+Hilbert asked: can we at least *prove* a system is consistent? Gödel (1931) said no, not in general — and proved it inside the system itself. These are not obscure results. They define hard limits on what formal systems can know about themselves, and they are where the modern discipline of computer science begins.
 
-Key figures:
+The response to Russell was **types**. Russell himself proposed type theory in 1908: “the set of all sets” cannot be formed because the type system will not allow it. Types are a formal safety mechanism — a controlled restriction on expressiveness that preserves soundness.
 
-- Alonzo Church, `1903-1995`: lambda calculus and foundational computation.
-- Haskell Curry, `1900-1982`, and William Alvin Howard, `1926-2007`: the propositions-as-types/programs-as-proofs correspondence.
-- Jean-Yves Girard, `born 1947`: System F and polymorphism.
-- Per Martin-Löf, `born 1942`: constructive type theory and dependent types.
-- Joachim Lambek, `1922-2014`: categorical and logical structure relevant to typed calculi.
-- Vladimir Voevodsky, `1966-2017`: modern developments pointing toward homotopical and richer foundations.
+Then Turing (1936) and Church (lambda calculus) converge: computation is formal symbol manipulation, and there are deep connections between what is computable and what is provable.
 
-Message:
+**Aha moment:** types were invented to prevent logic from breaking. The safety boundary your compiler enforces has over a century of mathematical necessity behind it.
 
-- at this point, types are no longer just “labels on values”;
-- they become a disciplined language for expressing valid construction, stronger guarantees, and in some settings machine-checked proof.
+### Beat 3: Programs are proofs — the Curry-Howard correspondence (~2 min)
 
-## Theory Section: Concepts To Hit
+**Arc:** Curry/Howard → Martin-Löf → the lambda cube → bridge to the demos.
 
-Keep the phrasing practical, not textbook-heavy.
+In the 1950s–70s, Curry and Howard independently noticed a precise formal correspondence: propositions and types match up. A proof of a proposition is a program of the corresponding type. To prove a proposition is to construct a value of the right type. An uninhabited type corresponds to a false proposition — no proof exists, so no value can be constructed.
 
-### Constructivity
+This is not a metaphor. It is a theorem about the structure of formal systems.
 
-Say:
+What it means in practice: when the compiler accepts `Either<Error, Order>`, you have *proved* that the program handles both the success and the failure case — not documented it, not tested it, proved it. When a value has type `PositiveInt`, the existence of that value is proof that the predicate holds. A function signature `authorize(Payment<Initiated>) → Payment<Authorized>` is a statement about legal transitions: no valid program can skip that step.
 
-- in constructive mathematics and intuitionistic logic, to claim something exists, you should be able to construct it;
-- programs fit this worldview naturally because a valid computation is itself a construction.
+Key figures for this beat:
 
-Connect immediately to the talk:
+- **Haskell Curry, 1900–1982** and **William Alvin Howard, 1926–2007**: the propositions-as-types / programs-as-proofs correspondence.
+- **Per Martin-Löf, born 1942**: dependent type theory — types that depend on runtime values, so you can state and verify claims about specific data.
+- **Jean-Yves Girard, born 1947**: System F — polymorphism as second-order quantification over types. *Generics are logic.*
+- **Henk Barendregt, born 1947**: the lambda cube — three independent axes of expressive power: terms depending on types, types depending on types, types depending on terms. Each stage of this talk moves along at least one axis.
 
-- when the type checker accepts a program, it is not just allowing a sentence; it is verifying a construction under certain rules.
-- each later stage lets the checker verify stronger claims, but those claims matter because they improve real engineering outcomes.
+**Scientific importance:** this correspondence drives Coq (used to verify the CompCert C compiler and Paris metro signaling), Lean (currently formalizing undergraduate mathematics at scale in Mathlib), Agda, Idris, and, in a more applied form, Rust’s borrow checker and Scala 3’s capture checking. It is one of the most productive ideas in the history of computer science.
 
-### Predicativity and impredicativity
+**Aha moment:** when you write a type, you are stating a proposition. When the compiler accepts your program, it has checked your proof. Every stronger type system in this talk is a system that can check a stronger class of propositions.
 
-This should be short and careful.
+**Transition out:** “So when I show you, in a moment, that `Approval[LowRisk]` cannot satisfy `Approval[MediumRisk]`, that is not a Scala trick. It is the same tradition — making the invalid program unable to be expressed — that Russell started when he tried to stop logic from consuming itself.”
 
-Say:
+## Theory Section: The Lambda Cube Slide
 
-- some systems only allow definitions built from previously available layers;
-- others allow more self-referential or “quantify over everything including the thing being defined” patterns;
-- that extra power is useful but delicate.
+Use one slide for the lambda cube — a diagram, three axes, plain English labels, and the stages of this talk placed on it. Not as rigour, but as a map the audience can orient from for the next 30 minutes.
 
-Use this mainly to position System F and richer calculi, not to digress into foundational controversy. In the 45-minute version, this is probably one sentence, not a subsection with examples.
+- **Bottom-left corner**: untyped lambda calculus — expressive but no safety boundaries.
+- **Terms depending on types** (polymorphism axis): generics, `Result<T>`, `Channel[P]`.
+- **Types depending on types** (type operators axis): `Dual[P]`, `Approval[R]`, higher-kinded types.
+- **Types depending on terms** (dependent types axis): `protocolFor(order)` — the Idris 2 payoff.
 
-### Lambda calculus to typed calculi
-
-Give the compression:
-
-- untyped lambda calculus gives expressive computation but few safety boundaries,
-- STLC adds simple function typing,
-- System F adds polymorphism,
-- System F<: adds bounded polymorphism and structured subtype constraints,
-- System F omega adds richer type operators and abstraction over type constructors,
-- dependent type theories go further by letting types depend on values.
-
-Frame this as an increasing-strength ladder:
-
-- first we check small local facts,
-- then reusable generic facts,
-- then structural facts about branching and state,
-- then relational facts about interacting components,
-- and finally facts whose very statement depends on runtime values.
-
-### Barendregt’s lambda cube
-
-This is the map, not the destination.
-
-Use it as a compact way to explain three axes of increased expressive power:
-
-- terms depending on types,
-- types depending on types,
-- types depending on terms.
-
-Do not spend long on notation. The point is:
-
-- each step in the practical examples is buying additional expressive power,
-- and that power lets us state and check more business invariants directly.
+Label each axis with one word: *generics*, *type operators*, *dependent types*. Do not explain the formal definition of each. The point is that each practical stage is moving somewhere on this map.
 
 ## Theory Section: What To Avoid
 
-Avoid these failure modes:
+- Lecturing as if the audience signed up for a logic seminar.
+- Proving theorems on slides or introducing symbolic notation beyond what the IDE will show.
+- Treating Gödel, Church, or Turing as trivia to name-drop rather than ideas to land.
+- Using category theory as a prestige signal — it is not needed for this talk.
+- Assuming prior knowledge of ADTs, variance, proofs-as-programs, or theorem provers.
 
-- lecturing the room as if they signed up for a logic seminar,
-- proving theorems on slides,
-- spending too long distinguishing schools of foundations,
-- introducing too many symbols too early,
-- using category theory as a prestige signal.
+Do not treat “proof” as something that only happens in a separate verification assistant. The key educational move of the talk is that proof is already happening — at degrees of strength — in every stage:
 
-You can mention homotopy type theory, cubical Agda, and topos theory later as “further horizon” material. They should not occupy the center of this talk.
-
-For a mixed Java meetup, explicitly avoid assuming prior knowledge of:
-
-- ADTs,
-- variance,
-- proofs-as-programs,
-- category theory,
-- theorem provers.
-
-Introduce only the minimum needed to follow the engineering argument.
-
-Also avoid treating “proof” as if it only means fully formal theorem proving in a separate assistant. One useful educational move of the talk should be:
-
-- a smart constructor is already a way of packaging evidence,
-- an exhaustive match is already a branch obligation discharged,
-- a typestate transition signature is already a strong statement about legal next steps,
-- a protocol duality check is already a strong compatibility claim,
-- dependent types let us state and check even stronger such claims.
+- a smart constructor is already packaging evidence,
+- an exhaustive match is already discharging a branch obligation,
+- a typestate transition signature is already a claim about legal next steps,
+- a duality check is already a protocol compatibility proof,
+- dependent types let you state and check the strongest such claims directly.
 
 ## Practical Section: Governing Principle
 
 After the theory section, the talk should become relentlessly concrete.
 
-Each stage should follow the same rhythm:
+Each stage follows the same rhythm. Apply it consistently:
 
-1. show the current implementation style,
-2. show the realistic bug it still allows,
-3. identify the missing expressive/checking power,
-4. move one rung up,
-5. show how that bug is now caught or structurally removed,
-6. be explicit about what still remains unsolved.
+1. show what the current rung makes possible,
+2. show a realistic bug it eliminates — in code, not in the abstract,
+3. say explicitly which tests are now deletable,
+4. say explicitly what code is no longer written because of genericity or structural enforcement,
+5. show the bug that still compiles — the reason to climb one rung further.
 
-This repeated structure is what makes the talk intelligible rather than just impressive.
+The recurring phrases that make this work:
+
+- "At this rung, the invariant is **documented**."
+- "At this rung, the invariant is **tested**."
+- "At this rung, the invariant is **encoded** — the invalid program cannot be constructed."
+- "What can we now state and check that we could not one rung ago?"
+- "What invalid programs are still expressible here?"
+
+This repeated structure is what makes the progression intelligible rather than just impressive. The audience should be able to predict the pattern by Stage 3 — and then feel the payoff when it keeps delivering stronger guarantees.
 
 ## Practical Section: Suggested Stage Narrative
 
-This section should track the directories from [PAYMENT_TALK_PLAN.md](/home/mb/workspace/scala-type-driven-talk/PAYMENT_TALK_PLAN.md), but the talk does not need equal time for each stage.
+This section tracks the directories from [PAYMENT_TALK_PLAN.md](/home/mb/workspace/scala-type-driven-talk/PAYMENT_TALK_PLAN.md). The talk does not need equal time for each stage.
 
-### Stage 0: JavaScript
+### Stage 0: JavaScript — the untyped baseline
 
-Narrative role:
+**What this rung has:** dynamic dispatch, runtime freedom, no structural constraints.
 
-- establish the baseline of maximum freedom and maximum latent risk.
+**In the demo, show:** two bad demos only — capture-before-authorize (returns `capturedAmount: undefined`) and skip-3DS (returns `approvalNote: 'auto-approved-wrong'`). Both compile, both run silently.
 
-Main message:
+**Say explicitly:**
 
-- the program is easy to write but hard to trust.
+- Every one of these failure modes requires a test. The test suite is the only thing standing between this code and production.
+- What you do not test, you do not catch.
 
-Use one or two examples only:
+**Tests required at this rung (name these out loud):**
 
-- capture before authorization,
-- skipped 3DS because risk was computed but not enforced.
+- Test that capture is never called before authorize.
+- Test that medium-risk orders actually go through 3DS.
+- Test that invoice orders cannot be refunded.
+- Test that the captured amount matches the authorized amount.
+- Test every boundary that the business cares about — none are enforced structurally.
 
-Do not linger. This stage exists so the later gains are visible.
+**Tests still required** (ordered by when each will be eliminated — the first is what the next stage closes):
 
-### Stage 1: Simple Java
+1. *(Stage 1 closes)* Test that a value of the wrong type cannot be passed to a lifecycle function — e.g. `capture(order)` when `Authorization` is expected.
+2. *(Stage 2 closes)* Test that all error and null paths from constructors are handled by callers.
+3. *(Stage 4 closes)* Test that all risk branches are handled — that the medium-risk case is never silently skipped.
+4. *(Stage 5 closes)* Test lifecycle ordering — that capture is never called before authorize.
+5. *(Stage 6 closes)* Test that the right authorization method is used for the risk level (no auto-approval for medium-risk orders).
+6. *(Stage 6 closes)* Test boundary constraints — that negative or zero quantities are rejected.
+7. *(Stage 7 closes)* Test that the correct protocol variant is selected for a given runtime risk assessment.
 
-Narrative role:
+This is the full list of things the type system at this rung cannot check. Every subsequent stage removes items from this list.
 
-- show the first real win of nominal structure.
+---
 
-Main message:
+### Stage 1: Simple Types — nominal structure
 
-- types already remove nonsense, but not process errors.
+**What this rung adds:** nominal types. A function that expects `Authorization` cannot receive an `Order`. The wrong shape is a compile error.
 
-Make sure the audience sees this distinction:
+**In the demo, show:** the `processOrder` and `capture` signatures. Show that `capture(order)` does not compile — `capture` requires `Authorization`. Show the bad demo that skips 3DS — it still compiles.
 
-- “wrong shape” bugs get caught,
-- “wrong state / wrong flow / wrong evidence” bugs remain.
+**Structural enforcement — code not written:**
+Defensive “is this the right type of object?” guards at every call site. The compiler checks shape for free; you do not write it.
 
-### Stage 2: Generics
+**Genericity — code not written:**
+Not much yet. This rung is about naming, not abstracting. The payoff is structural, not reuse.
 
-Narrative role:
+**Tests deleted:**
+Any test that checks “did we accidentally pass an order where an authorization was expected?” — shape confusion is now a compile error.
 
-- show that polymorphism helps structure and reuse, but it is not magic.
+**Tests still required** (first item is what the next stage closes):
 
-Main message:
+1. *(Stage 2 closes)* Test that all error/null paths from constructors are handled — callers can currently silently ignore a bad input.
+2. *(Stage 4 closes)* Test that all risk branches are handled — the medium-risk case can be forgotten silently.
+3. *(Stage 5 closes)* Test lifecycle ordering — capture before authorize still compiles.
+4. *(Stage 6 closes)* Test that the right authorization method is used for the risk level.
+5. *(Stage 6 closes)* Test boundary constraints — negative or zero quantities reach the service.
+6. *(Stage 7 closes)* Test that the correct protocol variant is selected for a runtime risk assessment.
 
-- generics reduce duplication and category mistakes,
-- they still do not encode lifecycle or business constraints.
+---
 
-This is where you can briefly name System F and say:
+### Stage 2: Generics — polymorphic error handling and composable validation
 
-- we have moved to terms depending on types;
-- useful, powerful, still far from enough.
+**Live talk treatment:** present Stage 2 and Stage 3 together as one beat (~2 min total). The message is: "generics and function values give us architectural wins — reusable abstractions, composable rules, explicit control flow. Both matter. Neither changes what states are constructible. The bug still compiles." Then transition directly into Stage 4 where structural enforcement begins.
 
-### Stage 3: Function pipelines
+**What this rung adds:** parametric polymorphism (`Result<T>`, `Validator<T>`, `AuditTrail<E>`). Write error handling and validation logic once; reuse it across every domain type. System F in practice.
 
-Narrative role:
+**In the demo, show:** `Result<T>` forcing callers to handle `Err` before accessing the value. `Validator<T>` composed once, applied everywhere. The bad demo showing that lifecycle is still unguarded.
 
-- show that making business rules explicit as values improves structure before it improves guarantees.
+**Structural enforcement — code not written:**
+Null guards at every call site. `Result<T>` makes the error path part of the return type — callers are forced by the compiler to handle it; no defensive check is needed at the use site.
 
-Main message:
+**Genericity — code not written:**
+Without `Result<T>`, you write `OrderLineResult`, `OrderResult`, `AuthorizationResult` — one error-wrapping type per domain class, each with its own `flatMap`. With `Result<T>`: write `flatMap` once, use it for every domain type. Same for `Validator<T>` and `AuditTrail<E>`.
 
-- higher-order composition helps isolate logic and reduces duplication,
-- but it does not yet force the right lifecycle or protocol.
+Test the composition rule for `Validator<T>` once. You do not need a test for every combination of validator applied to every type — the composition is generically correct.
 
-Keep this very short live. The value of this stage is that it prepares the audience for “structure first, stronger guarantees later”.
+**Tests deleted:**
+Tests that check “did we handle the null/error return from this constructor?” — `Result<T>` makes ignoring it a compile error.
 
-### Stage 4: Records and sealed unions
+**Tests still required** (first item is what the next stage closes):
 
-Narrative role:
+1. *(Stage 4 closes)* Test all risk branches are handled — the medium-risk case is still silently forgettable.
+2. *(Stage 5 closes)* Test lifecycle ordering — a `Capture` can still be constructed without an `Authorization`.
+3. *(Stage 6 closes)* Test the right authorization method is used for the risk level.
+4. *(Stage 6 closes)* Test boundary constraints — zero-quantity lines are rejected.
+5. *(Stage 7 closes)* Test that the correct protocol variant is selected for a runtime risk assessment.
 
-- show that domain honesty matters.
+---
 
-Main message:
+### Stage 3: Function Pipelines — explicit rules as values
 
-- product and sum types stop us from lying about possible states and branches.
+**Live talk treatment:** do not run a demo for this stage. Say thirty seconds and move on:
 
-This is a good place for the skipped-3DS story:
+> "Generics gave us reusable typed abstractions. Function values let us make business rules explicit — composable, unit-testable in isolation. Both improve architecture. Neither changes what states are constructible. The bug still compiles. Let's fix that."
 
-- once `RiskDecision` is explicit as `Low | Medium | High`, forgetting a branch becomes harder to hide.
+The code is in the repository and available for questions. In the live talk it is context, not a demo slot. The time saved goes to Stage 4.
 
-But be honest:
+**What this rung adds:** business rules become first-class values (`RiskRule`, `PaymentStep<A,B>`). Higher-order composition (`andThen`, `maxWith`) replaces scattered logic with explicit, testable structure.
 
-- the compiler may force you to branch,
-- it still does not force the branch to carry the right subsequent protocol.
+**In the demo, show (repository / Q&A only):** the `riskEngine` as a composed `RiskRule`. `PaymentStep` composition as a pipeline. Each step unit-testable in isolation. Then show the bad demo: the engine returns the right risk, but the developer selects the wrong pipeline — no error.
 
-### Stage 5: Advanced Java typestate
+**Structural enforcement — code not written:**
+Nothing new at the structural level — the pipeline does not yet enforce that the risk result drives the step selection.
 
-Narrative role:
+**Genericity — code not written:**
+`PaymentStep<A, B>` defines `andThen` once for any A→B. Without this abstraction, every composed flow duplicates the wiring logic. One `RiskRule.maxWith` serves all threshold combinations. Rules are defined in one place; calling sites compose, they do not copy.
 
-- this is the first big “wow, the type system is modeling process” step.
+Silent duplication that drifts is eliminated: two separate copies of the threshold logic that get out of sync are replaced by one value, shared everywhere.
 
-Main message:
+**Tests deleted:**
+Tests for combined risk rule behaviour can be replaced by independent tests of each rule and one test of the composition rule. The surface shrinks.
 
-- capture-before-authorize and refund-before-capture are no longer just tested rules; they are illegal constructions.
+**Tests still required** (first item is what the next stage closes):
 
-This stage should also show strain:
+1. *(Stage 4 closes)* Test that the right pipeline is selected for every risk level — Bob’s bug still compiles: `lowRiskPipeline` can be chosen for a medium-risk order.
+2. *(Stage 5 closes)* Test lifecycle ordering.
+3. *(Stage 6 closes)* Test the right authorization method for the risk level.
+4. *(Stage 6 closes)* Test boundary constraints.
+5. *(Stage 7 closes)* Test correct protocol variant selection.
 
-- the design is conceptually right,
-- the encoding is verbose and awkward.
+---
 
-That awkwardness is rhetorically useful. It creates appetite for a language that expresses the same idea more directly.
+### Stage 4: Records and Sealed Unions — honest domain modelling
 
-If you include F-bounded polymorphism, present it as one tool among several, not the headline.
+**What this rung adds:** sum types with exhaustive dispatch. `RiskDecision` is `Low | Medium | High` — a sealed hierarchy. Forgetting a variant is a compile error. `PaymentMethod` is `Card | Wallet | Invoice` — unknown variants cannot be constructed.
 
-### Stage 6: Scala 3
+**In the demo, show:** the exhaustive switch on `RiskDecision`. Delete the `Medium` case live and show the compile error. Then show the bad demo — constructing a `Capture` without an `Authorization` still compiles.
 
-Narrative role:
+**Structural enforcement — code not written:**
+`default:` branches that silently swallow forgotten cases. Guard clauses that check “is this variant handled?” — the compiler now requires it. Defensive “is this a valid PaymentMethod?” code — the sealed type ensures only valid variants exist.
 
-- show the professional sweet spot: protocol as type, duality, stronger compile-time structure, but still not full dependency on runtime values.
+**Genericity — code not written:**
+Java records generate `equals`, `hashCode`, and `toString` for every product type — no hand-written implementations, no drift between them. Sealed interfaces give variant exhaustiveness for any discriminated union — one language mechanism, infinite domains.
 
-Main message:
+**Tests deleted:**
+Tests that check “did we handle all risk levels?” Gone — the compiler enforces it at every switch site. Tests that check “can we construct an invalid PaymentMethod?” Gone — the sealed type has no invalid constructor.
 
-- now we can model not only payment object states, but communication behavior itself.
+**Close the loop on Bob's branch story — partially:** say explicitly: “Bob can no longer forget the Medium case. The compiler requires it. But the root cause is still present — the risk level doesn't flow into the authorization step's type, so the wrong approval method can still be chosen. That closes two stages from now.”
 
-In the Scala stage, make sure to surface three specific ideas visibly in the IDE:
+**Tests still required** (first item is what the next stage closes):
 
-- refinement-style boundaries through smart constructors,
-- path-dependent types or associated-type style relationships,
-- evidence values or compiler-constructed witnesses.
+1. *(Stage 5 closes)* Test lifecycle ordering — `new Capture(...)` without a prior `Authorization` still compiles.
+2. *(Stage 6 closes)* Test the right authorization method for the risk level.
+3. *(Stage 6 closes)* Test boundary constraints.
+4. *(Stage 7 closes)* Test correct protocol variant selection.
 
-This is where the audience should feel a major leap:
+---
 
-- illegal message order is caught,
-- client/server drift is caught,
-- several runtime checks disappear,
-- the policy DSL can select between predeclared variants.
+### Stage 5: Typestate via Phantom Generics — lifecycle as type
 
-Then show the ceiling clearly:
+**What this rung adds:** payment lifecycle states encoded as type parameters. `Payment<Initiated>`, `Payment<Authorized>`, `Payment<Captured>` are distinct types. Static factory methods are the only way to move between them.
 
-- the risk analysis lives at runtime,
-- the full protocol type still cannot simply be computed from arbitrary runtime values in the same direct way Idris allows.
+**In the demo, show:** the `Payment<S>` signature family. Show `demo4_TypestateCompileErrors()`. Then show the bad demo: `authorizeAuto` called on a medium-risk initiated payment — it compiles, audit trail has no 3DS entry.
 
-This is where you name the remaining bridge, and why it exists.
+**Structural enforcement — code not written:**
+Runtime state guards (“has this payment been authorized?”), defensive assertions in lifecycle methods, error handling for impossible state violations. There is no program that captures before authorizing — so there is no error path to guard.
 
-### Stage 7: Idris 2
+**Genericity — code not written:**
+`Payment<S>` is one class that covers all lifecycle stages — without phantom generics you would write `InitiatedPayment`, `AuthorizedPayment`, `CapturedPayment`, `RefundedPayment` as four separate classes, each duplicating the order and audit-trail fields, each needing its own conversion logic. The phantom parameter collapses all of that into one generic type with one definition of every shared field.
 
-Narrative role:
+**Tests deleted:**
+Tests for capture-before-authorize, refund-before-capture, double-authorization — all gone. These transitions are no longer expressible programs.
 
-- the end of the climb.
+**Name the encoding friction honestly:** the concept is right and the pattern is portable. The verbosity of static factory methods and noisy phantom-parameter error messages is the cost of encoding this at the available expressivity level.
 
-Main message:
+**But be precise about why the next rung is different.** What changes at Stage 6 is not merely that the same ideas are more concise. Some guarantees at Stage 6 are not expressible in Java at all — not verbosely, not at all. Java has no match types, no refined types, and no path-dependent types. The risk level flowing into the authorization approval type (`Approval[R <: Risk]`) is a guarantee Java's type system cannot state. This is a genuine increase in what the compiler can check, not a syntactic convenience.
 
-- the remaining runtime-to-type gap is gone.
+**Close the loop on Charlie's story here.** Say explicitly: "Charlie's invalid state transition — capture before authorize — is done. There is no program at this rung that reaches `Payment<Captured>` without passing through `Payment<Authorized>`. You can delete those lifecycle-ordering tests."
 
-Key moments to land:
+**Tests still required** (first item is what the next stage closes):
 
-- runtime order facts drive risk analysis,
-- risk analysis drives protocol shape,
-- required evidence depends on that result,
-- legal lifecycle transitions construct the audit trail,
-- duality is not just checked on examples but stated as a theorem.
+1. *(Stage 6 closes)* Test that the right authorization method is called for the risk level — `authorizeAuto` on a medium-risk `Payment<Initiated>` compiles; the risk level is not in the type.
+2. *(Stage 6 closes)* Test boundary constraints — negative quantities still reach the service.
+3. *(Stage 7 closes)* Test correct protocol variant selection for a runtime risk assessment.
 
-If the audience is following well, say explicitly that the later stages are no longer just “using types to avoid bugs”; they are using types to state and check progressively richer properties of the program.
+---
 
-This is where you return to Alice, Bob, Charlie, and Danielle.
+### Stage 6: Match Types, Refined Types, and Session Types
 
-Not by saying “types are cool,” but by saying:
+**Narrative role:** this stage crosses a threshold, not just a boundary. Java’s type system has a ceiling — and we have shown it honestly. Some guarantees we care about are not expressible in Java at all: not verbosely, not with enough boilerplate, simply not. Match types, refined types, and path-dependent types require a type system that can compute types from other types at compile time and can carry value predicates as part of the type itself. Scala 3 has that power. This stage demonstrates it, culminating in session types where duality makes client/server protocol drift a compile error.
 
-- Alice’s premature capture is impossible because the state transition is not expressible.
-- Bob’s skipped 3DS path is impossible because the protocol path is derived from the risk result.
-- Charlie’s amount confusion is structurally constrained by the typed lifecycle objects.
-- Danielle’s invalid refund path is absent from the protocol where refund is not permitted.
+**Earn the transition.** Before the first line of Scala, say:
+
+> "We have pushed Java as far as it goes. That is further than most people expect — sealed types, phantom generics, explicit lifecycles. But there are guarantees we still need tests for that Java cannot encode. Not because Java is wordy — because its type system cannot state them. Approval indexed by risk level, so the wrong authorization method is a compile error. A type that carries the predicate ‘this integer is positive’ rather than just checking it. Types computed from other types at compile time. These require more expressive power. This is what that looks like."
+
+**Main message:** at this expressivity level, phantom indexing, refined types, match types, path-dependent types, and compiler-derived evidence are all first-class. Each removes a class of bug that Java could not encode structurally. Session types and duality are the culmination: an entire protocol’s correctness is a compile-time proof, for both sides simultaneously.
+
+Recommended structure for the eight-minute live slot:
+
+#### Part 1: The toolkit (2–3 min, with IDE)
+
+For each feature: show the mechanism, show the code that fails to compile, name the bug it eliminates. Use the IDE to reveal the red squiggle; say the bug class out loud; say “you can delete that test.”
+
+- **Phantom type indexing (`Approval[R <: Risk]`)**: `authorize(mediumOrder, AutoApproved)` → `Found: Approval[LowRisk], Required: Approval[MediumRisk]`. Bob’s skip-3DS bug is unrepresentable. Test deleted.
+- **Refined types (`PositiveInt = Int :| Positive`)**: `0.refine[Positive]` fails at compile time for literals; `OrderLine(sku, price, rawInt)` fails because plain `Int ≠ PositiveInt`. Boundary validation test deleted.
+- **Path-dependent types (`CanSend[P]#Msg`)**: `ch.send(“wrong type”)` fails — message type is an associated type on the evidence, not a free parameter. Wrong-payload and wrong-direction tests deleted.
+- **Compiler-derived evidence (`=:=`, `finish()`)**: `ch.finish()` before `End` fails — compiler cannot prove `P =:= End`. The `summon[Dual[...] =:= ...]` calls in Derivation.scala *are* compile-time tests: if they type-check, the contract is proven at every build. Protocol-ordering test deleted.
+- **Opaque types (`AuthCode`, `CaptureId`, `RefundId`)**: `val id: CaptureId = someAuthCode` is a type error. Lifecycle-identifier-confusion test deleted.
+
+**Structural enforcement — code not written:**
+Runtime state guards in the channel API. Runtime checks for message ordering. Runtime assertions that a channel is closed correctly. All replaced by compile-time proof obligations.
+
+**Genericity — code not written:**
+`Channel[P]` works for *any* protocol `P` — one channel implementation instead of one per protocol variant. `Dual[P]` is computed for any `P` by the match type — the inverse protocol is not hand-coded per variant. `interpret[F[_]: Functor, A]` is one catamorphism for any functor algebra — write `describe` and `analyze` as plain `F[A] => A` functions; the recursive traversal is written once. `CanSend[P]` evidence derives the message type for any send step — the channel API is defined once, not per protocol.
+
+#### Part 2: Session types and duality (3 min, with IDE)
+
+This is where the toolkit features combine — and where duality earns its place as a correctness mechanism.
+
+Show `LowRiskProtocol`, `MediumRiskProtocol`, `HighRiskProtocol` as precise descriptions of legal conversations. Explain `Channel[P]`: `send` requires `CanSend[P]` (path-dependent), `finish` requires `P =:= End` (compiler proof). Wrong order or wrong direction: compile error.
+
+Then introduce duality as a specific and important application of match types:
+
+- Server gets `Channel[Dual[P]]` — the compiler computes the dual automatically from the client’s protocol.
+- A server that sends when it should receive, or skips a message, does not compile.
+- `summon[Dual[LowRiskProtocol] =:= ...]` is a compile-time assertion — if it type-checks, the contract is verified at every build, not just on the specific examples tested.
+
+This is the point where Danielle’s incident becomes structurally unrepresentable for both sides simultaneously.
+
+Duality is important here: it is what makes the client/server contract a compile-time proof rather than a documentation agreement. It is one application of a general mechanism (match types + type equality) that was already doing work in the toolkit section.
+
+**Close the loop on multiple stories here — say each one explicitly:**
+
+- "Bob’s story is done. `Approval[LowRisk]` cannot satisfy `Approval[MediumRisk]`. The wrong authorization method for the risk level is a compile error. Delete that test."
+- "Alice’s zero-quantity invoice is done. `PositiveInt` has no valid inhabitant for zero. That boundary condition is encoded in the type."
+- "Danielle’s story is done. Server and client hold `Channel[Dual[P]]` and `Channel[P]` — computed from the same protocol definition. They cannot drift independently."
+
+#### Part 3: HKT policy DSL (30 sec)
+
+One `Policy` tree. Two interpretations (`describe`, `analyze`). One `interpret[F[_]: Functor, A]` catamorphism. Without HKTs you write two separate recursive functions that must be kept in sync — a subtle divergence risk. With HKTs you write each interpretation as a plain `F[A] => A` algebra and the fold handles the rest.
+
+#### Part 4: The ceiling (30 sec)
+
+The protocol variants are pre-declared at compile time; selection happens at runtime via a closed ADT. The protocol *type* cannot be computed from a runtime value — that requires dependent types. One item remains on the test list.
+
+**Tests still required** (first and only remaining item — what Stage 7 closes):
+
+1. *(Stage 7 closes)* Test that the correct protocol variant is selected for a given runtime risk assessment. The closed ADT selection is correct — but it is runtime logic, not a type-level computation.
+
+---
+
+### Stage 7: Full Dependent Types (Idris 2) — the runtime-to-type bridge
+
+**What this rung adds:** types that depend on runtime values. `protocolFor : Order -> SessionType` is a function from values to types. The protocol type is computed from the runtime risk assessment — not selected from a pre-declared menu.
+
+**In the demo, show:** `protocolFor` driving the channel type. Duality stated as a theorem about `protocolFor`, not as proof obligations on three specific instances.
+
+**Structural enforcement — code not written:**
+The `ProtocolVariant` ADT and its `fromSnapshot` selection function. The runtime dispatch that picks a channel type from the menu. All runtime protocol-selection logic is replaced by a single dependent type computation.
+
+**Genericity — code not written:**
+One `protocolFor` function covers all orders, all risk levels, all protocol shapes — not three pre-declared variants. Server and client handlers are generic over the computed type — you do not write separate handlers per variant. Duality is proven once for the general function, not per-instance.
+
+**Tests deleted:**
+Tests for “did we select the correct protocol variant for this risk level?” — there is no selection. The type is computed. The last item on the test list is gone.
+
+**Say explicitly that this is the end of the climb:**
+
+The later stages are not just “using types to catch bugs at compile time” — they are using types to *state and check properties of interacting programs*.
+
+**Return to the opening stories — closing the loop:**
+
+- Alice’s zero-quantity invoice: impossible — `PositiveInt` has no valid program for it.
+- Bob’s skipped-3DS medium-risk path: impossible — the protocol type for a medium-risk order requires the 3DS step structurally.
+- Charlie’s out-of-order capture: impossible — the state transition is not an expressible program.
+- Danielle’s protocol drift: impossible — server and client types are computed from the same function; they cannot drift independently.
+
+Not “types are cool.” “These specific on-call incidents have no valid program at this rung.”
 
 ## Timing Guidance For The Practical Section
 
 Rough pacing for the `28-30 minute` practical block:
 
 - `3 min` JavaScript + simple Java
-- `3-4 min` generics + function pipelines
-- `4 min` records/sealed unions
+- `2 min` generics (30 sec mention of function pipelines — no live demo)
+- `5.5 min` records/sealed unions
 - `6 min` advanced Java typestate
 - `8 min` Scala 3
-- `7 min` Idris 2
+- `5-6 min` Idris 2
 
-This is intentionally back-loaded. The later stages deserve more time because they are where the strongest payoff and the most unfamiliar ideas live.
+This is intentionally back-loaded. Records/sealed and typestate are the Java payoff; Scala 3 is the expressiveness threshold; Idris 2 is the intellectual close.
+
+Stage 3 (function pipelines) is in the repository and available for questions but does not get a live demo slot. The time recovered goes to Stage 4 (records/sealed), which is the most directly relevant stage for a Java audience. Idris 2 is trimmed from 7 to 5-6 minutes — the key insights (one function from values to types, the last test deleted, stories closed) do not require more.
 
 ## Slide And Demo Strategy
 
@@ -763,7 +825,24 @@ Recommended flow:
 - summarize it also as a steady increase in what the compiler can be made to check for us,
 - end on the Idris payment example as the strongest current expression of that idea in this repo.
 
-Then give a short “beyond” glimpse:
+Before the “further horizon” glimpse, name one more step that is still within Scala 3:
+
+**Scala 3 Capture Checking (Caprese — experimental)**
+
+Capture checking makes capabilities — file handles, database connections, async boundaries, mutable references, IO effects — trackable in the type of every value that uses them. A function that closes over a file handle carries that capability in its type; the compiler verifies it cannot outlive the handle's scope.
+
+Classes of errors made impossible:
+- **Use-after-close**: a `FileHandle` or `Connection` closed in one branch cannot be accessed after release — the capability is gone from the type.
+- **Resource leaks**: a managed resource cannot silently outlive its scope; the compiler proves every acquisition is paired with a release.
+- **Effect leaks**: an IO or mutation capability cannot escape the controlled scope that owns it; effectful closures cannot masquerade as pure values.
+- **Capability escapes across async boundaries**: a capability acquired on one execution context cannot be stored in a structure that outlives the context.
+- **Effect-unsafe code typed as pure**: a function that closes over an IO capability cannot be typed as `() -> A`; the capability appears in the signature.
+
+The payoff for the audience: **direct, imperative-style code — no monadic wrappers, no `IO[A]` threading — and the compiler still proves effect safety**. The same ideas that required a monad stack in Haskell or `cats-effect` in Scala 2 become structurally enforced by the type system without changing the code's shape.
+
+This sits one step beyond what the session-types demo shows, and it is still within Scala 3. It is the right “next thing to explore” pointer for a Java meetup audience.
+
+Then give a short “further horizon” glimpse — two to three sentences only:
 
 - Lean for proof-heavy verification and theorem proving,
 - Cubical Agda for richer equality and constructive reasoning,
@@ -771,7 +850,7 @@ Then give a short “beyond” glimpse:
 
 That ending should be aspirational, not obligatory. The audience should leave with a practical win, not a feeling that everything short of full theorem proving is worthless.
 
-In the 45-minute version, this “beyond” glimpse should be under one minute.
+In the 45-minute version, the Capture Checking note should be thirty seconds; the “further horizon” glimpse should be thirty seconds. Together: under one minute.
 
 ## What The Audience Should Remember
 
@@ -781,8 +860,9 @@ If the talk works, a week later the audience should remember roughly this:
 - stronger types are a practical way to remove those states,
 - the history of logic and type theory explains why these tools exist,
 - stronger type systems are also understandable as stronger checking disciplines,
-- Scala 3 gets surprisingly far,
-- Idris 2 can express the final step where runtime analysis itself shapes typed protocol structure,
+- at the level of match types, refined types, phantom indexing, and session types — as in Scala 3 — nearly all the invariants we care about in practice become enforceable,
+- Scala 3 Capture Checking goes one step further: capabilities (IO, mutation, handles) are tracked in the type, so resource leaks, effect leaks, and use-after-close become type errors — without monadic wrappers,
+- full dependent types — as in Idris 2 — express the final step: the protocol's type is computed from the runtime risk value, not selected from a pre-declared menu,
 - the right question is not “is this fancy?” but “is this invariant expensive enough to encode?”
 
 ## Speaker Preparation Notes
@@ -791,8 +871,9 @@ Before giving the talk, prepare these transitions explicitly:
 
 - from incidents to theory,
 - from theory to the first code example,
-- from Java typestate to Scala 3 session types,
-- from Scala 3’s ceiling to Idris 2’s payoff,
+- from Java typestate to Scala 3 — this is the critical transition: not "same ideas, cleaner syntax" but "a genuinely higher rung; some guarantees here are not expressible in Java at all." Earn it by naming what Java cannot do, then showing it done.
+- from Scala 3’s ceiling to Capture Checking as the accessible next step,
+- from Capture Checking to Idris 2’s payoff (dependent types, not just tracked capabilities),
 - from the final demo to the closing horizon.
 
 Those transitions are where talks like this usually either come alive or lose the room.

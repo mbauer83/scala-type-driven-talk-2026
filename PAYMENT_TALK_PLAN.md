@@ -799,8 +799,8 @@ The examples should be built so the audience can repeatedly revisit the same inc
 - `02-java5-generics`: incidents still survive; reuse improves, but operations pain remains.
 - `03-java8-function-pipelines`: incidents still survive, but the logic becomes easier to isolate and discuss.
 - `04-java17-records-sealed`: Bob’s skipped-branch story becomes harder to hide because risk variants are explicit.
-- `05-java-advanced-generics-typestate`: Alice and Danielle lose their bug classes.
-- `06-scala3-payment`: protocol drift and more sequencing errors disappear; Bob’s story is reduced to the runtime-to-type bridge problem.
+- `05-java-advanced-generics-typestate`: Alice (wrong-amount capture — amount now derived from the authorized payment) and Charlie (invalid state transition — lifecycle order is a compile-time guarantee) lose their bug classes.
+- `06-scala3-payment`: Danielle’s protocol drift disappears (session types + duality). Bob’s risk-branch story is fully closed (Approval[R] phantom indexing makes the wrong approval method a compile error). Alice’s zero-quantity boundary closes (PositiveInt refined type). Bob’s residual gap (runtime-to-type bridge for protocol selection) remains.
 - `07-idris2-payment`: Bob’s remaining gap disappears, and Evan’s audit/evidence story becomes much stronger by construction.
 
 Do not interpret this matrix too rigidly. It is acceptable if the live talk uses a simpler cross-domain bug early on, such as forgotten parsing, before settling into the payment-domain examples.
@@ -816,7 +816,7 @@ Recommended primary emphasis:
 - `02-java5-generics`: reuse and typed containers, not a core incident payoff
 - `03-java8-function-pipelines`: rules become explicit values, but Bob still survives
 - `04-java17-records-sealed`: Bob becomes harder to hide because risk variants are explicit
-- `05-java-advanced-generics-typestate`: Alice and Danielle are removed
+- `05-java-advanced-generics-typestate`: Alice (wrong-amount) and Charlie (invalid state transition) are removed
 - `06-scala3-payment`: protocol drift and stronger sequencing guarantees
 - `07-idris2-payment`: Bob’s remaining bridge problem disappears
 

@@ -1,0 +1,40 @@
+[debug] [zinc] IncrementalCompile -----------
+[debug] IncrementalCompile.incrementalCompile
+[debug] previous = Stamps for: 110 products, 9 sources, 2 libraries
+[debug] current source = Set(${BASE}/src/main/scala/payment/Domain.scala, ${BASE}/src/main/scala/protocol/ProtocolEvidence.scala, ${BASE}/src/main/scala/payment/Derivation.scala, ${BASE}/src/main/scala/runtime/Transport.scala, ${BASE}/src/main/scala/demos/PaymentDemo.scala, ${BASE}/src/main/scala/protocol/Dual.scala, ${BASE}/src/main/scala/payment/Rules.scala, ${BASE}/src/main/scala/runtime/Chan.scala, ${BASE}/src/main/scala/protocol/Proto.scala)
+[debug] > initialChanges = InitialChanges(Changes(added = Set(), removed = Set(), changed = Set(${BASE}/src/main/scala/demos/PaymentDemo.scala), unmodified = ...),Set(),Set(),API Changes: Set())
+[debug] 
+[debug] Initial source changes:
+[debug] 	removed: Set()
+[debug] 	added: Set()
+[debug] 	modified: Set(${BASE}/src/main/scala/demos/PaymentDemo.scala)
+[debug] Invalidated products: Set()
+[debug] External API changes: API Changes: Set()
+[debug] Modified binary dependencies: Set()
+[debug] Initial directly invalidated classes: Set(demos.PaymentDemo)
+[debug] Sources indirectly invalidated by:
+[debug] 	product: Set()
+[debug] 	binary dep: Set()
+[debug] 	external source: Set()
+[debug] All initially invalidated classes: Set(demos.PaymentDemo)
+[debug] All initially invalidated sources:Set(${BASE}/src/main/scala/demos/PaymentDemo.scala)
+[debug] Initial set of included nodes: demos.PaymentDemo
+[debug] compilation cycle 1
+[info] compiling 1 Scala source to /home/mb/workspace/scala-type-driven-talk/06-scala3-payment/target/scala-3.8.3/classes ...
+[debug] Returning already retrieved and compiled bridge: /home/mb/.cache/coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-sbt-bridge/3.8.3/scala3-sbt-bridge-3.8.3.jar.
+[debug] [zinc] Running cached compiler 21c814e3 for Scala Compiler version 3.8.3
+[debug] [zinc] The Scala compiler is invoked with:
+[debug] 	-deprecation
+[debug] 	-feature
+[debug] 	-classpath
+[debug] 	/home/mb/workspace/scala-type-driven-talk/06-scala3-payment/target/scala-3.8.3/classes:/home/mb/.cache/coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-library_3/3.8.3/scala3-library_3-3.8.3.jar:/home/mb/.cache/coursier/v1/https/repo1.maven.org/maven2/io/github/iltotore/iron_3/2.6.0/iron_3-2.6.0.jar:/home/mb/.cache/coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/3.8.3/scala-library-3.8.3.jar
+[debug] Scala compilation took 4.129569372 s
+[info] done compiling
+[debug] New invalidations:
+[debug] Initial set of included nodes: 
+[debug] Previously invalidated, but (transitively) depend on new invalidations:
+[debug] Final step, transitive dependencies:
+[debug] 	Set()
+[debug] Initial set of included nodes: demos.PaymentDemo
+[debug] Invalidated macros due to upstream dependencies change: Set()
+[debug] No classes were invalidated.
