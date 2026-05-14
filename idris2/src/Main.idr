@@ -25,23 +25,23 @@ londonSearch n = MkSearch "JFK" "LHR" "2026-06-15" n
 
 serverProcessRefundable : (n : Nat) -> Session (dual (refundableProtocol n)) -> IO ()
 serverProcessRefundable n session = do
-  (criteria, searching)    <- receiveLogged {a = SearchCriteria} session
-  let found = filter (\f => f.origin == "JFK" && f.destination == "LHR") [frankfurtLondonFlight]
-  let result = MkResult (not (null found)) found
-  quoting                  <- sendLogged searching result
-  (passengers, pricing)    <- receiveLogged {a = Passengers n} quoting
-  let quote = MkQuote 450.0 (passengerCount passengers)
-  holding                  <- sendLogged pricing quote
-  let hold = MkHold ("hold-" ++ show n) 15
-  offering                 <- sendLogged holding hold
-  choice <- awaitChoice offering
+  (criteria, searching) <- receiveLogged {a = SearchCriteria} session
+  let found             = filter (\f => f.origin == "JFK" && f.destination == "LHR") [frankfurtLondonFlight]
+  let result            = MkResult (not (null found)) found
+  quoting               <- sendLogged searching result
+  (passengers, pricing) <- receiveLogged {a = Passengers n} quoting
+  let quote             = MkQuote 450.0 (passengerCount passengers)
+  holding               <- sendLogged pricing quote
+  let hold              = MkHold ("hold-" ++ show n) 15
+  offering              <- sendLogged holding hold
+  choice                <- awaitChoice offering
   case choice of
     Left takingPayment => do
       (payment, paid)  <- receiveLogged {a = PaymentFor n} takingPayment
       case validatePayment payment quote of
-        Right _ => do
+        Right _  => do
           let tickets = issueTickets passengers frankfurtLondonFlight
-          ticketed     <- sendLogged paid tickets
+          ticketed    <- sendLogged paid tickets
           finish ticketed
         Left err => note ("SERVER: payment failed: " ++ err)
     Right cancelling => do
@@ -56,7 +56,7 @@ serverProcessNonRefundable n session = do
   (_, searching)           <- receive {a = SearchCriteria} session
   quoting                  <- sendLogged searching (MkResult True [frankfurtLondonFlight])
   (passengers, pricing)    <- receive {a = Passengers n} quoting
-  let quote = MkQuote 450.0 (passengerCount passengers)
+  let quote                = MkQuote 450.0 (passengerCount passengers)
   holding                  <- sendLogged pricing quote
   offering                 <- sendLogged holding (MkHold "hold-nr" 15)
   (_, paid)                <- receive {a = PaymentFor n} offering
@@ -71,19 +71,23 @@ demo1 : IO ()
 demo1 = do
   section "DEMO 1 — Happy Path  (n=2, refundable, pay branch)"
   let n = 2
-  (clientEnd, serverEnd) <- openSession (refundableProtocol n)
-  tid       <- fork (serverProcessRefundable n serverEnd)
-  searching <- sendLogged clientEnd (londonSearch n)
-  (result, reviewing)      <- receiveLogged {a = SearchResult} searching
+
+  (client, server)       <- openSession (refundableProtocol n)
+  tid                    <- fork (serverProcessRefundable n server)
+  searching              <- sendLogged client (londonSearch n)
+  (result, reviewing)    <- receiveLogged {a = SearchResult} searching
   note ("Availability: " ++ show result.available)
-  pricing   <- sendLogged reviewing (unsafePassengers n)
-  (quote, holding)         <- receiveLogged {a = Quote n} pricing
+
+  pricing                <- sendLogged reviewing (unsafePassengers n)
+  (quote, holding)       <- receiveLogged {a = Quote n} pricing
   note ("Quote total: " ++ show (totalAmount quote))
-  (hold, deciding)         <- receiveLogged {a = HoldConfirmation} holding
+
+  (hold, deciding)       <- receiveLogged {a = HoldConfirmation} holding
   note ("Hold: " ++ hold.holdId)
-  paying    <- selectLeft deciding
-  ticketing <- sendLogged paying (MkPayment (totalAmount quote) "tok_visa")
-  (tickets, done)          <- receiveLogged {a = Tickets n} ticketing
+
+  paying                 <- selectLeft deciding
+  ticketing              <- sendLogged paying (MkPayment (totalAmount quote) "tok_visa")
+  (tickets, done)        <- receiveLogged {a = Tickets n} ticketing
   finish done
   threadWait tid
   outcome ("Tickets: " ++ show (toList tickets.codes))
@@ -96,15 +100,15 @@ demo2 : IO ()
 demo2 = do
   section "DEMO 2 — Cancellation  (n=1, choose cancel branch)"
   let n = 1
-  (clientEnd, serverEnd) <- openSession (refundableProtocol n)
-  tid       <- fork (serverProcessRefundable n serverEnd)
-  searching <- sendLogged clientEnd (londonSearch n)
-  (_, reviewing)           <- receive {a = SearchResult} searching
-  pricing   <- sendLogged reviewing (unsafePassengers n)
-  (_, holding)             <- receive {a = Quote n} pricing
-  (_, deciding)            <- receive {a = HoldConfirmation} holding
-  cancelling               <- selectRight deciding
-  (cancellation, done)     <- receiveLogged {a = CancellationConfirmation} cancelling
+  (client, server)     <- openSession (refundableProtocol n)
+  tid                  <- fork (serverProcessRefundable n server)
+  searching            <- sendLogged client (londonSearch n)
+  (_, reviewing)       <- receive {a = SearchResult} searching
+  pricing              <- sendLogged reviewing (unsafePassengers n)
+  (_, holding)         <- receive {a = Quote n} pricing
+  (_, deciding)        <- receive {a = HoldConfirmation} holding
+  cancelling           <- selectRight deciding
+  (cancellation, done) <- receiveLogged {a = CancellationConfirmation} cancelling
   finish done
   threadWait tid
   outcome ("Cancelled: " ++ cancellation.message)

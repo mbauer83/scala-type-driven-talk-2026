@@ -1,0 +1,17 @@
+package paymentdemo
+
+version = 0.1.0
+authors = "demo"
+
+sourcedir = "src"
+
+modules = PaymentSessionTypes
+        , PaymentDomain
+        , PaymentRules
+        , PaymentChannel
+        , Main
+
+main = Main
+executable = paymentdemo
+
+depends = base
