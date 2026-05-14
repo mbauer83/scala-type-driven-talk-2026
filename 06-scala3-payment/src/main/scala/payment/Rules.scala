@@ -4,7 +4,7 @@ package payment
 //
 // The policy is a recursive data structure (a free algebra / fixpoint).
 // Multiple interpretations are defined as algebras and folded over the same tree.
-// This is the same pattern as the booking example — applied to the payment domain.
+// The same fixed-point/HKT pattern, now applied directly to the payment domain.
 
 // ─── Base functor ─────────────────────────────────────────────────────────────
 

@@ -1,5 +1,0 @@
-[warn] -- Deprecation Warning: /home/mb/workspace/scala-type-driven-talk/06-scala3-payment/src/main/scala/demos/PaymentDemo.scala:191:32 
-[warn] 191 |    val validQty: PositiveInt = 5.refine[Positive]
-[warn]     |                                ^^^^^^^^^^^^^^^^^^
-[warn]     |method refine in package io.github.iltotore.iron is deprecated: Use refineUnsafe instead. refine will be removed in 3.0.0
-[warn] one warning found

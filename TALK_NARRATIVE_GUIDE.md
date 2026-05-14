@@ -48,10 +48,10 @@ The additional `15 minutes` are reserved for Q&A and should not be relied on to 
 Recommended structure:
 
 1. `0:10-0:30` personal introduction
-2. `3-4 min` opening incidents and human cost
-3. `6-7 min` history, motivation, and theory
+2. `5 min` opening incidents and human cost
+3. `6 min` history, motivation, and theory
 4. `28-30 min` practical progression through the examples
-5. `2-3 min` conclusion and “beyond” glimpse
+5. `4 min` conclusion and “beyond” glimpse
 
 This balance matters. The theory should orient the audience, but the center of gravity must remain the practical progression.
 
@@ -60,15 +60,15 @@ This balance matters. The theory should orient the audience, but the center of g
 Use this as the default live schedule:
 
 1. `00:00-00:30` personal intro
-2. `00:30-04:00` cold open with incidents
-3. `04:00-10:30` history, motivation, lambda-cube map
-4. `10:30-13:30` Stage 0 + Stage 1: JS and simple Java as a comparative moment
-5. `13:30-15:30` Stage 2 + Stage 3: one beat — "architectural wins, bug still compiles" (generics as a live mention; function pipelines as a 30-second spoken reference, no demo)
+2. `00:30-05:30` cold open with incidents (5 min; ~75 sec per story for four stories)
+3. `05:30-11:30` history, motivation, lambda-cube map (6 min)
+4. `11:30-14:00` Stage 0 + Stage 1: JS and simple Java as a comparative moment (2.5 min)
+5. `14:00-15:30` Stage 2 + Stage 3: one beat — "architectural wins, bug still compiles" (1.5 min; generics ~1 min, function pipelines ~20 sec spoken reference, no demo)
 6. `15:30-21:00` Stage 4: records/sealed — the Java payoff (5.5 min; include the live delete-Medium-case moment)
 7. `21:00-27:00` Stage 5: Java typestate — lifecycle as type (6 min)
 8. `27:00-35:00` Stage 6: Scala 3 — a higher rung (8 min)
 9. `35:00-41:00` Stage 7: Idris 2 — the runtime-to-type bridge (6 min)
-10. `41:00-45:00` return to opening promise, Capture Checking pointer, closing horizon
+10. `41:00-45:00` return to opening promise, Capture Checking pointer, closing horizon (4 min)
 
 This schedule is intentionally back-loaded toward Java typestate, Scala 3, and Idris 2. Those are the stages where the audience gets the strongest “this changes what programs are expressible” payoff.
 
@@ -143,7 +143,7 @@ Use named developers because people remember people better than abstract failure
 
 Keep the stories short, concrete, and slightly uncomfortable. They should sound like incidents that happened in a competent team under normal pressure.
 
-In a 45-minute talk, use four stories, not five. Evan should remain optional and likely be omitted live unless the room is highly engaged and pacing is ahead of schedule.
+In a 45-minute talk, use four stories, not five. Evan should remain optional and likely be omitted live unless the room is highly engaged and pacing is ahead of schedule. The 5-minute cold open budget allows approximately 75 seconds per story — enough for a three-sentence beat (setup, bug, consequence) plus a breath, but no embellishment. Rehearse all four stories to time; 75 seconds is faster than it sounds when you are also watching the room.
 
 These opening stories do not all have to come from the payment domain. In fact, using multiple domains can make the talk more broadly relatable, as long as each story foreshadows a kind of proof the later examples will make possible.
 
@@ -343,7 +343,7 @@ Every historical name and every concept introduced should serve this sentence. N
 
 ## Theory Section: Three Beats
 
-This section should take `6-7 minutes` in the default version of the talk. Prepare a `9-10 minute` variant for audiences that are visibly engaged with the theory. In either version, each beat has a single aha moment — identify it, land it, move on.
+This section should take `6 minutes` in the default version of the talk. Prepare a `9-10 minute` variant, but only use it if the cold open finished noticeably under 5 minutes and you have confirmed slack. Do not extend the theory section speculatively — the back-loaded stages are where the payoff lives and they have no slack budget. In either version, each beat has a single aha moment — identify it, land it, move on.
 
 ### Beat 1: The old ambition — formalizing valid inference (~90 sec)
 
@@ -403,7 +403,7 @@ Use one slide for the lambda cube — a diagram, three axes, plain English label
 - **Bottom-left corner**: untyped lambda calculus — expressive but no safety boundaries.
 - **Terms depending on types** (polymorphism axis): generics, `Result<T>`, `Channel[P]`.
 - **Types depending on types** (type operators axis): `Dual[P]`, `Approval[R]`, higher-kinded types.
-- **Types depending on terms** (dependent types axis): `protocolFor(order)` — the Idris 2 payoff.
+- **Types depending on terms** (dependent types axis): `protocolDerivedFrom order` — the Idris 2 payoff.
 
 Label each axis with one word: *generics*, *type operators*, *dependent types*. Do not explain the formal definition of each. The point is that each practical stage is moving somewhere on this map.
 
@@ -510,7 +510,7 @@ Any test that checks “did we accidentally pass an order where an authorization
 
 ### Stage 2: Generics — polymorphic error handling and composable validation
 
-**Live talk treatment:** present Stage 2 and Stage 3 together as one beat (~2 min total). The message is: "generics and function values give us architectural wins — reusable abstractions, composable rules, explicit control flow. Both matter. Neither changes what states are constructible. The bug still compiles." Then transition directly into Stage 4 where structural enforcement begins.
+**Live talk treatment:** present Stage 2 and Stage 3 together as one beat (~1.5 min total: Stage 2 gets ~1 min, Stage 3 gets ~20 sec). The message is: "generics and function values give us architectural wins — reusable abstractions, composable rules, explicit control flow. Both matter. Neither changes what states are constructible. The bug still compiles." Then transition directly into Stage 4 where structural enforcement begins.
 
 **What this rung adds:** parametric polymorphism (`Result<T>`, `Validator<T>`, `AuditTrail<E>`). Write error handling and validation logic once; reuse it across every domain type. System F in practice.
 
@@ -642,10 +642,13 @@ Recommended structure for the eight-minute live slot:
 For each feature: show the mechanism, show the code that fails to compile, name the bug it eliminates. Use the IDE to reveal the red squiggle; say the bug class out loud; say “you can delete that test.”
 
 - **Phantom type indexing (`Approval[R <: Risk]`)**: `authorize(mediumOrder, AutoApproved)` → `Found: Approval[LowRisk], Required: Approval[MediumRisk]`. Bob’s skip-3DS bug is unrepresentable. Test deleted.
-- **Refined types (`PositiveInt = Int :| Positive`)**: `0.refine[Positive]` fails at compile time for literals; `OrderLine(sku, price, rawInt)` fails because plain `Int ≠ PositiveInt`. Boundary validation test deleted.
+- **Refined types (`PositiveInt = Int :| Positive`)**: `0.refineUnsafe[Positive]` fails at compile time for literals; `OrderLine(sku, price, rawInt)` fails because plain `Int ≠ PositiveInt`. Boundary validation test deleted.
 - **Path-dependent types (`CanSend[P]#Msg`)**: `ch.send(“wrong type”)` fails — message type is an associated type on the evidence, not a free parameter. Wrong-payload and wrong-direction tests deleted.
 - **Compiler-derived evidence (`=:=`, `finish()`)**: `ch.finish()` before `End` fails — compiler cannot prove `P =:= End`. The `summon[Dual[...] =:= ...]` calls in Derivation.scala *are* compile-time tests: if they type-check, the contract is proven at every build. Protocol-ordering test deleted.
 - **Opaque types (`AuthCode`, `CaptureId`, `RefundId`)**: `val id: CaptureId = someAuthCode` is a type error. Lifecycle-identifier-confusion test deleted.
+
+**The positive affordance — types as scaffolding for change (~20 sec):**
+At this expressivity level the type system becomes a collaborator, not just a gatekeeper. Once scaffolding is in place, adding a new state or protocol step is compiler-guided work: a `???` placeholder in Scala 3 carries the expected type, and the compiler tells you exactly what you still need to provide. Idris 2 has typed holes as a first-class development workflow. Rust's `todo!()` carries the same guarantee. Add a new payment lifecycle stage and the type system propagates the obligation to every handling site. The compiler does not just reject the invalid program — it tells you what to write next. This is why refactoring into an expressive type system gets easier as the scaffolding grows, not harder.
 
 **Structural enforcement — code not written:**
 Runtime state guards in the channel API. Runtime checks for message ordering. Runtime assertions that a channel is closed correctly. All replaced by compile-time proof obligations.
@@ -691,15 +694,20 @@ The protocol variants are pre-declared at compile time; selection happens at run
 
 ### Stage 7: Full Dependent Types (Idris 2) — the runtime-to-type bridge
 
-**What this rung adds:** types that depend on runtime values. `protocolFor : Order -> SessionType` is a function from values to types. The protocol type is computed from the runtime risk assessment — not selected from a pre-declared menu.
+**What this rung adds:** types that depend on runtime values. In the current payment example that shows up in two linked places:
 
-**In the demo, show:** `protocolFor` driving the channel type. Duality stated as a theorem about `protocolFor`, not as proof obligations on three specific instances.
+- `protocolDerivedFrom : Order n c -> SessionType`
+- `assessOrder : Order n c -> (lvl ** Assessment lvl n c)`
+
+The protocol shape is computed from runtime order facts, and the approval witness required for authorization is computed from the same runtime classification.
+
+**In the demo, show:** `protocolDerivedFrom order : SessionType`, then `authorize : Assessment lvl n c -> Approval lvl -> AuthorizedPayment n c`. That pairing is the payoff: the communication procedure and the required evidence are both derived from runtime values.
 
 **Structural enforcement — code not written:**
-The `ProtocolVariant` ADT and its `fromSnapshot` selection function. The runtime dispatch that picks a channel type from the menu. All runtime protocol-selection logic is replaced by a single dependent type computation.
+The `ProtocolVariant` ADT and its `fromSnapshot` selection function. The runtime dispatch that picks a channel type from a fixed menu. The bridging code that translates a runtime classification into “now use this pre-declared protocol type” disappears.
 
 **Genericity — code not written:**
-One `protocolFor` function covers all orders, all risk levels, all protocol shapes — not three pre-declared variants. Server and client handlers are generic over the computed type — you do not write separate handlers per variant. Duality is proven once for the general function, not per-instance.
+The current Idris demo still case-splits by risk level and refundability to keep the runnable example easy to read, but it no longer needs a bridge ADT between runtime analysis and type-level protocol selection. `protocolDerivedFrom` and `assessOrder` are ordinary total functions over runtime orders, and the compiler tracks the resulting protocol shape and approval witness requirements.
 
 **Tests deleted:**
 Tests for “did we select the correct protocol variant for this risk level?” — there is no selection. The type is computed. The last item on the test list is gone.
@@ -721,16 +729,18 @@ Not “types are cool.” “These specific on-call incidents have no valid prog
 
 Rough pacing for the `28-30 minute` practical block:
 
-- `3 min` JavaScript + simple Java
-- `2 min` generics (30 sec mention of function pipelines — no live demo)
+- `2.5 min` JavaScript + simple Java
+- `1.5 min` generics (~20 sec mention of function pipelines — no live demo)
 - `5.5 min` records/sealed unions
 - `6 min` advanced Java typestate
 - `8 min` Scala 3
-- `5-6 min` Idris 2
+- `6 min` Idris 2
 
 This is intentionally back-loaded. Records/sealed and typestate are the Java payoff; Scala 3 is the expressiveness threshold; Idris 2 is the intellectual close.
 
-Stage 3 (function pipelines) is in the repository and available for questions but does not get a live demo slot. The time recovered goes to Stage 4 (records/sealed), which is the most directly relevant stage for a Java audience. Idris 2 is trimmed from 7 to 5-6 minutes — the key insights (one function from values to types, the last test deleted, stories closed) do not require more.
+Stage 0+1 is the most compressed practical slot: one JS bad demo is enough (not both), and the test list should be named by category rather than enumerated in full. The point is that every boundary requires a test — not an exhaustive inventory.
+
+Stage 3 (function pipelines) is in the repository and available for questions but does not get a live demo slot. Stage 2 makes the architectural point; Stage 3's 20-second mention is enough to acknowledge it exists.
 
 ## Slide And Demo Strategy
 
@@ -842,6 +852,9 @@ The payoff for the audience: **direct, imperative-style code — no monadic wrap
 
 This sits one step beyond what the session-types demo shows, and it is still within Scala 3. It is the right “next thing to explore” pointer for a Java meetup audience.
 
+**AI-assisted development — a contemporary dimension (30–45 sec):**
+Before the “further horizon” glimpse, name this once. As AI coding assistants accelerate code generation, the volume produced often outpaces careful human review. At a language whose type system checks what the Scala 3 and Idris 2 examples show, that speed asymmetry matters less: an incomplete protocol step, a skipped lifecycle transition, or a boundary violation cannot compile — regardless of whether the author was human or a language model. Early comparisons suggest AI agents perform similarly across typed and untyped codebases on standard benchmarks, and at somewhat higher cost in the typed case — but those benchmarks rarely exercise the invariants where expressive types earn their keep, and they do not measure the asymmetry between generation speed and review capacity. The practical point is modest but real: the type checker applies the same standard to every line of code, at every generation speed. Proof assistants such as Lean go one step further still — the machine not only generates code but discharges the proof obligations itself. That is part of why the “further horizon” matters.
+
 Then give a short “further horizon” glimpse — two to three sentences only:
 
 - Lean for proof-heavy verification and theorem proving,
@@ -850,7 +863,7 @@ Then give a short “further horizon” glimpse — two to three sentences only:
 
 That ending should be aspirational, not obligatory. The audience should leave with a practical win, not a feeling that everything short of full theorem proving is worthless.
 
-In the 45-minute version, the Capture Checking note should be thirty seconds; the “further horizon” glimpse should be thirty seconds. Together: under one minute.
+In the 45-minute version, the Capture Checking note should be thirty seconds; the AI coding aside should be thirty to forty-five seconds; the “further horizon” glimpse should be thirty seconds. Together: under ninety seconds.
 
 ## What The Audience Should Remember
 
@@ -863,6 +876,8 @@ If the talk works, a week later the audience should remember roughly this:
 - at the level of match types, refined types, phantom indexing, and session types — as in Scala 3 — nearly all the invariants we care about in practice become enforceable,
 - Scala 3 Capture Checking goes one step further: capabilities (IO, mutation, handles) are tracked in the type, so resource leaks, effect leaks, and use-after-close become type errors — without monadic wrappers,
 - full dependent types — as in Idris 2 — express the final step: the protocol's type is computed from the runtime risk value, not selected from a pre-declared menu,
+- at higher expressivity levels the type system becomes a collaborator: `???` and typed holes guide you toward correct implementations, and changing a type cascades obligations to every site the compiler now requires to handle it — refactoring becomes conversation rather than grep,
+- in the age of AI-assisted development, expressive types are not just a benefit for human reviewers — the type checker applies the same structural constraints to every line of code regardless of generation speed or origin, and proof assistants like Lean can discharge proof obligations automatically,
 - the right question is not “is this fancy?” but “is this invariant expensive enough to encode?”
 
 ## Speaker Preparation Notes
@@ -880,10 +895,10 @@ Those transitions are where talks like this usually either come alive or lose th
 
 Also prepare a short version and a long version of the theory section:
 
-- short version: `7 minutes`
-- long version: `10 minutes`
+- default version: `6 minutes` (required to stay on schedule)
+- extended version: `9-10 minutes` (only if cold open came in under 4.5 minutes — do not extend otherwise)
 
-That gives you flexibility if the room is highly engaged on the practical side.
+**Rehearsal is not optional for this schedule.** The 45-minute target is achievable but leaves almost no per-section slack. Plan at least two full dry runs with a timer before the live talk. First delivery without a rehearsal should be budgeted at 50 minutes; second delivery (after timing the first) should land near 45. Know your hard-cut version of every section before you walk in.
 
 Also prepare a hard-cut version of each practical stage:
 

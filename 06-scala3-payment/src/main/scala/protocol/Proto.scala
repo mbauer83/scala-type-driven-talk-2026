@@ -1,6 +1,6 @@
 package protocol
 
-// Protocol algebra — identical to the booking example.
+// Protocol algebra for the payment examples.
 // A protocol P describes the *shape* of a session: who sends what to whom, in which order.
 // No values live here; types carry all the information.
 

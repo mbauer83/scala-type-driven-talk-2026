@@ -188,9 +188,9 @@ object PaymentDemo:
     Logger.info(s"Order.of empty     → ${Order.of("ord-x", "cust-x", Nil, PaymentMethod.Card("t"))}")
     Logger.info("")
     Logger.info("Iron compile-time literal check:")
-    val validQty: PositiveInt = 5.refine[Positive]
-    Logger.info(s"  5.refine[Positive] → PositiveInt(${validQty.value})  // checked at COMPILE TIME")
-    Logger.info(s"  0.refine[Positive]  ← DOES NOT COMPILE for literal 0 (try it)")
+    val validQty: PositiveInt = 5.refineUnsafe[Positive]
+    Logger.info(s"  5.refineUnsafe[Positive] → PositiveInt(${validQty.value})  // checked at COMPILE TIME")
+    Logger.info(s"  0.refineUnsafe[Positive]  ← DOES NOT COMPILE for literal 0 (try it)")
     Logger.info(s"  // 'Assertion failed: 0 should be strictly positive'  — at compile time")
     Logger.info("")
     Logger.info("Java boundary validation: OrderLine(sku, price, 0) compiles, test catches it at runtime.")
@@ -244,7 +244,7 @@ object PaymentDemo:
     Logger.info("")
 
     Logger.info("── 2. Refined types: PositiveInt = Int :| Positive ──────────────────")
-    Logger.info("  BAD:  val qty: PositiveInt = 0.refine[Positive]  // literal 0")
+    Logger.info("  BAD:  val qty: PositiveInt = 0.refineUnsafe[Positive]  // literal 0")
     Logger.info("  ERROR: Assertion failed: 0 should be strictly positive  (compile time)")
     Logger.info("  BAD:  OrderLine(sku, price, rawInt)  // plain Int as PositiveInt")
     Logger.info("  ERROR: Found Int, Required IronType[Int, Positive]")

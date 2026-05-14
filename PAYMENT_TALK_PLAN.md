@@ -30,11 +30,10 @@ The talk’s opening incident stories do not need to come from the payment domai
 
 Treat the current code, not older plans, as canonical:
 
-- `src/main/scala/` is the implemented Scala 3 booking example.
-- `idris2/` is the implemented Idris 2 booking example.
-- `idris2-payment/` is the new target domain and should become the semantic source of truth for the staged rewrite.
+- `06-scala3-payment/` is the current Scala 3 payment example.
+- `07-idris2-payment/` is the current Idris 2 payment example and the semantic source of truth for the staged rewrite.
 
-The earlier examples should be derived from the `idris2-payment/` end-state by removing expressive power step by step. Do not design each directory independently. If each stage invents a different domain model, the audience will spend attention reloading context instead of seeing what the type system adds.
+The earlier examples should be derived from the `07-idris2-payment/` end-state by removing expressive power step by step. Do not design each directory independently. If each stage invents a different domain model, the audience will spend attention reloading context instead of seeing what the type system adds.
 
 ## Primary Goal
 
@@ -229,7 +228,7 @@ Use this bank for the cold open and for transitions if needed, but keep the repo
 
 Implement backward from the target, not forward from scratch.
 
-### Step A: keep `idris2-payment/` as the semantic reference
+### Step A: keep `07-idris2-payment/` as the semantic reference
 
 Its current responsibilities should remain the target:
 
@@ -686,8 +685,8 @@ Theory rung:
 
 Files:
 
-- mirror the current root `src/main/scala/` structure,
-- adapt domain and demo from booking to payment,
+- keep the current `06-scala3-payment/src/main/scala/` structure,
+- refine the existing payment domain and demo rather than maintaining a second Scala example,
 - keep a small, runnable session runtime.
 
 Required techniques:
@@ -740,7 +739,7 @@ Theory rung:
 
 Source:
 
-- `idris2-payment/`
+- `07-idris2-payment/`
 
 Keep and refine:
 
@@ -749,6 +748,7 @@ Keep and refine:
 - runtime risk classification,
 - policy DSL,
 - `protocolDerivedFrom : Order n c -> SessionType`,
+- `assessOrder : Order n c -> (lvl ** Assessment lvl n c)`,
 - approval witnesses indexed by risk,
 - typed authorization/capture/refund transitions,
 - indexed audit trail.
@@ -930,8 +930,8 @@ Emphasize:
 
 When continuing this work, do the following in order:
 
-1. Review `idris2-payment/` and decide which parts are the stable semantic target.
-2. Implement `06-scala3-payment` by adapting the existing Scala booking example into the payment domain.
+1. Review `07-idris2-payment/` and decide which parts are the stable semantic target.
+2. Refine `06-scala3-payment/` against that Idris end-state rather than maintaining a separate booking lineage.
 3. From that Scala version, design `05-java-advanced-generics-typestate` by erasing session-algebra machinery but preserving lifecycle-state modeling.
 4. From the typestate stage, derive `04-java17-records-sealed` by flattening state-indexed transitions back into branch-checked domain modeling.
 5. From there, derive `03-java8-function-pipelines` so the rule logic is still explicit but not structurally enforced.
