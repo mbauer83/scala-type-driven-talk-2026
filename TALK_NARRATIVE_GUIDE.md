@@ -1,11 +1,6 @@
 # Type-Driven Payments Talk: Narrative Guide
 
-This file is the companion to [PAYMENT_TALK_PLAN.md](/home/mb/workspace/scala-type-driven-talk/PAYMENT_TALK_PLAN.md).
-
-Its job is different:
-
-- `PAYMENT_TALK_PLAN.md` defines what to implement,
-- this file defines how to turn those implementations into a coherent, persuasive, audience-appropriate talk.
+This file defines how to turn the stage implementations into a coherent, persuasive, audience-appropriate talk.
 
 This guide assumes the personal introduction is handled separately.
 
@@ -155,13 +150,16 @@ These are not mandatory scripts, but they are concrete enough to present directl
 
 Scenario:
 
-- an internal admin tool exports CSV rows with `quantity` and `unitPrice` as strings,
-- a Node.js import job builds draft invoices from those rows.
+- an internal admin tool exports a CSV of order lines with a pre-computed `lineTotal` column,
+- a Node.js import job reads those rows and aggregates them to build draft invoices.
 
 Concrete bug:
 
-- the code computes `total = row.quantity + row.unitPrice` instead of parsing both fields first,
-- for the row `quantity = "2"` and `unitPrice = "15"`, the stored total becomes `"215"` instead of `30`.
+- `lineTotal` values arrive from the CSV parser as strings; the code sums them without parsing first,
+- `total = row1.lineTotal + row2.lineTotal` performs string concatenation, not addition,
+- for `lineTotal = "4500"` and `lineTotal = "1500"`, the stored invoice total becomes `"45001500"` instead of `6000`.
+
+Note: `*` would not have caught this — JavaScript coerces strings to numbers for `*`, `/`, and `-`. Only `+` silently concatenates. The bug lives specifically at the boundary where `+` is the correct operation but the operands are unintentionally strings.
 
 Why this is a good opening example:
 
@@ -178,8 +176,8 @@ Scenario:
 
 Concrete bug:
 
-- a new `medium` risk branch was added to the risk engine, but the application flow still has `if (risk == low) fastPath() else manualReview()`,
-- medium-risk card orders incorrectly go through the low-risk fast path and skip 3DS entirely.
+- the application flow was originally written as `if (risk != high) fastPath() else manualReview()` — a default-open condition that assumed only two risk levels existed,
+- when `medium` was added to the risk engine, medium-risk card orders silently fell through to `fastPath()` and skipped 3DS entirely.
 
 Why this is a good second example:
 
@@ -197,7 +195,7 @@ Scenario:
 Concrete bug:
 
 - a maintenance endpoint calls `releaseRollout(id)` directly on a rollout fetched from storage without verifying that it has passed through `Approved`,
-- one cancelled rollout is accidentally released to production during an overnight incident.
+- one rollout still in the `Reviewed` state is accidentally released to production during an overnight incident.
 
 Why this is a good typestate example:
 
@@ -447,7 +445,7 @@ This repeated structure is what makes the progression intelligible rather than j
 
 ## Practical Section: Suggested Stage Narrative
 
-This section tracks the directories from [PAYMENT_TALK_PLAN.md](/home/mb/workspace/scala-type-driven-talk/PAYMENT_TALK_PLAN.md). The talk does not need equal time for each stage.
+This section tracks the stage directories. The talk does not need equal time for each stage.
 
 ### Stage 0: JavaScript — the untyped baseline
 
@@ -482,29 +480,31 @@ This is the full list of things the type system at this rung cannot check. Every
 
 ---
 
-### Stage 1: Simple Types — nominal structure
+### Stage 1: Simple Types — nominal structure and smart constructors
 
-**What this rung adds:** nominal types. A function that expects `Authorization` cannot receive an `Order`. The wrong shape is a compile error.
+**What this rung adds:** nominal types and the smart-constructor pattern. A function that expects `Authorization` cannot receive an `Order` — shape errors are compile errors. `Authorization`, `Capture`, and `Refund` have private constructors — `new Authorization(...)` is a compile error; the only path in is `Authorization.from(Order, ...)`. This is the smart-constructor / opaque-type pattern: fabrication is blocked and each value's fields are guaranteed consistent with the prior step. As a consequence, `capture()` requires a real prior `authorize()` call — you cannot skip steps because you cannot fabricate the required input. This is the same idea that refined types and opaque types make first-class at stage 06; here it is done manually with Java's access modifiers.
 
-**In the demo, show:** the `processOrder` and `capture` signatures. Show that `capture(order)` does not compile — `capture` requires `Authorization`. Show the bad demo that skips 3DS — it still compiles.
+**In the demo, show:** the `processOrder` and `capture` signatures; show that `capture(order)` does not compile — shape error from nominal typing. Then show `gainDemo_SmartConstructors()`: show that `new Authorization(...)` is a compile error — private constructor blocks fabrication. Name the pattern explicitly: smart constructor, same idea as opaque types in Scala. Show the bad demo that skips 3DS — it still compiles.
 
 **Structural enforcement — code not written:**
-Defensive “is this the right type of object?” guards at every call site. The compiler checks shape for free; you do not write it.
+Defensive “is this the right type of object?” guards at every call site. No test needed for fabricated-authorization or skip-capture — the compiler blocks those paths.
 
 **Genericity — code not written:**
-Not much yet. This rung is about naming, not abstracting. The payoff is structural, not reuse.
+Not much yet. This rung is about naming and construction discipline, not abstracting.
 
 **Tests deleted:**
-Any test that checks “did we accidentally pass an order where an authorization was expected?” — shape confusion is now a compile error.
+Tests for shape confusion — compile error. Tests for fabricated lifecycle values (“fabricated authorization should be rejected”) — private constructor makes construction a compile error.
 
 **Tests still required** (first item is what the next stage closes):
 
 1. *(Stage 2 closes)* Test that all error/null paths from constructors are handled — callers can currently silently ignore a bad input.
 2. *(Stage 4 closes)* Test that all risk branches are handled — the medium-risk case can be forgotten silently.
-3. *(Stage 5 closes)* Test lifecycle ordering — capture before authorize still compiles.
+3. *(Stage 5 closes)* Test that the lifecycle state is tracked in the type — `Authorization`, `Capture`, `Refund` are separate class names, not a unified type with an explicit state parameter. Stage 5 makes the state machine a single class with the state in the type parameter.
 4. *(Stage 6 closes)* Test that the right authorization method is used for the risk level.
 5. *(Stage 6 closes)* Test boundary constraints — negative or zero quantities reach the service.
 6. *(Stage 7 closes)* Test that the correct protocol variant is selected for a runtime risk assessment.
+
+**Per-flow binding remains open throughout all Java stages.** Any valid `Authorization` is accepted by any `capture` call; two concurrent flows can exchange lifecycle values without a type error. Java's type system has no mechanism to express flow identity.
 
 ---
 
@@ -596,9 +596,9 @@ Tests that check “did we handle all risk levels?” Gone — the compiler enfo
 
 ---
 
-### Stage 5: Typestate via Phantom Generics — lifecycle as type
+### Stage 5: Phantom-Type Typestate — lifecycle state in the type parameter
 
-**What this rung adds:** payment lifecycle states encoded as type parameters. `Payment<Initiated>`, `Payment<Authorized>`, `Payment<Captured>` are distinct types. Static factory methods are the only way to move between them.
+**What this rung adds:** the lifecycle state is now a type parameter on a single unified class. `Payment<Initiated>`, `Payment<Authorized>`, `Payment<Captured>` are the same class with different phantom type arguments. The factory method signatures form a type-level grammar of legal transitions: `authorizeAuto(Payment<Initiated>) → Payment<Authorized>`, `capture(Payment<Authorized>) → Payment<Captured>`. The state is in the type — not in the class name, not in a runtime flag. Stage 4 (records) had public constructors, reopening the fabrication gap from stage 1; `Payment<S>` closes it again with private constructors on the unified class. What stage 5 does NOT close: per-flow binding. `capture(Payment<Authorized>)` accepts any `Payment<Authorized>` regardless of which concurrent flow produced it — Java's phantom generics carry no flow identity.
 
 **In the demo, show:** the `Payment<S>` signature family. Show `demo4_TypestateCompileErrors()`. Then show the bad demo: `authorizeAuto` called on a medium-risk initiated payment — it compiles, audit trail has no 3DS entry.
 
@@ -615,13 +615,14 @@ Tests for capture-before-authorize, refund-before-capture, double-authorization 
 
 **But be precise about why the next rung is different.** What changes at Stage 6 is not merely that the same ideas are more concise. Some guarantees at Stage 6 are not expressible in Java at all — not verbosely, not at all. Java has no match types, no refined types, and no path-dependent types. The risk level flowing into the authorization approval type (`Approval[R <: Risk]`) is a guarantee Java's type system cannot state. This is a genuine increase in what the compiler can check, not a syntactic convenience.
 
-**Close the loop on Charlie's story here.** Say explicitly: "Charlie's invalid state transition — capture before authorize — is done. There is no program at this rung that reaches `Payment<Captured>` without passing through `Payment<Authorized>`. You can delete those lifecycle-ordering tests."
+**Close the loop on Charlie's story here — for the Java stages.** Stage 1 used smart constructors to enforce the lifecycle sequence: no real path to `Capture` without a real `Authorization`. Stage 5 makes that guarantee visible in the type: `Payment<Authorized>` IS the proof that authorization happened. Say explicitly: "The type parameter is the state. There is no program at this rung that holds a `Payment<Captured>` without passing through `Payment<Authorized>` first. You can delete those lifecycle-ordering tests." Note honestly that per-flow binding remains open — `capture` accepts any `Payment<Authorized>` — and that this requires path-dependent types to close.
 
 **Tests still required** (first item is what the next stage closes):
 
 1. *(Stage 6 closes)* Test that the right authorization method is called for the risk level — `authorizeAuto` on a medium-risk `Payment<Initiated>` compiles; the risk level is not in the type.
 2. *(Stage 6 closes)* Test boundary constraints — negative quantities still reach the service.
 3. *(Stage 7 closes)* Test correct protocol variant selection for a runtime risk assessment.
+4. *(Not closed within Java)* Test per-flow binding — a `Payment<Authorized>` from flow A can be passed to flow B's `capture` call without a type error.
 
 ---
 
@@ -911,7 +912,7 @@ If you start slipping on time, cut detail rather than cutting the final Scala/Id
 
 ## Coordination With The Implementation Plan
 
-As you implement each example stage, verify two things against [PAYMENT_TALK_PLAN.md](/home/mb/workspace/scala-type-driven-talk/PAYMENT_TALK_PLAN.md):
+As you implement each example stage, verify two things:
 
 - the code actually supports the bug/story claimed here,
 - the next stage actually removes that bug in a visible way.

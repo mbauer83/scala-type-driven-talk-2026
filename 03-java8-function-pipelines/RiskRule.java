@@ -12,7 +12,7 @@ public interface RiskRule {
     RiskDecision apply(Order order);
 
     // Compose: use the higher-risk result when two rules disagree.
-    default RiskRule maxWith(RiskRule other) {
+    default RiskRule escalatedBy(RiskRule other) {
         return order -> {
             RiskDecision a = this.apply(order);
             RiskDecision b = other.apply(order);
@@ -46,7 +46,7 @@ public interface RiskRule {
     // The composed production rule
     static RiskRule productionRiskEngine() {
         return invoiceAlwaysHigh()
-            .maxWith(cardAmountThreshold())
-            .maxWith(walletAmountThreshold());
+            .escalatedBy(cardAmountThreshold())
+            .escalatedBy(walletAmountThreshold());
     }
 }

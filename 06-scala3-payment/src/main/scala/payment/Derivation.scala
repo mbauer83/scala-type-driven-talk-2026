@@ -30,29 +30,29 @@ import protocol.*
 // Low-risk client: send Order → receive Snapshot → receive Auth → receive Capture → choose[refund | done]
 type LowRiskProtocol =
   Send[Order,
-  Receive[RiskSnapshot,
-  Receive[AuthorizedPayment[LowRisk],
-  Receive[CapturedPayment,
-  Choose[Receive[RefundedPayment, End], End]]]]]
+    Receive[RiskSnapshot,
+      Receive[AuthorizedPayment[LowRisk],
+        Receive[CapturedPayment,
+          Choose[Receive[RefundedPayment, End], End]]]]]
 
 // Medium-risk client: send Order → receive Snapshot → receive Challenge → send Proof → receive Auth → receive Capture → choose
 type MediumRiskProtocol =
   Send[Order,
-  Receive[RiskSnapshot,
-  Receive[ThreeDSChallenge,
-  Send[ThreeDSProof,
-  Receive[AuthorizedPayment[MediumRisk],
-  Receive[CapturedPayment,
-  Choose[Receive[RefundedPayment, End], End]]]]]]]
+    Receive[RiskSnapshot,
+      Receive[ThreeDSChallenge,
+        Send[ThreeDSProof,
+          Receive[AuthorizedPayment[MediumRisk],
+            Receive[CapturedPayment,
+              Choose[Receive[RefundedPayment, End], End]]]]]]]
 
 // High-risk client: send Order → receive Snapshot → receive ReviewRequest → send Approval → receive Auth → receive Capture
 type HighRiskProtocol =
   Send[Order,
-  Receive[RiskSnapshot,
-  Receive[ManualReviewRequest,
-  Send[ManualReviewApproval,
-  Receive[AuthorizedPayment[HighRisk],
-  Receive[CapturedPayment, End]]]]]]
+    Receive[RiskSnapshot,
+      Receive[ManualReviewRequest,
+        Send[ManualReviewApproval,
+          Receive[AuthorizedPayment[HighRisk],
+            Receive[CapturedPayment, End]]]]]]
 
 // ─── Runtime protocol variant ─────────────────────────────────────────────────
 // The runtime selector. All variants are closed; the compiler verifies each one.
@@ -78,24 +78,24 @@ private object DualityChecks:
   // If either side's type is wrong this file will not compile.
   summon[Dual[LowRiskProtocol] =:=
     Receive[Order,
-    Send[RiskSnapshot,
-    Send[AuthorizedPayment[LowRisk],
-    Send[CapturedPayment,
-    Offer[Send[RefundedPayment, End], End]]]]]]
+      Send[RiskSnapshot,
+        Send[AuthorizedPayment[LowRisk],
+          Send[CapturedPayment,
+            Offer[Send[RefundedPayment, End], End]]]]]]
 
   summon[Dual[MediumRiskProtocol] =:=
     Receive[Order,
-    Send[RiskSnapshot,
-    Send[ThreeDSChallenge,
-    Receive[ThreeDSProof,
-    Send[AuthorizedPayment[MediumRisk],
-    Send[CapturedPayment,
-    Offer[Send[RefundedPayment, End], End]]]]]]]]
+      Send[RiskSnapshot,
+        Send[ThreeDSChallenge,
+          Receive[ThreeDSProof,
+            Send[AuthorizedPayment[MediumRisk],
+              Send[CapturedPayment,
+                Offer[Send[RefundedPayment, End], End]]]]]]]
 
   summon[Dual[HighRiskProtocol] =:=
     Receive[Order,
-    Send[RiskSnapshot,
-    Send[ManualReviewRequest,
-    Receive[ManualReviewApproval,
-    Send[AuthorizedPayment[HighRisk],
-    Send[CapturedPayment, End]]]]]]]
+      Send[RiskSnapshot,
+        Send[ManualReviewRequest,
+          Receive[ManualReviewApproval,
+            Send[AuthorizedPayment[HighRisk],
+              Send[CapturedPayment, End]]]]]]]

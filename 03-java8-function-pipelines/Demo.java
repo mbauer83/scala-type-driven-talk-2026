@@ -1,5 +1,39 @@
-// Stage 03: Function pipeline demo
+// ─── Stage 03: Java 8 — function pipelines ───────────────────────────────────
 // Compile and run: javac *.java && java Demo
+//
+// ELIMINATED — no new compile-time error classes over stage 02.
+//   This stage is an architectural improvement, not a safety boundary.
+//   The type system gains nothing new here; the CODE gains explicit structure.
+//
+// CODE REMOVED — function values replace duplicated imperative logic:
+//
+//   - Risk rule logic scattered across service methods
+//       → RiskRule.escalatedBy  (RiskRule.java:15)   — compose two rules into one
+//       → RiskRule.productionRiskEngine (RiskRule.java:47) — assembled once, reused everywhere
+//
+//   - Manual step sequencing repeated in each flow
+//       → PaymentStep.andThen   (PaymentStep.java:13) — compose A→B and B→C into A→C
+//       → authorizeStep, captureStep, threeDSStep, manualReviewStep
+//                               (PaymentStep.java:22-66) — named, testable in isolation
+//
+//   - Audit-append calls scattered at each call site
+//       → each named PaymentStep appends its own entry; callers do not touch the log
+//
+// REMAINING GAPS — still compilable here (closed by later stages):
+//
+//   ✗ Risk result not wired to the required pipeline step  [closed at stage 04]
+//       RiskRule.java:47  productionRiskEngine() returns a RiskDecision value
+//       Nothing prevents passing that value to the wrong PaymentStep composition.
+//       Demo: badDemo_RuleStillNotWiredToStep()
+//
+//   ✗ Lifecycle ordering: steps can be composed in the wrong order  [closed at stage 05]
+//       PaymentStep.java:13  andThen is unconstrained — captureStep().andThen(authorizeStep())
+//       compiles even though capture must follow authorize, not precede it.
+//
+//   ✗ Refund on invoice is a runtime Result.err, not a type distinction  [closed at stage 04]
+//       PaymentStep.java:42  refundStep checks method.supportsRefund() at runtime.
+//
+// ─────────────────────────────────────────────────────────────────────────────
 
 import java.util.List;
 
@@ -98,15 +132,15 @@ public class Demo {
 
     // ─── Bad examples — bugs that STILL COMPILE here ─────────────────────────
     //
-    // Stage-closure map (first = what Stage 04 closes next):
-    //   Stage 4 closes: risk branch exhaustiveness — wrong pipeline selected silently
-    //   Stage 5 closes: lifecycle ordering
-    //   Stage 6 closes: right auth method for risk level; boundary constraints
-    //   Stage 7 closes: protocol variant selection for runtime risk assessment
+    // Stage-closure map (first = what closed at stage 04 next):
+    //   closed at stage 4: risk branch exhaustiveness — wrong pipeline selected silently
+    //   closed at stage 5: lifecycle ordering
+    //   closed at stage 6: right auth method for risk level; boundary constraints
+    //   closed at stage 7: protocol variant selection for runtime risk assessment
 
     static void badDemo_RuleStillNotWiredToStep() {
         section("BAD DEMO — Risk Decision Not Wired to Required Step (Bob's bug)");
-        // (Stage 4 closes: sealed RiskDecision exhaustive switch forces correct pipeline selection)
+        // (closed at stage 4: sealed RiskDecision exhaustive switch forces correct pipeline selection)
         mediumRiskCardOrder().map(order -> {
             AuditTrail<String> log = AuditTrail.stringLog();
             RiskDecision risk = riskEngine.apply(order);

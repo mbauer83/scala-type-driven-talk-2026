@@ -1,5 +1,42 @@
-// Stage 02: Generics demo
+// ─── Stage 02: Java 5 — generics ─────────────────────────────────────────────
 // Compile and run: javac *.java && java Demo
+//
+// ELIMINATED — compiler now proves these; their runtime tests can be deleted:
+//
+//   ✗ Invalid constructor inputs propagate silently as null / bad state  [was stage 01]
+//       OrderLine.java:14   OrderLine.of(sku, price, qty) : Result<OrderLine>
+//       Order.java:16       Order.of(...)                 : Result<Order>
+//       Smart constructors return Result.err; callers must unwrap or chain.
+//       The error path is now a value, not a thrown exception.
+//       removes tests: "zero quantity should throw", "empty order should throw"
+//
+//   ✗ Collections of the wrong element type (unchecked inserts / casts)  [was stage 01]
+//       AuditTrail.java:7   AuditTrail<E> — generic audit log
+//       Order.java:6        List<OrderLine> — typed line collection
+//       Inserting a Capture into an AuditTrail<String> is a compile error.
+//       removes tests: "collection has correct element type"
+//
+// CODE REMOVED — genericity replaces duplication:
+//
+//   - Per-type validation boilerplate → Validator<T> (Validator.java:9)
+//       One interface; compose with andThen (Validator.java:14) for any domain type.
+//   - Result-chain boilerplate → Result.flatMap (Result.java:36)
+//       flatMap/map replace manual null-check + cast patterns everywhere.
+//
+// REMAINING GAPS — still compilable here (closed by later stages):
+//
+//   ✗ Lifecycle ordering: any Authorization accepted by capture  [closed at stage 05]
+//       PaymentService.java:29  capture(Authorization) — not bound to a specific lifecycle
+//       A fabricated Authorization compiles as a valid argument.
+//
+//   ✗ Medium-risk silently skips 3DS                             [closed at stage 04]
+//       PaymentService.java:16  assessRisk() returns plain RiskDecision enum
+//       Caller can ignore the returned value; no exhaustive switch required.
+//
+//   ✗ Refund on invoice is a runtime flag check                  [closed at stage 04]
+//       PaymentMethod.java:4  supportsRefund() — Boolean, not a type distinction.
+//
+// ─────────────────────────────────────────────────────────────────────────────
 
 import java.util.List;
 
@@ -94,15 +131,15 @@ public class Demo {
 
     // ─── Bad examples — bugs that STILL COMPILE here ─────────────────────────
     //
-    // Stage-closure map (first = what Stage 04 closes next):
-    //   Stage 4 closes: risk branch exhaustiveness — medium-risk silently skipped
-    //   Stage 5 closes: lifecycle ordering — any Authorization accepted by capture
-    //   Stage 6 closes: right auth method for risk level; boundary constraints
-    //   Stage 7 closes: protocol variant selection for runtime risk assessment
+    // Stage-closure map (first = what closed at stage 04 next):
+    //   closed at stage 4: risk branch exhaustiveness — medium-risk silently skipped
+    //   closed at stage 5: lifecycle ordering — any Authorization accepted by capture
+    //   closed at stage 6: right auth method for risk level; boundary constraints
+    //   closed at stage 7: protocol variant selection for runtime risk assessment
 
     static void badDemo_LifecycleStillUnchecked() {
         section("BAD DEMO — Lifecycle Still Not Checked");
-        // (Stage 5 closes: phantom generics make Payment<Authorized> the only valid capture input)
+        // (closed at stage 5: phantom generics make Payment<Authorized> the only valid capture input)
         lowRiskCardOrder().map(order -> {
             // Nothing stops us calling capture before authorize.
             // We'd need to construct a fake Authorization manually.

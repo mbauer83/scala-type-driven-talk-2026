@@ -1,6 +1,38 @@
-// Stage 04: Records and sealed types demo
-// Compile and run: javac *.java && java Demo
-// Requires Java 17+ for sealed interfaces and record patterns.
+// ─── Stage 04: Java 17 — records and sealed types ────────────────────────────
+// Compile and run: javac *.java && java Demo  (requires Java 17+)
+//
+// ELIMINATED — compiler now proves these; their runtime tests can be deleted:
+//
+//   ✗ Forgetting a risk branch — Bob's silent fall-through bug  [was stage 03]
+//       RiskDecision.java:9   sealed interface RiskDecision permits Low, Medium, High
+//       PaymentService.java:59  switch(risk) — compiler rejects missing cases
+//       Omitting the Medium branch is now a compile error, not a silent default.
+//       removes tests: "medium-risk branch must be handled"
+//
+//   ✗ Refund on an invoice path reaching the wrong branch  [was stage 03]
+//       PaymentMethod.java:5   sealed interface PaymentMethod permits Card, Wallet, Invoice
+//       PaymentService.java:45  switch(method) in refund() — Invoice case is explicit and required
+//       No "default" can silently permit a refund on an invoice order.
+//       removes tests: "invoice cannot be refunded"
+//
+// CODE REMOVED — records eliminate boilerplate:
+//
+//   - Constructor, getters, equals, hashCode, toString in Order, OrderLine, Authorization,
+//     Capture, Refund → all replaced by record declarations
+//     (Order.java:1, PaymentService.java:33-35)
+//
+// REMAINING GAPS — still compilable here (closed by later stages):
+//
+//   ✗ Lifecycle ordering: Capture constructible without Authorization  [closed at stage 05]
+//       PaymentService.java:33  record Capture(...) — plain record; anyone can construct one
+//       PaymentService.java:41  capture(Authorization) accepts any Authorization instance
+//       Demo: badDemo_LifecycleStillUnchecked()
+//
+//   ✗ Medium branch required, but 3DS inside it is not enforced  [closed at stage 06]
+//       PaymentService.java:69  Medium case must exist, but its body is unchecked
+//       A developer can write the Medium case and still skip the 3DS step inside it.
+//
+// ─────────────────────────────────────────────────────────────────────────────
 
 import java.util.List;
 
@@ -89,14 +121,14 @@ public class Demo {
 
     // ─── Bad examples — bugs that STILL COMPILE here ─────────────────────────
     //
-    // Stage-closure map (first = what Stage 05 closes next):
-    //   Stage 5 closes: lifecycle ordering — Capture constructible without Authorization
-    //   Stage 6 closes: right auth method for risk level; boundary constraints
-    //   Stage 7 closes: protocol variant selection for runtime risk assessment
+    // Stage-closure map (first = what closed at stage 05 next):
+    //   closed at stage 5: lifecycle ordering — Capture constructible without Authorization
+    //   closed at stage 6: right auth method for risk level; boundary constraints
+    //   closed at stage 7: protocol variant selection for runtime risk assessment
 
     static void badDemo_LifecycleStillUnchecked() {
         section("BAD DEMO — Lifecycle Order Not Enforced (Alice and Charlie's bug)");
-        // (Stage 5 closes: phantom generics make Payment<Captured> unreachable without Payment<Authorized>)
+        // (closed at stage 5: phantom generics make Payment<Captured> unreachable without Payment<Authorized>)
         lowRiskCardOrder().map(order -> {
             // Authorization and Capture are still plain records — anyone can make one.
             // Nothing in the type system prevents constructing a Capture without an Authorization.

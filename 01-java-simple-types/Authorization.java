@@ -4,11 +4,20 @@ public class Authorization {
     private final int    authorizedAmountCents;
     private final String approvalNote;
 
-    public Authorization(String orderId, String authCode, int authorizedAmountCents, String approvalNote) {
+    private Authorization(String orderId, String authCode, int authorizedAmountCents, String approvalNote) {
         this.orderId               = orderId;
         this.authCode              = authCode;
         this.authorizedAmountCents = authorizedAmountCents;
         this.approvalNote          = approvalNote;
+    }
+
+    static Authorization from(Order order, String approvalNote) {
+        return new Authorization(
+            order.getOrderId(),
+            "auth-" + order.getOrderId(),
+            order.getTotalCents(),
+            approvalNote
+        );
     }
 
     public String getOrderId()               { return orderId; }

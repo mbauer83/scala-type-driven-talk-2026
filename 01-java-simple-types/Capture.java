@@ -3,10 +3,18 @@ public class Capture {
     private final String orderId;
     private final int    capturedAmountCents;
 
-    public Capture(String captureId, String orderId, int capturedAmountCents) {
+    private Capture(String captureId, String orderId, int capturedAmountCents) {
         this.captureId           = captureId;
         this.orderId             = orderId;
         this.capturedAmountCents = capturedAmountCents;
+    }
+
+    static Capture from(Authorization auth) {
+        return new Capture(
+            "cap-" + auth.getAuthCode(),
+            auth.getOrderId(),
+            auth.getAuthorizedAmountCents()
+        );
     }
 
     public String getCaptureId()           { return captureId; }

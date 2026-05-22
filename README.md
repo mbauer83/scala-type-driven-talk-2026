@@ -5,7 +5,7 @@ This repository now treats the **numbered example ladder** as the only canonical
 ## Progression
 
 - `00-js-untyped-payment/`
-- `01-java14-simple-types/`
+- `01-java-simple-types/`
 - `02-java5-generics/`
 - `03-java8-function-pipelines/`
 - `04-java17-records-sealed/`

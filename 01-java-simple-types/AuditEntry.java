@@ -1,7 +1,8 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
+// Java 1–4 style: raw List without type parameter — no generics in this stage.
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class AuditEntry {
     private final String event;
     private final String detail;
@@ -19,9 +20,9 @@ public class AuditEntry {
     }
 
     // Simple mutable audit log — in this stage, forgetting to append is still possible.
-    public static List<AuditEntry> newLog() { return new ArrayList<>(); }
+    public static List newLog() { return new ArrayList(); }
 
-    public static void append(List<AuditEntry> log, String event, String detail) {
+    public static void append(List log, String event, String detail) {
         log.add(new AuditEntry(event, detail));
     }
 }

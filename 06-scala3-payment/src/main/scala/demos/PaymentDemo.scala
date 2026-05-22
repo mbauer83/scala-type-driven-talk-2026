@@ -1,3 +1,53 @@
+// ─── Stage 06: Scala 3 — session types, phantom evidence, refined values ─────
+// Run: sbt run
+//
+// ELIMINATED — compiler now proves these; their runtime tests can be deleted:
+//
+//   ✗ Wrong approval type for the assessed risk level — Bob's residual bug  [was stage 05]
+//       Domain.scala:37   sealed trait Approval[+R <: Risk] — phantom-indexed approval
+//       Domain.scala:178  authorize[R <: Risk](order, Approval[R]) — R must match
+//       AutoApproved (: Approval[LowRisk]) cannot satisfy Approval[MediumRisk]; compile error.
+//       removes tests: "wrong approval type should be rejected"
+//
+//   ✗ Client/server protocol drift — Danielle's bug  [was stage 05]
+//       Derivation.scala:31   LowRiskProtocol, MediumRiskProtocol, HighRiskProtocol
+//       Chan.scala            Channel[P] — send/receive constrained by protocol position
+//       Sending the wrong message type or in the wrong order is a compile error.
+//       removes tests: "protocol messages in correct order"
+//
+//   ✗ Client and server disagreeing on the protocol shape  [was stage 05]
+//       Derivation.scala:79   summon[Dual[LowRiskProtocol]    =:= ...]
+//       Derivation.scala:86   summon[Dual[MediumRiskProtocol] =:= ...]
+//       Derivation.scala:95   summon[Dual[HighRiskProtocol]   =:= ...]
+//       These proofs are checked at every build; a mismatched server does not compile.
+//       removes tests: "client and server agree on protocol"
+//
+//   ✗ Zero-quantity order line accepted at runtime  [was stage 05]
+//       Domain.scala:58   type PositiveInt = Int :| Positive
+//       Domain.scala:106  OrderLine.of — refineEither[Positive] rejects qty ≤ 0
+//       Literal 0 is rejected at compile time; no runtime guard or test needed.
+//       removes tests: "zero quantity rejected"
+//
+//   ✗ Closing a channel before the protocol is complete  [was stage 05]
+//       Chan.scala        finish() requires implicit proof that P =:= End
+//       Calling finish() mid-conversation is a compile error.
+//
+// CODE REMOVED — type-level machinery replaces defensive duplication:
+//
+//   - Three separate approval-type checks → one authorize[R <: Risk] signature (Domain.scala:178)
+//   - Protocol consistency assertions     → one Dual match type (Dual.scala) applied to all variants
+//   - Repeated policy interpretations     → one interpret[F[_], A] catamorphism (Rules.scala:41)
+//
+// REMAINING GAPS — still compilable here (closed by stage 07):
+//
+//   ✗ Runtime risk value cannot directly compute the protocol type  [closed at stage 07]
+//       Derivation.scala:60  sealed trait ProtocolVariant — a closed enum bridges runtime→type
+//       The compiler cannot derive LowRiskProtocol vs MediumRiskProtocol from a runtime Order.
+//       In Idris 2: protocolDerivedFrom : Order -> SessionType computes the type directly.
+//       The bridge (ProtocolVariant ADT) is the ceiling Scala cannot remove.
+//
+// ─────────────────────────────────────────────────────────────────────────────
+
 package demos
 
 import protocol.*
@@ -78,11 +128,10 @@ object PaymentDemo:
   // ─── Client handlers ────────────────────────────────────────────────────────
 
   def clientLowRisk(order: Order, refundRequested: Boolean, ch: Channel[LowRiskProtocol]): Unit =
-    val snapshot          = riskSnapshotFor(order)
     Logger.info(s"Policy:  ${Interpretations.describe(policyFromOrder(order))}")
-    Logger.info(s"Snapshot: $snapshot")
     val ch1               = ch.send(order)
-    val (_, ch2)          = ch1.receive()   // RiskSnapshot
+    val (snapshot, ch2)   = ch1.receive()   // RiskSnapshot from server
+    Logger.info(s"Snapshot: $snapshot")
     val (auth, ch3)       = ch2.receive()   // AuthorizedPayment[LowRisk]
     Logger.info(s"Auth: $auth")
     val (cap, ch4)        = ch3.receive()   // CapturedPayment
@@ -96,11 +145,10 @@ object PaymentDemo:
       ch4.selectRight().finish()
 
   def clientMediumRisk(order: Order, refundRequested: Boolean, ch: Channel[MediumRiskProtocol]): Unit =
-    val snapshot          = riskSnapshotFor(order)
     Logger.info(s"Policy:  ${Interpretations.describe(policyFromOrder(order))}")
-    Logger.info(s"Snapshot: $snapshot")
     val ch1               = ch.send(order)
-    val (_, ch2)          = ch1.receive()   // RiskSnapshot
+    val (snapshot, ch2)   = ch1.receive()   // RiskSnapshot from server
+    Logger.info(s"Snapshot: $snapshot")
     val (challenge, ch3)  = ch2.receive()   // ThreeDSChallenge
     Logger.info(s"Challenge received: $challenge")
     val proof             = ThreeDSProof(challenge.challengeId, liabilityShift = true)
@@ -118,11 +166,10 @@ object PaymentDemo:
       ch6.selectRight().finish()
 
   def clientHighRisk(order: Order, ch: Channel[HighRiskProtocol]): Unit =
-    val snapshot          = riskSnapshotFor(order)
     Logger.info(s"Policy:  ${Interpretations.describe(policyFromOrder(order))}")
-    Logger.info(s"Snapshot: $snapshot")
     val ch1               = ch.send(order)
-    val (_, ch2)          = ch1.receive()   // RiskSnapshot
+    val (snapshot, ch2)   = ch1.receive()   // RiskSnapshot from server
+    Logger.info(s"Snapshot: $snapshot")
     val (reviewReq, ch3)  = ch2.receive()   // ManualReviewRequest
     Logger.info(s"Manual review request: $reviewReq")
     val reviewApproval    = ManualReviewApproval("ops-reviewer", "KYC and invoice matched")

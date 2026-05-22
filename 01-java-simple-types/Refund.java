@@ -3,10 +3,18 @@ public class Refund {
     private final String captureId;
     private final int    refundedAmountCents;
 
-    public Refund(String refundId, String captureId, int refundedAmountCents) {
+    private Refund(String refundId, String captureId, int refundedAmountCents) {
         this.refundId            = refundId;
         this.captureId           = captureId;
         this.refundedAmountCents = refundedAmountCents;
+    }
+
+    static Refund from(Capture cap) {
+        return new Refund(
+            "ref-" + cap.getCaptureId(),
+            cap.getCaptureId(),
+            cap.getCapturedAmountCents()
+        );
     }
 
     public String getRefundId()             { return refundId; }

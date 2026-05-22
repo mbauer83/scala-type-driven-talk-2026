@@ -2,6 +2,7 @@ import java.util.function.Function;
 
 // Stage 02: Generics — Result<T> gives us a typed error container.
 // No more mixing error strings with value types, no more unchecked casting.
+// Err is fixed to String (not Err<E>) deliberately — talk keeps the focus on the value type T.
 
 public sealed interface Result<T> permits Result.Ok, Result.Err {
 
