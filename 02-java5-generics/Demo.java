@@ -20,9 +20,12 @@
 //
 //   - Per-type validation boilerplate → Validator<T> (Validator.java:9)
 //       One interface; compose with andThen (Validator.java:14) for any domain type.
+//   
+//   @TODO: Is a monadic result-type really a good stage 2 feature to slowly introduce people to more expressive types? Maybe introduce that with ADTs in stage 4 and perhaps handled more imperatively (for the Java audience) instead and use generics for more "mundane" things here?
 //   - Result-chain boilerplate → Result.flatMap (Result.java:36)
 //       flatMap/map replace manual null-check + cast patterns everywhere.
 //
+// @TODO: Shouldn't we have gaps for all (or nearly all) future stages to close? buggyDemo_LifecycleStillUnchecked lists more
 // REMAINING GAPS — still compilable here (closed by later stages):
 //
 //   ✗ Lifecycle ordering: any Authorization accepted by capture  [closed at stage 05]
@@ -137,10 +140,13 @@ public class Demo {
     //   closed at stage 6: right auth method for risk level; boundary constraints
     //   closed at stage 7: protocol variant selection for runtime risk assessment
 
-    static void badDemo_LifecycleStillUnchecked() {
+    static void buggyDemo_LifecycleStillUnchecked() {
         section("BAD DEMO — Lifecycle Still Not Checked");
         // (closed at stage 5: phantom generics make Payment<Authorized> the only valid capture input)
         lowRiskCardOrder().map(order -> {
+            // @TODO: Muddied example. Is capture-before-authorize the problem or capture of any authorization? Code only covers one.
+            // 
+            // 
             // Nothing stops us calling capture before authorize.
             // We'd need to construct a fake Authorization manually.
             // In practice the issue is that capture() accepts ANY Authorization,
@@ -160,6 +166,6 @@ public class Demo {
         demo2();
         demo3();
         demo4();
-        badDemo_LifecycleStillUnchecked();
+        buggyDemo_LifecycleStillUnchecked();
     }
 }

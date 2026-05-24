@@ -87,7 +87,7 @@ function demo3() {
 //   Stage 6 closes: right auth method for risk level; boundary constraints
 //   Stage 7 closes: protocol variant selection
 
-function badDemo_CaptureBeforeAuthorize() {
+function buggyDemo_CaptureBeforeAuthorize() {
   section("BAD DEMO — Capture Before Authorize (Bug: wrong object passed)");
   // (Stage 1 closes: nominal types make capture(order) a compile error)
   // Nothing in the language stops us from calling capture() directly on an order.
@@ -99,7 +99,7 @@ function badDemo_CaptureBeforeAuthorize() {
   outcome("BUG: capture(order) reads undefined fields and silently succeeds — wrong shape, no error.");
 }
 
-function badDemo_Skip3DS() {
+function buggyDemo_Skip3DS() {
   section("BAD DEMO — Medium-Risk Order Skips 3DS (Bob's bug)");
   // (Stage 4 closes: sealed RiskDecision forces exhaustive handling of medium-risk branch)
   function buggyProcess(order) {
@@ -117,7 +117,7 @@ function badDemo_Skip3DS() {
   outcome("BUG: risk decision not threaded into required step — medium-risk authorized without 3DS.");
 }
 
-function badDemo_RefundOnInvoice() {
+function buggyDemo_RefundOnInvoice() {
   section("BAD DEMO — Refund on Invoice Order (no-refund path violated)");
   // (Stage 4 closes: sealed PaymentMethod + exhaustive switch enforces refund eligibility)
   const log = [];
@@ -131,7 +131,7 @@ function badDemo_RefundOnInvoice() {
   outcome("BUG: refund eligibility is a runtime comment, not a structural constraint.");
 }
 
-function badDemo_WrongAmount() {
+function buggyDemo_WrongAmount() {
   section("BAD DEMO — Wrong Amount Captured");
   // (Stage 5 closes: typestate makes capture derive amount from the authorized payment)
   // Developer grabs the first line's unit price instead of the authorized amount.
@@ -150,7 +150,7 @@ function badDemo_WrongAmount() {
 demo1();
 demo2();
 demo3();
-badDemo_CaptureBeforeAuthorize();
-badDemo_Skip3DS();
-badDemo_RefundOnInvoice();
-badDemo_WrongAmount();
+buggyDemo_CaptureBeforeAuthorize();
+buggyDemo_Skip3DS();
+buggyDemo_RefundOnInvoice();
+buggyDemo_WrongAmount();

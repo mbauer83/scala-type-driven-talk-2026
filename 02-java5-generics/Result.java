@@ -4,6 +4,7 @@ import java.util.function.Function;
 // No more mixing error strings with value types, no more unchecked casting.
 // Err is fixed to String (not Err<E>) deliberately — talk keeps the focus on the value type T.
 
+// @TODO: Check: did Java 5 really have "permits" and "sealed"? Those are later features no?
 public sealed interface Result<T> permits Result.Ok, Result.Err {
 
     record Ok<T>(T value) implements Result<T> {

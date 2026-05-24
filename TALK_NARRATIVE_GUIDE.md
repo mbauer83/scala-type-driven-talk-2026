@@ -447,6 +447,8 @@ This repeated structure is what makes the progression intelligible rather than j
 
 This section tracks the stage directories. The talk does not need equal time for each stage.
 
+@TODO: Demo-files have comments, notes, sections for printing strewn throughout so the actual flow of the program often can't be read fluently. This is a critical mistake for a time-constrained presentation. Comments before and/or outputs after the flow would explain better. Inner functions mimicking actual execution can and maybe should produce log-output. 
+
 ### Stage 0: JavaScript — the untyped baseline
 
 **What this rung has:** dynamic dispatch, runtime freedom, no structural constraints.
@@ -508,6 +510,7 @@ Tests for shape confusion — compile error. Tests for fabricated lifecycle valu
 
 ---
 
+@TODO: Why does stage 2 demo remove private constructors?
 ### Stage 2: Generics — polymorphic error handling and composable validation
 
 **Live talk treatment:** present Stage 2 and Stage 3 together as one beat (~1.5 min total: Stage 2 gets ~1 min, Stage 3 gets ~20 sec). The message is: "generics and function values give us architectural wins — reusable abstractions, composable rules, explicit control flow. Both matter. Neither changes what states are constructible. The bug still compiles." Then transition directly into Stage 4 where structural enforcement begins.
@@ -536,7 +539,7 @@ Tests that check “did we handle the null/error return from this constructor?�
 5. *(Stage 7 closes)* Test that the correct protocol variant is selected for a runtime risk assessment.
 
 ---
-
+@TODO: Should be merged into stage 4 as also mentioned in corresponding demo-file. Should *mention* that Java 8 make it more expressive via function-pipelines and specific type-level features, but should concentrate on ADTs (sums and products via sealed interfaces and records)
 ### Stage 3: Function Pipelines — explicit rules as values
 
 **Live talk treatment:** do not run a demo for this stage. Say thirty seconds and move on:
@@ -569,7 +572,8 @@ Tests for combined risk rule behaviour can be replaced by independent tests of e
 5. *(Stage 7 closes)* Test correct protocol variant selection.
 
 ---
-
+//@TODO: Bring it back to type-theoretic features: ADTs - "sums of products as type level disjunctive normal
+//form for efficient data representation"
 ### Stage 4: Records and Sealed Unions — honest domain modelling
 
 **What this rung adds:** sum types with exhaustive dispatch. `RiskDecision` is `Low | Medium | High` — a sealed hierarchy. Forgetting a variant is a compile error. `PaymentMethod` is `Card | Wallet | Invoice` — unknown variants cannot be constructed.
@@ -597,7 +601,7 @@ Tests that check “did we handle all risk levels?” Gone — the compiler enfo
 ---
 
 ### Stage 5: Phantom-Type Typestate — lifecycle state in the type parameter
-
+//@TODO: Typestate is possible with simple classes holding data and methods - phantom types in generics for typestate is more expressive, but maybe we should introduce typestate earlier and "upgrade" it?
 **What this rung adds:** the lifecycle state is now a type parameter on a single unified class. `Payment<Initiated>`, `Payment<Authorized>`, `Payment<Captured>` are the same class with different phantom type arguments. The factory method signatures form a type-level grammar of legal transitions: `authorizeAuto(Payment<Initiated>) → Payment<Authorized>`, `capture(Payment<Authorized>) → Payment<Captured>`. The state is in the type — not in the class name, not in a runtime flag. Stage 4 (records) had public constructors, reopening the fabrication gap from stage 1; `Payment<S>` closes it again with private constructors on the unified class. What stage 5 does NOT close: per-flow binding. `capture(Payment<Authorized>)` accepts any `Payment<Authorized>` regardless of which concurrent flow produced it — Java's phantom generics carry no flow identity.
 
 **In the demo, show:** the `Payment<S>` signature family. Show `demo4_TypestateCompileErrors()`. Then show the bad demo: `authorizeAuto` called on a medium-risk initiated payment — it compiles, audit trail has no 3DS entry.

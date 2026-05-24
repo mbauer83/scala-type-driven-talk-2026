@@ -6,13 +6,13 @@ import io.github.iltotore.iron.constraint.numeric.*
 // ─── Stage 06: Scala 3 payment domain ────────────────────────────────────────
 //
 // Key additions over the Java typestate stage:
-//   - Risk phantom types: LowRisk, MediumRisk, HighRisk as sealed traits.
-//   - Approval[R <: Risk] indexed by the phantom risk type.
+//   - Risk phantom types: LowRisk, MediumRisk, HighRisk as sealed traits. //@TODO: Explain why that is an improvement.
+//   - Approval[R <: Risk] indexed by the phantom risk type. //@TODO: Explain why that is an improvement.
 //   - authorize() requires Approval[R] where R matches the assessed risk.
 //   - Refined type: PositiveInt = Int :| Positive (predicate lives in the type).
-//   - Opaque nominal IDs: AuthCode, CaptureId, RefundId (structural identity).
-//   - Typestate: Authorized, Captured, Refunded are separate types.
-//   - Smart constructors return Either[String, T], forcing error handling.
+//   - Opaque nominal IDs: AuthCode, CaptureId, RefundId (structural identity). //@TODO: Explain why that is an improvement.
+//   - Typestate: Authorized, Captured, Refunded are separate types. //@TODO: Is that different from earlier stages for typestate? How? What's the improvement?
+//   - Smart constructors return Either[String, T], forcing error handling. //@TODO: As mentioned elsewhere - this should probably be introduced in a more imperative manner with ADTs and then used in all later stages.
 //
 // Ceiling that remains (what Idris 2 removes):
 //   - The protocol selected for a session is chosen at runtime from a fixed menu.
@@ -34,7 +34,7 @@ sealed trait HighRisk   extends Risk
 // authorize() is parameterized by R: it requires an Approval[R].
 // The compiler ensures you cannot pass AutoApproved to a high-risk authorization.
 
-sealed trait Approval[+R <: Risk]
+sealed trait Approval[+R <: Risk] //@TODO: Why is the variance-annotation important? How is it an improvement over earlier stages?
 
 case object AutoApproved extends Approval[LowRisk]
 

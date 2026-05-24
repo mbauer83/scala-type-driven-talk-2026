@@ -94,7 +94,7 @@ object Interpretations:
       case PolicyF.Done => Analysis()
 
 // ─── Order → Policy derivation ────────────────────────────────────────────────
-
+// @TODO: Why is risk-level a string and not a sealed trait with case objects or an enum? This way, we have no exhaustiveness checking.
 def policyFromOrder(order: Order): Policy =
   import Policy.*
   val captureHours = assessRiskLevel(order) match

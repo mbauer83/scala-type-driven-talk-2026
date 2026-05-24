@@ -1,3 +1,4 @@
+// @TODO: Determine whether this warrants its own stage or whether stages 3-5 should be merged.
 // ─── Stage 05: Java — phantom-type typestate ─────────────────────────────────
 // Compile and run: javac *.java && java Demo  (requires Java 17+)
 //
@@ -15,6 +16,8 @@
 //       PaymentState.java  sealed phantom states: Initiated, Authorized, Captured, Refunded
 //       removes tests: "fabricated authorized payment", "fabricated captured payment"
 //
+//   @TODO: Determine if this really can really only resolve with the type-theoretical power at stage 5. Couldn't this be handled at stage 1 with simple class based typestate?
+//   Note that examples at each stage MUST demonstrate how the type-theoretical power of that stage permits handling cases which could not be handled before! 
 //   ✗ Wrong capture amount — amount taken from wrong variable  [was stage 04]
 //       Payment.java:78  capture() reads amount from Payment<Authorized> directly
 //       There is no separate amount parameter; the only source is the authorized payment.
@@ -26,8 +29,9 @@
 //       → state is in the type; no runtime guard and no test for it needed
 //         (contrast with a typical state-machine enum approach)
 //
+// @TODO: For this and other stages - why no gaps closed by stage 7?
 // REMAINING GAPS — still compilable here (closed by later stages):
-//
+// 
 //   ✗ Per-flow binding — any Payment<Authorized> accepted by capture
 //       capture(Payment<Authorized>) accepts any Payment<Authorized>, regardless of which flow
 //       produced it. Java's phantom generics carry no flow identity. Two concurrent payment
@@ -37,7 +41,7 @@
 //   ✗ Wrong approval method chosen for the assessed risk level  [closed at stage 06]
 //       Payment.java:49  authorizeAuto(Payment<Initiated>) — Initiated carries no risk level
 //       A developer assessing MEDIUM risk can still call authorizeAuto() instead of authorize3DS().
-//       Demo: badDemo_WrongApprovalMethodStillPossible()
+//       Demo: buggyDemo_WrongApprovalMethodStillPossible()
 //
 //   ✗ Zero-quantity order line is a runtime check  [closed at stage 06]
 //       OrderLine.java:14  OrderLine.of(...) returns Result.err for qty ≤ 0
@@ -163,7 +167,7 @@ public class Demo {
     //   closed at stage 6: boundary constraints — PositiveInt refined type
     //   closed at stage 7: protocol variant selection for runtime risk assessment
 
-    static void badDemo_WrongApprovalMethodStillPossible() {
+    static void buggyDemo_WrongApprovalMethodStillPossible() {
         section("BAD DEMO — Wrong Approval Method Still Compiles (remaining gap)");
         // (closed at stage 6: Approval[R] phantom indexing — AutoApproved cannot satisfy Approval[MediumRisk])
         mediumRiskCardOrder().map(order -> {
@@ -187,6 +191,6 @@ public class Demo {
         demo2();
         demo3();
         demo4_TypestateCompileErrors();
-        badDemo_WrongApprovalMethodStillPossible();
+        buggyDemo_WrongApprovalMethodStillPossible();
     }
 }

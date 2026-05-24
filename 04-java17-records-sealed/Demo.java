@@ -13,7 +13,7 @@
 //       PaymentMethod.java:5   sealed interface PaymentMethod permits Card, Wallet, Invoice
 //       PaymentService.java:45  switch(method) in refund() — Invoice case is explicit and required
 //       No "default" can silently permit a refund on an invoice order.
-//       removes tests: "invoice cannot be refunded"
+//       removes tests: "invoice cannot be refunded" @TODDO: determine if this is a realistic example. Why would refunds not be possible for (completed) invoice payments?
 //
 // CODE REMOVED — records eliminate boilerplate:
 //
@@ -26,7 +26,7 @@
 //   ✗ Lifecycle ordering: Capture constructible without Authorization  [closed at stage 05]
 //       PaymentService.java:33  record Capture(...) — plain record; anyone can construct one
 //       PaymentService.java:41  capture(Authorization) accepts any Authorization instance
-//       Demo: badDemo_LifecycleStillUnchecked()
+//       Demo: buggyDemo_LifecycleStillUnchecked()
 //
 //   ✗ Medium branch required, but 3DS inside it is not enforced  [closed at stage 06]
 //       PaymentService.java:69  Medium case must exist, but its body is unchecked
@@ -126,7 +126,7 @@ public class Demo {
     //   closed at stage 6: right auth method for risk level; boundary constraints
     //   closed at stage 7: protocol variant selection for runtime risk assessment
 
-    static void badDemo_LifecycleStillUnchecked() {
+    static void buggyDemo_LifecycleStillUnchecked() {
         section("BAD DEMO — Lifecycle Order Not Enforced (Alice and Charlie's bug)");
         // (closed at stage 5: phantom generics make Payment<Captured> unreachable without Payment<Authorized>)
         lowRiskCardOrder().map(order -> {
@@ -146,6 +146,6 @@ public class Demo {
         demo2();
         demo3();
         demo4();
-        badDemo_LifecycleStillUnchecked();
+        buggyDemo_LifecycleStillUnchecked();
     }
 }

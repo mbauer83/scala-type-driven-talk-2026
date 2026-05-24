@@ -27,6 +27,8 @@ import protocol.*
 // Client sends Order first, then receives results.
 // Server gets Channel[Dual[P]], so its operations are the exact inverse.
 
+// @TODO: For this and other demos - determine if it is realistic that refund is dependent on risk level. Maximally, a manual review step migh tbe required, no?
+
 // Low-risk client: send Order → receive Snapshot → receive Auth → receive Capture → choose[refund | done]
 type LowRiskProtocol =
   Send[Order,
@@ -90,7 +92,7 @@ private object DualityChecks:
           Receive[ThreeDSProof,
             Send[AuthorizedPayment[MediumRisk],
               Send[CapturedPayment,
-                Offer[Send[RefundedPayment, End], End]]]]]]]
+                Offer[Send[RefundedPayment, End], End]]]]]]]]
 
   summon[Dual[HighRiskProtocol] =:=
     Receive[Order,

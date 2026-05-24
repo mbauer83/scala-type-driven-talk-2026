@@ -10,11 +10,13 @@
 /project/project/
 **/target/
 **/project/target/
+**/project/project/
 
 # Metals / Bloop / BSP
 .bloop/
 .metals/
 .bsp/
+**/metals.sbt
 
 # IntelliJ
 .idea/

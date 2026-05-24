@@ -1,3 +1,5 @@
+
+// @TODO: Remove or combine into what is currently stage 4 (so we can emphasize the increased type-safety and make use of the more efficient representation without spending almost any time explaining it)
 // ─── Stage 03: Java 8 — function pipelines ───────────────────────────────────
 // Compile and run: javac *.java && java Demo
 //
@@ -24,7 +26,7 @@
 //   ✗ Risk result not wired to the required pipeline step  [closed at stage 04]
 //       RiskRule.java:47  productionRiskEngine() returns a RiskDecision value
 //       Nothing prevents passing that value to the wrong PaymentStep composition.
-//       Demo: badDemo_RuleStillNotWiredToStep()
+//       Demo: buggyDemo_RuleStillNotWiredToStep()
 //
 //   ✗ Lifecycle ordering: steps can be composed in the wrong order  [closed at stage 05]
 //       PaymentStep.java:13  andThen is unconstrained — captureStep().andThen(authorizeStep())
@@ -138,7 +140,7 @@ public class Demo {
     //   closed at stage 6: right auth method for risk level; boundary constraints
     //   closed at stage 7: protocol variant selection for runtime risk assessment
 
-    static void badDemo_RuleStillNotWiredToStep() {
+    static void buggyDemo_RuleStillNotWiredToStep() {
         section("BAD DEMO — Risk Decision Not Wired to Required Step (Bob's bug)");
         // (closed at stage 4: sealed RiskDecision exhaustive switch forces correct pipeline selection)
         mediumRiskCardOrder().map(order -> {
@@ -164,6 +166,6 @@ public class Demo {
         demo1();
         demo2();
         demo3();
-        badDemo_RuleStillNotWiredToStep();
+        buggyDemo_RuleStillNotWiredToStep();
     }
 }

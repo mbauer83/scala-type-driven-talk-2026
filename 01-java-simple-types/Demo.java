@@ -153,11 +153,12 @@ public class Demo {
     static void gainDemo_SmartConstructors() {
         section("GAIN — Nominal Types and Smart Constructors");
         // Nominal typing: wrong-shaped argument is a compile error
-        //   capture(order)              -- TYPE ERROR: Order is not Authorization
+        //  capture(order)              -- TYPE ERROR: Order is not Authorization
         //
         // Smart-constructor pattern: private constructors prevent fabrication
-        //   new Authorization(...)      -- COMPILE ERROR: constructor is private
-        //   new Capture(...)            -- COMPILE ERROR: constructor is private
+        //   -- COMPILE ERROR: constructor is private --
+        //   new Authorization("some-order-id", "some-fake-auth-code", 999999999, "fake approval");     
+        //   new Capture("my-capture-id", "order-id", 999999999);
         //
         // Consequence: capture() requires a real Authorization from authorize() —
         // you cannot skip steps, because you cannot fabricate the required value.
@@ -168,7 +169,7 @@ public class Demo {
         outcome("GAIN: shape errors from nominal types; fabrication blocked by smart constructors.");
     }
 
-    static void badDemo_Skip3DS() {
+    static void buggyDemo_Skip3DS() {
         section("BAD DEMO — Medium-Risk Order Skips 3DS (still possible)");
         // (closed at stage 4: sealed RiskDecision forces exhaustive handling of every risk variant)
         Order order = mediumRiskCardOrder();
@@ -184,7 +185,7 @@ public class Demo {
         outcome("BUG: risk result not wired into the required next step — medium-risk processed as low-risk.");
     }
 
-    static void badDemo_InvalidInput() {
+    static void buggyDemo_InvalidInput() {
         section("BAD DEMO — Invalid Input (zero quantity throws at runtime)");
         // (closed at stage 6: PositiveInt refined type makes zero quantity a compile error for literals)
         try {
@@ -201,7 +202,7 @@ public class Demo {
         demo2();
         demo3();
         gainDemo_SmartConstructors();
-        badDemo_Skip3DS();
-        badDemo_InvalidInput();
+        buggyDemo_Skip3DS();
+        buggyDemo_InvalidInput();
     }
 }

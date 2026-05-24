@@ -86,6 +86,7 @@ object PaymentDemo:
   // Each server handler is typed to the DUAL of the client's protocol.
   // Sending when the protocol says Receive is a compile error.
 
+  // @TODO: Why do these demos compile if we remove the `.finish()` invocations? Should the type of the server be `End`? Is there a better way to enfore progress and completion?
   def serverLowRisk(ch: Channel[Dual[LowRiskProtocol]]): Unit =
     val (order, ch1)      = ch.receive()
     val snapshot          = riskSnapshotFor(order)

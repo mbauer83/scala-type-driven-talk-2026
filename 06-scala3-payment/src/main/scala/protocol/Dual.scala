@@ -11,6 +11,12 @@ type Dual[P <: Protocol] <: Protocol = P match
   case Choose[l, r]  => Offer[Dual[l], Dual[r]]
   case Offer[l, r]   => Choose[Dual[l], Dual[r]]
 
+// example:
+// type X = Send[Int, Offer[End, Send[String, End]]]
+// type Y = Dual[X]  // Y is Receive[Int, Choose[End, Receive[String, End]]]
+
+
+// This is a type-level test suite: if any of these fail to compile, the Dual type is not correctly defined.
 private object DualityProofs:
   summon[Dual[End] =:= End]
   summon[Dual[Send[Int, End]] =:= Receive[Int, End]]
