@@ -826,6 +826,24 @@ visual regressions only show up by looking.
 - [x] The lambda cube cetz canvas displays inside the `.s-theory` slide chrome next to the axis legend
 - [x] Build still completes in < 10 seconds for the full deck (`typst compile deck.typ deck.pdf`)
 
+### Phase 4B — COMPLETE 2026-05-25
+Slides done: S15–S20, S22–S23, S25–S27, S29–S30
+
+- **S15 (`15-test-spine.typ`)**: `light-slide` — `test-list` (9 rows, all active) + `ladder` (encoded-active: false) + `story-strip` (4 open chips: Alice/Bob/Charlie/Danielle).
+- **S16 (`16-stage0.typ`)**: `stage-opener-slide` [0] — JS baseline; `code-pane(payment.js)` showing authorize/capture functions; IDE Segment 1 speaker notes.
+- **S17 (`17-stage1.typ`)**: `stage-opener-slide` [1] — simple types; `code-pane(Authorization.java)` private constructor + from() factory; highlights on private/factory lines; IDE Segment 2 notes.
+- **S18 (`18-stage2.typ`)**: `stage-opener-slide` [2] — generics; `code-pane(Validator.java)` full interface; IDE Segment 3 notes.
+- **S19 (`19-stage3.typ`)**: `light-slide` — acknowledged, not demoed; `code-pane(Demo.java)` function-pipeline snippet from slide plan; callout marking gap still open.
+- **S20 (`20-stage4.typ`)**: `stage-opener-slide` [4] — sealed types; 3-column grid: `code-pane(RiskDecision.java)` / Gentzen ∨E rule (text) / exhaustive switch; IDE Segment 4 notes with step-by-step live delete.
+- **S22 (`22-bridge.typ`)**: `light-slide` — records→typestate bridge; bad callout showing still-public constructors; closing prompt.
+- **S23 (`23-stage5.typ`)**: `stage-opener-slide` [5] — phantom typestate; `code-pane(Demo.java)` lifecycle steps + commented compile-error lines; `signature-card` method table; IDE Segment 5 notes.
+- **S25 (`25-java-ceiling.typ`)**: `light-slide` — two-column table (can vs cannot) with ✓/✗ marks; closing bad callout.
+- **S26 (`26-stage6.typ`)**: `stage-opener-slide` [6] — Scala 3; 2-column grid: mechanisms table (6 rows) + `code-pane(Domain.scala)` showing `authorize[R]`; IDE Segment 6a full step-by-step notes.
+- **S27 (`27-session-types.typ`)**: `light-slide` — 2-column layout: protocol explanation + duality callout left; `code-pane(Derivation.scala)` LowRiskProtocol + `summon[Dual[...] =:= ...]` right; IDE Segment 6b notes.
+- **S29 (`29-stage7-bridge.typ`)**: `stage-opener-slide` [7] — Scala ceiling bad callout + `raw` protocolFromSnapshot/openSession + `raw` QTT multiplicity annotations.
+- **S30 (`30-mltt-running.typ`)**: `theory-slide` — 2-column grid: Π-elimination rule + `code-pane(PaymentRules.idr)` left; Σ-introduction rule + `code-pane(PaymentDomain.idr)` right; footer verbatim; IDE Segment 7 full notes.
+- **Build note**: `ladder` takes positional args (not named); `stage-opener-slide` all four args positional.
+
 ### Phase 4A — COMPLETE 2026-05-25
 Slides done: S1–S14, S35, Q&A
 
