@@ -47,9 +47,11 @@
 //       A developer assessing MEDIUM risk can still call authorizeAuto() instead of authorize3DS().
 //       Demo: buggyDemo_WrongApprovalMethodStillPossible()
 //
-//   ✗ Zero-quantity order line is a runtime check  [closed at stage 06]
+//   ✗ Boundary predicates are runtime checks  [closed at stage 06]
 //       OrderLine.java:14  OrderLine.of(...) returns Result.err for qty ≤ 0
-//       A literal 0 is not rejected until runtime; Scala's PositiveInt rejects it at compile time.
+//       Empty IDs, out-of-range amounts, and similar value predicates are
+//       not rejected until runtime. Stage 6 lifts these into the type itself
+//       (e.g. NonEmptyString = String :| MinLength[1] for identifiers).
 //
 //   ✗ Client/server protocol structure lives only in documentation  [closed at stage 06]
 //       No type connects the sequence of authorize → capture → refund calls
@@ -151,21 +153,32 @@ public class Demo {
         outcome("Manual review approval required; invoice refund rejected.");
     }
 
-    // @TODO: can't uncomment because code is in "notes" and fails to construct "order" first
+    // Live demo: uncomment any of the lines marked "← UNCOMMENT" to see the
+    // typestate compile error fire. Each one corresponds to a lifecycle
+    // transition the type system refuses.
     static void demo4_TypestateCompileErrors() {
-        section("DEMO 4 — What Would Be Compile Errors");
-        note("The following lines, if uncommented, would fail to compile:");
-        note("");
-        note("  Payment<PaymentState.Initiated> init = Payment.initiate(order);");
-        note("  Payment.capture(init);");
-        note("  // Error: capture(Payment<Authorized>) — cannot apply to Payment<Initiated>");
-        note("");
-        note("  Payment<PaymentState.Authorized> auth = Payment.authorizeAuto(init);");
-        note("  Payment.refund(auth, true);");
-        note("  // Error: refund(Payment<Captured>) — cannot apply to Payment<Authorized>");
-        note("");
-        note("  Payment.authorizeAuto(Payment.authorizeAuto(init));");
-        note("  // Error: authorizeAuto(Payment<Initiated>) — cannot apply to Payment<Authorized>");
+        section("DEMO 4 — Live: Try to Skip a Lifecycle Step");
+        lowRiskCardOrder().map(order -> {
+            Payment<PaymentState.Initiated>  init       = Payment.initiate(order);
+            Payment<PaymentState.Authorized> authorized = Payment.authorizeAuto(init);
+            Payment<PaymentState.Captured>   captured   = Payment.capture(authorized);
+
+            // Uncomment any line below — none of these compile.
+            // The expected error message is shown above each.
+
+            // error: capture(Payment<Authorized>) — cannot be applied to (Payment<Initiated>)
+            // Payment.capture(init);                                    // ← UNCOMMENT
+
+            // error: refund(Payment<Captured>) — cannot be applied to (Payment<Authorized>)
+            // Payment.refund(authorized, RefundMechanism.InstantReversal);  // ← UNCOMMENT
+
+            // error: authorizeAuto(Payment<Initiated>) — cannot be applied to (Payment<Authorized>)
+            // Payment.authorizeAuto(authorized);                        // ← UNCOMMENT
+
+            note("Captured: " + captured);
+            note("With every line above commented out, the demo compiles and runs.");
+            return captured;
+        });
         outcome("Lifecycle ordering is encoded in type parameters: capture-before-auth is gone.");
     }
 
@@ -174,7 +187,8 @@ public class Demo {
     // Stage-closure map (first = what closed at stage 06 next):
     //   closed at stage 6: right auth method for risk level — phantom indexing on Approval[R]
     //                   makes authorize(mediumOrder, AutoApproved) a type error
-    //   closed at stage 6: boundary constraints — PositiveInt refined type
+    //   closed at stage 6: boundary constraints — refined types (e.g. NonEmptyString
+    //                   for OrderId / CustomerId) move runtime checks into the type
     //   closed at stage 7: protocol variant selection for runtime risk assessment
 
     static void buggyDemo_WrongApprovalMethodStillPossible() {

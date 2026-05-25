@@ -52,7 +52,8 @@
 package demos
 
 import protocol.*
-import runtime.{Transport, Channel, Logger}
+import runtime.{Transport, Channel}
+import runtime.Logger.{section, outcome, info as log}
 import payment.*
 import io.github.iltotore.iron.*
 import io.github.iltotore.iron.constraint.collection.*
@@ -141,56 +142,41 @@ object PaymentDemo:
   // ─── Client handlers ────────────────────────────────────────────────────────
 
   def clientLowRisk(order: Order, refundRequested: Boolean, ch: Channel[LowRiskProtocol]): Unit =
-    Logger.info(s"Policy:  ${Interpretations.describe(policyFromOrder(order))}")
-    val ch1               = ch.send(order)
-    val (snapshot, ch2)   = ch1.receive()   // RiskSnapshot from server
-    Logger.info(s"Snapshot: $snapshot")
-    val (auth, ch3)       = ch2.receive()   // AuthorizedPayment[LowRisk]
-    Logger.info(s"Auth: $auth")
-    val (cap, ch4)        = ch3.receive()   // CapturedPayment
-    Logger.info(s"Cap:  $cap")
+    log(s"Policy: ${Interpretations.describe(policyFromOrder(order))}")
+    val ch1             = ch.send(order)
+    val (snapshot, ch2) = ch1.receive()
+    val (auth, ch3)     = ch2.receive()
+    val (cap, ch4)      = ch3.receive()
     if refundRequested then
-      val ch5 = ch4.selectLeft()
-      val (refunded, done) = ch5.receive()
-      Logger.info(s"Refunded: $refunded")
+      val (refunded, done) = ch4.selectLeft().receive()
       done.finish()
     else
       ch4.selectRight().finish()
 
   def clientMediumRisk(order: Order, refundRequested: Boolean, ch: Channel[MediumRiskProtocol]): Unit =
-    Logger.info(s"Policy:  ${Interpretations.describe(policyFromOrder(order))}")
-    val ch1               = ch.send(order)
-    val (snapshot, ch2)   = ch1.receive()   // RiskSnapshot from server
-    Logger.info(s"Snapshot: $snapshot")
-    val (challenge, ch3)  = ch2.receive()   // ThreeDSChallenge
-    Logger.info(s"Challenge received: $challenge")
-    val proof             = ThreeDSProof(challenge.challengeId, liabilityShift = true)
-    val ch4               = ch3.send(proof)
-    val (auth, ch5)       = ch4.receive()   // AuthorizedPayment[MediumRisk]
-    Logger.info(s"Auth: $auth")
-    val (cap, ch6)        = ch5.receive()   // CapturedPayment
-    Logger.info(s"Cap:  $cap")
+    log(s"Policy: ${Interpretations.describe(policyFromOrder(order))}")
+    val ch1              = ch.send(order)
+    val (snapshot, ch2)  = ch1.receive()
+    val (challenge, ch3) = ch2.receive()
+    val proof            = ThreeDSProof(challenge.challengeId, liabilityShift = true)
+    val ch4              = ch3.send(proof)
+    val (auth, ch5)      = ch4.receive()
+    val (cap, ch6)       = ch5.receive()
     if refundRequested then
-      val ch7 = ch6.selectLeft()
-      val (refunded, done) = ch7.receive()
-      Logger.info(s"Refunded: $refunded")
+      val (refunded, done) = ch6.selectLeft().receive()
       done.finish()
     else
       ch6.selectRight().finish()
 
   def clientHighRisk(order: Order, ch: Channel[HighRiskProtocol]): Unit =
-    Logger.info(s"Policy:  ${Interpretations.describe(policyFromOrder(order))}")
-    val ch1               = ch.send(order)
-    val (snapshot, ch2)   = ch1.receive()   // RiskSnapshot from server
-    Logger.info(s"Snapshot: $snapshot")
-    val (reviewReq, ch3)  = ch2.receive()   // ManualReviewRequest
-    Logger.info(s"Manual review request: $reviewReq")
-    val reviewApproval    = ManualReviewApproval("ops-reviewer", "KYC and invoice matched")
-    val ch4               = ch3.send(reviewApproval)
-    val (auth, ch5)       = ch4.receive()   // AuthorizedPayment[HighRisk]
-    Logger.info(s"Auth: $auth")
-    val (cap, done)       = ch5.receive()   // CapturedPayment
-    Logger.info(s"Cap:  $cap")
+    log(s"Policy: ${Interpretations.describe(policyFromOrder(order))}")
+    val ch1              = ch.send(order)
+    val (snapshot, ch2)  = ch1.receive()
+    val (reviewReq, ch3) = ch2.receive()
+    val reviewApproval   = ManualReviewApproval("ops-reviewer", "KYC and invoice matched")
+    val ch4              = ch3.send(reviewApproval)
+    val (auth, ch5)      = ch4.receive()
+    val (cap, done)      = ch5.receive()
     done.finish()
 
   // ─── Scenario runner ─────────────────────────────────────────────────────────
@@ -216,152 +202,152 @@ object PaymentDemo:
   // ─── Demos ──────────────────────────────────────────────────────────────────
 
   def demo1(): Unit =
-    Logger.section("DEMO 1 — Low-Risk Card Payment (Approval[LowRisk] required)")
+    section("DEMO 1 — Low-Risk Card Payment (Approval[LowRisk] required)")
     lowRiskOrder match
-      case Left(err)    => Logger.info(s"Order failed: $err")
+      case Left(err)    => log(s"Order failed: $err")
       case Right(order) =>
-        Logger.info(s"Order total: ${order.totalCents}c")
+        log(s"Order total: ${order.totalCents}c")
         runLowRisk(order, refundRequested = false)
-        Logger.outcome("Low-risk: Approval[LowRisk] enforces AutoApproved; protocol is compile-checked.")
+        outcome("Low-risk: Approval[LowRisk] enforces AutoApproved; protocol is compile-checked.")
 
   def demo2(): Unit =
-    Logger.section("DEMO 2 — Medium-Risk Card Payment With 3DS (Approval[MediumRisk] required)")
+    section("DEMO 2 — Medium-Risk Card Payment With 3DS (Approval[MediumRisk] required)")
     mediumRiskOrder match
-      case Left(err)    => Logger.info(s"Order failed: $err")
+      case Left(err)    => log(s"Order failed: $err")
       case Right(order) =>
-        Logger.info(s"Order total: ${order.totalCents}c")
+        log(s"Order total: ${order.totalCents}c")
         runMediumRisk(order, refundRequested = true)
-        Logger.outcome("Medium-risk: ThreeDSApproved(proof) required; AutoApproved is a compile error here.")
+        outcome("Medium-risk: ThreeDSApproved(proof) required; AutoApproved is a compile error here.")
 
   def demo3(): Unit =
-    Logger.section("DEMO 3 — High-Risk Invoice With Manual Review (Approval[HighRisk] required)")
+    section("DEMO 3 — High-Risk Invoice With Manual Review (Approval[HighRisk] required)")
     highRiskOrder match
-      case Left(err)    => Logger.info(s"Order failed: $err")
+      case Left(err)    => log(s"Order failed: $err")
       case Right(order) =>
-        Logger.info(s"Order total: ${order.totalCents}c")
+        log(s"Order total: ${order.totalCents}c")
         runHighRisk(order)
-        Logger.outcome("High-risk: ReviewerApproved required; invoice has no refund branch in protocol.")
+        outcome("High-risk: ReviewerApproved required; invoice has no refund branch in protocol.")
 
   def demo4(): Unit =
-    Logger.section("DEMO 4 — Boundary Refinement: NonEmptyString-Refined Identifiers")
-    Logger.info(s"Order.of empty orderId    → ${Order.of("", "cust-x", List(OrderLine.of("X", 1000, 1)), PaymentMethod.Card("t"))}")
-    Logger.info(s"Order.of empty customerId → ${Order.of("ord-x", "", List(OrderLine.of("X", 1000, 1)), PaymentMethod.Card("t"))}")
-    Logger.info(s"Order.of empty lines      → ${Order.of("ord-x", "cust-x", Nil, PaymentMethod.Card("t"))}")
-    Logger.info("")
-    Logger.info("Iron compile-time literal check:")
+    section("DEMO 4 — Boundary Refinement: NonEmptyString-Refined Identifiers")
+    log(s"Order.of empty orderId    → ${Order.of("", "cust-x", List(OrderLine.of("X", 1000, 1)), PaymentMethod.Card("t"))}")
+    log(s"Order.of empty customerId → ${Order.of("ord-x", "", List(OrderLine.of("X", 1000, 1)), PaymentMethod.Card("t"))}")
+    log(s"Order.of empty lines      → ${Order.of("ord-x", "cust-x", Nil, PaymentMethod.Card("t"))}")
+    log("")
+    log("Iron compile-time literal check:")
     val validId: NonEmptyString = "ord-001".refineUnsafe[MinLength[1]]
-    Logger.info(s"  \"ord-001\".refineUnsafe[MinLength[1]] → NonEmptyString(${validId.value})  // OK at COMPILE TIME")
-    Logger.info(s"  \"\".refineUnsafe[MinLength[1]]        ← DOES NOT COMPILE for literal \"\" (try it)")
-    Logger.info(s"  // 'Assertion failed: Should have a min length of 1' — at compile time")
-    Logger.info("")
-    Logger.info("Java boundary validation: an empty orderId may slip through; rejected only at the DB layer.")
-    Logger.info("Scala+iron: OrderId.of(\"\") returns Left at the entry boundary; downstream code never sees it.")
-    Logger.outcome("Refined type: the non-empty predicate lives in the type. Empty IDs are rejected at the boundary.")
+    log(s"  \"ord-001\".refineUnsafe[MinLength[1]] → NonEmptyString(${validId.value})  // OK at COMPILE TIME")
+    log(s"  \"\".refineUnsafe[MinLength[1]]        ← DOES NOT COMPILE for literal \"\" (try it)")
+    log(s"  // 'Assertion failed: Should have a min length of 1' — at compile time")
+    log("")
+    log("Java boundary validation: an empty orderId may slip through; rejected only at the DB layer.")
+    log("Scala+iron: OrderId.of(\"\") returns Left at the entry boundary; downstream code never sees it.")
+    outcome("Refined type: the non-empty predicate lives in the type. Empty IDs are rejected at the boundary.")
 
   def demo5(): Unit =
-    Logger.section("DEMO 5 — Policy DSL: Same Tree, Multiple Interpretations")
+    section("DEMO 5 — Policy DSL: Same Tree, Multiple Interpretations")
     for order <- lowRiskOrder do
       val policy = policyFromOrder(order)
-      Logger.info(s"Low-risk  policy: ${Interpretations.describe(policy)}")
-      Logger.info(s"Low-risk  analysis: ${Interpretations.analyze(policy)}")
+      log(s"Low-risk  policy: ${Interpretations.describe(policy)}")
+      log(s"Low-risk  analysis: ${Interpretations.analyze(policy)}")
     for order <- mediumRiskOrder do
       val policy = policyFromOrder(order)
-      Logger.info(s"Medium-risk policy: ${Interpretations.describe(policy)}")
-      Logger.info(s"Medium-risk analysis: ${Interpretations.analyze(policy)}")
+      log(s"Medium-risk policy: ${Interpretations.describe(policy)}")
+      log(s"Medium-risk analysis: ${Interpretations.analyze(policy)}")
     for order <- highRiskOrder do
       val policy = policyFromOrder(order)
-      Logger.info(s"High-risk policy: ${Interpretations.describe(policy)}")
-      Logger.info(s"High-risk analysis: ${Interpretations.analyze(policy)}")
-    Logger.outcome("One Policy tree → human description, analysis, protocol selection. No repeated recursion.")
+      log(s"High-risk policy: ${Interpretations.describe(policy)}")
+      log(s"High-risk analysis: ${Interpretations.analyze(policy)}")
+    outcome("One Policy tree → human description, analysis, protocol selection. No repeated recursion.")
 
   def demo6_Ceiling(): Unit =
-    Logger.section("DEMO 6 — The Scala Ceiling: Runtime-to-Type Bridge")
-    Logger.info("In Scala, protocol variants are pre-declared at compile time:")
-    Logger.info("  type LowRiskProtocol    = Receive[Order, Send[RiskSnapshot, ...]]")
-    Logger.info("  type MediumRiskProtocol = Receive[Order, Send[RiskSnapshot, Send[ThreeDSChallenge, ...]]]")
-    Logger.info("  type HighRiskProtocol   = Receive[Order, Send[RiskSnapshot, Send[ManualReviewRequest, ...]]]")
-    Logger.info("")
-    Logger.info("Selection happens at runtime: risk result → pick from the fixed menu.")
-    Logger.info("")
-    Logger.info("In Idris 2:")
-    Logger.info("  protocolDerivedFrom : Order -> SessionType")
-    Logger.info("  The protocol TYPE is computed from the runtime order value directly.")
-    Logger.info("  No pre-declared menu is needed. The type system checks the result.")
-    Logger.info("")
-    Logger.info("Scala's remaining bridge: ProtocolVariant is a closed ADT that stands in")
-    Logger.info("  for what Idris can express as a dependent function type.")
-    Logger.outcome("The ceiling is visible. Idris 2 removes it by letting types depend on values.")
+    section("DEMO 6 — The Scala Ceiling: Runtime-to-Type Bridge")
+    log("In Scala, protocol variants are pre-declared at compile time:")
+    log("  type LowRiskProtocol    = Receive[Order, Send[RiskSnapshot, ...]]")
+    log("  type MediumRiskProtocol = Receive[Order, Send[RiskSnapshot, Send[ThreeDSChallenge, ...]]]")
+    log("  type HighRiskProtocol   = Receive[Order, Send[RiskSnapshot, Send[ManualReviewRequest, ...]]]")
+    log("")
+    log("Selection happens at runtime: risk result → pick from the fixed menu.")
+    log("")
+    log("In Idris 2:")
+    log("  protocolDerivedFrom : Order -> SessionType")
+    log("  The protocol TYPE is computed from the runtime order value directly.")
+    log("  No pre-declared menu is needed. The type system checks the result.")
+    log("")
+    log("Scala's remaining bridge: ProtocolVariant is a closed ADT that stands in")
+    log("  for what Idris can express as a dependent function type.")
+    outcome("The ceiling is visible. Idris 2 removes it by letting types depend on values.")
 
   def demo7_Scala3Features(): Unit =
-    Logger.section("DEMO 7 — What Each Feature Prevents")
-    Logger.info("Format: [feature] → [bad code] → [compiler error] → [bug class eliminated]")
-    Logger.info("")
+    section("DEMO 7 — What Each Feature Prevents")
+    log("Format: [feature] → [bad code] → [compiler error] → [bug class eliminated]")
+    log("")
 
-    Logger.info("── 1. Phantom type indexing: Approval[R <: Risk] ────────────────────")
-    Logger.info("  BAD:  authorize(mediumRiskOrder, AutoApproved)")
-    Logger.info("  ERROR: Found Approval[LowRisk], Required Approval[MediumRisk]")
-    Logger.info("  PREVENTS: Bob's bug — auto-approving a medium-risk order, skipping 3DS.")
-    Logger.info("  The approval constructor IS the 3DS proof. Skipping it is unrepresentable.")
-    Logger.info("")
+    log("── 1. Phantom type indexing: Approval[R <: Risk] ────────────────────")
+    log("  BAD:  authorize(mediumRiskOrder, AutoApproved)")
+    log("  ERROR: Found Approval[LowRisk], Required Approval[MediumRisk]")
+    log("  PREVENTS: Bob's bug — auto-approving a medium-risk order, skipping 3DS.")
+    log("  The approval constructor IS the 3DS proof. Skipping it is unrepresentable.")
+    log("")
 
-    Logger.info("── 2. Refined types: NonEmptyString = String :| MinLength[1] ────────")
-    Logger.info("  BAD:  val id: NonEmptyString = \"\".refineUnsafe[MinLength[1]]  // literal \"\"")
-    Logger.info("  ERROR: Assertion failed: Should have a min length of 1  (compile time)")
-    Logger.info("  BAD:  val oid: OrderId = rawString  // plain String as OrderId")
-    Logger.info("  ERROR: Found String, Required OrderId  (refinement + opacity)")
-    Logger.info("  PREVENTS: an empty orderId slipping past the boundary and silently grouping")
-    Logger.info("  all empty-ID records under a single key downstream. The predicate lives in the")
-    Logger.info("  type; no defensive test on every consumer is needed.")
-    Logger.info("")
+    log("── 2. Refined types: NonEmptyString = String :| MinLength[1] ────────")
+    log("  BAD:  val id: NonEmptyString = \"\".refineUnsafe[MinLength[1]]  // literal \"\"")
+    log("  ERROR: Assertion failed: Should have a min length of 1  (compile time)")
+    log("  BAD:  val oid: OrderId = rawString  // plain String as OrderId")
+    log("  ERROR: Found String, Required OrderId  (refinement + opacity)")
+    log("  PREVENTS: an empty orderId slipping past the boundary and silently grouping")
+    log("  all empty-ID records under a single key downstream. The predicate lives in the")
+    log("  type; no defensive test on every consumer is needed.")
+    log("")
 
-    Logger.info("── 3. Path-dependent types: CanSend[P]#Msg ──────────────────────────")
-    Logger.info("  BAD:  ch.send(\"not an Order\")  // on Channel[Send[Order, ...]]")
-    Logger.info("  ERROR: Found String, Required CanSend[Send[Order,...]].Msg (= Order)")
-    Logger.info("  BAD:  ch.send(someOrder)       // on Channel[Receive[Order, ...]]")
-    Logger.info("  ERROR: No given instance of CanSend[Receive[Order, ...]]")
-    Logger.info("  PREVENTS: sending the wrong payload or sending on a receive-step channel.")
-    Logger.info("  The message type is derived from the protocol — not a parameter you can get wrong.")
-    Logger.info("")
+    log("── 3. Path-dependent types: CanSend[P]#Msg ──────────────────────────")
+    log("  BAD:  ch.send(\"not an Order\")  // on Channel[Send[Order, ...]]")
+    log("  ERROR: Found String, Required CanSend[Send[Order,...]].Msg (= Order)")
+    log("  BAD:  ch.send(someOrder)       // on Channel[Receive[Order, ...]]")
+    log("  ERROR: No given instance of CanSend[Receive[Order, ...]]")
+    log("  PREVENTS: sending the wrong payload or sending on a receive-step channel.")
+    log("  The message type is derived from the protocol — not a parameter you can get wrong.")
+    log("")
 
-    Logger.info("── 4. Compiler-derived evidence: =:= and finish() ───────────────────")
-    Logger.info("  BAD:  ch.finish()  // while ch: Channel[Send[RiskSnapshot, End]]")
-    Logger.info("  ERROR: Cannot prove that Send[RiskSnapshot, End] =:= End")
-    Logger.info("  PREVENTS: closing a channel mid-conversation — protocol truncation.")
-    Logger.info("  The compiler constructs the proof; there is no runtime guard to forget.")
-    Logger.info("")
-    Logger.info("  AS A TEST: summon[Dual[LowRiskProtocol] =:= Receive[Order, ...]]")
-    Logger.info("  This compiles or it does not. No test method, no test runner needed.")
-    Logger.info("  Client/server contract is a proof obligation discharged at every build.")
-    Logger.info("")
+    log("── 4. Compiler-derived evidence: =:= and finish() ───────────────────")
+    log("  BAD:  ch.finish()  // while ch: Channel[Send[RiskSnapshot, End]]")
+    log("  ERROR: Cannot prove that Send[RiskSnapshot, End] =:= End")
+    log("  PREVENTS: closing a channel mid-conversation — protocol truncation.")
+    log("  The compiler constructs the proof; there is no runtime guard to forget.")
+    log("")
+    log("  AS A TEST: summon[Dual[LowRiskProtocol] =:= Receive[Order, ...]]")
+    log("  This compiles or it does not. No test method, no test runner needed.")
+    log("  Client/server contract is a proof obligation discharged at every build.")
+    log("")
 
-    Logger.info("── 5. Match types + duality: Dual[P] ────────────────────────────────")
-    Logger.info("  BAD:  def badServer(ch: Channel[Dual[LowRiskProtocol]]): Unit =")
-    Logger.info("          ch.send(someOrder)   // wrong: Dual says receive first")
-    Logger.info("  ERROR: No given instance of CanSend[Receive[Order, ...]]")
-    Logger.info("  PREVENTS: Danielle's bug — server and client drift out of sync.")
-    Logger.info("  Dual[P] is computed by the compiler; a mismatched server does not compile.")
-    Logger.info("  Duality is one application of match types — the mechanism is general.")
-    Logger.info("")
+    log("── 5. Match types + duality: Dual[P] ────────────────────────────────")
+    log("  BAD:  def badServer(ch: Channel[Dual[LowRiskProtocol]]): Unit =")
+    log("          ch.send(someOrder)   // wrong: Dual says receive first")
+    log("  ERROR: No given instance of CanSend[Receive[Order, ...]]")
+    log("  PREVENTS: Danielle's bug — server and client drift out of sync.")
+    log("  Dual[P] is computed by the compiler; a mismatched server does not compile.")
+    log("  Duality is one application of match types — the mechanism is general.")
+    log("")
 
-    Logger.info("── 6. Opaque types: AuthCode, CaptureId, RefundId ───────────────────")
-    Logger.info("  opaque type AuthCode = String; opaque type CaptureId = String")
-    Logger.info("  BAD:  val id: CaptureId = someAuthCode  // both String underneath")
-    Logger.info("  ERROR: Found AuthCode, Required CaptureId")
-    Logger.info("  PREVENTS: lifecycle identifier confusion — no audit ID in a capture field.")
-    Logger.info("  Zero runtime cost. The compiler enforces the distinction.")
-    Logger.info("")
+    log("── 6. Opaque types: AuthCode, CaptureId, RefundId ───────────────────")
+    log("  opaque type AuthCode = String; opaque type CaptureId = String")
+    log("  BAD:  val id: CaptureId = someAuthCode  // both String underneath")
+    log("  ERROR: Found AuthCode, Required CaptureId")
+    log("  PREVENTS: lifecycle identifier confusion — no audit ID in a capture field.")
+    log("  Zero runtime cost. The compiler enforces the distinction.")
+    log("")
 
-    Logger.info("── 7. Higher-kinded types: interpret[F[_]: Functor, A] ───────────────")
-    Logger.info("  def interpret[F[_]: Functor, A](algebra: F[A] => A)(fix: Fix[F]): A")
-    Logger.info("  One Policy tree. describe and analyze use the same catamorphism.")
+    log("── 7. Higher-kinded types: interpret[F[_]: Functor, A] ───────────────")
+    log("  def interpret[F[_]: Functor, A](algebra: F[A] => A)(fix: Fix[F]): A")
+    log("  One Policy tree. describe and analyze use the same catamorphism.")
     for order <- lowRiskOrder do
       val policy = policyFromOrder(order)
-      Logger.info(s"  describe → ${Interpretations.describe(policy)}")
-      Logger.info(s"  analyze  → ${Interpretations.analyze(policy)}")
-    Logger.info("  PREVENTS: divergent duplicate traversals — two functions that should agree")
-    Logger.info("  but drift apart. One fold; the compiler verifies both interpretations fit.")
+      log(s"  describe → ${Interpretations.describe(policy)}")
+      log(s"  analyze  → ${Interpretations.analyze(policy)}")
+    log("  PREVENTS: divergent duplicate traversals — two functions that should agree")
+    log("  but drift apart. One fold; the compiler verifies both interpretations fit.")
 
-    Logger.outcome(
+    outcome(
       "Seven features. Each one eliminates a class of invalid construction or test."
     )
 

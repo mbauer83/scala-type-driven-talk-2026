@@ -191,7 +191,8 @@ public class Demo {
 
     static void buggyDemo_InvalidInput() {
         section("BAD DEMO — Invalid Input (zero quantity throws at runtime)");
-        // (closed at stage 6: PositiveInt refined type makes zero quantity a compile error for literals)
+        // (closed at stage 6: refined types like NonEmptyString lift such predicates
+        //  into the type itself; for literals the check becomes a compile error.)
         try {
             new OrderLine("WIDGET", 1000, 0); // throws IllegalArgumentException
         } catch (IllegalArgumentException e) {

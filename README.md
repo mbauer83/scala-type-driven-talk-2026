@@ -17,8 +17,8 @@ The older root-level Scala booking example and the older unnumbered Idris bookin
 
 ## Talk Docs
 
-- [PAYMENT_TALK_PLAN.md](PAYMENT_TALK_PLAN.md)
-- [TALK_NARRATIVE_GUIDE.md](TALK_NARRATIVE_GUIDE.md)
+- [PRESENTATION_SLIDE_PLAN.md](PRESENTATION_SLIDE_PLAN.md) — the canonical, slide-by-slide plan
+- `slides/` — runnable Typst + cetz sources for figure-heavy slides (Gentzen's ∨ rules, the lambda cube)
 
 ## Current End States
 

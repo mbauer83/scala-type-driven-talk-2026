@@ -2,8 +2,7 @@
 
 This directory is the target end-state for the staged payment examples described in:
 
-- [PAYMENT_TALK_PLAN.md](/home/mb/workspace/scala-type-driven-talk/PAYMENT_TALK_PLAN.md)
-- [TALK_NARRATIVE_GUIDE.md](/home/mb/workspace/scala-type-driven-talk/TALK_NARRATIVE_GUIDE.md)
+- [PRESENTATION_SLIDE_PLAN.md](../PRESENTATION_SLIDE_PLAN.md)
 
 ## Purpose
 
