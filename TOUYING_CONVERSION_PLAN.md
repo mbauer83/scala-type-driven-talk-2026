@@ -826,6 +826,26 @@ visual regressions only show up by looking.
 - [x] The lambda cube cetz canvas displays inside the `.s-theory` slide chrome next to the axis legend
 - [x] Build still completes in < 10 seconds for the full deck (`typst compile deck.typ deck.pdf`)
 
+### Phase 4C — COMPLETE 2026-05-25
+Slides done: S21, S24, S28, S31–S34, A1–A8 (15 slides)
+
+- **S21 (`21-stage4-payoff.typ`)**: `light-slide` — 2-col inline text (✓ CLOSED / ⚠ STILL EXPRESSIBLE); `test-list` (1-3→gone, 4-9→active); `story-strip` (Bob closed).
+- **S24 (`24-stage5-payoff.typ`)**: `light-slide` — 2-col inline text (✓ CLOSED / ⚠ STILL EXPRESSIBLE); `test-list` (1-4→gone, 5-9→active); `story-strip` (Bob+Charlie closed).
+- **S28 (`28-stage6-payoff.typ`)**: `light-slide` — 3-col inline text (✓ BOB / ✓ ALICE / ✓ DANIELLE) + warning line; `test-list` (1-4→gone, 5-7→just-gone, 8-9→active); `story-strip` (all 4 closed).
+- **S31 (`31-stage7-payoff.typ`)**: `light-slide` — compact text line (all closed); `test-list` (all 9→gone); `ladder(encoded-active: true)`.
+- **S32 (`32-the-climb.typ`)**: `light-slide` — custom 7-row summary table + `ladder(encoded-active: true)` + 4-label compact closed grid (replaces story-strip, which overflowed).
+- **S33 (`33-agentic.typ`)**: `light-slide` — agentic-AI bridge prose.
+- **S34 (`34-horizon.typ`)**: `light-slide` — 3 callouts (Lean/Agda/HoTT horizon).
+- **A1 (`a01-tracking.typ`)**: `theory-slide` — effect systems vs capture checking, 2-col comparison.
+- **A2 (`a02-tracking.typ`)**: `light-slide` — linearity across Rust/Haskell/Scala/Idris.
+- **A3 (`a03-tracking.typ`)**: `light-slide` — live demo: `runScenarioFor` code-pane + error output; description trimmed to fit 1 page.
+- **A4 (`a04-tracking.typ`)**: `theory-slide` — History I `beat-grid` (Aristotle → Russell/Whitehead).
+- **A5 (`a05-tracking.typ`)**: `theory-slide` — History II `beat-grid` (Frege → Hilbert+Gödel); descriptions trimmed to 1 line each.
+- **A6 (`a06-tracking.typ`)**: `theory-slide` — History III `beat-grid` (Church/Turing → Coquand/HoTT); descriptions trimmed to 1 line each.
+- **A7 (`a07-tracking.typ`)**: `light-slide` — reading list 2-col grid; trimmed to 5+5 items (dropped ATTPL + Lean/Mathlib) to fit 1 page.
+- **A8 (`a08-singleton.typ`)**: `light-slide` — singleton bridge / match types.
+- **Overflow note**: All 15 Phase 4C slides produce exactly 1 page. Pre-existing overflows in S15/S16/S17/S18/S20/S23/S26 (from Phase 4B) remain and are accepted. Full deck: 61 pages total.
+
 ### Phase 4B — COMPLETE 2026-05-25
 Slides done: S15–S20, S22–S23, S25–S27, S29–S30
 
