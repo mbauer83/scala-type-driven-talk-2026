@@ -18,7 +18,7 @@ displays correctly at 1920×1080, and can be inspected slide-by-slide.
 | 2 | **Custom theme**, not one of Touying's bundled themes. The style we've adopted is specific enough that bundled themes would be a hindrance. |
 | 3 | **1920×1080** output (16:9). Matches the projector target and the CSS source. |
 | 4 | **Fonts:** IBM Plex Sans + JetBrains Mono. Both available via Google Fonts. For Typst we install them locally via fontconfig or use Typst's bundled fallback (`Libertinus Sans` / `DejaVu Sans Mono`) — see Phase 1.2. |
-| 5 | **cetz** for diagrams (already used in `slides/`). Reuse `slide-10-gentzen-or.typ`, `slide-11-lambda-cube.typ`, and a still-to-be-built `slide-12-mltt.typ` as in-deck functions, not external imports. |
+| 5 | **cetz** for diagrams. The three diagram canvases (Gentzen OR rules, Lambda Cube, MLTT Π/Σ rules) are built from scratch in Phase 1 as `touying/diagrams/gentzen-or.typ`, `touying/diagrams/lambda-cube.typ`, and `touying/diagrams/mltt.typ`. The existing files in `slides/` are out of date and must not be used as source material. |
 | 6 | **No animations/transitions** in the first cut. Touying supports them; we add them only if a specific slide genuinely needs them (progressive disclosure in S9 is the leading candidate). |
 | 7 | **PDF + SVG-per-slide output** from one build. Touying's default PDF is the primary; SVG per page is the re-use format. |
 | 8 | **No IDE-mimicking patterns in slides.** The speaker switches to a real IDE for live edits, so slides do not need `.hover-pop` overlays or `.diag-line` strips simulating compiler output. Code-pane patterns are simplified to "snippet display" only — the IDE handoff cue (an eyebrow like "→ Demo 4 in `Demo.java`") is enough. The `.code-pane`'s tab-bar with filename is kept; the diagnostic strip and hover-pop overlay patterns from the CSS source are dropped. |
@@ -47,12 +47,12 @@ touying/
 ├── code-pane.typ          # the IDE-styled code pane with .diag-line + .hover-pop
 ├── diagrams/
 │   ├── gentzen-or.typ     # ported from slides/slide-10-gentzen-or.typ
-│   └── lambda-cube.typ    # ported from slides/slide-11-lambda-cube.typ
+│   └── lambda-cube.typ    # ported from slides/slide-14-lambda-cube.typ
 ├── slides/
 │   ├── 01-title.typ
 │   ├── 02-alice.typ       # one file per slide initially; consolidate later
 │   ├── …
-│   └── 34-close.typ
+│   └── 35-close.typ
 ├── deck.typ               # the main entrypoint that imports and orders all slides
 └── README.md              # build commands, design conventions, troubleshooting
 ```
@@ -225,7 +225,7 @@ matching the CSS reference. Test slides verify edge cases:
 - `.test-list` with 9 items, 4 in `--gone` state, 2 in `--just-gone`, 3 active
 - `.story-strip` with all four chips, 2 in `--closed` state
 - `.ladder` with the `.encoded` rung highlighted
-- `.lcube` reusing `slides/slide-11-lambda-cube.typ` cetz code
+- `.lcube` reusing `slides/slide-14-lambda-cube.typ` cetz code
 - `.beat-grid` with 4 entries (timeline-style)
 
 ### 3.1 — Component signatures
@@ -243,26 +243,24 @@ matching the CSS reference. Test slides verify edge cases:
   // entries: array of (when, what, sub)
 ```
 
-### 3.2 — Reuse of `slides/slide-10-gentzen-or.typ` and `slide-11-lambda-cube.typ`
+### 3.2 — Diagram canvases
 
-Convert each `.typ` into a function that takes the slide chrome from outside
-and returns just the cetz canvas — to be embedded inside a Touying slide as the
-content. Done by:
-1. Stripping the `#set page(...)` from the existing files.
-2. Wrapping the existing `canvas({...})` block in a `#let gentzen-or-canvas = canvas({ ... })`.
-3. Importing into the Touying slide that needs it.
+All three cetz canvases (`gentzen-or.typ`, `lambda-cube.typ`, `mltt.typ`) are
+built from scratch in Phase 1 and live in `touying/diagrams/`. Phase 3 does
+not touch them. Each exposes a single `#let <name>-canvas = canvas({ … })`
+binding that slides import directly.
 
 ### 3.3 — Validation gate
 
 - [ ] 5 pattern-test slides render correctly
 - [ ] The Gentzen cetz canvas displays inside an `.s-theory` slide chrome
-- [ ] The lambda cube cetz canvas displays inside an `.s-theory` slide chrome
-      next to the dependency matrix
+- [ ] The lambda cube cetz canvas (from `touying/diagrams/lambda-cube.typ`) displays
+      inside an `.s-theory` slide chrome next to the dependency matrix
 - [ ] Build still completes in < 10 seconds for the full skeleton + 5 pattern slides
 
 ---
 
-## Phase 4 — Slide-by-slide content port (34 main + 7 appendix = 41 slides)
+## Phase 4 — Slide-by-slide content port (35 main + 8 appendix = 43 slides)
 
 **Goal:** port `PRESENTATION_SLIDE_PLAN.md` to runnable Touying slides, in talk
 order, one at a time. Each slide's content (visual + speaker notes) comes
@@ -284,20 +282,21 @@ patterns from earlier steps:
 1. **S1 (Title), S34 (Close), Q&A** — uses 3 of the simpler slide classes;
    establishes the bookends.
 2. **S2–S5 (Alice / Bob / Charlie / Danielle)** — repeated `.s-incident` pattern × 4.
-3. **S6, S31, S33** — `.s-light` transitions and the climb summary.
-4. **S7–S12 (Theory)** — `.s-theory` slides; this is where the Gentzen and
-   Lambda Cube cetz canvases land. Progressive disclosure for S9 is
-   implemented via Touying's `slide` step counter (Touying supports
-   `pause` / `meanwhile` for builds — confirm with theme test).
-5. **S13 (test spine), Stage payoff slides (S19, S22, S27, S30)** — heavy
+3. **S6, S32, S33** — `.s-light` transitions and the climb summary (S32).
+4. **S7–S14 (Theory)** — `.s-theory` slides; this is where the Gentzen (S10),
+   MLTT (S12), and Lambda Cube (S14) cetz canvases land. Note: the theory
+   section now uses three separate progressive-disclosure slides (S9: builds 1–2,
+   S11: builds 3–4, S13: build 5) interleaved with the dwell slides S10 and S12.
+   No within-slide Touying `pause` sequence needed — each is a standalone slide.
+5. **S15 (test spine), Stage payoff slides (S21, S24, S28, S31)** — heavy
    `.test-list` + `.story-strip` usage; validates Phase 3 components in context.
-6. **S14–S18, S20–S21, S23–S26, S28–S30** — the main practical-progression
+6. **S16–S20, S22–S23, S25–S27, S29–S30** — the main practical-progression
    slides with IDE Segment placeholders and `.s-stage-opener` slides.
-7. **A1–A7 (Appendix)** — once main deck is done, port the appendix as a
+7. **A1–A8 (Appendix)** — once main deck is done, port the appendix as a
    separate sub-deck (Touying supports multiple decks in one document via
    `#show: appendix.with(...)`).
 
-### 4.2 — Per-slide checklist (for each of 41 slides)
+### 4.2 — Per-slide checklist (for each of 43 slides)
 
 ```
 [ ] Background and slide class match the slide plan's "Type:" tag
@@ -324,8 +323,8 @@ segments:
 
 ### 4.4 — Validation gate
 
-- [ ] All 34 main slides render correctly at 1920×1080
-- [ ] All 7 appendix slides render correctly
+- [ ] All 35 main slides render correctly at 1920×1080
+- [ ] All 8 appendix slides render correctly
 - [ ] No slide overflows; no slide has obviously empty space below its content
 - [ ] Total build time for the full deck < 30 seconds with `typst compile`,
       < 10 seconds with `typst watch`
@@ -335,49 +334,44 @@ segments:
 
 ## Phase 5 — Progressive disclosure for theory section
 
-**Goal:** the S9 progressive-disclosure delivery (5 beats + 2 interleaved
-dwells on S10 and S12) is implemented in Touying's step system.
+**Goal:** confirm the theory section (S9–S14) flows correctly as a linear
+slide sequence. The original plan called for a single S9 with 5 progressive
+builds and 2 interleaved cut-in slides; the slide plan was restructured so
+that each beat is now its own standalone slide:
 
-Touying supports `pause` / `meanwhile` / `only` directives for progressive
-disclosure within a slide, and `#only(2)[...]` to show content only on step 2+.
+- **S9** — History beats 1–2 (Church/Turing, Gentzen named)
+- **S10** — Gentzen OR rules (dwell)
+- **S11** — History beats 3–4 (Curry-Howard, Martin-Löf named)
+- **S12** — MLTT Π/Σ types (dwell)
+- **S13** — History beat 5 (Coquand, closing line)
+- **S14** — Lambda Cube (visualisation of all three axes)
 
-### 5.1 — S9 structure
+No within-slide `pause` / `meanwhile` sequences are required. Each slide is
+self-contained and advances on a single arrow-key press. Touying's `pause`
+directive is available if the speaker wants to reveal bullet points one at
+a time within S9, S11, or S13, but it is not architecturally needed.
+
+### 5.1 — S9 structure (simplified)
 
 ```typst
-#let s9 = slide(theme: theory-slide)[
-  Beat 1 (Church/Turing) — visible always
+// S9: two history beats, no in-slide progressive disclosure needed
+#let s9 = theory-slide(eyebrow: [LOGIC & PROOF · 4TH C. BCE → TODAY])[
+  == The Computational Convergence (Part 1)
 
-  #pause
-  Beat 2 (Gentzen) — visible from step 2
-
-  #pause
-  // CUT to S10
-  #slide(theme: theory-slide)[
-    Gentzen rules dwell — full slide
-  ]
-
-  #pause
-  Beat 3 (Curry-Howard) — visible from step 4
-  Beat 4 (Martin-Löf) — visible from step 4
-
-  #pause
-  // CUT to S12
-  #slide(theme: theory-slide)[
-    MLTT rules dwell — full slide
-  ]
-
-  #pause
-  Beat 5 (Coquand) — visible from step 6
-  Closing line
+  #beat-grid((
+    ("1936", [Church / Turing — computability], [λ-calculus and Turing machines]),
+    ("1935", [Gentzen — natural deduction],     [→ S10 for the rules]),
+  ))
 ]
+// then the speaker advances to S10 (Gentzen rules), then to S11, etc.
 ```
 
 ### 5.2 — Validation gate
 
-- [ ] Stepping through S9 with `→` produces the disclosure described in the
-      slide plan
-- [ ] The PDF export contains 7 pages for S9 (one per disclosure step) — Touying
-      handles this automatically; verify the page count
+- [ ] Stepping from S9 → S10 → S11 → S12 → S13 → S14 with `→` flows in the
+      correct order at the intended clock targets
+- [ ] Each slide fits its content without overflow; S10 (Gentzen rules) and
+      S12 (MLTT rules) in particular contain cetz canvases that must not crowd
 
 ---
 
@@ -385,7 +379,7 @@ disclosure within a slide, and `#only(2)[...]` to show content only on step 2+.
 
 **Goal:** a single `make` (or shell script) that produces:
 
-1. **`talk.pdf`** — main deck, 34 slides + appendix (cover, no progressive
+1. **`talk.pdf`** — main deck, 35 slides + appendix (cover, no progressive
    disclosure unfolded — the standard slide-per-page export)
 2. **`talk-presenter.pdf`** — main deck with progressive disclosure unfolded
    (S9 takes 7 pages), and a `--with-speaker-notes` variant via
@@ -411,8 +405,8 @@ watch:
 ### 6.1 — Validation gate
 
 - [ ] `make talk.pdf` produces a single PDF in < 1 minute
-- [ ] `make talk-svg` produces 41+ SVG files (more if progressive disclosure unfolded)
-- [ ] `make talk-png` produces 41+ PNG files at 1920×1080
+- [ ] `make talk-svg` produces 43+ SVG files
+- [ ] `make talk-png` produces 43+ PNG files at 1920×1080
 - [ ] `make watch` reloads on save and updates the PDF preview in < 2 seconds
 
 ---
@@ -440,52 +434,50 @@ without consulting the slide plan document during delivery.
 
 ---
 
-## Known issues to fix during Phase 3 / 4 (carried over from `slides/`)
+## Diagram content specifications (for Phase 1 scratch builds)
 
-The standalone slides in `slides/` are a first cut and have several issues that
-need fixing as they're folded into the Touying deck. The conversion is an
-appropriate moment to address them.
+The `slides/` directory files are out of date and must not be used. All three
+cetz diagrams are built from scratch in Phase 1 directly into `touying/diagrams/`.
+The specifications below are the authoritative content requirements.
 
-### `slide-10-gentzen-or.typ`
+### `touying/diagrams/gentzen-or.typ`
 
-- [x] **"Nothing else" phrasing** — already replaced with *"The rest follows."*
-      in the standalone file; verify the Touying port carries this revision.
-- [x] **`[A]`/`[B]` discharge-assumption notation** — already explained in the
-      standalone file via a muted-text note below the rule: *"Square brackets
-      mark discharged assumptions: $[A]$ means 'supposing $A$, derive $C$'
-      — temporarily; the rule then retracts the supposition."* Verify the
-      Touying port preserves this gloss.
-- [x] **Match-expression indentation** — fixed in the standalone file (now
-      uses `align(left)` and a Typst code-block, so the case-arms align
-      under the `match` line correctly). Verify the Touying port keeps this.
+Must include:
+- OR-introduction rules: ∨I₁ (left injection) and ∨I₂ (right injection)
+- OR-elimination rule with the discharged-assumption notation: square-bracket
+  gloss *"$[A]$ means 'supposing $A$, derive $C$' — the rule then retracts
+  the supposition"* in muted text below the rule
+- Closing line: *"The rest follows."* (not "Nothing else")
+- Code side: sealed type declaration + exhaustive match with case-arms aligned
+  under the `match` line (use `align(left)` in the Typst code block)
+- Expose as: `#let gentzen-or-canvas = canvas({ … })`
 
-### `slide-11-lambda-cube.typ`
+### `touying/diagrams/lambda-cube.typ`
 
-- [x] **Primary labels** — system names ("STLC", "System F", "F$\omega$⁻",
-      "System F$\omega$", "LF", "F + dep.", "F$\omega$ + dep.", "CIC") are now
-      the primary label; lambda symbols ($\lambda\!\to\!$, $\lambda 2$,
-      $\lambda \omega$, …) sit underneath in muted 9pt as a secondary line.
-- [x] **`types-on-types · type operators` axis pushed right** — the axis line
-      and its label are now anchored at `x = w + dx + 1.8`, clear of the
-      farthest-right back-face label ("F + dep." at b-br). Verified visually
-      after rebuild.
-- [ ] **Residual minor crowding** — the "Stages 5–6" stage tag near
-      "System F$\omega$" still sits close to the back-edge stub between f-tr
-      and b-tr. Acceptable; if it bothers in projector test, shrink the
-      stage-tag font from 9pt to 8pt or shift it 0.2 units further out.
+Must include:
+- 3D cube with 8 labelled vertices; system names as primary labels in normal
+  weight; lambda symbols (λ→, λ2, λω, …) as secondary labels in muted 9pt
+  below each primary
+- System names: STLC, System F, Fω⁻, System Fω, LF, F+dep., Fω+dep., CIC
+- Three axes with labels: terms-on-types (second axis), types-on-types /
+  type operators (third axis, anchored far enough right to clear the back-face
+  labels), types-on-terms / dependent types (vertical axis)
+- Stage tags showing which presentation stages reach which positions
+  (e.g. "Stages 5–6" near System Fω; "Stage 7" near CIC)
+- Expose as: `#let lambda-cube-canvas = canvas({ … })`
 
-### Missing: `slide-12-mltt.typ`
+### `touying/diagrams/mltt.typ`
 
-The current `slides/` directory has Gentzen (S10) and lambda cube (S11), but
-**not the MLTT rules slide (S12)**. The slide plan describes the content as
-Π-type and Σ-type formation/intro/elimination rules — formally identical in
-structure to the natural-deduction rules in S10. Reuse the `nd-rule` helper
-from `slide-10-gentzen-or.typ`. Add as part of Phase 1.5 (new sub-phase below)
-before the rest of Phase 1 wraps.
+Two-column layout (Π left, Σ right). Content per §1.5 of this plan:
+- Π-type: Formation, Introduction (λ), Elimination (application), β-reduction
+- Σ-type: Introduction (pair), Elimination (fst/snd projections)
+- Brief gloss under each column
+- Bottom line: *"protocolFromSnapshot is Π-elimination; assessOrder is Σ-introduction."*
+- Expose as: `#let mltt-canvas = canvas({ … })`
 
-**Phase 1.5 — Build the MLTT rules slide as a Typst+cetz standalone**
+**Phase 1.5 — Build the MLTT rules diagram as a cetz canvas**
 
-Target file: `slides/slide-12-mltt.typ`.
+Target file: `touying/diagrams/mltt.typ` (not in `slides/` — built directly into the diagram library).
 
 Visual content (drawn with `nd-rule`):
 
@@ -521,7 +513,7 @@ Visual content (drawn with `nd-rule`):
 Layout: two columns (Π on the left, Σ on the right). Brief gloss under each:
 *"applied to a runtime value → return type depends on that value"* for Π,
 *"value bundled with a proof that depends on it"* for Σ. Connection to Stage 7
-named at the bottom: *"`protocolDerivedFrom` is Π-elimination; `assessOrder`
+named at the bottom: *"`protocolFromSnapshot` is Π-elimination; `assessOrder`
 is Σ-introduction."*
 
 This slide is shown for ~15 sec inside the progressive disclosure of S9 (after
@@ -720,7 +712,7 @@ The Touying deck is shippable when:
 | 1. Theme + skeleton (9 slide classes) | 4 h | 6 h |
 | 2. Code-pane component | 3 h | 9 h |
 | 3. Patterns (ladder, story-strip, test-list, lcube, beat-grid) | 4 h | 13 h |
-| 4. 41 slide ports (~15 min/slide average, faster for repeated patterns) | 8 h | 21 h |
+| 4. 43 slide ports (~15 min/slide average, faster for repeated patterns) | 8 h | 21 h |
 | 5. Progressive disclosure for S9 | 1 h | 22 h |
 | 6. Build/preview/export pipeline | 1 h | 23 h |
 | 7. Rehearsal pass + fixes | 4 h | 27 h |
@@ -741,3 +733,43 @@ phase introduces blocking issues.
 The single most important habit: **after every batch of slides, page through the
 PDF end-to-end**. The Typst build always compiles to the same logical output;
 visual regressions only show up by looking.
+
+---
+
+## Progress
+
+### Phase 1 — COMPLETE 2026-05-25
+
+- **Typst**: 0.14.2
+- **IBM Plex Sans installed**: no — falls back to Inter → Libertinus Sans.
+  `fonts-ibm-plex` isn't in Debian 11 bullseye main; enable
+  `bullseye-backports` or drop the OTFs from the upstream GitHub release into
+  `~/.local/share/fonts/IBMPlexSans/` and `fc-cache -f`.
+- **JetBrains Mono installed**: yes (~/.local/share/fonts/JetBrainsMono).
+- **Touying**: 0.5.5 (auto-downloaded on first build).
+- **cetz**: 0.3.4.
+- **Diagrams built from scratch in `touying/diagrams/`**:
+  - `gentzen-or.typ` → `gentzen-or-canvas`
+  - `lambda-cube.typ` → `lambda-cube-canvas`
+  - `mltt.typ` → `mltt-canvas`
+  - All three compile standalone (`typst compile diagrams/<name>.typ`).
+- **Stub slides**: `slides/01-title.typ` through `slides/35-close.typ` plus
+  `slides/a01-tracking.typ` through `slides/a08-singleton.typ` — 43 in total,
+  each a `// [Slide N] — Title — STUB\n#pagebreak()` so `deck.pdf` shows one
+  blank page per stub.
+- **Component API**: `touying/COMPONENTS.md` — sole reference for Phases 2–7.
+- **Validation builds**:
+  - `typst compile touying/test-classes.typ` → 9 pages, one per slide class.
+  - `typst compile touying/deck.typ` → 45 pages (44 stub pagebreaks + the
+    natural first page; appendix follows after an extra break).
+
+#### §1 validation gate
+
+- [x] All 9 slide classes render at 1920×1080 (logical) with correct
+  background fill, body geometry, and accent colour
+- [ ] Eyebrows, h1/h2, body text use the right font and size — IBM Plex Sans
+  not yet installed locally; render uses fallback fonts. Acceptable for the
+  Phase 1 layout-gate; re-validate after installing IBM Plex.
+- [x] Build completes in < 5 seconds (`time typst compile` shows ~1s)
+- [x] PDF is one page per slide (no overflow)
+

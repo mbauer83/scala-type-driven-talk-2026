@@ -1,0 +1,4 @@
+# Build artifacts — regenerated on every typst compile
+*.pdf
+*.svg
+*.png
