@@ -9,14 +9,12 @@ public class OrderLine {
         this.quantity       = quantity;
     }
 
-    // Stage 02: smart constructor returns Result<OrderLine>, not OrderLine.
-    // Callers must handle the error case explicitly.
-    public static Result<OrderLine> of(String sku, int unitPriceCents, int quantity) {
+    public static OrderLine of(String sku, int unitPriceCents, int quantity) {
         if (quantity <= 0)
-            return Result.err("Quantity must be positive, got " + quantity);
+            throw new IllegalArgumentException("Quantity must be positive, got " + quantity);
         if (unitPriceCents < 0)
-            return Result.err("Unit price cannot be negative");
-        return Result.ok(new OrderLine(sku, unitPriceCents, quantity));
+            throw new IllegalArgumentException("Unit price cannot be negative, got " + unitPriceCents);
+        return new OrderLine(sku, unitPriceCents, quantity);
     }
 
     public String getSku()            { return sku; }

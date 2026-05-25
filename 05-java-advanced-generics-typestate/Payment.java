@@ -83,13 +83,17 @@ public final class Payment<S extends PaymentState> {
 
     /** Refund: ONLY accepts Payment<Captured>. refund(authorized) = compile error. */
     public static Result<Payment<PaymentState.Refunded>> refund(
-            Payment<PaymentState.Captured> captured, boolean refundPermitted) {
-        if (!refundPermitted)
-            return Result.err("Refund not permitted for this payment method");
-        List<String> trail = new ArrayList<>(captured.auditTrail);
-        trail.add("refunded:" + captured.amountCents + "c");
-        return Result.ok(new Payment<>(captured.orderId, captured.amountCents,
-            "refund-" + captured.orderId, trail));
+            Payment<PaymentState.Captured> captured, RefundMechanism mechanism) {
+        return switch (mechanism) {
+            case RefundMechanism.CreditNoteRequired r ->
+                Result.err("invoice: credit note required — instant reversal not available");
+            case RefundMechanism.InstantReversal r -> {
+                List<String> trail = new ArrayList<>(captured.auditTrail);
+                trail.add("refunded:" + captured.amountCents + "c");
+                yield Result.ok(new Payment<>(captured.orderId, captured.amountCents,
+                    "refund-" + captured.orderId, trail));
+            }
+        };
     }
 
     @Override public String toString() {

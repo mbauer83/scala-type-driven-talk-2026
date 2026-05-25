@@ -13,10 +13,10 @@ public class Order {
         this.paymentMethod = paymentMethod;
     }
 
-    public static Result<Order> of(String orderId, String customerId, List<OrderLine> lines, PaymentMethod paymentMethod) {
+    public static Order of(String orderId, String customerId, List<OrderLine> lines, PaymentMethod paymentMethod) {
         if (lines == null || lines.isEmpty())
-            return Result.err("Order must have at least one line");
-        return Result.ok(new Order(orderId, customerId, lines, paymentMethod));
+            throw new IllegalArgumentException("Order must have at least one line");
+        return new Order(orderId, customerId, lines, paymentMethod);
     }
 
     public String           getOrderId()       { return orderId; }

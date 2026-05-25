@@ -14,4 +14,4 @@ modules = PaymentSessionTypes
 main = Main
 executable = paymentdemo
 
-depends = base
+depends = base, linear

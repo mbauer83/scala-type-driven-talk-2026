@@ -22,11 +22,12 @@
 //       These proofs are checked at every build; a mismatched server does not compile.
 //       removes tests: "client and server agree on protocol"
 //
-//   ✗ Zero-quantity order line accepted at runtime  [was stage 05]
-//       Domain.scala:58   type PositiveInt = Int :| Positive
-//       Domain.scala:106  OrderLine.of — refineEither[Positive] rejects qty ≤ 0
-//       Literal 0 is rejected at compile time; no runtime guard or test needed.
-//       removes tests: "zero quantity rejected"
+//   ✗ Empty identifier silently grouping records under a single key  [was stage 05]
+//       Domain.scala      type NonEmptyString = String :| MinLength[1]
+//       Domain.scala      OrderId.of / CustomerId.of refine via refineEither
+//       The literal "" cannot be lifted into OrderId / CustomerId; a runtime
+//       empty string is rejected at the boundary, not deep in the lifecycle.
+//       removes tests: "empty identifier rejected"
 //
 //   ✗ Closing a channel before the protocol is complete  [was stage 05]
 //       Chan.scala        finish() requires implicit proof that P =:= End
@@ -54,7 +55,7 @@ import protocol.*
 import runtime.{Transport, Channel, Logger}
 import payment.*
 import io.github.iltotore.iron.*
-import io.github.iltotore.iron.constraint.numeric.*
+import io.github.iltotore.iron.constraint.collection.*
 
 // ─── Stage 06: Scala 3 payment demo ─────────────────────────────────────────
 // Run: sbt run
@@ -64,30 +65,41 @@ object PaymentDemo:
   // ─── Fixture orders ─────────────────────────────────────────────────────────
 
   val lowRiskOrder: Either[String, Order] =
-    for
-      line  <- OrderLine.of("BOOK-TDD-001", 4500, 1)
-      order <- Order.of("ord-low", "cust-01", List(line), PaymentMethod.Card("tok_low"))
-    yield order
+    Order.of(
+      "ord-low", "cust-01",
+      List(OrderLine.of("BOOK-TDD-001", 4500, 1)),
+      PaymentMethod.Card("tok_low"),
+    )
 
   val mediumRiskOrder: Either[String, Order] =
-    for
-      l1    <- OrderLine.of("LAPTOP-15",  12000, 1)
-      l2    <- OrderLine.of("MOUSE-PRO",  3500,  2)
-      order <- Order.of("ord-medium", "cust-02", List(l1, l2), PaymentMethod.Card("tok_3ds"))
-    yield order
+    Order.of(
+      "ord-medium", "cust-02",
+      List(
+        OrderLine.of("LAPTOP-15", 12000, 1),
+        OrderLine.of("MOUSE-PRO",  3500, 2),
+      ),
+      PaymentMethod.Card("tok_3ds"),
+    )
 
   val highRiskOrder: Either[String, Order] =
-    for
-      line  <- OrderLine.of("B2B-SERVER-RACK", 120000, 1)
-      order <- Order.of("ord-high", "cust-03", List(line), PaymentMethod.Invoice("PO-7788"))
-    yield order
+    Order.of(
+      "ord-high", "cust-03",
+      List(OrderLine.of("B2B-SERVER-RACK", 120000, 1)),
+      PaymentMethod.Invoice("PO-7788"),
+    )
 
   // ─── Server handlers ────────────────────────────────────────────────────────
   // Each server handler is typed to the DUAL of the client's protocol.
   // Sending when the protocol says Receive is a compile error.
 
-  // @TODO: Why do these demos compile if we remove the `.finish()` invocations? Should the type of the server be `End`? Is there a better way to enfore progress and completion?
-  def serverLowRisk(ch: Channel[Dual[LowRiskProtocol]]): Unit =
+  // Honest limitation: Scala 3 lacks linear types.
+  // The type system prevents wrong-order sends and wrong message types.
+  // It does NOT enforce that finish() must be called — a dropped channel is
+  // not a compile error. Handlers return Channel[End] (not Unit) to signal
+  // intent and centralise finish() naturally, but "must use exactly once" is
+  // not enforced here. Full linear enforcement requires Idris 2's UniqueType
+  // or Haskell's %1 -> syntax. This is an honest ceiling of this encoding.
+  def serverLowRisk(ch: Channel[Dual[LowRiskProtocol]]): Channel[End] =
     val (order, ch1)      = ch.receive()
     val snapshot          = riskSnapshotFor(order)
     val ch2               = ch1.send(snapshot)
@@ -96,14 +108,14 @@ object PaymentDemo:
     val captured          = capture(authorized)
     val ch4               = ch3.send(captured)
     ch4.awaitChoice() match
-      case Left(refunding)  => refunding.send(refund(captured).toOption.get).finish()
-      case Right(done)      => done.finish()
+      case Left(refunding)  => refunding.send(refund(captured).toOption.get)
+      case Right(done)      => done
 
-  def serverMediumRisk(ch: Channel[Dual[MediumRiskProtocol]]): Unit =
+  def serverMediumRisk(ch: Channel[Dual[MediumRiskProtocol]]): Channel[End] =
     val (order, ch1)      = ch.receive()
     val snapshot          = riskSnapshotFor(order)
     val ch2               = ch1.send(snapshot)
-    val challenge         = ThreeDSChallenge(s"3ds-${order.orderId}", "soft")
+    val challenge         = ThreeDSChallenge(s"3ds-${order.orderId.orderIdStr}", "soft")
     val ch3               = ch2.send(challenge)
     val (proof, ch4)      = ch3.receive()
     val authorized        = authorize(order, ThreeDSApproved(proof))
@@ -111,10 +123,10 @@ object PaymentDemo:
     val captured          = capture(authorized)
     val ch6               = ch5.send(captured)
     ch6.awaitChoice() match
-      case Left(refunding)  => refunding.send(refund(captured).toOption.get).finish()
-      case Right(done)      => done.finish()
+      case Left(refunding)  => refunding.send(refund(captured).toOption.get)
+      case Right(done)      => done
 
-  def serverHighRisk(ch: Channel[Dual[HighRiskProtocol]]): Unit =
+  def serverHighRisk(ch: Channel[Dual[HighRiskProtocol]]): Channel[End] =
     val (order, ch1)      = ch.receive()
     val snapshot          = riskSnapshotFor(order)
     val ch2               = ch1.send(snapshot)
@@ -124,7 +136,7 @@ object PaymentDemo:
     val authorized        = authorize(order, ReviewerApproved(approval))
     val ch5               = ch4.send(authorized)
     val captured          = capture(authorized)
-    ch5.send(captured).finish()
+    ch5.send(captured)
 
   // ─── Client handlers ────────────────────────────────────────────────────────
 
@@ -185,19 +197,19 @@ object PaymentDemo:
 
   def runLowRisk(order: Order, refundRequested: Boolean): Unit =
     val (clientCh, serverCh) = Transport.open[LowRiskProtocol]
-    val t = new Thread(() => serverLowRisk(serverCh)); t.start()
+    val t = new Thread(() => serverLowRisk(serverCh).finish()); t.start()
     clientLowRisk(order, refundRequested, clientCh)
     t.join()
 
   def runMediumRisk(order: Order, refundRequested: Boolean): Unit =
     val (clientCh, serverCh) = Transport.open[MediumRiskProtocol]
-    val t = new Thread(() => serverMediumRisk(serverCh)); t.start()
+    val t = new Thread(() => serverMediumRisk(serverCh).finish()); t.start()
     clientMediumRisk(order, refundRequested, clientCh)
     t.join()
 
   def runHighRisk(order: Order): Unit =
     val (clientCh, serverCh) = Transport.open[HighRiskProtocol]
-    val t = new Thread(() => serverHighRisk(serverCh)); t.start()
+    val t = new Thread(() => serverHighRisk(serverCh).finish()); t.start()
     clientHighRisk(order, clientCh)
     t.join()
 
@@ -231,19 +243,20 @@ object PaymentDemo:
         Logger.outcome("High-risk: ReviewerApproved required; invoice has no refund branch in protocol.")
 
   def demo4(): Unit =
-    Logger.section("DEMO 4 — Boundary Validation: Refined Types vs Runtime Checks")
-    Logger.info(s"OrderLine.of qty=0 → ${OrderLine.of("BUGGY", 1000, 0)}")
-    Logger.info(s"Order.of empty     → ${Order.of("ord-x", "cust-x", Nil, PaymentMethod.Card("t"))}")
+    Logger.section("DEMO 4 — Boundary Refinement: NonEmptyString-Refined Identifiers")
+    Logger.info(s"Order.of empty orderId    → ${Order.of("", "cust-x", List(OrderLine.of("X", 1000, 1)), PaymentMethod.Card("t"))}")
+    Logger.info(s"Order.of empty customerId → ${Order.of("ord-x", "", List(OrderLine.of("X", 1000, 1)), PaymentMethod.Card("t"))}")
+    Logger.info(s"Order.of empty lines      → ${Order.of("ord-x", "cust-x", Nil, PaymentMethod.Card("t"))}")
     Logger.info("")
     Logger.info("Iron compile-time literal check:")
-    val validQty: PositiveInt = 5.refineUnsafe[Positive]
-    Logger.info(s"  5.refineUnsafe[Positive] → PositiveInt(${validQty.value})  // checked at COMPILE TIME")
-    Logger.info(s"  0.refineUnsafe[Positive]  ← DOES NOT COMPILE for literal 0 (try it)")
-    Logger.info(s"  // 'Assertion failed: 0 should be strictly positive'  — at compile time")
+    val validId: NonEmptyString = "ord-001".refineUnsafe[MinLength[1]]
+    Logger.info(s"  \"ord-001\".refineUnsafe[MinLength[1]] → NonEmptyString(${validId.value})  // OK at COMPILE TIME")
+    Logger.info(s"  \"\".refineUnsafe[MinLength[1]]        ← DOES NOT COMPILE for literal \"\" (try it)")
+    Logger.info(s"  // 'Assertion failed: Should have a min length of 1' — at compile time")
     Logger.info("")
-    Logger.info("Java boundary validation: OrderLine(sku, price, 0) compiles, test catches it at runtime.")
-    Logger.info("Scala+iron: OrderLine(sku, price, 0) does not compile — no test needed for this class.")
-    Logger.outcome("Refined type: predicate lives in the type, checked by the compiler. No runtime test needed.")
+    Logger.info("Java boundary validation: an empty orderId may slip through; rejected only at the DB layer.")
+    Logger.info("Scala+iron: OrderId.of(\"\") returns Left at the entry boundary; downstream code never sees it.")
+    Logger.outcome("Refined type: the non-empty predicate lives in the type. Empty IDs are rejected at the boundary.")
 
   def demo5(): Unit =
     Logger.section("DEMO 5 — Policy DSL: Same Tree, Multiple Interpretations")
@@ -291,13 +304,14 @@ object PaymentDemo:
     Logger.info("  The approval constructor IS the 3DS proof. Skipping it is unrepresentable.")
     Logger.info("")
 
-    Logger.info("── 2. Refined types: PositiveInt = Int :| Positive ──────────────────")
-    Logger.info("  BAD:  val qty: PositiveInt = 0.refineUnsafe[Positive]  // literal 0")
-    Logger.info("  ERROR: Assertion failed: 0 should be strictly positive  (compile time)")
-    Logger.info("  BAD:  OrderLine(sku, price, rawInt)  // plain Int as PositiveInt")
-    Logger.info("  ERROR: Found Int, Required IronType[Int, Positive]")
-    Logger.info("  PREVENTS: Alice's bug — a zero-quantity line silently producing a £0 invoice.")
-    Logger.info("  Predicate lives in the type; no test needed for this invariant.")
+    Logger.info("── 2. Refined types: NonEmptyString = String :| MinLength[1] ────────")
+    Logger.info("  BAD:  val id: NonEmptyString = \"\".refineUnsafe[MinLength[1]]  // literal \"\"")
+    Logger.info("  ERROR: Assertion failed: Should have a min length of 1  (compile time)")
+    Logger.info("  BAD:  val oid: OrderId = rawString  // plain String as OrderId")
+    Logger.info("  ERROR: Found String, Required OrderId  (refinement + opacity)")
+    Logger.info("  PREVENTS: an empty orderId slipping past the boundary and silently grouping")
+    Logger.info("  all empty-ID records under a single key downstream. The predicate lives in the")
+    Logger.info("  type; no defensive test on every consumer is needed.")
     Logger.info("")
 
     Logger.info("── 3. Path-dependent types: CanSend[P]#Msg ──────────────────────────")

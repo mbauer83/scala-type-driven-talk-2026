@@ -203,14 +203,27 @@ highRiskProtocol refundAllowed n c =
   Send ManualReviewApproval $
   commonSettlement refundAllowed n c
 
+||| Compute the session type from a runtime risk snapshot.
+||| This is the function whose RETURN TYPE depends on the SHAPE of the input —
+||| Π-elimination running as a program. Threaded through `protocolDerivedFrom`
+||| below so the snapshot can be computed once and reused for both the protocol
+||| type and the handler dispatch.
+public export
+protocolFromSnapshot : (snap : RiskSnapshot)
+                    -> (n : Nat) -> (c : Currency)
+                    -> SessionType
+protocolFromSnapshot snap n c = case snap.level of
+  LowRisk    => lowRiskProtocol    snap.refundPermitted n c
+  MediumRisk => mediumRiskProtocol snap.refundPermitted n c
+  HighRisk   => highRiskProtocol   snap.refundPermitted n c
+
+||| The order-only entry point: applies `protocolFromSnapshot` to the snapshot
+||| derived from the order. Used by demos and the scenario runner to say
+||| "the protocol is computed from this order value" in one expression.
 public export
 protocolDerivedFrom : {n : Nat} -> {c : Currency} -> (order : Order n c) -> SessionType
 protocolDerivedFrom {n} {c} order =
-  let snapshot = riskSnapshotFor order
-  in case snapshot.level of
-       LowRisk => lowRiskProtocol snapshot.refundPermitted n c
-       MediumRisk => mediumRiskProtocol snapshot.refundPermitted n c
-       HighRisk => highRiskProtocol snapshot.refundPermitted n c
+  protocolFromSnapshot (riskSnapshotFor order) n c
 
 export
 protocolLabelFor : Order n c -> String

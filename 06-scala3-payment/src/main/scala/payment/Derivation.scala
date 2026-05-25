@@ -27,7 +27,12 @@ import protocol.*
 // Client sends Order first, then receives results.
 // Server gets Channel[Dual[P]], so its operations are the exact inverse.
 
-// @TODO: For this and other demos - determine if it is realistic that refund is dependent on risk level. Maximally, a manual review step migh tbe required, no?
+// Refund availability is determined by payment METHOD, not risk level.
+// Card and Wallet → InstantReversal (refund branch in protocol).
+// Invoice → CreditNoteRequired (different settlement process — no instant reversal).
+// HighRiskProtocol has no refund branch because high-risk orders use Invoice:
+// the accounting settlement is a credit note, not a protocol-level reversal.
+// Domain.scala:RefundMechanism sealed type makes this distinction compile-time.
 
 // Low-risk client: send Order → receive Snapshot → receive Auth → receive Capture → choose[refund | done]
 type LowRiskProtocol =

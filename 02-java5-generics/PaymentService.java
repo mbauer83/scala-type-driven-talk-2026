@@ -1,15 +1,14 @@
 // Stage 02: Generics in the service layer.
 //
-// New gains:
-//   - Result<T> forces callers to handle validation errors.
-//   - Generic AuditTrail<E> removes raw-type usage.
-//   - Validator<T> is composable and reusable.
+// New gains over Stage 01:
+//   - Generic AuditTrail<E> — typed event log, not raw List or String concatenation.
+//   - Generic Validator<T> — composable validation; write once, reuse for any domain type.
+//   - Typed collections: List<OrderLine> not raw List — wrong element type is a compile error.
 //
-// What still goes wrong:
-//   - Lifecycle ordering (capture before auth) — no type-level constraint.
-//   - Medium-risk order can skip 3DS.
-//   - Refund on invoice path is still possible.
-//   - Audit trail is mutable and can be forgotten on any branch.
+// What still goes wrong (closed by later stages):
+//   - Lifecycle ordering (capture before auth) — no type-level constraint [closed at 05].
+//   - Medium-risk can skip 3DS — no exhaustive dispatch required [closed at 04].
+//   - Refund on invoice is a runtime boolean check, not a type distinction [closed at 04].
 
 public class PaymentService {
 
@@ -27,9 +26,7 @@ public class PaymentService {
     }
 
     public static Authorization authorize(Order order, String approvalNote) {
-        return new Authorization(
-            order.getOrderId(), "auth-" + order.getOrderId(),
-            order.getTotalCents(), approvalNote);
+        return Authorization.from(order, approvalNote);
     }
 
     public static Capture capture(Authorization auth) {
@@ -38,21 +35,24 @@ public class PaymentService {
             auth.getAuthorizedAmountCents());
     }
 
-    public static Result<Refund> refund(Capture cap, Order order) {
+    // Returns the refund on success; throws if the payment method does not support refunds.
+    // Gap: refundability is a runtime boolean check on PaymentMethod.supportsRefund().
+    // Stage 04 fixes this with a sealed RefundMechanism type that makes it a compile-time distinction.
+    public static Refund refund(Capture cap, Order order) {
         if (!order.getPaymentMethod().supportsRefund())
-            return Result.err("Refund not permitted for " + order.getPaymentMethod());
-        return Result.ok(new Refund(
+            throw new IllegalArgumentException("Refund not permitted for " + order.getPaymentMethod());
+        return new Refund(
             "ref-" + cap.getCaptureId(), cap.getCaptureId(),
-            cap.getCapturedAmountCents()));
+            cap.getCapturedAmountCents());
     }
 
-    // Generic validation helpers using Validator<T>
-
+    // Reusable Validator<T> instances — one generic interface, composed for any domain type.
     static final Validator<Integer> positiveQuantity =
         Validator.check(q -> q > 0, "Quantity must be positive");
 
-    static Result<OrderLine> validateOrderLine(String sku, int priceCents, int qty) {
-        return positiveQuantity.validate(qty)
-            .flatMap(q -> OrderLine.of(sku, priceCents, q));
-    }
+    static final Validator<Integer> nonZeroQuantity =
+        Validator.check(q -> q != 0, "Quantity must not be zero");
+
+    static final Validator<Integer> strictPositiveQuantity =
+        positiveQuantity.andThen(nonZeroQuantity);
 }

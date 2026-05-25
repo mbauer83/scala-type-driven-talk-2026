@@ -1,6 +1,11 @@
 // ─── Stage 04: Java 17 — records and sealed types ────────────────────────────
 // Compile and run: javac *.java && java Demo  (requires Java 17+)
 //
+// Lambda-cube position: λ2 (System F) + product and sum types.
+// Proof-theoretic gain: records = ∧-intro (product types, all fields required);
+// sealed exhaustive switch = ∨-elim (Gentzen ∨E, missing branch = incomplete proof);
+// Result<T> = sum type; RefundMechanism = domain sum type.
+//
 // ELIMINATED — compiler now proves these; their runtime tests can be deleted:
 //
 //   ✗ Forgetting a risk branch — Bob's silent fall-through bug  [was stage 03]
@@ -13,7 +18,10 @@
 //       PaymentMethod.java:5   sealed interface PaymentMethod permits Card, Wallet, Invoice
 //       PaymentService.java:45  switch(method) in refund() — Invoice case is explicit and required
 //       No "default" can silently permit a refund on an invoice order.
-//       removes tests: "invoice cannot be refunded" @TODDO: determine if this is a realistic example. Why would refunds not be possible for (completed) invoice payments?
+//       removes tests: "invoice cannot be refunded"
+//       (Invoice refunds use a credit-note accounting process — debit/credit in accounts
+//       receivable — not an instant payment reversal. RefundMechanism.CreditNoteRequired
+//       vs InstantReversal encodes this settlement process distinction as a type.)
 //
 // CODE REMOVED — records eliminate boilerplate:
 //
@@ -105,9 +113,9 @@ public class Demo {
     }
 
     static void demo4() {
-        section("DEMO 4 — Exhaustive Pattern Match Compiler Guarantee");
-        // This switch must handle all three variants of RiskDecision.
-        // Removing any case → compile error.
+        section("DEMO 4 — OR-Elimination: Exhaustive Switch on Sealed Sum Types");
+        // ── RiskDecision: ∨-elimination (∨E) ─────────────────────────────────
+        // This switch must handle all three variants. Removing any case → compile error.
         // Try removing the Medium case to see the error message.
         RiskDecision decision = new RiskDecision.Medium();
         String label = switch (decision) {
@@ -115,8 +123,31 @@ public class Demo {
             case RiskDecision.Medium m -> "medium-risk 3DS path";   // Bob is forced to write this
             case RiskDecision.High   h -> "high-risk review path";
         };
-        note("Exhaustive result for Medium: " + label);
-        outcome("Sealed RiskDecision + switch expression = compile-error on forgotten branches.");
+        note("RiskDecision switch on Medium → " + label);
+
+        // ── Result<T>: same pattern — ∨E on Ok | Err ──────────────────────────
+        // Result<T> is a sum type: Ok(value) OR Err(message).
+        // To USE the result, you must handle both cases — that IS Gentzen's ∨E rule.
+        // No getValue() on Result: unsafe extraction breaks the guarantee.
+        lowRiskCardOrder().map(order -> {
+            PaymentService.Capture cap = PaymentService.capture(
+                PaymentService.authorize(order, "auto-approved"));
+            Result<PaymentService.Refund> r = PaymentService.refund(cap, order.paymentMethod());
+            String refundOutcome = switch (r) {
+                case Result.Ok<PaymentService.Refund>  ok  -> "refunded: " + ok.value();
+                case Result.Err<PaymentService.Refund> err -> "rejected: " + err.message();
+            };
+            note("Result<Refund> switch → " + refundOutcome);
+            return cap;
+        });
+
+        // ── RefundMechanism: sealed type for settlement process ───────────────
+        note("RefundMechanism switch: both cases required by the compiler.");
+        note("  CreditNoteRequired → invoice accounting path");
+        note("  InstantReversal    → card/wallet reversal path");
+        note("  supportsRefund():Boolean had one branch that could be forgotten.");
+        note("  refundMechanism():RefundMechanism forces both cases in every switch.");
+        outcome("Sealed sum types + exhaustive switch = ∨-elimination. Missing case = compile error.");
     }
 
     // ─── Bad examples — bugs that STILL COMPILE here ─────────────────────────

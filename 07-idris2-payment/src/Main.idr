@@ -1,5 +1,17 @@
 -- ─── Stage 07: Idris 2 — dependent types, first-class session values ──────────
--- Run: idris2 --build payment.ipkg && ./build/exec/payment
+-- Run: idris2 --build payment.ipkg && ./build/exec/paymentdemo
+--
+-- Lambda-cube position: λC — Calculus of Constructions (all three axes).
+-- Proof-theoretic gain: Π-types — return type depends on runtime input value;
+-- Σ-types — dependent witness pairs (risk level + proof); runtime-to-type bridge eliminated.
+-- protocolDerivedFrom : Order -> SessionType IS a Π-type, running at compile time.
+--
+-- Linearity addition (this stage): the channel API uses Idris 2's
+-- Quantitative Type Theory multiplicities. Every `Session p` argument is
+-- bound at multiplicity 1; the linearity checker rejects programs that drop
+-- a session without consuming it via `finish` (or by chaining it through
+-- another protocol step). "Drop a channel without closing it" is no longer
+-- expressible — closing the gap that the Scala 3 stage was honest about.
 --
 -- ELIMINATED — compiler now proves these; their runtime tests can be deleted:
 --
@@ -11,46 +23,25 @@
 --       removes tests: "protocol variant matches assessed risk level"
 --
 --   ✗ Assessment level can mismatch the approval type  [was stage 06]
---       PaymentDomain.idr:255  assessOrder : Order n c -> (lvl : RiskLevel ** Assessment lvl n c)
---       PaymentDomain.idr:264  data Approval : RiskLevel -> Type — indexed by RiskLevel
---       PaymentDomain.idr:329  authorize : Assessment lvl n c -> Approval lvl -> AuthorizedPayment n c
+--       PaymentDomain.idr      assessOrder : Order n c -> (lvl : RiskLevel ** Assessment lvl n c)
+--       PaymentDomain.idr      data Approval : RiskLevel -> Type — indexed by RiskLevel
+--       PaymentDomain.idr      authorize : Assessment lvl n c -> Approval lvl -> AuthorizedPayment n c
 --       AutoApproved : Approval LowRisk cannot unify with Approval MediumRisk — type error.
 --       removes tests: "assessment level matches approval constructor"
 --
---   ✗ Empty order constructible without a proof of non-emptiness  [was stage 06]
---       PaymentDomain.idr:194  record Order (n : Nat) (c : Currency) — n is in the type, not a guard
---       PaymentDomain.idr:203  mkOrder rejects [] at the pattern match; Order 0 c is structurally impossible.
---       removes tests: "empty order should fail"
+--   ✗ Channel dropped before protocol completion  [was stage 06]
+--       PaymentChannel.idr   Session p is consumed at multiplicity 1; missing `finish` is a
+--                            linearity error, not just a runtime omission.
+--       removes tests: "every protocol path ends in finish"
 --
 --   ✗ Duality of a protocol not machine-checked  [was stage 06]
---       PaymentSessionTypes.idr:23  dualInvolution : (p : SessionType) -> dual (dual p) = p
+--       PaymentSessionTypes.idr  dualInvolution : (p : SessionType) -> dual (dual p) = p
 --       dual is a total function; its involution is proved by structural induction, not asserted.
---       Scala's summon[Dual[P] =:= ...] checks one concrete protocol; this proves all protocols.
---       removes tests: "dual of dual equals identity", "dual protocol is well-formed"
---
---   ✗ Indexed audit trail not enforced — wrong state or inconsistent amount constructible  [was stage 06]
---       PaymentDomain.idr:283  data AuditTrail : PaymentState -> Currency -> Nat -> Type
---       The trail type tracks the current payment state, currency, and entry count.
---       Appending a capture entry to an Initiated-state trail is a type error.
---       removes tests: "audit trail matches payment state", "audit amount is consistent"
---
--- CODE REMOVED — dependent types replace runtime bridges and defensive guards:
---
---   - ProtocolVariant ADT (Scala's ceiling)  → SessionType value computed in openSession call
---   - Runtime approval-type checks           → Approval : RiskLevel -> Type index (PaymentDomain.idr:264)
---   - isEmpty guard in mkOrder               → structural impossibility via Nat index (PaymentDomain.idr:194)
---   - Per-server `case assessOrder` + "SERVER BUG" notes (6 instances) →
---       runOrderScenario uses `let (lvl ** assessment) = assessOrder order`; within each
---       branch of `case lvl`, assessment : Assessment lvl n c is concretely typed and is
---       threaded into the server. No runtime re-derivation, no dead branches.
 --
 -- REMAINING GAPS — not yet proved by the compiler:
 --
 --   ✗ Serialisation safety relies on unsafe casts  [open]
---       PaymentChannel.idr:43  packBlob   : a -> Blob = believe_me
---       PaymentChannel.idr:46  unpackBlob : Blob -> a = believe_me
---       A type mismatch in the transport layer is a runtime error, not a type error.
---
+--       PaymentChannel.idr   packBlob/unpackBlob via believe_me — transport layer remains untyped.
 --
 -- ─────────────────────────────────────────────────────────────────────────────
 
@@ -58,8 +49,11 @@
 module Main
 
 import System
-import System.Concurrency
 import Data.Vect
+import Control.Linear.LIO
+import Data.Linear.Notation
+import Data.Linear.LEither
+import System.Concurrency.Linear
 
 import PaymentSessionTypes
 import PaymentDomain
@@ -67,10 +61,6 @@ import PaymentRules
 import PaymentChannel
 
 %default covering
-
--- Idris parser note:
--- avoid reserved identifiers such as `proof` in top-level argument names.
--- See COMPILE_ISSUE.md for the failure mode and docs pointers.
 
 -- ─── Sample data ──────────────────────────────────────────────────────────────
 
@@ -100,7 +90,9 @@ highRiskOrder =
 
 -- ─── Shared settlement steps ──────────────────────────────────────────────────
 
-runRefundableSettlementServer : AuthorizedPayment n c -> Session (dual (commonSettlement True n c)) -> IO ()
+runRefundableSettlementServer : AuthorizedPayment n c
+                             -> (1 _ : Session (dual (commonSettlement True n c)))
+                             -> L IO ()
 runRefundableSettlementServer authorized session = do
   afterAuth <- sendLogged session authorized
   let captured = capture authorized
@@ -112,37 +104,41 @@ runRefundableSettlementServer authorized session = do
       finish done
     Right done => finish done
 
-runFinalSettlementServer : AuthorizedPayment n c -> Session (dual (commonSettlement False n c)) -> IO ()
+runFinalSettlementServer : AuthorizedPayment n c
+                        -> (1 _ : Session (dual (commonSettlement False n c)))
+                        -> L IO ()
 runFinalSettlementServer authorized session = do
   afterAuth <- sendLogged session authorized
   afterCapture <- sendLogged afterAuth (capture authorized)
   finish afterCapture
 
-runRefundableSettlementClient : Bool -> Session (commonSettlement True n c) -> IO ()
+runRefundableSettlementClient : Bool
+                             -> (1 _ : Session (commonSettlement True n c))
+                             -> L IO ()
 runRefundableSettlementClient refundRequested session = do
-  (authorized, afterAuth) <- receiveLogged {a = AuthorizedPayment n c} session
+  (MkBang authorized # afterAuth) <- receiveLogged {a = AuthorizedPayment n c} session
   note ("Authorized: " ++ show authorized)
-  (captured, afterCapture) <- receiveLogged {a = CapturedPayment n c} afterAuth
+  (MkBang captured # afterCapture) <- receiveLogged {a = CapturedPayment n c} afterAuth
   note ("Captured: " ++ show captured)
   case refundRequested of
     True => do
       refunding <- selectLeft afterCapture
-      (refunded, done) <- receiveLogged {a = RefundedPayment n c} refunding
+      (MkBang refunded # done) <- receiveLogged {a = RefundedPayment n c} refunding
       note ("Refunded: " ++ show refunded)
       finish done
     False => do
       done <- selectRight afterCapture
       finish done
 
-runFinalSettlementClient : Session (commonSettlement False n c) -> IO ()
+runFinalSettlementClient : (1 _ : Session (commonSettlement False n c)) -> L IO ()
 runFinalSettlementClient session = do
-  (authorized, afterAuth) <- receiveLogged {a = AuthorizedPayment n c} session
+  (MkBang authorized # afterAuth) <- receiveLogged {a = AuthorizedPayment n c} session
   note ("Authorized: " ++ show authorized)
-  (captured, done) <- receiveLogged {a = CapturedPayment n c} afterAuth
+  (MkBang captured # done) <- receiveLogged {a = CapturedPayment n c} afterAuth
   note ("Captured: " ++ show captured)
   finish done
 
-showDerivedFlow : Order n c -> RiskSnapshot -> IO ()
+showDerivedFlow : Order n c -> RiskSnapshot -> L IO ()
 showDerivedFlow order snapshot = do
   note ("Derived policy: " ++ describe (policyFromOrder order))
   note ("Protocol path: "  ++ protocolLabelFor order)
@@ -150,169 +146,216 @@ showDerivedFlow order snapshot = do
 
 -- ─── Server: low-risk ─────────────────────────────────────────────────────────
 
-serverLowRiskRefundable : Assessment LowRisk n c -> Session (dual (lowRiskProtocol True n c)) -> IO ()
+serverLowRiskRefundable : Assessment LowRisk n c
+                       -> (1 _ : Session (dual (lowRiskProtocol True n c)))
+                       -> L IO ()
 serverLowRiskRefundable assessment session = do
-  (submitted, afterOrder) <- receiveLogged {a = Order n c} session
+  (MkBang submitted # afterOrder) <- receiveLogged {a = Order n c} session
   afterSnapshot <- sendLogged afterOrder (riskSnapshotFor submitted)
   runRefundableSettlementServer (authorize assessment AutoApproved) afterSnapshot
 
-serverLowRiskFinal : Assessment LowRisk n c -> Session (dual (lowRiskProtocol False n c)) -> IO ()
+serverLowRiskFinal : Assessment LowRisk n c
+                  -> (1 _ : Session (dual (lowRiskProtocol False n c)))
+                  -> L IO ()
 serverLowRiskFinal assessment session = do
-  (submitted, afterOrder) <- receiveLogged {a = Order n c} session
+  (MkBang submitted # afterOrder) <- receiveLogged {a = Order n c} session
   afterSnapshot <- sendLogged afterOrder (riskSnapshotFor submitted)
   runFinalSettlementServer (authorize assessment AutoApproved) afterSnapshot
 
 -- ─── Server: medium-risk ──────────────────────────────────────────────────────
 
-serverMediumRiskRefundable : Assessment MediumRisk n c -> Session (dual (mediumRiskProtocol True n c)) -> IO ()
+serverMediumRiskRefundable : Assessment MediumRisk n c
+                          -> (1 _ : Session (dual (mediumRiskProtocol True n c)))
+                          -> L IO ()
 serverMediumRiskRefundable assessment session = do
-  (submitted, afterOrder) <- receiveLogged {a = Order n c} session
+  (MkBang submitted # afterOrder) <- receiveLogged {a = Order n c} session
   afterSnapshot <- sendLogged afterOrder (riskSnapshotFor submitted)
   let challenge = MkThreeDSChallenge ("3ds-" ++ orderId submitted) "soft"
   afterChallenge <- sendLogged afterSnapshot challenge
-  (threeDSProof, afterProof) <- receiveLogged {a = ThreeDSProof} afterChallenge
+  (MkBang threeDSProof # afterProof) <- receiveLogged {a = ThreeDSProof} afterChallenge
   runRefundableSettlementServer (authorize assessment (ThreeDSApproved threeDSProof)) afterProof
 
-serverMediumRiskFinal : Assessment MediumRisk n c -> Session (dual (mediumRiskProtocol False n c)) -> IO ()
+serverMediumRiskFinal : Assessment MediumRisk n c
+                     -> (1 _ : Session (dual (mediumRiskProtocol False n c)))
+                     -> L IO ()
 serverMediumRiskFinal assessment session = do
-  (submitted, afterOrder) <- receiveLogged {a = Order n c} session
+  (MkBang submitted # afterOrder) <- receiveLogged {a = Order n c} session
   afterSnapshot <- sendLogged afterOrder (riskSnapshotFor submitted)
   let challenge = MkThreeDSChallenge ("3ds-" ++ orderId submitted) "soft"
   afterChallenge <- sendLogged afterSnapshot challenge
-  (threeDSProof, afterProof) <- receiveLogged {a = ThreeDSProof} afterChallenge
+  (MkBang threeDSProof # afterProof) <- receiveLogged {a = ThreeDSProof} afterChallenge
   runFinalSettlementServer (authorize assessment (ThreeDSApproved threeDSProof)) afterProof
 
 -- ─── Server: high-risk ────────────────────────────────────────────────────────
 
-serverHighRiskRefundable : Assessment HighRisk n c -> Session (dual (highRiskProtocol True n c)) -> IO ()
+serverHighRiskRefundable : Assessment HighRisk n c
+                        -> (1 _ : Session (dual (highRiskProtocol True n c)))
+                        -> L IO ()
 serverHighRiskRefundable assessment session = do
-  (submitted, afterOrder) <- receiveLogged {a = Order n c} session
+  (MkBang submitted # afterOrder) <- receiveLogged {a = Order n c} session
   afterSnapshot <- sendLogged afterOrder (riskSnapshotFor submitted)
   let reviewRequest = MkManualReviewRequest "manual-review" (reason assessment)
   afterReview <- sendLogged afterSnapshot reviewRequest
-  (reviewApproval, afterApproval) <- receiveLogged {a = ManualReviewApproval} afterReview
+  (MkBang reviewApproval # afterApproval) <- receiveLogged {a = ManualReviewApproval} afterReview
   runRefundableSettlementServer (authorize assessment (ReviewerApproved reviewApproval)) afterApproval
 
-serverHighRiskFinal : Assessment HighRisk n c -> Session (dual (highRiskProtocol False n c)) -> IO ()
+serverHighRiskFinal : Assessment HighRisk n c
+                   -> (1 _ : Session (dual (highRiskProtocol False n c)))
+                   -> L IO ()
 serverHighRiskFinal assessment session = do
-  (submitted, afterOrder) <- receiveLogged {a = Order n c} session
+  (MkBang submitted # afterOrder) <- receiveLogged {a = Order n c} session
   afterSnapshot <- sendLogged afterOrder (riskSnapshotFor submitted)
   let reviewRequest = MkManualReviewRequest "manual-review" (reason assessment)
   afterReview <- sendLogged afterSnapshot reviewRequest
-  (reviewApproval, afterApproval) <- receiveLogged {a = ManualReviewApproval} afterReview
+  (MkBang reviewApproval # afterApproval) <- receiveLogged {a = ManualReviewApproval} afterReview
   runFinalSettlementServer (authorize assessment (ReviewerApproved reviewApproval)) afterApproval
 
 -- ─── Client: low-risk ─────────────────────────────────────────────────────────
 
-clientLowRiskRefundable : Bool -> Order n c -> Session (lowRiskProtocol True n c) -> IO ()
+clientLowRiskRefundable : Bool -> Order n c
+                       -> (1 _ : Session (lowRiskProtocol True n c))
+                       -> L IO ()
 clientLowRiskRefundable refundRequested order session = do
   afterOrder <- sendLogged session order
-  (snapshot, settling) <- receiveLogged {a = RiskSnapshot} afterOrder
+  (MkBang snapshot # settling) <- receiveLogged {a = RiskSnapshot} afterOrder
   showDerivedFlow order snapshot
   runRefundableSettlementClient refundRequested settling
 
-clientLowRiskFinal : Order n c -> Session (lowRiskProtocol False n c) -> IO ()
+clientLowRiskFinal : Order n c
+                  -> (1 _ : Session (lowRiskProtocol False n c))
+                  -> L IO ()
 clientLowRiskFinal order session = do
   afterOrder <- sendLogged session order
-  (snapshot, settling) <- receiveLogged {a = RiskSnapshot} afterOrder
+  (MkBang snapshot # settling) <- receiveLogged {a = RiskSnapshot} afterOrder
   showDerivedFlow order snapshot
   runFinalSettlementClient settling
 
 -- ─── Client: medium-risk ──────────────────────────────────────────────────────
 
-clientMediumRiskRefundable : Bool -> Order n c -> Session (mediumRiskProtocol True n c) -> IO ()
+clientMediumRiskRefundable : Bool -> Order n c
+                          -> (1 _ : Session (mediumRiskProtocol True n c))
+                          -> L IO ()
 clientMediumRiskRefundable refundRequested order session = do
   afterOrder <- sendLogged session order
-  (snapshot, challenged) <- receiveLogged {a = RiskSnapshot} afterOrder
+  (MkBang snapshot # challenged) <- receiveLogged {a = RiskSnapshot} afterOrder
   showDerivedFlow order snapshot
-  (challenge, afterChallenge) <- receiveLogged {a = ThreeDSChallenge} challenged
+  (MkBang challenge # afterChallenge) <- receiveLogged {a = ThreeDSChallenge} challenged
   note ("Challenge: " ++ show challenge)
   settling <- sendLogged afterChallenge (MkThreeDSProof (challengeId challenge) True)
   runRefundableSettlementClient refundRequested settling
 
-clientMediumRiskFinal : Order n c -> Session (mediumRiskProtocol False n c) -> IO ()
+clientMediumRiskFinal : Order n c
+                     -> (1 _ : Session (mediumRiskProtocol False n c))
+                     -> L IO ()
 clientMediumRiskFinal order session = do
   afterOrder <- sendLogged session order
-  (snapshot, challenged) <- receiveLogged {a = RiskSnapshot} afterOrder
+  (MkBang snapshot # challenged) <- receiveLogged {a = RiskSnapshot} afterOrder
   showDerivedFlow order snapshot
-  (challenge, afterChallenge) <- receiveLogged {a = ThreeDSChallenge} challenged
+  (MkBang challenge # afterChallenge) <- receiveLogged {a = ThreeDSChallenge} challenged
   note ("Challenge: " ++ show challenge)
   settling <- sendLogged afterChallenge (MkThreeDSProof (challengeId challenge) True)
   runFinalSettlementClient settling
 
 -- ─── Client: high-risk ────────────────────────────────────────────────────────
 
-clientHighRiskRefundable : Bool -> Order n c -> Session (highRiskProtocol True n c) -> IO ()
+clientHighRiskRefundable : Bool -> Order n c
+                        -> (1 _ : Session (highRiskProtocol True n c))
+                        -> L IO ()
 clientHighRiskRefundable refundRequested order session = do
   afterOrder <- sendLogged session order
-  (snapshot, reviewing) <- receiveLogged {a = RiskSnapshot} afterOrder
+  (MkBang snapshot # reviewing) <- receiveLogged {a = RiskSnapshot} afterOrder
   showDerivedFlow order snapshot
-  (reviewRequest, afterReview) <- receiveLogged {a = ManualReviewRequest} reviewing
+  (MkBang reviewRequest # afterReview) <- receiveLogged {a = ManualReviewRequest} reviewing
   note ("Manual review requested: " ++ show reviewRequest)
   settling <- sendLogged afterReview (MkManualReviewApproval "ops-reviewer" "KYC and invoice matched")
   runRefundableSettlementClient refundRequested settling
 
-clientHighRiskFinal : Order n c -> Session (highRiskProtocol False n c) -> IO ()
+clientHighRiskFinal : Order n c
+                   -> (1 _ : Session (highRiskProtocol False n c))
+                   -> L IO ()
 clientHighRiskFinal order session = do
   afterOrder <- sendLogged session order
-  (snapshot, reviewing) <- receiveLogged {a = RiskSnapshot} afterOrder
+  (MkBang snapshot # reviewing) <- receiveLogged {a = RiskSnapshot} afterOrder
   showDerivedFlow order snapshot
-  (reviewRequest, afterReview) <- receiveLogged {a = ManualReviewRequest} reviewing
+  (MkBang reviewRequest # afterReview) <- receiveLogged {a = ManualReviewRequest} reviewing
   note ("Manual review requested: " ++ show reviewRequest)
   settling <- sendLogged afterReview (MkManualReviewApproval "ops-reviewer" "KYC and invoice matched")
   runFinalSettlementClient settling
 
 -- ─── Scenario runner ─────────────────────────────────────────────────────────
 
-runOrderScenario : {n : Nat} -> {c : Currency} -> (refundRequested : Bool) -> Order n c -> IO ()
+||| Dispatch helper. Because both session-end types are written as
+||| `Session (protocolFromSnapshot snap n c)`, destructuring `snap` in the
+||| patterns below drives `protocolFromSnapshot` to reduce definitionally to
+||| the concrete protocol shape, and the existing typed handlers fit without
+||| explicit coercion. `par` runs server and client concurrently in linear IO;
+||| both sessions are consumed exactly once.
+runScenarioFor : {n : Nat} -> {c : Currency}
+              -> (refundRequested : Bool)
+              -> (order : Order n c)
+              -> (snap : RiskSnapshot)
+              -> (1 _ : Session (protocolFromSnapshot snap n c))
+              -> (1 _ : Session (dual (protocolFromSnapshot snap n c)))
+              -> L IO ()
+runScenarioFor refundRequested order
+    (MkRiskSnapshot LowRisk _ _ _ True _) clientEnd serverEnd = do
+  let assessment : Assessment LowRisk n c = MkAssessment order (riskReason order)
+  _ <- par (serverLowRiskRefundable assessment serverEnd)
+           (clientLowRiskRefundable refundRequested order clientEnd)
+  pure ()
+runScenarioFor refundRequested order
+    (MkRiskSnapshot LowRisk _ _ _ False _) clientEnd serverEnd = do
+  let assessment : Assessment LowRisk n c = MkAssessment order (riskReason order)
+  _ <- par (serverLowRiskFinal assessment serverEnd)
+           (clientLowRiskFinal order clientEnd)
+  pure ()
+runScenarioFor refundRequested order
+    (MkRiskSnapshot MediumRisk _ _ _ True _) clientEnd serverEnd = do
+  let assessment : Assessment MediumRisk n c = MkAssessment order (riskReason order)
+  _ <- par (serverMediumRiskRefundable assessment serverEnd)
+           (clientMediumRiskRefundable refundRequested order clientEnd)
+  pure ()
+runScenarioFor refundRequested order
+    (MkRiskSnapshot MediumRisk _ _ _ False _) clientEnd serverEnd = do
+  let assessment : Assessment MediumRisk n c = MkAssessment order (riskReason order)
+  _ <- par (serverMediumRiskFinal assessment serverEnd)
+           (clientMediumRiskFinal order clientEnd)
+  pure ()
+runScenarioFor refundRequested order
+    (MkRiskSnapshot HighRisk _ _ _ True _) clientEnd serverEnd = do
+  let assessment : Assessment HighRisk n c = MkAssessment order (riskReason order)
+  _ <- par (serverHighRiskRefundable assessment serverEnd)
+           (clientHighRiskRefundable refundRequested order clientEnd)
+  pure ()
+runScenarioFor refundRequested order
+    (MkRiskSnapshot HighRisk _ _ _ False _) clientEnd serverEnd = do
+  let assessment : Assessment HighRisk n c = MkAssessment order (riskReason order)
+  _ <- par (serverHighRiskFinal assessment serverEnd)
+           (clientHighRiskFinal order clientEnd)
+  pure ()
+
+||| The scenario runner. The protocol value passed to `openSession` is the
+||| result of `protocolFromSnapshot snapshot n c` — equivalently
+||| `protocolDerivedFrom order` — a single function call whose return TYPE
+||| flows from the runtime snapshot. The dispatch into typed handlers is then
+||| a single call to `runScenarioFor`, indexed by that same snapshot.
+runOrderScenario : {n : Nat} -> {c : Currency} -> (refundRequested : Bool) -> Order n c -> L IO ()
 runOrderScenario refundRequested order = do
-  let (lvl ** assessment) = assessOrder order
   let snapshot = riskSnapshotFor order
-  let refund   = snapshot.refundPermitted
   note ("Protocol derived from runtime order value: " ++ protocolLabelFor order)
-  case lvl of
-    LowRisk => do
-      case refund of
-        True => do
-          (clientEnd, serverEnd) <- openSession (lowRiskProtocol True n c)
-          tid <- fork (serverLowRiskRefundable assessment serverEnd)
-          clientLowRiskRefundable refundRequested order clientEnd
-          threadWait tid
-        False => do
-          (clientEnd, serverEnd) <- openSession (lowRiskProtocol False n c)
-          tid <- fork (serverLowRiskFinal assessment serverEnd)
-          clientLowRiskFinal order clientEnd
-          threadWait tid
-    MediumRisk => do
-      case refund of
-        True => do
-          (clientEnd, serverEnd) <- openSession (mediumRiskProtocol True n c)
-          tid <- fork (serverMediumRiskRefundable assessment serverEnd)
-          clientMediumRiskRefundable refundRequested order clientEnd
-          threadWait tid
-        False => do
-          (clientEnd, serverEnd) <- openSession (mediumRiskProtocol False n c)
-          tid <- fork (serverMediumRiskFinal assessment serverEnd)
-          clientMediumRiskFinal order clientEnd
-          threadWait tid
-    HighRisk => do
-      case refund of
-        True => do
-          (clientEnd, serverEnd) <- openSession (highRiskProtocol True n c)
-          tid <- fork (serverHighRiskRefundable assessment serverEnd)
-          clientHighRiskRefundable refundRequested order clientEnd
-          threadWait tid
-        False => do
-          (clientEnd, serverEnd) <- openSession (highRiskProtocol False n c)
-          tid <- fork (serverHighRiskFinal assessment serverEnd)
-          clientHighRiskFinal order clientEnd
-          threadWait tid
+  note ("                                ( = protocolDerivedFrom order : SessionType )")
+  -- Π-elimination running: protocolFromSnapshot snapshot n c computes a
+  -- SessionType whose structure depends on the snapshot, and the same
+  -- expression flows straight into openSession — its return type is indexed
+  -- by the protocol shape.
+  (clientEnd # serverEnd) <- openSession (protocolFromSnapshot snapshot n c)
+  runScenarioFor refundRequested order snapshot clientEnd serverEnd
 
 -- ══════════════════════════════════════════════════════════════════════════════
 -- Demo 1 — Low-risk payment
 -- ══════════════════════════════════════════════════════════════════════════════
 
-demo1 : IO ()
+demo1 : L IO ()
 demo1 =
   case lowRiskOrder of
     Left err => note ("Failed to build low-risk order: " ++ err)
@@ -325,7 +368,7 @@ demo1 =
 -- Demo 2 — Medium-risk payment with 3DS
 -- ══════════════════════════════════════════════════════════════════════════════
 
-demo2 : IO ()
+demo2 : L IO ()
 demo2 =
   case mediumRiskOrder of
     Left err => note ("Failed to build medium-risk order: " ++ err)
@@ -338,7 +381,7 @@ demo2 =
 -- Demo 3 — High-risk payment with manual review
 -- ══════════════════════════════════════════════════════════════════════════════
 
-demo3 : IO ()
+demo3 : L IO ()
 demo3 =
   case highRiskOrder of
     Left err => note ("Failed to build high-risk order: " ++ err)
@@ -351,7 +394,7 @@ demo3 =
 -- Demo 4 — Boundary validation
 -- ══════════════════════════════════════════════════════════════════════════════
 
-demo4 : IO ()
+demo4 : L IO ()
 demo4 = do
   section "DEMO 4 — Refined Boundary Checks"
   note ("mkOrderLine qty=0 -> " ++ show (mkOrderLine "BUGGY" (eur 1000) 0))
@@ -362,7 +405,7 @@ demo4 = do
 -- Demo 5 — Typestate and indexed audit trail
 -- ══════════════════════════════════════════════════════════════════════════════
 
-demo5 : IO ()
+demo5 : L IO ()
 demo5 =
   case lowRiskOrder of
     Left err => note ("Failed to build typestate demo order: " ++ err)
@@ -388,7 +431,7 @@ demo5 =
 -- Demo 6 — Policy DSL interpretations
 -- ══════════════════════════════════════════════════════════════════════════════
 
-demo6 : IO ()
+demo6 : L IO ()
 demo6 = do
   section "DEMO 6 — Policy DSL Interpretations"
   case lowRiskOrder of
@@ -415,19 +458,20 @@ demo6 = do
 -- Demo 7 — Idris-only payoff
 -- ══════════════════════════════════════════════════════════════════════════════
 
-demo7 : IO ()
+demo7 : L IO ()
 demo7 = do
   section "DEMO 7 — Idris-Only Endgame"
   note "dualInvolution : (p : SessionType) -> dual (dual p) = p"
   note "protocolDerivedFrom order : SessionType"
   note "assessOrder : Order n c -> (lvl ** Assessment lvl n c)"
   note "authorize : Assessment lvl n c -> Approval lvl -> AuthorizedPayment n c"
-  note "This is the step Scala cannot finish:"
-  note "  the protocol and the required witness both depend on runtime values."
-  outcome "Dependent types remove the last bridge between runtime analysis and compile-time guarantees"
+  note "Session p consumed at multiplicity 1: dropping it is a compile error."
+  note "Two steps Scala cannot finish: the protocol and the required witness"
+  note "  both depend on runtime values, and the channel itself is linearly tracked."
+  outcome "Dependent types remove the runtime-to-type bridge; linearity closes the channel-completion gap"
 
 main : IO ()
-main = do
+main = LIO.run $ do
   demo1
   demo2
   demo3

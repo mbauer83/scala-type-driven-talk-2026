@@ -1,6 +1,10 @@
 // ─── Stage 01: Java 1–4 — nominal types ──────────────────────────────────────
 // Compile and run: javac *.java && java Demo
 //
+// Lambda-cube position: λ→ — simply typed lambda calculus (STLC).
+// Proof-theoretic gain: values as proof terms; smart constructors = introduction rules;
+// private constructor = only canonical proofs are constructible; lifecycle already enforced.
+//
 // ELIMINATED — compiler now proves these; their runtime tests can be deleted:
 //
 //   ✗ Wrong-shape arguments (Order passed where Authorization expected, etc.)

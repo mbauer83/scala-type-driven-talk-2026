@@ -93,30 +93,40 @@ object Interpretations:
         )
       case PolicyF.Done => Analysis()
 
+// ─── Internal risk level ──────────────────────────────────────────────────────
+// Private enum: exhaustiveness is checked by the compiler at every match site.
+// Using a sealed enum rather than String means adding a new level (e.g. "critical")
+// forces every pattern match to handle it — the Bob-class bug cannot occur here.
+
+private enum RiskLevel:
+  case Low, Medium, High
+
 // ─── Order → Policy derivation ────────────────────────────────────────────────
-// @TODO: Why is risk-level a string and not a sealed trait with case objects or an enum? This way, we have no exhaustiveness checking.
+
 def policyFromOrder(order: Order): Policy =
   import Policy.*
-  val captureHours = assessRiskLevel(order) match
-    case "low"    => 24
-    case "medium" => 12
-    case _        => 2
-  val base = appendAudit(captureWithin(captureHours)(done))
-  val withRefund = if order.paymentMethod.supportsRefund then allowRefund(base) else base
-  assessRiskLevel(order) match
-    case "low"    => withRefund
-    case "medium" => require3DS(withRefund)
-    case _        => both(requireManualReview(withRefund), require3DS(withRefund))
+  val captureHours = classifyRisk(order) match
+    case RiskLevel.Low    => 24
+    case RiskLevel.Medium => 12
+    case RiskLevel.High   => 2
+  val base       = appendAudit(captureWithin(captureHours)(done))
+  val withRefund = order.paymentMethod.refundMechanism match
+    case RefundMechanism.InstantReversal    => allowRefund(base)
+    case RefundMechanism.CreditNoteRequired => base
+  classifyRisk(order) match
+    case RiskLevel.Low    => withRefund
+    case RiskLevel.Medium => require3DS(withRefund)
+    case RiskLevel.High   => both(requireManualReview(withRefund), require3DS(withRefund))
 
-private def assessRiskLevel(order: Order): String =
+private def classifyRisk(order: Order): RiskLevel =
   val total = order.totalCents
   order.paymentMethod match
-    case PaymentMethod.Invoice(_) => "high"
-    case PaymentMethod.Wallet(_)  => if total <= 20000 then "low" else "medium"
+    case PaymentMethod.Invoice(_) => RiskLevel.High
+    case PaymentMethod.Wallet(_)  => if total <= 20000 then RiskLevel.Low else RiskLevel.Medium
     case PaymentMethod.Card(_)    =>
-      if total <= 15000 then "low"
-      else if total <= 80000 then "medium"
-      else "high"
+      if total <= 15000 then RiskLevel.Low
+      else if total <= 80000 then RiskLevel.Medium
+      else RiskLevel.High
 
 def riskSnapshotFor(order: Order): RiskSnapshot =
   val analysis = Interpretations.analyze(policyFromOrder(order))

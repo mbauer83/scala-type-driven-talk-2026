@@ -1,7 +1,13 @@
 
-// @TODO: Remove or combine into what is currently stage 4 (so we can emphasize the increased type-safety and make use of the more efficient representation without spending almost any time explaining it)
 // ─── Stage 03: Java 8 — function pipelines ───────────────────────────────────
+// Note: Stage 3 has no live demo slot in the talk. Stage 4 opens with a 30-second
+// acknowledgment of function pipelines before moving into ADTs and sealed types.
+// This file exists as reference material only.
 // Compile and run: javac *.java && java Demo
+//
+// Lambda-cube position: λ2 (System F — same position as Stage 2, no new proof class).
+// Proof-theoretic gain: implication as function composition; rules as explicit proof objects.
+// Architectural improvement over Stage 2; the type-safety frontier moves at Stage 4.
 //
 // ELIMINATED — no new compile-time error classes over stage 02.
 //   This stage is an architectural improvement, not a safety boundary.

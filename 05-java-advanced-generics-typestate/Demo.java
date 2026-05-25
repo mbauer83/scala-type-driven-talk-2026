@@ -1,6 +1,9 @@
-// @TODO: Determine whether this warrants its own stage or whether stages 3-5 should be merged.
 // ─── Stage 05: Java — phantom-type typestate ─────────────────────────────────
 // Compile and run: javac *.java && java Demo  (requires Java 17+)
+//
+// Lambda-cube position: λω — System Fω (second axis: type constructors, types parameterized over types).
+// Proof-theoretic gain: phantom type parameter S IS the proof term for lifecycle state;
+// lifecycle expressed as an indexed type family Payment<S>; state visible at compile time.
 //
 // ELIMINATED — compiler now proves these; their runtime tests can be deleted:
 //
@@ -16,8 +19,10 @@
 //       PaymentState.java  sealed phantom states: Initiated, Authorized, Captured, Refunded
 //       removes tests: "fabricated authorized payment", "fabricated captured payment"
 //
-//   @TODO: Determine if this really can really only resolve with the type-theoretical power at stage 5. Couldn't this be handled at stage 1 with simple class based typestate?
-//   Note that examples at each stage MUST demonstrate how the type-theoretical power of that stage permits handling cases which could not be handled before! 
+// Note: simple class-based typestate (Stage 1) enforces a lifecycle sequence but requires
+// three separate classes (Authorization, Capture, Refund). Payment<S> uses a single class
+// with a type parameter — the phantom S IS the state. This allows risk-level indexing
+// (Payment<Authorized, LowRisk> at Stage 6) and pattern matching on state at compile time.
 //   ✗ Wrong capture amount — amount taken from wrong variable  [was stage 04]
 //       Payment.java:78  capture() reads amount from Payment<Authorized> directly
 //       There is no separate amount parameter; the only source is the authorized payment.
@@ -29,7 +34,6 @@
 //       → state is in the type; no runtime guard and no test for it needed
 //         (contrast with a typical state-machine enum approach)
 //
-// @TODO: For this and other stages - why no gaps closed by stage 7?
 // REMAINING GAPS — still compilable here (closed by later stages):
 // 
 //   ✗ Per-flow binding — any Payment<Authorized> accepted by capture
@@ -50,6 +54,11 @@
 //   ✗ Client/server protocol structure lives only in documentation  [closed at stage 06]
 //       No type connects the sequence of authorize → capture → refund calls
 //       to a verified communication protocol between two parties.
+//
+//   ✗ Protocol variant type cannot be computed from a runtime value  [closed at stage 07]
+//       The choice of LowRiskProtocol vs MediumRiskProtocol is a runtime dispatch,
+//       not a type-level derivation. Idris 2's dependent types let protocolDerivedFrom
+//       compute the protocol TYPE from the runtime order value directly.
 //
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -88,8 +97,8 @@ public class Demo {
             Payment<PaymentState.Captured>   captured    = Payment.capture(authorized);
             note("Captured: " + captured);
 
-            boolean refundOk = order.paymentMethod().supportsRefund();
-            Result<Payment<PaymentState.Refunded>> refunded = Payment.refund(captured, refundOk);
+            RefundMechanism mechanism = order.paymentMethod().refundMechanism();
+            Result<Payment<PaymentState.Refunded>> refunded = Payment.refund(captured, mechanism);
             note("Refund: " + refunded);
             note("Audit: " + captured.getAuditTrail());
             return captured;
@@ -133,8 +142,8 @@ public class Demo {
             Payment<PaymentState.Captured>   captured   = Payment.capture(authorized);
             note("Captured: " + captured);
 
-            boolean refundOk = order.paymentMethod().supportsRefund(); // false for invoice
-            Result<Payment<PaymentState.Refunded>> refunded = Payment.refund(captured, refundOk);
+            RefundMechanism mechanism = order.paymentMethod().refundMechanism(); // CreditNoteRequired for invoice
+            Result<Payment<PaymentState.Refunded>> refunded = Payment.refund(captured, mechanism);
             note("Refund attempt: " + refunded + " — invoice, correctly rejected");
             note("Audit: " + captured.getAuditTrail());
             return captured;
@@ -142,6 +151,7 @@ public class Demo {
         outcome("Manual review approval required; invoice refund rejected.");
     }
 
+    // @TODO: can't uncomment because code is in "notes" and fails to construct "order" first
     static void demo4_TypestateCompileErrors() {
         section("DEMO 4 — What Would Be Compile Errors");
         note("The following lines, if uncommented, would fail to compile:");

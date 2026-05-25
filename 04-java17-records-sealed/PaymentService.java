@@ -43,10 +43,9 @@ public class PaymentService {
     }
 
     public static Result<Refund> refund(Capture cap, PaymentMethod method) {
-        return switch (method) {
-            case PaymentMethod.Invoice i -> Result.err("Refund not permitted for invoice orders");
-            case PaymentMethod.Card    c -> Result.ok(new Refund("ref-" + cap.captureId(), cap.captureId(), cap.capturedAmountCents()));
-            case PaymentMethod.Wallet  w -> Result.ok(new Refund("ref-" + cap.captureId(), cap.captureId(), cap.capturedAmountCents()));
+        return switch (method.refundMechanism()) {
+            case RefundMechanism.CreditNoteRequired r -> Result.err("invoice: credit note required — instant reversal not available");
+            case RefundMechanism.InstantReversal    r -> Result.ok(new Refund("ref-" + cap.captureId(), cap.captureId(), cap.capturedAmountCents()));
         };
     }
 

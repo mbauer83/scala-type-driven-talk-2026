@@ -8,11 +8,11 @@ public sealed interface PaymentMethod permits PaymentMethod.Card, PaymentMethod.
     record Wallet(String token) implements PaymentMethod {}
     record Invoice(String reference) implements PaymentMethod {}
 
-    default boolean supportsRefund() {
+    default RefundMechanism refundMechanism() {
         return switch (this) {
-            case Card    c -> true;
-            case Wallet  w -> true;
-            case Invoice i -> false;
+            case Card    c -> new RefundMechanism.InstantReversal();
+            case Wallet  w -> new RefundMechanism.InstantReversal();
+            case Invoice i -> new RefundMechanism.CreditNoteRequired();
         };
     }
 
