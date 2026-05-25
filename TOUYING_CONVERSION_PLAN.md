@@ -826,3 +826,23 @@ visual regressions only show up by looking.
 - [x] The lambda cube cetz canvas displays inside the `.s-theory` slide chrome next to the axis legend
 - [x] Build still completes in < 10 seconds for the full deck (`typst compile deck.typ deck.pdf`)
 
+### Phase 4A — COMPLETE 2026-05-25
+Slides done: S1–S14, S35, Q&A
+
+- **S1 (`01-title.typ`)**: `title-slide` — jumbo h1, subtitle lede, meta-left/right.
+- **S2–S5 (`02-alice` … `05-danielle`)**: `incident-slide` — OPEN verdict in `pal.bad`, verbatim story + bug-line for each persona.
+- **S6 (`06-pattern.typ`)**: `light-slide` — transition prose (the four-incident pattern).
+- **S7 (`07-toolkit.typ`)**: `theory-slide` + `beat-grid` (4 entries: Aristotle through Russell/Whitehead). Footer quote verbatim.
+- **S8 (`08-crisis.typ`)**: `theory-slide` — two-column grid: Russell/fix left, Hilbert/Gödel right. Footer punchline verbatim.
+- **S9 (`09-convergence1.typ`)**: `theory-slide` + `beat-grid` (Church/Turing, Gentzen). Static — no pause sequences.
+- **S10 (`10-gentzen-or.typ`)**: `theory-slide` + `gentzen-or-canvas`. Minimal surrounding prose.
+- **S11 (`11-convergence2.typ`)**: `theory-slide` + `beat-grid` (all 4: adds Curry-Howard, Martin-Löf). Static.
+- **S12 (`12-mltt.typ`)**: `theory-slide` + `mltt-canvas`. Footer verbatim.
+- **S13 (`13-convergence3.typ`)**: `theory-slide` + `beat-grid` (all 5: adds Coquand). Footer closing line verbatim. Static.
+- **S14 (`14-lambda-cube.typ`)**: `theory-slide` + `lcube(lambda-cube-canvas, 4 axes)`. Footer verbatim.
+- **S35 (`35-close.typ`)**: `close-slide` — condensed two-quote statement; `pal.accent` on "stop being expressible in our code".
+- **Q&A (`36-qa.typ`)**: `qa-slide()`. Added to `deck.typ` after `#pagebreak()` appendix marker.
+- **`components.typ`**: added `speaker-note(body)` no-op utility.
+- **`COMPONENTS.md`**: documented `speaker-note` in new Utilities section.
+- **Scoping note**: `#include` in Typst creates a fresh module scope; each slide file imports `../theme.typ: *` and `../components.typ: *` independently.
+

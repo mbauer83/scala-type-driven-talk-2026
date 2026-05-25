@@ -34,6 +34,14 @@ The on-page render multiplies them by `scale` (= 0.5).
 
 ---
 
+## Utilities
+
+| Signature | Renders |
+|-----------|---------|
+| `speaker-note(body)` | No-op in PDF output. Wraps presenter script text that is inert in the compiled deck; reserved for a future notes-export pass. |
+
+---
+
 ## `code-pane.typ`
 
 | Signature | Renders |

@@ -16,6 +16,9 @@
 
 // ─── helpers ────────────────────────────────────────────────────────────────
 
+// speaker-note: no-op in PDF output — notes are for presenter reference only.
+#let speaker-note(body) = []
+
 #let slide-pad(body, top: pad-top, bottom: pad-bottom, x: pad-x) = pad(
   top: top,
   bottom: bottom,

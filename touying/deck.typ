@@ -61,6 +61,8 @@
 
 // ─── Appendix (A1 — A8) ─────────────────────────────────────────────────────
 //
+// 36-qa.typ is the Q&A title card — first page of the appendix section.
+//
 // Marked with a pagebreak + a section header in Phase 1; Phase 6 wires this
 // to Touying's appendix marker so the appendix is exportable as a separate
 // PDF for Q&A use.
@@ -70,6 +72,7 @@
 
 #pagebreak()
 
+#include "slides/36-qa.typ"
 #include "slides/a01-tracking.typ"
 #include "slides/a02-tracking.typ"
 #include "slides/a03-tracking.typ"
