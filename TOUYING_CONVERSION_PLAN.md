@@ -777,3 +777,31 @@ visual regressions only show up by looking.
 - [x] Build completes in < 5 seconds (`time typst compile` shows ~1s)
 - [x] PDF is one page per slide (no overflow)
 
+### Phase 2 — COMPLETE 2026-05-25
+
+- **`touying/code-pane.typ`**: full implementation replacing Phase 1 stub.
+  - Outer box: `pal.bg-dark-2`, 8 pt radius, `clip: true`.
+  - Tab bar: `pal.bg-dark`, bottom rule `pal.rule-dark`, accent dot (8 pt), mono filename.
+  - Code area: `set raw(theme: "themes/dark.tmTheme")` + `show raw.line:` for per-line
+    gutter (space-padded right-aligned number, colour `#494c58`) and highlight tints.
+  - Highlight tints: `err` → `pal.bad.transparentize(72%)`; `hl` → `pal.accent.transparentize(84%)`;
+    `hl-good` → `pal.good.transparentize(80%)`.
+  - Hover-pop: `place(top + left, ...)` above the specified line; `pal.bg-dark-3` block with
+    `pal.rule-dark-strong` border.
+  - Diagnostic strip: `pal.bg-dark-3`, top rule, bad/good/note colour variants.
+- **`touying/themes/dark.tmTheme`**: TextMate theme mapping palette OKLCH colours to
+  keyword / type / string / number / comment / function scopes.
+- **`touying/test-code-pane.typ`**: one slide, three panes (Scala+err+hover, Java+diag,
+  Haskell/Idris clean). Compiles to `test-code-pane.pdf`.
+- **Typst 0.14 scoping constraint documented**: closure-local variables must be pre-built
+  as content values or concatenated with `+`; `[content block]` interpolation breaks inside
+  show rule closures. Workaround is in `COMPONENTS.md`.
+
+#### §2 validation gate
+
+- [x] Three-pane test slide renders without overflow (`typst compile test-code-pane.typ`)
+- [x] Scala pane: err tint on line 4, hover-pop above line 4
+- [x] Java pane: hl tint on line 1, `--bad` diagnostic strip
+- [x] Haskell/Idris pane: clean, syntax highlighting active
+- [x] `typst compile deck.typ` and `typst compile test-classes.typ` still succeed (no regressions)
+

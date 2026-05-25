@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>name</key>    <string>type-talk-dark</string>
+  <key>settings</key>
+  <array>
+    <!-- Global defaults -->
+    <dict>
+      <key>settings</key>
+      <dict>
+        <key>background</key>  <string>#1a1d26</string>
+        <key>foreground</key>  <string>#e8e2d2</string>
+        <key>caret</key>       <string>#e8e2d2</string>
+        <key>selection</key>   <string>#2a2d3a</string>
+        <key>lineHighlight</key><string>#2a2d3a</string>
+      </dict>
+    </dict>
+    <!-- keywords: def, val, class, object, sealed, for, if, match, ... -->
+    <dict>
+      <key>name</key>  <string>Keywords</string>
+      <key>scope</key> <string>keyword, storage.type, storage.modifier, keyword.control, keyword.other</string>
+      <key>settings</key>
+      <dict><key>foreground</key><string>#d4a56a</string></dict>
+    </dict>
+    <!-- type names: Int, String, Option, List, ... -->
+    <dict>
+      <key>name</key>  <string>Types</string>
+      <key>scope</key> <string>support.type, entity.name.type, entity.name.class, storage.type.primitive, entity.other.inherited-class</string>
+      <key>settings</key>
+      <dict><key>foreground</key><string>#74c8cc</string></dict>
+    </dict>
+    <!-- string literals -->
+    <dict>
+      <key>name</key>  <string>Strings</string>
+      <key>scope</key> <string>string, string.quoted, string.interpolated</string>
+      <key>settings</key>
+      <dict><key>foreground</key><string>#7ec87a</string></dict>
+    </dict>
+    <!-- numeric constants -->
+    <dict>
+      <key>name</key>  <string>Numbers</string>
+      <key>scope</key> <string>constant.numeric, constant.language.boolean</string>
+      <key>settings</key>
+      <dict><key>foreground</key><string>#e89068</string></dict>
+    </dict>
+    <!-- comments -->
+    <dict>
+      <key>name</key>  <string>Comments</string>
+      <key>scope</key> <string>comment, punctuation.definition.comment</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key> <string>#8a8c78</string>
+        <key>fontStyle</key>  <string>italic</string>
+      </dict>
+    </dict>
+    <!-- function / method names -->
+    <dict>
+      <key>name</key>  <string>Functions</string>
+      <key>scope</key> <string>entity.name.function, support.function, meta.method entity.name.function</string>
+      <key>settings</key>
+      <dict><key>foreground</key><string>#c8be44</string></dict>
+    </dict>
+    <!-- operators and punctuation -->
+    <dict>
+      <key>name</key>  <string>Operators</string>
+      <key>scope</key> <string>keyword.operator, punctuation.separator, punctuation.accessor</string>
+      <key>settings</key>
+      <dict><key>foreground</key><string>#b8b3a4</string></dict>
+    </dict>
+    <!-- annotations / decorators -->
+    <dict>
+      <key>name</key>  <string>Annotations</string>
+      <key>scope</key> <string>storage.type.annotation, entity.name.tag</string>
+      <key>settings</key>
+      <dict><key>foreground</key><string>#9b988a</string></dict>
+    </dict>
+  </array>
+</dict>
+</plist>

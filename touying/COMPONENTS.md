@@ -38,11 +38,17 @@ The on-page render multiplies them by `scale` (= 0.5).
 
 | Signature | Renders |
 |-----------|---------|
-| `code-pane(filename: "Demo.java", language: "java", body, highlights: (), hover: none, diagnostic: none)` | **Phase 1 stub.** Dark `pal.bg-dark-2` block with a `pal.bg-dark` tab bar (accent dot + mono filename) and a code-area placeholder that echoes `body` plus a one-line summary of the unused params. **Final implementation in Phase 2.** Signature is final — do not change. |
+| `code-pane(filename: "Demo.java", language: "java", body, highlights: (), hover: none, diagnostic: none)` | Dark `pal.bg-dark-2` block. **Tab bar** (`pal.bg-dark`): accent dot + mono filename. **Code area**: `themes/dark.tmTheme` syntax highlighting via `show raw.line:`; space-padded line-number gutter (colour `#494c58`). Per-line background tints per `highlights`. **Hover-pop**: `pal.bg-dark-3` tooltip `place`d above the specified line. **Diagnostic strip**: `pal.bg-dark-3` band with bad/good/note colouring. |
 
-`highlights` are pairs `(line-number, kind)` where `kind ∈ "err" | "hl" | "hl-good"`.
-`hover` is `(line, col, text)` or `none`.
-`diagnostic` is `(kind, label, body)` where `kind ∈ "bad" | "good" | "note"` or `none`.
+`body` — content containing a `raw(lang: …, block: true, "…")` element. Plain-text content is accepted but produces no gutter or tints (backward-compat only).
+
+`highlights` — array of `(line-number, kind)` where `kind ∈ "err" | "hl" | "hl-good"`.
+`hover` — `(line, col, text)` or `none`. Tooltip placed above the given line.
+`diagnostic` — `(kind, label, body)` where `kind ∈ "bad" | "good" | "note"`, or `none`.
+
+**Syntax theme** — `touying/themes/dark.tmTheme` (TextMate theme). Idris: use `language: "haskell"` as fallback; replace if `idris.sublime-syntax` is added.
+
+**Known Typst 0.14 scoping constraint** — closure-local variables are inaccessible inside nested `[content blocks]` in show rule closures. Use content concatenation (`+`) or pre-build content values in code mode.
 
 ---
 
@@ -108,7 +114,9 @@ expression does **not** render in importing documents.
 |------|---------|
 | `theme.typ` | Theme (palette, type-scale, page setup, fonts). Re-exports nothing — import explicitly. |
 | `components.typ` | All slide-class functions and reusable primitives. |
-| `code-pane.typ` | The `code-pane` component (Phase 1 stub). |
+| `code-pane.typ` | The `code-pane` component (Phase 2 — full implementation). |
+| `themes/dark.tmTheme` | TextMate syntax-highlighting theme for dark code panes. |
+| `test-code-pane.typ` | Phase 2 validation slide (3 panes: Scala+err+hover, Java+diag, Haskell/Idris). |
 | `diagrams/{gentzen-or,lambda-cube,mltt}.typ` | The three cetz canvases. |
 | `slides/NN-*.typ` | 43 per-slide stub files (35 main + 8 appendix). Each is a `#pagebreak()` so the deck shows one blank page per stub. |
 | `deck.typ` | Main entrypoint. Imports theme/components/code-pane, applies `our-theme`, includes all 43 slide files in order. Build with `typst compile deck.typ deck.pdf`. |
