@@ -741,11 +741,12 @@ visual regressions only show up by looking.
 ### Phase 1 — COMPLETE 2026-05-25
 
 - **Typst**: 0.14.2
-- **IBM Plex Sans installed**: no — falls back to Inter → Libertinus Sans.
-  `fonts-ibm-plex` isn't in Debian 11 bullseye main; enable
-  `bullseye-backports` or drop the OTFs from the upstream GitHub release into
-  `~/.local/share/fonts/IBMPlexSans/` and `fc-cache -f`.
-- **JetBrains Mono installed**: yes (~/.local/share/fonts/JetBrainsMono).
+- **IBM Plex Sans installed**: yes (`~/.local/share/fonts/ibm-plex/`).
+  `fonts-ibm-plex` isn't in Debian 11 bullseye main; this machine was
+  bootstrapped by dropping the upstream GitHub OTF release into
+  `~/.local/share/fonts/ibm-plex/` and running `fc-cache -f`.
+  `bullseye-backports` is a cleaner long-term route.
+- **JetBrains Mono installed**: yes (`~/.local/share/fonts/JetBrainsMono`).
 - **Touying**: 0.5.5 (auto-downloaded on first build).
 - **cetz**: 0.3.4.
 - **Diagrams built from scratch in `touying/diagrams/`**:
@@ -767,9 +768,12 @@ visual regressions only show up by looking.
 
 - [x] All 9 slide classes render at 1920×1080 (logical) with correct
   background fill, body geometry, and accent colour
-- [ ] Eyebrows, h1/h2, body text use the right font and size — IBM Plex Sans
-  not yet installed locally; render uses fallback fonts. Acceptable for the
-  Phase 1 layout-gate; re-validate after installing IBM Plex.
+- [x] Eyebrows, h1/h2, body text use the right font and size — IBM Plex Sans
+  + JetBrains Mono both resolved by Typst (`typst fonts | grep "IBM Plex Sans"`
+  shows the Latin family; rebuild emits no `unknown font family: ibm plex sans`
+  warning). Lower-priority fallback names (`inter`, `libertinus sans`,
+  `fira code`) still warn because Typst reports every missing name in a chain
+  even when an earlier name matched — harmless.
 - [x] Build completes in < 5 seconds (`time typst compile` shows ~1s)
 - [x] PDF is one page per slide (no overflow)
 
