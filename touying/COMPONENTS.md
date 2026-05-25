@@ -78,14 +78,14 @@ refine the *bodies* (typography, slot styling) but not the shape.
 | `signature-card(body)` | White card with mono body (30pt), border + light shadow. Used for IDE method signatures. |
 | `beat-grid(entries)` | Two-column grid (120pt mono accent `when` + body `what` with optional `sub`). `entries: array of (when, what, sub)`. |
 
-### Phase 3 pattern stubs (signatures final; bodies placeholder)
+### Phase 3 patterns (implemented)
 
-| Signature | Phase-3 behaviour |
-|-----------|-------------------|
-| `ladder(documented, tested, encoded, encoded-active: false)` | DOCUMENTED / TESTED / ENCODED 3-column grid; encoded rung highlighted in accent when `encoded-active`. |
-| `story-strip(chips)` | Four-column chip strip. `chips: array of (name, what, state, closed: bool)` — closed chips flip border to accent and state to "CLOSED ✓". |
-| `test-list(items)` | 9-row test grid. `items: array of (idx, desc, closes, state)` where `state ∈ "active" \| "just-gone" \| "gone"`. |
-| `lcube(svg-or-cetz, axes)` | Pairs the lambda-cube cetz canvas with an axis legend on the right. `axes: array of (tag, label, sub)`. |
+| Signature | Renders |
+|-----------|---------|
+| `ladder(documented, tested, encoded, encoded-active: false)` | Bordered 3-column grid (1fr each) with header row DOCUMENTED / TESTED / ENCODED. When `encoded-active` the ENCODED header and body column get `pal.accent.transparentize(80%)` fill tint and the header label turns `pal.accent`. Column separators are `0.5pt + pal.rule` left strokes; outer border 3 pt radius. |
+| `story-strip(chips)` | Four-column equal-width grid (`gutter: sz(20pt)`). Each chip is a bordered block (radius 3pt) with: mono uppercase `name` (22pt 500-weight `fg-dim`), `what` body text (40pt 300-weight), and mono `state` label (20pt). **Closed** chips: `1.5pt + pal.accent` border + `state-color = pal.accent` + state text overridden to `"CLOSED ✓"`. **Open** chips: `0.5pt + pal.rule-strong` border + `pal.fg-dim` state. `chips: array of (name, what, state, closed: bool)`. |
+| `test-list(items)` | Bordered grid, columns `(44pt, 1fr, 140pt)` for idx / description / closes. Header row in mono 18pt 500-weight. **active**: normal text. **just-gone**: `pal.good-bg` fill + `strike(body, stroke: 0.6pt + pal.good)`. **gone**: `pal.fg-faint` text + plain `strike(body)`. Row separators are `0.5pt + pal.rule` bottom strokes; column separators left strokes on cols 2–3. `items: array of (idx, desc, closes, state)` where `state ∈ "active" \| "just-gone" \| "gone"`. |
+| `lcube(canvas-fn, axes)` | Two-column grid `(1fr, 260pt)` with `gutter: sz(40pt)`. Left column: `canvas-fn` content (e.g. `lambda-cube-canvas`), left + top aligned. Right column: `stack(dir: ttb, spacing: sz(20pt))` of axis rows, each a 2-column grid `(sz(48pt), 1fr)` — mono 22pt accent `tag` on the left, `stack` of 28pt body `label` + 22pt dim `sub` on the right. `axes: array of (tag, label, sub)`. |
 
 ---
 
@@ -117,6 +117,7 @@ expression does **not** render in importing documents.
 | `code-pane.typ` | The `code-pane` component (Phase 2 — full implementation). |
 | `themes/dark.tmTheme` | TextMate syntax-highlighting theme for dark code panes. |
 | `test-code-pane.typ` | Phase 2 validation slide (3 panes: Scala+err+hover, Java+diag, Haskell/Idris). |
+| `test-patterns.typ` | Phase 3 validation deck — 5 slides: test-list (9-item), story-strip (4 chips, 2 closed), ladder (encoded-active), lcube (lambda-cube-canvas), beat-grid (4 entries). |
 | `diagrams/{gentzen-or,lambda-cube,mltt}.typ` | The three cetz canvases. |
 | `slides/NN-*.typ` | 43 per-slide stub files (35 main + 8 appendix). Each is a `#pagebreak()` so the deck shows one blank page per stub. |
 | `deck.typ` | Main entrypoint. Imports theme/components/code-pane, applies `our-theme`, includes all 43 slide files in order. Build with `typst compile deck.typ deck.pdf`. |

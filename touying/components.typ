@@ -406,58 +406,180 @@
 ]
 
 // =============================================================================
-// PATTERN STUBS (Phase 3)
-//
-// Final signatures, empty bodies. Each emits a labelled placeholder block so
-// Phase 1 test slides that reference them still render something visible.
+// PATTERNS (Phase 3)
 // =============================================================================
 
-// TODO Phase 3 — render DOCUMENTED / TESTED / ENCODED columns with the
-// encoded rung optionally highlighted in accent.
-#let ladder(documented, tested, encoded, encoded-active: false) = block(
-  width: 100%,
-  inset: 12pt,
-  stroke: 0.5pt + pal.rule,
-)[
-  #set text(font: mono-font, size: sz(24pt), fill: pal.fg-dim)
-  // TODO(phase-3): ladder() — 3-column DOCUMENTED / TESTED / ENCODED grid
-  ladder() · encoded-active = #encoded-active
-]
+// ─── ladder ──────────────────────────────────────────────────────────────────
+//
+// Three-column DOCUMENTED / TESTED / ENCODED grid. The ENCODED column gets an
+// pal.accent background tint when encoded-active is true.
 
-// TODO Phase 3 — render four chips for Alice / Bob / Charlie / Danielle with
-// `.--closed` flipping the border to accent and the state to "CLOSED ✓".
-//   chips: array of (name, what, state, closed: bool)
-#let story-strip(chips) = block(
-  width: 100%,
-  inset: 12pt,
-  stroke: 0.5pt + pal.rule,
-)[
-  #set text(font: mono-font, size: sz(24pt), fill: pal.fg-dim)
-  // TODO(phase-3): story-strip() — chips: #chips.len() entries
-  story-strip() · chips = #chips.len()
-]
+#let ladder(documented, tested, encoded, encoded-active: false) = {
+  let enc-fill = if encoded-active { pal.accent.transparentize(80%) } else { none }
+  let enc-label-color = if encoded-active { pal.accent } else { pal.fg-dim }
+  let sep = 0.5pt + pal.rule
 
-// TODO Phase 3 — render 9 test rows with idx / desc / closes columns and
+  block(width: 100%, stroke: sep, radius: 3pt, clip: true)[
+    #grid(
+      columns: (1fr, 1fr, 1fr),
+      row-gutter: 0pt,
+      column-gutter: 0pt,
+      // ── header row
+      block(width: 100%, inset: (x: sz(18pt), y: sz(10pt)), stroke: (bottom: sep))[
+        #text(font: mono-font, size: sz(20pt), weight: 500, fill: pal.fg-dim, tracking: 0.05em)[DOCUMENTED]
+      ],
+      block(width: 100%, inset: (x: sz(18pt), y: sz(10pt)), stroke: (bottom: sep, left: sep))[
+        #text(font: mono-font, size: sz(20pt), weight: 500, fill: pal.fg-dim, tracking: 0.05em)[TESTED]
+      ],
+      block(width: 100%, fill: enc-fill, inset: (x: sz(18pt), y: sz(10pt)), stroke: (bottom: sep, left: sep))[
+        #text(font: mono-font, size: sz(20pt), weight: 500, fill: enc-label-color, tracking: 0.05em)[ENCODED]
+      ],
+      // ── body row
+      block(width: 100%, inset: (x: sz(18pt), y: sz(16pt)))[
+        #set text(size: sz(28pt), fill: pal.fg)
+        #documented
+      ],
+      block(width: 100%, inset: (x: sz(18pt), y: sz(16pt)), stroke: (left: sep))[
+        #set text(size: sz(28pt), fill: pal.fg)
+        #tested
+      ],
+      block(width: 100%, fill: enc-fill, inset: (x: sz(18pt), y: sz(16pt)), stroke: (left: sep))[
+        #set text(size: sz(28pt), fill: pal.fg)
+        #encoded
+      ],
+    )
+  ]
+}
+
+// ─── story-strip ─────────────────────────────────────────────────────────────
+//
+// Four-column chip strip. chips: array of (name, what, state, closed).
+// Closed chips: pal.accent border + "CLOSED ✓" state label.
+// Open chips: pal.rule-strong border + dim state label.
+
+#let story-strip(chips) = {
+  let chip-card(chip) = {
+    let (name, what, state, closed) = chip
+    let bdr = if closed { 1.5pt + pal.accent } else { 0.5pt + pal.rule-strong }
+    let state-color = if closed { pal.accent } else { pal.fg-dim }
+    let state-text = if closed { "CLOSED ✓" } else { state }
+    block(
+      width: 100%,
+      inset: (x: sz(16pt), top: sz(14pt), bottom: sz(14pt)),
+      stroke: bdr,
+      radius: 3pt,
+    )[
+      #text(font: mono-font, size: sz(22pt), weight: 500, fill: pal.fg-dim, tracking: 0.04em)[#upper(name)]
+      #v(sz(6pt))
+      #text(size: sz(40pt), weight: 300, fill: pal.fg)[#what]
+      #v(sz(8pt))
+      #text(font: mono-font, size: sz(20pt), fill: state-color)[#state-text]
+    ]
+  }
+
+  grid(
+    columns: (1fr, 1fr, 1fr, 1fr),
+    gutter: sz(20pt),
+    ..chips.map(chip-card),
+  )
+}
+
+// ─── test-list ───────────────────────────────────────────────────────────────
+//
+// Grid of test rows. items: array of (idx, desc, closes, state).
 // state ∈ "active" | "just-gone" | "gone".
-//   items: array of (idx, desc, closes, state)
-#let test-list(items) = block(
-  width: 100%,
-  inset: 12pt,
-  stroke: 0.5pt + pal.rule,
-)[
-  #set text(font: mono-font, size: sz(24pt), fill: pal.fg-dim)
-  // TODO(phase-3): test-list() — items: #items.len() rows
-  test-list() · items = #items.len()
-]
+// just-gone: pal.good-bg tint + strikethrough in pal.good.
+// gone: strikethrough, text faded to pal.fg-faint.
 
-// TODO Phase 3 — pair the lambda-cube cetz canvas with the axis legend on the
-// right; axes is an array of (tag, label, sub).
-#let lcube(svg-or-cetz, axes) = block(
-  width: 100%,
-  inset: 12pt,
-  stroke: 0.5pt + pal.rule,
-)[
-  #set text(font: mono-font, size: sz(24pt), fill: pal.fg-dim)
-  // TODO(phase-3): lcube() — axes: #axes.len() rows
-  lcube() · axes = #axes.len()
-]
+#let test-list(items) = {
+  let sep = 0.5pt + pal.rule
+  let row-sep = 0.5pt + pal.rule
+
+  let make-header(label, left-sep: false) = block(
+    width: 100%,
+    inset: (x: sz(12pt), y: sz(8pt)),
+    stroke: if left-sep { (bottom: sep, left: sep) } else { (bottom: sep) },
+  )[
+    #text(font: mono-font, size: sz(18pt), weight: 500, fill: pal.fg-dim, tracking: 0.05em)[#upper(label)]
+  ]
+
+  let make-cell(body, state: "active", left-sep: false) = {
+    let bg = if state == "just-gone" { pal.good-bg } else { none }
+    let text-fill = if state == "gone" { pal.fg-faint } else { pal.fg }
+    let stk = if left-sep { (bottom: row-sep, left: sep) } else { (bottom: row-sep) }
+    let decorated = if state == "just-gone" {
+      strike(body, stroke: 0.6pt + pal.good)
+    } else if state == "gone" {
+      strike(body)
+    } else {
+      body
+    }
+    block(
+      width: 100%,
+      fill: bg,
+      inset: (x: sz(12pt), y: sz(7pt)),
+      stroke: stk,
+    )[
+      #set text(size: sz(26pt), fill: text-fill)
+      #decorated
+    ]
+  }
+
+  let header-cells = (
+    make-header("idx"),
+    make-header("description", left-sep: true),
+    make-header("closes", left-sep: true),
+  )
+
+  let data-cells = items.map(item => {
+    let (idx, desc, closes, state) = item
+    (
+      make-cell(idx, state: state),
+      make-cell(desc, state: state, left-sep: true),
+      make-cell(closes, state: state, left-sep: true),
+    )
+  }).flatten()
+
+  block(width: 100%, stroke: sep, radius: 3pt, clip: true)[
+    #grid(
+      columns: (44pt, 1fr, 140pt),
+      row-gutter: 0pt,
+      column-gutter: 0pt,
+      ..header-cells,
+      ..data-cells,
+    )
+  ]
+}
+
+// ─── lcube ───────────────────────────────────────────────────────────────────
+//
+// Pairs a cetz canvas (left, 1fr) with an axis legend (right, fixed).
+// axes: array of (tag, label, sub).
+
+#let lcube(canvas-fn, axes) = {
+  grid(
+    columns: (1fr, 260pt),
+    gutter: sz(40pt),
+    align: (left + top, left + top),
+    canvas-fn,
+    stack(
+      dir: ttb,
+      spacing: sz(20pt),
+      ..axes.map(axis => {
+        let (tag, label, sub) = axis
+        grid(
+          columns: (sz(48pt), 1fr),
+          gutter: sz(12pt),
+          align: (left + top, left + top),
+          text(font: mono-font, size: sz(22pt), weight: 500, fill: pal.accent)[#tag],
+          stack(
+            dir: ttb,
+            spacing: sz(4pt),
+            text(size: sz(28pt), fill: pal.fg)[#label],
+            text(size: sz(22pt), fill: pal.fg-dim)[#sub],
+          ),
+        )
+      }),
+    ),
+  )
+}

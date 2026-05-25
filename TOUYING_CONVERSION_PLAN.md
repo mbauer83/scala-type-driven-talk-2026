@@ -805,3 +805,24 @@ visual regressions only show up by looking.
 - [x] Haskell/Idris pane: clean, syntax highlighting active
 - [x] `typst compile deck.typ` and `typst compile test-classes.typ` still succeed (no regressions)
 
+### Phase 3 — COMPLETE 2026-05-25
+
+- **`touying/components.typ`**: five pattern stubs replaced with full implementations.
+  - `ladder(documented, tested, encoded, encoded-active: false)` — bordered 3-column grid; ENCODED
+    column gets `pal.accent.transparentize(80%)` tint + accent label when `encoded-active`.
+  - `story-strip(chips)` — 4-column chip grid; closed chips get `1.5pt + pal.accent` border and
+    `"CLOSED ✓"` state label; open chips get `0.5pt + pal.rule-strong` and dim state.
+  - `test-list(items)` — bordered 3-column grid (idx 44pt / desc 1fr / closes 140pt); just-gone rows
+    get `pal.good-bg` fill + `strike(stroke: pal.good)`; gone rows get `pal.fg-faint` + plain strike.
+  - `lcube(canvas-fn, axes)` — 2-column grid (1fr canvas + 260pt legend); legend is a `stack` of
+    axis rows each with mono accent tag + body label + dim sub.
+  - `beat-grid` — verified unchanged; already matched the spec.
+- **`touying/test-patterns.typ`**: 5 validation slides; compiles to `test-patterns.pdf` (5 pages).
+- **`touying/COMPONENTS.md`**: stub entries replaced with final parameter descriptions.
+
+#### §3 validation gate
+
+- [x] 5 pattern-test slides render correctly (`typst compile test-patterns.typ` → 5 pages, 0 errors)
+- [x] The lambda cube cetz canvas displays inside the `.s-theory` slide chrome next to the axis legend
+- [x] Build still completes in < 10 seconds for the full deck (`typst compile deck.typ deck.pdf`)
+
