@@ -17,12 +17,12 @@
       highlights: ((4, "err"), (5, "err")),
     )[
 ```java
-Payment<PaymentState.Initiated>  init       = Payment.initiate(order);
-Payment<PaymentState.Authorized> authorized = Payment.authorizeAuto(init);
-Payment<PaymentState.Captured>   captured   = Payment.capture(authorized);
+Payment<Initiated>  init       = Payment.initiate(order);
+Payment<Authorized> authorized = Payment.authorizeAuto(init);
+Payment<Captured>   captured   = Payment.capture(authorized);
 
-// Payment.capture(init);                                    // ← UNCOMMENT → compile error
-// Payment.refund(authorized, new RefundMechanism.InstantReversal()); // ← UNCOMMENT → compile error
+// Payment.capture(init);                  // ← UNCOMMENT → won't compile
+// Payment.refund(authorized, instant);    // ← UNCOMMENT → won't compile
 ```
     ],
     signature-card[

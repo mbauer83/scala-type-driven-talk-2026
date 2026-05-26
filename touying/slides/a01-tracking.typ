@@ -7,14 +7,15 @@
   [Tracking Capabilities: Effect Systems and Capture Checking],
   stack(
     dir: ttb,
-    spacing: sz(20pt),
+    spacing: sz(36pt),
     [
       #set text(size: sz(28pt), weight: 300)
+      #set par(leading: 0.45em)
       The shared concern: tracking _capabilities_ — IO, file handles, DB connections, mutable refs — in the type of every value that touches them.
     ],
     grid(
       columns: (1fr, 1fr),
-      gutter: sz(20pt),
+      gutter: sz(28pt),
       callout(
         [Effect Systems (ZIO, cats-effect — production today)],
         stack(

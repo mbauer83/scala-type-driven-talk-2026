@@ -1,78 +1,69 @@
-// Clock: Q&A — Singleton bridge
+// Clock: Q&A — Match types (type-level rewrite system)
 #import "../theme.typ": *
 #import "../components.typ": *
 #import "../code-pane.typ": code-pane
 
 #light-slide(
-  eyebrow: eyebrow([Appendix A8 · Match Types], style: "accent"),
-  [The Singleton Bridge: Mimicking Dependent Types Without Paying for Them],
+  eyebrow: eyebrow([Appendix A8 · Type-level Logic], style: "accent"),
+  [Match Types — Pattern-Matching at the Type Level],
   stack(
     dir: ttb,
-    spacing: sz(14pt),
+    spacing: sz(28pt),
+    [
+      #set text(size: sz(26pt), fill: pal.fg-dim)
+      #set par(leading: 0.4em)
+      Match types stay on the type-operators axis (Fω) but let type-level
+      functions #text(weight: 600, fill: pal.fg)[pattern-match on shape]
+      and #text(weight: 600, fill: pal.fg)[recurse structurally]. The
+      compiler runs a real algorithm — types-in, types-out, never values.
+    ],
     grid(
       columns: (1fr, 1fr),
-      gutter: sz(16pt),
-      callout(
-        [Step 1 · ι-reduction (match types)],
-        stack(
-          dir: ttb,
-          spacing: sz(10pt),
-          [
-            #set text(size: sz(22pt), fill: pal.fg-dim)
-            Stay on the type-operators axis (Fω), but let type-level functions pattern-match and recurse. This IS the `Dual` from Stage 6:
-          ],
-          raw(lang: "scala",
-            "type Dual[P <: Protocol] <: Protocol = P match\n" +
-            "  case End           => End\n" +
-            "  case Send[a, n]    => Receive[a, Dual[n]]\n" +
-            "  case Receive[a, n] => Send[a, Dual[n]]\n" +
-            "  case Choose[l, r]  => Offer[Dual[l], Dual[r]]"
-          ),
-          [
-            #set text(size: sz(22pt), fill: pal.fg-dim)
-            The type checker runs a compile-time _algorithm_ to compute a type. Still types-in, types-out — it cannot see runtime values.
-          ],
-        ),
-        style: "accent",
-      ),
-      callout(
-        [Step 2 · singleton types (the value→type bridge)],
-        stack(
-          dir: ttb,
-          spacing: sz(10pt),
-          [
-            #set text(size: sz(22pt), fill: pal.fg-dim)
-            Give a literal a razor-thin type containing only itself:
-          ],
-          raw(lang: "scala",
-            "def openGate(code: 1234.type): OpenGate\n" +
-            "def openGate(code: Int):       ClosedGate"
-          ),
-          [
-            #set text(size: sz(22pt), fill: pal.fg-dim)
-            `1234.type` is inhabited by exactly one value. Pairing it with match types lets a runtime literal steer a type-level computation — dependent-type _behaviour_, at compile time only.
-          ],
-        ),
-        style: "accent",
+      gutter: sz(36pt),
+      align: (left + top, left + top),
+      // Left — example: Dual
+      code-pane(filename: "Derivation.scala", language: "scala")[
+```scala
+type Dual[P <: Protocol] <: Protocol = P match
+  case End           => End
+  case Send[a, n]    => Receive[a, Dual[n]]
+  case Receive[a, n] => Send[a, Dual[n]]
+  case Choose[l, r]  => Offer[Dual[l], Dual[r]]
+```
+      ],
+      // Right — the mechanism in words
+      stack(
+        dir: ttb,
+        spacing: sz(14pt),
+        text(size: sz(22pt), weight: 500, font: mono-font, fill: pal.fg-dim, tracking: 0.05em)[ι-REDUCTION],
+        line(length: 100%, stroke: 0.5pt + pal.rule),
+        [
+          #set text(size: sz(22pt))
+          #set par(leading: 0.4em)
+          A match type is a #text(weight: 600)[rewrite rule] the compiler unfolds while
+          type-checking. Each case is a pattern on the input type and a result
+          type — including recursive calls to itself.
+        ],
+        v(sz(4pt)),
+        [
+          #set text(size: sz(22pt), fill: pal.fg-dim)
+          #set par(leading: 0.4em)
+          Termination is the compiler's responsibility: Scala refuses match-types it
+          can't prove to converge. So this is computation, but bounded computation —
+          you don't pay the totality price you would for full dependent types.
+        ],
       ),
     ),
     callout(
-      [Why not climb to the actual summit (CIC / λΠ)?],
-      [
-        #set text(size: sz(24pt))
-        Full dependent types erase the compile/runtime boundary: a type may depend on ANY term, so the compiler must be able to EVALUATE arbitrary programs while type-checking.
-
-        #v(sz(6pt))
-        *That requires totality checking* — every function proven to terminate, or the compiler can loop forever — which puts a proof burden on ordinary, messy code.
-
-        #v(sz(6pt))
-        Scala / TypeScript take the cheap detour and keep partial, Turing-complete term-level code. Idris / Agda / Lean / Rocq pay the totality price to get the real thing — which is why Stage 7's `believe_me` casts matter: even there, the transport layer steps outside what's proven.
-      ],
-      style: "bad",
+      [What it is _not_],
+      [Match types still take only #text(weight: 600)[types] as input. They cannot
+      see a runtime `Int` or `String`. To bridge a runtime value into this
+      machinery, you need singletons — see next slide.],
+      style: "accent",
     ),
   ),
 )
 
 #speaker-note[
-"Great question — and the answer is a nice piece of language design. Scala doesn't reach the top of the lambda cube, but it gets close by a detour. Step one: match types. Stay on the type-operators axis — Fω — but let type-level functions pattern-match and recurse. `Dual` is exactly this: a compile-time algorithm that walks a protocol type and flips every send to a receive. The technical name is ι-reduction. It's real computation, but it only sees types, never runtime values. Step two: singleton types. You give the literal `1234` a type, `1234.type`, that contains only that one value. Now you can feed a runtime literal into a match type — and a runtime value steers a type-level result. That's dependent-type behaviour, achieved entirely at compile time. So why not just go to the summit — Idris, Agda, Lean? Because true dependent types erase the boundary between compile time and runtime: a type can depend on any term, so the compiler has to be able to evaluate any program while type-checking. If that program loops, the compiler loops. So you need totality checking — every function proven to terminate — and that pushes a proof burden onto ordinary code. Scala and TypeScript decline that bargain and keep partial, Turing-complete value-level code. Idris and friends pay the price to get the genuine article. It's the same boundary you saw in Stage 7 with the `believe_me` casts."
+"Match types are pattern-matching, recursion, and rewriting — at the type level. Scala compiles `Dual[Send[Order, End]]` by unfolding the cases: `Send` matches the second arm, so the result is `Receive[Order, Dual[End]]`. That recursive call unfolds again into `Receive[Order, End]`. The compiler did this without ever seeing a runtime value — it's purely a type-level computation. The technical name is ι-reduction; this is what puts Scala on the Fω + type-operators axis of the lambda cube. Crucially, this is _not_ dependent typing: the match-type input is still a type, never a value. To bridge to runtime values you need singleton types — that's the next slide."
 ]

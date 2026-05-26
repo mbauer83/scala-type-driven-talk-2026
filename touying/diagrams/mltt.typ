@@ -15,101 +15,103 @@
 //                   assessOrder is Σ-introduction."
 // =============================================================================
 
-#import "@preview/cetz:0.3.4": canvas, draw
-
 #let accent      = oklch(62%, 0.14, 55deg)
 #let muted       = rgb("#5a5d68")
 #let fg          = rgb("#14161d")
-#let bar-stroke  = (paint: fg, thickness: 0.6pt)
 
-// ─── nd-rule helper (same shape as gentzen-or; kept local for standalone use) ─
+// ─── nd-rule helper — pure Typst layout that measures its content so the bar
+// always spans the widest of premise-row / conclusion (matches gentzen-or).
 
 #let nd-rule(
   premises,
   conclusion,
   label: none,
-  premise-spacing: 2.4,
-  bar-padding: 0.6,
-  bar-offset: 0.45,
-) = canvas({
-  import draw: *
+  premise-gap: 16pt,
+  bar-pad:     6pt,
+  label-gap:   8pt,
+  row-gap:     3pt,
+) = context {
+  let prem-row = stack(
+    dir: ltr,
+    spacing: premise-gap,
+    ..premises,
+  )
+  let prem-size = measure(prem-row)
+  let concl-size = measure(conclusion)
+  let bar-width = calc.max(prem-size.width, concl-size.width) + 2 * bar-pad
 
-  let n = premises.len()
-  let total-width = (n - 1) * premise-spacing
-  let bar-half = total-width / 2 + bar-padding
-
-  for (i, p) in premises.enumerate() {
-    let x = -total-width / 2 + i * premise-spacing
-    content((x, bar-offset + 0.25), p)
+  // Two-column grid: premise/bar/conclusion in the left column (= bar-width),
+  // label in the right column. Premise and conclusion centre over the bar
+  // ONLY, not over bar + label. Label aligns vertically with the bar.
+  if label == none {
+    align(center)[
+      #stack(
+        dir: ttb,
+        spacing: row-gap,
+        prem-row,
+        line(length: bar-width, stroke: 0.5pt + fg),
+        conclusion,
+      )
+    ]
+  } else {
+    align(center)[
+      #grid(
+        columns: (bar-width, auto),
+        column-gutter: label-gap,
+        row-gutter: row-gap,
+        align: (center + horizon, left + horizon),
+        prem-row,    [],
+        line(length: bar-width, stroke: 0.5pt + fg),  text(fill: accent, label),
+        conclusion,  [],
+      )
+    ]
   }
-  line((-bar-half, 0), (bar-half, 0), stroke: bar-stroke)
-  content((0, -0.45), conclusion)
-  if label != none {
-    content((bar-half + 0.6, 0), text(fill: accent, label))
-  }
-})
+}
 
 // ─── The canvas ─────────────────────────────────────────────────────────────
 
 #let mltt-canvas = box[
   #grid(
     columns: (1fr, 1fr),
-    gutter: 18pt,
+    gutter: 24pt,
 
     // ─────────── Π-types (left column) ────────────
     [
-      #text(weight: "bold", size: 12pt)[
+      #text(weight: "bold", size: 13pt)[
         Π-type — #text(fill: muted, weight: "regular")[$forall$ as dependent function]
       ]
 
-      #v(6pt)
+      #v(4pt)
 
       // Formation
       #text(fill: muted, size: 9pt)[Formation]
-      #align(center)[
-        #nd-rule(
-          ($Gamma tack.r A : cal(U)$, $Gamma, x:A tack.r B(x) : cal(U)$),
-          $ Gamma tack.r (Pi x:A). B(x) : cal(U) $,
-          label: $(Pi"-Form")$,
-        )
-      ]
+      #nd-rule(
+        ($Gamma tack.r A : cal(U)$, $Gamma, x:A tack.r B(x) : cal(U)$),
+        $Gamma tack.r (Pi x:A). B(x) : cal(U)$,
+        label: $(Pi"-Form")$,
+      )
 
       #v(4pt)
 
       // Introduction
       #text(fill: muted, size: 9pt)[Introduction (λ)]
-      #align(center)[
-        #nd-rule(
-          ($Gamma, x:A tack.r b(x) : B(x)$,),
-          $ Gamma tack.r lambda x. b(x) : (Pi x:A). B(x) $,
-          label: $(Pi"-Intro")$,
-        )
-      ]
+      #nd-rule(
+        ($Gamma, x:A tack.r b(x) : B(x)$,),
+        $Gamma tack.r lambda x. b(x) : (Pi x:A). B(x)$,
+        label: $(Pi"-Intro")$,
+      )
 
       #v(4pt)
 
       // Elimination
-      #text(fill: muted, size: 9pt)[Elimination (application)]
-      #align(center)[
-        #nd-rule(
-          ($Gamma tack.r f : (Pi x:A). B(x)$, $Gamma tack.r a : A$),
-          $ Gamma tack.r f(a) : B(a) $,
-          label: $(Pi"-Elim")$,
-        )
-      ]
+      #text(fill: muted, size: 9pt)[Elimination (application) — β: $(lambda x. b)(a) equiv b[a slash x]$]
+      #nd-rule(
+        ($Gamma tack.r f : (Pi x:A). B(x)$, $Gamma tack.r a : A$),
+        $Gamma tack.r f(a) : B(a)$,
+        label: $(Pi"-Elim")$,
+      )
 
       #v(4pt)
-
-      // β-reduction (computation)
-      #align(center)[
-        #text(size: 10pt)[
-          #text(fill: muted, size: 9pt)[Computation: ]
-          $ (lambda x. b)(a) equiv b[a slash x] $
-          #text(fill: muted, size: 9pt)[(β-reduction)]
-        ]
-      ]
-
-      #v(6pt)
 
       #align(left)[
         #text(fill: muted, size: 10pt, style: "italic")[
@@ -120,47 +122,41 @@
 
     // ─────────── Σ-types (right column) ────────────
     [
-      #text(weight: "bold", size: 12pt)[
+      #text(weight: "bold", size: 13pt)[
         Σ-type — #text(fill: muted, weight: "regular")[$exists$ as dependent pair]
       ]
 
-      #v(6pt)
+      #v(4pt)
+
+      // Formation
+      #text(fill: muted, size: 9pt)[Formation]
+      #nd-rule(
+        ($Gamma tack.r A : cal(U)$, $Gamma, x:A tack.r B(x) : cal(U)$),
+        $Gamma tack.r (Sigma x:A). B(x) : cal(U)$,
+        label: $(Sigma"-Form")$,
+      )
+
+      #v(4pt)
 
       // Introduction
       #text(fill: muted, size: 9pt)[Introduction (pair)]
-      #align(center)[
-        #nd-rule(
-          ($Gamma tack.r a : A$, $Gamma tack.r b : B(a)$),
-          $ Gamma tack.r (a, b) : (Sigma x:A). B(x) $,
-          label: $(Sigma"-Intro")$,
-        )
-      ]
+      #nd-rule(
+        ($Gamma tack.r a : A$, $Gamma tack.r b : B(a)$),
+        $Gamma tack.r (a, b) : (Sigma x:A). B(x)$,
+        label: $(Sigma"-Intro")$,
+      )
 
       #v(4pt)
 
-      // Elimination — fst
-      #text(fill: muted, size: 9pt)[Elimination (proj₁)]
-      #align(center)[
-        #nd-rule(
-          ($Gamma tack.r p : (Sigma x:A). B(x)$,),
-          $ Gamma tack.r upright("fst")(p) : A $,
-          label: $(Sigma"-Elim"_1)$,
-        )
-      ]
+      // Elimination — fst and snd combined
+      #text(fill: muted, size: 9pt)[Elimination (proj₁ / proj₂)]
+      #nd-rule(
+        ($Gamma tack.r p : (Sigma x:A). B(x)$,),
+        $Gamma tack.r upright("fst")(p) : A #h(1.4em) Gamma tack.r upright("snd")(p) : B(upright("fst")(p))$,
+        label: $(Sigma"-Elim")$,
+      )
 
       #v(4pt)
-
-      // Elimination — snd
-      #text(fill: muted, size: 9pt)[Elimination (proj₂)]
-      #align(center)[
-        #nd-rule(
-          ($Gamma tack.r p : (Sigma x:A). B(x)$,),
-          $ Gamma tack.r upright("snd")(p) : B(upright("fst")(p)) $,
-          label: $(Sigma"-Elim"_2)$,
-        )
-      ]
-
-      #v(6pt)
 
       #align(left)[
         #text(fill: muted, size: 10pt, style: "italic")[
@@ -170,14 +166,14 @@
     ],
   )
 
-  #v(10pt)
+  #v(8pt)
 
   #block(
     inset: (x: 0.8em, y: 0.4em),
     stroke: (left: 2pt + accent),
     width: 100%,
   )[
-    #text(size: 11pt)[
+    #text(size: 12pt)[
       In Stage 7: `protocolFromSnapshot` is
       #text(fill: accent, weight: "bold")[Π-elimination];
       `assessOrder` is

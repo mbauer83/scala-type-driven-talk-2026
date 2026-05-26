@@ -8,8 +8,10 @@
   [Live: Dependent Typing Catching a Mismatch],
   stack(
     dir: ttb,
-    spacing: sz(14pt),
-    code-pane(filename: "Main.idr", language: "haskell", highlights: ((2, "hl"), (8, "hl-good")))[
+    spacing: sz(20pt),
+    code-pane(filename: "Main.idr", language: "haskell",
+              code-size: 20pt,
+              highlights: ((2, "hl"), (8, "hl-good")))[
 ```haskell
 runScenarioFor refundRequested order
     (MkRiskSnapshot LowRisk _ _ _ refund _) clientEnd serverEnd = do
@@ -26,19 +28,14 @@ runScenarioFor refundRequested order
 ```
     ],
     [
-      #text(fill: pal.bad, weight: 500, size: sz(24pt))[Live edit:] #text(size: sz(24pt), fill: pal.fg-dim)[swap `serverLowRisk` → `serverMediumRisk` in the LowRisk arm:]
+      #text(fill: pal.bad, weight: 500, size: sz(22pt))[Live edit:] #text(size: sz(22pt), fill: pal.fg-dim)[ swap `serverLowRisk` → `serverMediumRisk` in the LowRisk arm — the compiler reports:]
     ],
-    raw(lang: "text",
-      "Error: While processing right hand side of runScenarioFor.\n" +
-      "When unifying:\n" +
-      "    Assessment LowRisk n c\n" +
-      "and:\n" +
-      "    Assessment MediumRisk n c\n" +
-      "Mismatch between: LowRisk and MediumRisk."
-    ),
-    [
-      #set text(size: sz(24pt), fill: pal.fg-dim)
-      Both indices — assessment type and session type — must agree. Restore with ⌘Z.
+    block(width: 100%, fill: pal.bg-dark-2, radius: sz(6pt), inset: (x: sz(20pt), y: sz(14pt)))[
+      #set text(font: mono-font, size: sz(18pt), fill: pal.fg-dark)
+      #set par(leading: 0.35em)
+      Error: While processing right hand side of runScenarioFor. \
+      #h(1em) When unifying #text(fill: pal.bad)[Assessment LowRisk n c] and #text(fill: pal.bad)[Assessment MediumRisk n c] \
+      #h(1em) Mismatch between: LowRisk and MediumRisk.
     ],
   ),
 )

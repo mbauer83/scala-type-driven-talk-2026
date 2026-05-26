@@ -4,21 +4,24 @@
 
 #light-slide(
   eyebrow: eyebrow([Stage 5 Payoff · Phantom Typestate]),
+  body-gap: sz(36pt),
   [Charlie Closed — Two Gaps Remain],
   stack(
     dir: ttb,
-    spacing: sz(16pt),
+    spacing: sz(36pt),
     grid(
       columns: (1fr, 1fr),
-      gutter: sz(24pt),
+      gutter: sz(28pt),
       [
-        #text(fill: pal.good, weight: 500, size: sz(26pt))[✓ CLOSED]
-        #set text(size: sz(26pt), fill: pal.fg-dim)
+        #text(fill: pal.good, weight: 500, size: sz(26pt))[✓ CLOSED] \
+        #v(sz(6pt))
+        #set text(size: sz(24pt), fill: pal.fg-dim)
         `Payment[Authorized]` is the lifecycle proof. Capture-before-authorize unrepresentable.
       ],
       [
-        #text(fill: pal.bad, weight: 500, size: sz(26pt))[⚠ STILL EXPRESSIBLE → Stage 6]
-        #set text(size: sz(26pt), fill: pal.fg-dim)
+        #text(fill: pal.bad, weight: 500, size: sz(26pt))[⚠ STILL EXPRESSIBLE → Stage 6] \
+        #v(sz(6pt))
+        #set text(size: sz(24pt), fill: pal.fg-dim)
         Risk level not in the type. Non-empty boundary still a runtime check.
       ],
     ),

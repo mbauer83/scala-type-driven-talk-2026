@@ -7,7 +7,7 @@
   [Beyond What We Have Shown Today],
   stack(
     dir: ttb,
-    spacing: sz(28pt),
+    spacing: sz(40pt),
     callout(
       [Lean 4],
       [Proof-heavy verification used in Mathlib and Mathematics 4. The type checker discharges the proofs you write, with growing tactic automation. The most accessible on-ramp: interactive in-browser proof games (Natural Number Game, Logic Game, Set Theory Game — adam.math.hhu.de).],

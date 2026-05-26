@@ -14,8 +14,15 @@
     and Medium silently fell through to the fast path. 3DS skipped. Liability shift lost.
   ],
   [
-    if (risk != HIGH) fastPath()  // MEDIUM falls through\
-    else              manualReview()
+    #raw(lang: "java", block: true,
+      "if (risk != HIGH) {\n"
+      + "  return fastPath(order);\n"
+      + "}\n"
+      + "return manualReview(order);\n"
+      + "\n"
+      + "// MEDIUM added later — still hits fastPath()\n"
+      + "// 3DS skipped. Liability shift lost."
+    )
   ],
 )
 

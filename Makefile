@@ -18,6 +18,12 @@ talk-png: $(TYPST_SOURCES)
 	mkdir -p slides/png
 	typst compile touying/deck.typ "slides/png/slide-{0p}.png" --format png --ppi 144
 
+talk-pptx: $(TYPST_SOURCES)
+	typst compile touying/deck.typ talk.pptx --format pptx
+
+talk-html: $(TYPST_SOURCES)
+	typst compile touying/deck.typ talk.html --format html
+
 watch:
 	typst watch touying/deck.typ talk.pdf
 

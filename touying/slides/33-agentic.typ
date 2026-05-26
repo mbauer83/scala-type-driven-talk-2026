@@ -7,9 +7,10 @@
   [Expressive Types in the Age of Agentic Development],
   stack(
     dir: ttb,
-    spacing: sz(20pt),
+    spacing: sz(40pt),
     [
       #set text(size: sz(30pt), weight: 300)
+      #set par(leading: 0.45em)
       Code is now being generated faster than humans can review it.
       Agents propose changes; teams ship them.
 
@@ -21,7 +22,8 @@
       [Unwritable — regardless of author],
       grid(
         columns: (1fr, 1fr),
-        gutter: sz(12pt),
+        gutter: sz(20pt),
+        row-gutter: sz(8pt),
         [
           #set text(size: sz(26pt), font: mono-font, fill: pal.fg-dim)
           Incomplete protocol step #h(1fr) → does not compile.\
@@ -37,22 +39,17 @@
     ),
     stack(
       dir: ttb,
-      spacing: sz(12pt),
+      spacing: sz(22pt),
       [
         #set text(size: sz(28pt), weight: 300)
+        #set par(leading: 0.45em)
         For agentic workflows specifically: the compiler gives the agent a stable, mechanical
         signal to iterate against. Compile errors are actionable without a human in the loop
         on every step.
       ],
       [
-        #set text(size: sz(28pt), weight: 300)
-        Proof assistants — Lean, Rocq, Agda, Idris itself — go further: the proof obligation
-        becomes a first-class part of the type. The proof still has to be written, but the
-        assistant checks it mechanically, and modern tactic libraries automate growing fractions
-        of the work.
-      ],
-      [
         #set text(size: sz(26pt), fill: pal.fg-dim)
+        #set par(leading: 0.45em)
         When generation speed exceeds review capacity, an expressive type system raises the
         share of correctness that is enforced before merge rather than spotted by a reviewer.
       ],
@@ -61,5 +58,5 @@
 )
 
 #speaker-note[
-"There's another concrete reason this story matters now. AI agents can produce a working PR faster than a human can read it carefully. An expressive type system raises the floor of correctness that holds regardless of the author: incomplete protocol steps, skipped lifecycle transitions, empty identifiers, dropped channels — none of those compile, whether a person or a model wrote them. For agentic workflows specifically, the compiler gives the agent a stable, mechanical signal to iterate against; compile errors are actionable without a human in the loop on every step. Proof assistants like Lean, Rocq, Agda, and Idris itself go further: the proof obligation becomes a first-class part of the type. To be precise, these are interactive proof assistants — the proof still has to be written, but the machine checks it mechanically and modern tactic libraries automate increasing portions of it."
+"There's another concrete reason this story matters now. AI agents can produce a working PR faster than a human can read it carefully. An expressive type system raises the floor of correctness that holds regardless of the author: incomplete protocol steps, skipped lifecycle transitions, empty identifiers, dropped channels — none of those compile, whether a person or a model wrote them. For agentic workflows specifically, the compiler gives the agent a stable, mechanical signal to iterate against; compile errors are actionable without a human in the loop on every step. Proof assistants like Lean, Rocq, Agda, and Idris itself go further: the proof obligation becomes a first-class part of the type. In contrast to what we've seen — where the type checker automatically verifies structural properties, and you just declare the type — proof assistants let you encode more complex propositions as types, but to use a function you must also supply an explicit proof that the precondition holds. The machine checks that proof term mechanically, and modern tactic libraries automate increasing fractions of the work."
 ]

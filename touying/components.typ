@@ -19,11 +19,14 @@
 // speaker-note: no-op in PDF output — notes are for presenter reference only.
 #let speaker-note(body) = []
 
-#let slide-pad(body, top: pad-top, bottom: pad-bottom, x: pad-x) = pad(
-  top: top,
-  bottom: bottom,
-  left: x,
-  right: x,
+// `slide-pad` wraps content in a fixed-size block sized to the slide chrome
+// so that `v(1fr)` distributes the remaining vertical space (it would not
+// work inside a plain `pad(...)`). The block fills the page (which is the
+// only sized parent) and applies the four padding values as `inset`.
+#let slide-pad(body, top: pad-top, bottom: pad-bottom, x: pad-x) = block(
+  width: 100%,
+  height: 100%,
+  inset: (top: top, bottom: bottom, left: x, right: x),
   body,
 )
 
@@ -68,7 +71,9 @@
     fill: bg-tint,
     stroke: (left: 2pt + bar-color),
   )[
-    #set text(size: sz(28pt), fill: pal.fg)
+    // Body text inherits the slide's foreground colour (set by `slide-page`)
+    // so the callout reads on both light and dark slides.
+    #set text(size: sz(28pt))
     #text(
       font: mono-font,
       size: sz(22pt),
@@ -83,14 +88,20 @@
 
 // ─── small primitive: signature-card ────────────────────────────────────────
 
+// signature-card: a method-signature panel styled to match `.code-pane` on dark
+// slides. Phantom-typestate signatures get `pal.accent` highlighting on the
+// state-marked parameter (use `*`pal.accent`*` markup or pre-coloured spans
+// within `body`).
 #let signature-card(body) = block(
   width: 100%,
-  fill: white,
-  stroke: 0.5pt + pal.rule,
-  radius: 3pt,
-  inset: (x: 18pt, y: 16pt),
+  fill: pal.bg-dark-2,
+  stroke: 0.5pt + pal.rule-dark-strong,
+  radius: sz(8pt),
+  inset: (x: sz(28pt), y: sz(22pt)),
 )[
-  #set text(font: mono-font, size: sz(30pt), fill: pal.fg)
+  #set text(font: mono-font, size: sz(28pt), fill: pal.fg-dark)
+  #show strong: it => text(fill: pal.accent, weight: 500, it.body)
+  #set par(leading: 0.45em)
   #body
 ]
 
@@ -100,27 +111,27 @@
 // 34pt, optional `sub` 28pt dim — matches `.beat-grid` from the CSS.
 
 #let beat-grid(entries) = {
-  set par(leading: 0.4em)
+  set par(leading: 0.55em)
   grid(
-    columns: (120pt, 1fr),
-    gutter: 28pt,
-    row-gutter: 20pt,
+    columns: (140pt, 1fr),
+    gutter: sz(28pt),
+    row-gutter: sz(48pt),    // inter-row spacing — must clearly exceed intra-row gap
     ..entries.map(((when_, what_, sub)) => (
       {
         set text(
           font: mono-font,
-          size: sz(30pt),
+          size: sz(28pt),
           weight: 500,
           fill: pal.accent,
         )
         when_
       },
       {
-        set text(size: sz(34pt), fill: pal.fg)
+        set text(size: sz(32pt), weight: 500, fill: pal.fg)
         what_
         if sub != none and sub != [] {
           linebreak()
-          set text(size: sz(28pt), fill: pal.fg-dim)
+          set text(size: sz(26pt), weight: 400, fill: pal.fg-dim)
           sub
         }
       },
@@ -145,13 +156,13 @@
       // Top: optional eyebrow
       if eyebrow != none { eyebrow } else { [] },
       v(1fr),
-      // Middle: h1 + lede
+      // Middle: h1 + lede — lede gap exceeds intra-h1 line spacing
       {
         set text(size: sz(168pt), weight: 300, fill: pal.fg-dark)
-        set par(leading: -0.08em)
+        set par(leading: 0.32em)
         h1
       },
-      v(sz(gap-title)),
+      v(sz(120pt)),
       {
         set text(size: sz(44pt), weight: 300, fill: pal.fg-dark-dim)
         set par(leading: 0.25em)
@@ -243,22 +254,31 @@
   fg: pal.fg,
 )[
   #slide-pad[
-    #if eyebrow != none {
-      eyebrow
-      v(12pt)
-    }
-    {
-      set text(size: sz(60pt), weight: 400, fill: pal.fg)
-      set par(leading: 0.1em)
-      h2
-    }
-    #v(sz(gap-title))
-    #body
-    #if footer != none {
-      v(1fr)
-      set text(font: mono-font, size: sz(26pt), fill: pal.fg-dim)
-      footer
-    }
+    #grid(
+      columns: 1,
+      rows: (auto, gap-title * 1.3, auto, 1fr, auto),
+      // ── Row 1: eyebrow (optional) + title block
+      {
+        if eyebrow != none {
+          eyebrow
+          v(sz(6pt))
+        }
+        set text(size: sz(60pt), weight: 400, fill: pal.fg)
+        set par(leading: 0.18em)
+        h2
+      },
+      // ── Row 2: gap-title spacer (fixed-height row)
+      [],
+      // ── Row 3: body content
+      body,
+      // ── Row 4: fr spacer pushing footer to bottom
+      [],
+      // ── Row 5: footer pinned to bottom
+      if footer != none {
+        set text(font: mono-font, size: sz(26pt), fill: pal.fg-dim)
+        footer
+      } else { [] },
+    )
   ]
 ]
 
@@ -270,14 +290,14 @@
 )[
   #slide-pad[
     #grid(
-      columns: (280pt, 1fr),  // 560px @ 0.5 scale
-      gutter: sz(88pt),
-      align: (left + horizon, left + horizon),
+      columns: (sz(220pt), 1fr),
+      gutter: sz(48pt),
+      align: (left + horizon, left + top),
       // ── Left: stage number block
       {
         set text(
           font: mono-font,
-          size: sz(360pt),
+          size: sz(320pt),
           weight: 400,
           fill: pal.accent,
         )
@@ -288,30 +308,30 @@
       {
         // h2
         {
-          set text(size: sz(84pt), weight: 300, fill: pal.fg-dark)
-          set par(leading: 0em)
+          set text(size: sz(64pt), weight: 300, fill: pal.fg-dark)
+          set par(leading: 0.18em)
           h2
         }
-        v(18pt)
+        v(sz(10pt))
         // lang
         {
           set text(
             font: mono-font,
-            size: sz(30pt),
+            size: sz(26pt),
             fill: pal.fg-dark-dim,
             tracking: 0.02em,
           )
           lang
         }
-        v(18pt)
+        v(sz(14pt))
         // 1px accent-strong rule then one-liner
         block(
           width: 100%,
           stroke: (top: 0.5pt + pal.rule-dark-strong),
-          inset: (top: 16pt),
+          inset: (top: sz(14pt)),
         )[
-          #set text(size: sz(34pt), fill: pal.fg-dark)
-          #set par(leading: 0.35em)
+          #set text(size: sz(32pt), fill: pal.fg-dark)
+          #set par(leading: 0.32em)
           #one-liner
         ]
       },
@@ -321,20 +341,21 @@
 
 // ─── .s-light ───────────────────────────────────────────────────────────────
 
-#let light-slide(eyebrow: none, h2, body) = slide-page(
+#let light-slide(eyebrow: none, h2, body, body-gap: gap-title) = slide-page(
   fill: pal.bg,
   fg: pal.fg,
 )[
   #slide-pad[
     #if eyebrow != none {
       eyebrow
-      v(12pt)
+      v(sz(6pt))
     }
-    {
+    #{
       set text(size: sz(type-scale.title), weight: 400, fill: pal.fg)
+      set par(leading: 0.18em)
       h2
     }
-    #v(sz(gap-title))
+    #v(body-gap)
     #body
   ]
 ]
@@ -347,7 +368,7 @@
 )[
   #slide-pad[
     #v(1fr)
-    {
+    #{
       set text(
         font: mono-font,
         size: sz(360pt),
@@ -358,7 +379,7 @@
       big
     }
     #v(20pt)
-    {
+    #{
       set text(size: sz(44pt), weight: 300, fill: pal.fg-dark)
       set par(leading: 0.25em)
       label
@@ -375,9 +396,9 @@
 )[
   #slide-pad[
     #v(1fr)
-    {
-      set text(size: sz(92pt), weight: 300, fill: pal.fg)
-      set par(leading: 0.05em)
+    #{
+      set text(size: sz(54pt), weight: 300, fill: pal.fg)
+      set par(leading: 0.4em, justify: false)
       big-stmt
     }
     #v(1fr)
@@ -393,13 +414,13 @@
   #slide-pad[
     #v(1fr)
     #align(center)[
-      {
+      #{
         set text(size: sz(280pt), weight: 200, fill: pal.accent)
         set par(leading: 0em)
         [Q&A]
       }
       #v(16pt)
-      {
+      #{
         set text(size: sz(36pt), weight: 300, fill: pal.fg-dark-dim)
         [Questions, comments, war stories — let's hear them.]
       }
@@ -465,24 +486,35 @@
     let (name, what, state, closed) = chip
     let bdr = if closed { 1.5pt + pal.accent } else { 0.5pt + pal.rule-strong }
     let state-color = if closed { pal.accent } else { pal.fg-dim }
-    let state-text = if closed { "CLOSED ✓" } else { state }
+    let state-text = if closed { "CLOSED ✓" } else { upper(state) }
+    // Chip sizes naturally to its content. Across the row, chips with longer
+    // `what` text are slightly taller — the row uses `auto` height (not 1fr)
+    // so the strip never overflows when the test-list above is tall.
     block(
       width: 100%,
       inset: (x: sz(16pt), top: sz(14pt), bottom: sz(14pt)),
       stroke: bdr,
-      radius: 3pt,
+      radius: 4pt,
     )[
-      #text(font: mono-font, size: sz(22pt), weight: 500, fill: pal.fg-dim, tracking: 0.04em)[#upper(name)]
-      #v(sz(6pt))
-      #text(size: sz(40pt), weight: 300, fill: pal.fg)[#what]
-      #v(sz(8pt))
-      #text(font: mono-font, size: sz(20pt), fill: state-color)[#state-text]
+      #stack(
+        dir: ttb,
+        spacing: 0pt,
+        text(font: mono-font, size: sz(18pt), weight: 500, fill: pal.fg-dim, tracking: 0.04em)[#upper(name)],
+        v(sz(8pt)),
+        {
+          set par(leading: 0.4em)
+          text(size: sz(22pt), weight: 400, fill: pal.fg)[#what]
+        },
+        v(sz(10pt)),
+        text(font: mono-font, size: sz(18pt), weight: 500, fill: state-color, tracking: 0.04em)[#state-text],
+      )
     ]
   }
 
   grid(
     columns: (1fr, 1fr, 1fr, 1fr),
-    gutter: sz(20pt),
+    rows: (auto,),
+    gutter: sz(16pt),
     ..chips.map(chip-card),
   )
 }
@@ -560,25 +592,36 @@
 // axes: array of (tag, label, sub).
 
 #let lcube(canvas-fn, axes) = {
+  // Two fixed-width columns sized so the legend left-edge sits at ~62.5% of
+  // the slide width. With content width 848pt and pad-x 56pt: legend starts
+  // at content-offset 544pt, so canvas column (incl. gutter) is 544pt. The
+  // canvas is left-aligned in its column so the cube doesn't get pushed to
+  // the right edge.
   grid(
-    columns: (1fr, 260pt),
-    gutter: sz(40pt),
-    align: (left + top, left + top),
+    columns: (524pt, 304pt),
+    gutter: 20pt,
+    align: (left + horizon, left + horizon),
     canvas-fn,
     stack(
       dir: ttb,
-      spacing: sz(20pt),
+      spacing: sz(40pt),                       // inter-row spacing — must exceed intra-row gap
+      // Legend title — "Dependency Directions"
+      text(
+        font: mono-font, size: sz(24pt), weight: 600,
+        fill: pal.fg-dim, tracking: 0.06em,
+      )[DEPENDENCY DIRECTIONS],
+      // Legend entries
       ..axes.map(axis => {
         let (tag, label, sub) = axis
         grid(
-          columns: (sz(48pt), 1fr),
-          gutter: sz(12pt),
+          columns: (sz(64pt), 1fr),
+          gutter: sz(16pt),
           align: (left + top, left + top),
-          text(font: mono-font, size: sz(22pt), weight: 500, fill: pal.accent)[#tag],
+          text(font: mono-font, size: sz(28pt), weight: 600, fill: pal.accent)[#tag],
           stack(
             dir: ttb,
-            spacing: sz(4pt),
-            text(size: sz(28pt), fill: pal.fg)[#label],
+            spacing: sz(8pt),                  // intra-row name → sub gap
+            text(size: sz(28pt), weight: 500, fill: pal.fg)[#label],
             text(size: sz(22pt), fill: pal.fg-dim)[#sub],
           ),
         )

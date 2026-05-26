@@ -14,23 +14,23 @@
     code-pane(
       filename: "Authorization.java",
       language: "java",
-      highlights: ((7, "err"), (14, "hl-good")),
+      highlights: ((7, "err"), (9, "hl-good")),  // private ctor → forbidden; from() → only entry point
     )[
 ```java
 public class Authorization {
     private final String orderId;
     private final String authCode;
-    private final int    authorizedAmountCents;
+    private final int    amountCents;
     private final String approvalNote;
 
-    private Authorization(String orderId, String authCode, int amount, String note) { ... }
+    private Authorization(...) { ... }       // not callable from outside
 
-    static Authorization from(Order order, String approvalNote) {
+    static Authorization from(Order order, String note) {
         return new Authorization(
             order.getOrderId(),
             "auth-" + order.getOrderId(),
             order.getTotalCents(),
-            approvalNote);
+            note);
     }
 }
 ```

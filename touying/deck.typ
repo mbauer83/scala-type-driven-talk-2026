@@ -76,8 +76,7 @@
 #include "slides/a01-tracking.typ"
 #include "slides/a02-tracking.typ"
 #include "slides/a03-tracking.typ"
-#include "slides/a04-tracking.typ"
-#include "slides/a05-tracking.typ"
-#include "slides/a06-tracking.typ"
+// Extended history (A4–A6) removed — did not add value over the main theory section.
 #include "slides/a07-tracking.typ"
 #include "slides/a08-singleton.typ"
+#include "slides/a09-singletons.typ"

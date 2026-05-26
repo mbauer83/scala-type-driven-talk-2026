@@ -8,49 +8,43 @@
   stack(
     dir: ttb,
     spacing: sz(14pt),
-    // Summary table — font sizes reduced to sz(16pt)/sz(18pt) to prevent overflow
-    block(
-      width: 100%,
-      stroke: (top: 1.5pt + pal.rule, bottom: 1.5pt + pal.rule),
-      inset: 0pt,
-      {
-        let row(stage, lang, elim, header: false) = {
-          let fill = if header { pal.bg-warm } else { white }
-          let weight = if header { 500 } else { 300 }
-          let sz-body = if header { sz(16pt) } else { sz(18pt) }
-          grid(
-            columns: (sz(70pt), sz(140pt), 1fr),
-            rows: (auto,),
-            gutter: 0pt,
-            block(
-              inset: (x: sz(10pt), y: sz(6pt)),
-              fill: fill,
-              stroke: (right: 0.5pt + pal.rule, bottom: 0.5pt + pal.rule),
-              text(size: sz-body, weight: weight, font: mono-font, fill: if header { pal.fg-dim } else { pal.accent })[#stage],
-            ),
-            block(
-              inset: (x: sz(10pt), y: sz(6pt)),
-              fill: fill,
-              stroke: (right: 0.5pt + pal.rule, bottom: 0.5pt + pal.rule),
-              text(size: sz-body, weight: weight, fill: if header { pal.fg-dim } else { pal.fg })[#lang],
-            ),
-            block(
-              inset: (x: sz(10pt), y: sz(6pt)),
-              fill: fill,
-              stroke: (bottom: 0.5pt + pal.rule),
-              text(size: sz-body, weight: weight, fill: if header { pal.fg-dim } else { pal.fg-dim })[#elim],
-            ),
-          )
-        }
-        row([Stage], [Language], [What the type system now prevents], header: true)
-        row([0], [JavaScript],        [Every invariant requires a test. No structural checking.])
-        row([1], [Simple types],      [Shape confusion. Fabricated lifecycle values.])
-        row([2], [Generics],          [Wrong element types. Composition proven for all T.])
-        row([4], [Sum types],         [Forgotten branches. Unhandled error paths.])
-        row([5], [Phantom typestate], [Lifecycle ordering. Fabricated state objects.])
-        row([6], [Scala 3],           [Wrong approval for risk level. Empty identifiers at boundary. Protocol drift.])
-        row([7], [Idris 2],           [Runtime-to-type bridge (Π-elimination at openSession). Channel-must-be-completed (multiplicity 1).])
-      },
+    // Summary table — Typst `table` handles per-row uniform fills automatically
+    // (wrapped cells extend the whole row's fill, fixing the previous bug
+    // where only the wrapping column held its background past line 1).
+    table(
+      columns: (sz(80pt), sz(180pt), 1fr),
+      rows: auto,
+      stroke: 0.5pt + pal.rule,
+      align: (left + horizon, left + horizon, left + horizon),
+      inset: (x: sz(14pt), y: sz(12pt)),
+      fill: (col, row) => if row == 0 { pal.bg-warm } else { none },
+      // ── Header row
+      table.cell({
+        set text(size: sz(20pt), weight: 500, font: mono-font, fill: pal.fg-dim, tracking: 0.05em)
+        upper[Stage]
+      }),
+      table.cell({
+        set text(size: sz(20pt), weight: 500, font: mono-font, fill: pal.fg-dim, tracking: 0.05em)
+        upper[Language]
+      }),
+      table.cell({
+        set text(size: sz(20pt), weight: 500, font: mono-font, fill: pal.fg-dim, tracking: 0.05em)
+        upper[What the type system now prevents]
+      }),
+      // ── Data rows
+      ..(
+        ("0", "JavaScript",        "Every invariant requires a test. No structural checking."),
+        ("1", "Simple types",      "Shape confusion. Fabricated lifecycle values."),
+        ("2", "Generics",          "Wrong element types. Composition proven for all T."),
+        ("4", "Sum types",         "Forgotten branches. Unhandled error paths."),
+        ("5", "Phantom typestate", "Lifecycle ordering. Fabricated state objects."),
+        ("6", "Scala 3",           "Wrong approval for risk level. Empty identifiers at boundary. Protocol drift."),
+        ("7", "Idris 2",           "Runtime-to-type bridge (Π-elimination). Channel-must-be-completed (multiplicity 1)."),
+      ).map(r => (
+        text(size: sz(22pt), font: mono-font, weight: 500, fill: pal.accent)[#r.at(0)],
+        text(size: sz(22pt), fill: pal.fg)[#r.at(1)],
+        text(size: sz(22pt), fill: pal.fg-dim)[#r.at(2)],
+      )).flatten()
     ),
     ladder(
       [Lifecycle and authorization structurally enforced.],

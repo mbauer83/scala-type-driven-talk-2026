@@ -2,51 +2,70 @@
 #import "../theme.typ": *
 #import "../components.typ": *
 
+#let q-heading(body) = text(size: sz(34pt), weight: 600, fill: pal.fg)[#body]
+
+// Per-column quadrant — keeps the divider local to its column so reading order
+// stays top→bottom within each column rather than reading across.
+#let quadrant(top-body, bottom-body) = stack(
+  dir: ttb,
+  spacing: 0pt,
+  block(width: 100%, inset: (bottom: sz(56pt)), top-body),
+  block(width: 100%, stroke: (top: 0.5pt + pal.rule-strong),
+        inset: (top: sz(56pt)), bottom-body),
+)
+
 #theory-slide(
   [The Crisis and the Fix],
   [
+    #v(1fr)
     #grid(
       columns: (1fr, 1fr),
-      gutter: sz(40pt),
-      [
-        #text(weight: 500)[Russell (1901)] \
-        #v(4pt)
-        "The set of all sets that do not contain themselves." \
-        Self-reference destroys logical consistency. \
-        Cantor's principle — proven inconsistent.
-
-        #v(16pt)
-        #line(length: 100%, stroke: 0.5pt + pal.rule-strong)
-        #v(16pt)
-
-        #text(weight: 500)[The fix: Types] \
-        #v(4pt)
-        A strict hierarchy. A predicate (a property of values)
-        cannot operate on objects at its own level. Self-reference
-        is blocked structurally.
-      ],
-      [
-        #text(weight: 500)[Hilbert's requirements for a perfect proof system] \
-        #text(size: sz(24pt), fill: pal.fg-dim)[(stated in parallel with this debate, not after it)]
-        #v(12pt)
-        #set text(font: mono-font, size: sz(26pt))
-        Consistent #h(1em) — never derives ⊥ \
-        Sound #h(2.8em) — ⊢ ⟹ ⊨ #h(1em) (provable ⟹ true) \
-        Complete #h(1.7em) — ⊨ ⟹ ⊢ #h(1em) (true ⟹ provable)
-
-        #v(16pt)
-        #line(length: 100%, stroke: 0.5pt + pal.rule-strong)
-        #v(16pt)
-
-        #set text(font: body-font, size: sz(30pt))
-        #text(weight: 500)[Gödel (1931):] For any consistent system strong enough
-        to encode arithmetic — Completeness is impossible.
-
-        #v(12pt)
-        Pivot: drop global completeness. \
-        #h(2em) Protect Soundness and Consistency.
-      ],
+      gutter: sz(96pt),
+      // ── Left column — Russell / The fix: Types
+      quadrant(
+        [
+          #q-heading[Russell (1901)]
+          #v(sz(14pt))
+          "The set of all sets that do not contain themselves." \
+          Self-reference destroys logical consistency. \
+          Cantor's principle — proven inconsistent.
+        ],
+        [
+          #q-heading[The fix: Types]
+          #v(sz(14pt))
+          A strict hierarchy. A predicate (a property of values)
+          cannot operate on objects at its own level. Self-reference
+          is blocked structurally.
+        ],
+      ),
+      // ── Right column — Hilbert / Gödel
+      quadrant(
+        [
+          #q-heading[Hilbert's requirements for a perfect proof system]
+          #text(size: sz(22pt), fill: pal.fg-dim)[ (stated in parallel with this debate, not after it)]
+          #v(sz(18pt))
+          #set text(font: mono-font, size: sz(26pt))
+          #grid(
+            columns: (auto, auto, auto, 1fr),
+            gutter: sz(10pt),
+            row-gutter: sz(6pt),
+            [Consistent], [—], [#h(0pt)],          [never derives ⊥],
+            [Sound],      [—], [⊢ ⟹ ⊨],            [(provable ⟹ true)],
+            [Complete],   [—], [⊨ ⟹ ⊢],            [(true ⟹ provable)],
+          )
+        ],
+        [
+          #q-heading[Gödel (1931)]
+          #v(sz(14pt))
+          For any consistent system strong enough to encode arithmetic —
+          Completeness is impossible.
+          #v(sz(12pt))
+          Pivot: drop global completeness. \
+          #h(2em) Protect Soundness and Consistency.
+        ],
+      ),
     )
+    #v(1fr)
   ],
   footer: ["Types were invented to stop logic from consuming itself. Modern type checkers are descendants of that project: within a chosen calculus, they enforce specific structural guarantees."],
 )

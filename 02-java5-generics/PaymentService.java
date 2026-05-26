@@ -46,6 +46,33 @@ public class PaymentService {
             cap.getCapturedAmountCents());
     }
 
+    public static Capture processLowRisk(Order order, AuditTrail<String> log) {
+        Authorization auth = authorize(order, "auto-approved");
+        log.append("authorized:" + auth.getAuthCode());
+        Capture cap = capture(auth);
+        log.append("captured:" + cap.getCaptureId());
+        return cap;
+    }
+
+    public static Capture processMediumRisk(Order order, String challengeId, String proofId, AuditTrail<String> log) {
+        log.append("3ds-challenged:" + challengeId);
+        log.append("3ds-verified:" + proofId);
+        Authorization auth = authorize(order, "3ds:" + proofId);
+        log.append("authorized:" + auth.getAuthCode());
+        Capture cap = capture(auth);
+        log.append("captured:" + cap.getCaptureId());
+        return cap;
+    }
+
+    public static Capture processHighRisk(Order order, String reviewer, AuditTrail<String> log) {
+        log.append("manual-review-approved:" + reviewer);
+        Authorization auth = authorize(order, "manual-review:" + reviewer);
+        log.append("authorized:" + auth.getAuthCode());
+        Capture cap = capture(auth);
+        log.append("captured:" + cap.getCaptureId());
+        return cap;
+    }
+
     // Reusable Validator<T> instances — one generic interface, composed for any domain type.
     static final Validator<Integer> positiveQuantity =
         Validator.check(q -> q > 0, "Quantity must be positive");

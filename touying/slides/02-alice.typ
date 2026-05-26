@@ -8,13 +8,19 @@
   [#text(fill: pal.bad)[OPEN]],
   [The Stringly-Typed Boundary],
   [
-    An internal admin tool exports a CSV with a `lineTotal` column (amounts stored in cents).
-    A Node.js import job aggregates those rows to build draft invoices — using `+` to sum the values.
-    JavaScript's `+` on two strings is defined: it concatenates.
-    (`*` would not have caught this — JS coerces strings for `*`, `/`, `-`. Only `+` silently concatenates.)
+    An internal admin tool exports a CSV with a `lineTotal` column (stored in cents).\
+    A Node.js import job aggregates those rows to build draft invoices.\
+    (In JS "`+`" silently concatenates the string-values without coercing them to a number)
   ],
   [
-    total = "4500" + "1500" = "45001500"\
+    #raw(lang: "js", block: true,
+      "const amounts = csvRows.map(row => row.lineTotal)\n"
+      + "const total   = amounts.reduce((a, b) => a + b)\n"
+      + "\n"
+      + "// row.lineTotal = \"4500\"  (String, not Number)\n"
+      + "// \"4500\" + \"1500\" = \"45001500\"  ← concat, not addition"
+    )
+    #v(sz(8pt))
     Staged: €450,015.00  ·  Actual: €60.00
   ],
 )

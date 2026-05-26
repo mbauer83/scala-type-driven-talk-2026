@@ -14,8 +14,16 @@
     Integration tests covered the common path. The new branch only triggers for large uploads.
   ],
   [
-    Client: Upload → Evidence → FinalConfirmation\
-    Server: Upload → Evidence → EvidenceAccepted → FinalConfirmation
+    #raw(lang: "scala", block: true,
+      "// client:\n"
+      + "client.send(evidenceDocs)\n"
+      + "val result = client.receive()  // FinalConfirmation\n"
+      + "\n"
+      + "// server:\n"
+      + "val ev = server.receive()\n"
+      + "server.send(EvidenceAccepted)  // ← client never reads this\n"
+      + "server.receive()               // FinalConfirmation — client hangs"
+    )
   ],
 )
 

@@ -4,14 +4,38 @@
 
 #light-slide(
   [The Pattern],
-  [
-    In each case, a program was able to express something the business rules said was illegal.
-
-    In this talk we'll look at how using increasingly expressive types let us shrink that gap —
-    excluding increasingly larger classes of errors.
-
-    By the end, following these business rules won't be "well tested" —
-    the illegal scenarios simply won't compile anymore.
+  block(width: 100%, height: 100%)[
+    #v(.2fr)
+    // ── Anchor statement — large, centred
+    #align(center)[
+      #set text(size: sz(56pt), weight: 300, fill: pal.fg)
+      #set par(leading: 0.85em, justify: false)
+      In each case, a program was able to express\
+      something the business rules said was illegal.
+    ]
+    #v(sz(120pt))
+    // ── Two-step arc
+    #grid(
+      columns: (sz(56pt), 1fr),
+      gutter: sz(24pt),
+      row-gutter: sz(48pt),
+      align: (right + top, left + top),
+      text(font: mono-font, size: sz(40pt), weight: 600, fill: pal.accent)[•],
+      [
+        #set text(size: sz(34pt), fill: pal.fg)
+        #set par(leading: 0.45em)
+        At each stage, *increasingly expressive types* shrink that gap —
+        excluding increasingly larger classes of errors.
+      ],
+      text(font: mono-font, size: sz(40pt), weight: 600, fill: pal.accent)[•],
+      [
+        #set text(size: sz(34pt), fill: pal.fg)
+        #set par(leading: 0.45em)
+        By the end, following these business rules won't be "well tested" —
+        #text(weight: 600, fill: pal.accent)[the illegal scenarios simply won't compile anymore.]
+      ],
+    )
+    #v(1fr)
   ],
 )
 

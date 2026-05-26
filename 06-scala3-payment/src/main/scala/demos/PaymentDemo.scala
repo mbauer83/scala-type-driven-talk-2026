@@ -236,6 +236,7 @@ object PaymentDemo:
     log("")
     log("Iron compile-time literal check:")
     val validId: NonEmptyString = "ord-001".refineUnsafe[MinLength[1]]
+    // val invalidId: NonEmptyString = "".refineUnsafe[MinLength[1]]  // ← uncomment for live demo
     log(s"  \"ord-001\".refineUnsafe[MinLength[1]] → NonEmptyString(${validId.value})  // OK at COMPILE TIME")
     log(s"  \"\".refineUnsafe[MinLength[1]]        ← DOES NOT COMPILE for literal \"\" (try it)")
     log(s"  // 'Assertion failed: Should have a min length of 1' — at compile time")

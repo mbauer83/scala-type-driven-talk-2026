@@ -3,35 +3,42 @@
 #import "../components.typ": *
 #import "../code-pane.typ": *
 
+#let bullet(label, body) = grid(
+  columns: (sz(32pt), 1fr),
+  gutter: sz(14pt),
+  align: (right + top, left + top),
+  text(size: sz(28pt), weight: 600, fill: pal.accent)[•],
+  [
+    #set par(leading: 0.4em)
+    #text(size: sz(26pt), weight: 600)[#label] \
+    #text(size: sz(24pt), fill: pal.fg-dim)[#body]
+  ],
+)
+
 #light-slide(
   eyebrow: eyebrow([Stage 6 · Session Types]),
   [Session Types · What They Are],
   grid(
-    columns: (1fr, 1fr),
-    gutter: sz(32pt),
+    columns: (1fr, 1.1fr),
+    gutter: sz(28pt),
+    align: (left + top, left + top),
     stack(
       dir: ttb,
-      spacing: sz(20pt),
+      spacing: sz(22pt),
       eyebrow(style: "accent")[→ DEMO 6b in `Derivation.scala`],
-      [
-        #set text(size: sz(28pt), weight: 300)
-        A session type describes a whole *conversation* in the type system — the full sequence of moves, in order, on both sides.
-      ],
-      [
-        #set text(size: sz(26pt), fill: pal.fg-dim)
-        Each channel's type is the _remainder of the protocol_: the moves still to be made. Performing a send or a receive consumes one step and produces a channel typed by what's left to do.
-      ],
-      [
-        #set text(size: sz(26pt), fill: pal.fg-dim)
-        Two parties hold *complementary* types: one's send is the other's receive. A mismatch at either end is a compile error, not a runtime drift.
-      ],
+      bullet([Protocol as type],
+             [The full conversation — every send / receive / choice — encoded in the type.]),
+      bullet([Channel = remainder],
+             [Each step consumes one move; the channel's type is _what's left to do_.]),
+      bullet([Complementary endpoints],
+             [Client's send is server's receive. Mismatch is a compile error, not a runtime drift.]),
       callout(
         [Duality],
-        [Server holds `Channel[Dual[P]]` — every Send becomes a Receive and vice versa. `Dual[P]` is computed by the compiler from the same protocol definition.],
+        [`Channel[Dual[P]]` on the server. `Dual[P]` is _computed_ from the same definition — both ends derived from one source.],
         style: "accent",
       ),
     ),
-    code-pane(filename: "Derivation.scala", language: "scala")[
+    code-pane(filename: "Derivation.scala", language: "scala", code-size: 22pt)[
 ```scala
 // Client's view — steps consumed left to right
 type LowRiskProtocol =
@@ -42,11 +49,7 @@ type LowRiskProtocol =
           Choose[Receive[RefundedPayment, End],
                  End]]]]]
 
-// Server's view — computed by the compiler
-// Dual[Send[A, P]] = Receive[A, Dual[P]]
-// Dual[Receive[A, P]] = Send[A, Dual[P]]
-// Dual[Choose[L, R]] = Offer[Dual[L], Dual[R]]
-
+// Dual: Send ↔ Receive, Choose ↔ Offer
 summon[Dual[LowRiskProtocol] =:=
   Receive[Order,
     Send[RiskSnapshot,

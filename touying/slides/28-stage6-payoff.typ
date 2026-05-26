@@ -4,34 +4,30 @@
 
 #light-slide(
   eyebrow: eyebrow([Stage 6 Payoff · Scala 3]),
+  body-gap: sz(28pt),                            // S28 is the densest payoff — extra tight
   [Three Stories Closed — Two Gaps Remain],
   stack(
     dir: ttb,
-    spacing: sz(14pt),
+    spacing: sz(28pt),
+    // Single condensed status line — three closed, two open.
     grid(
-      columns: (1fr, 1fr, 1fr),
-      gutter: sz(16pt),
+      columns: (1fr, 1fr),
+      gutter: sz(28pt),
       [
-        #text(fill: pal.good, weight: 500, size: sz(24pt))[✓ BOB]
-        #set text(size: sz(24pt), fill: pal.fg-dim)
-        Protocol selects medium — `Approval LowRisk` rejected at compile time.
+        #text(fill: pal.good, weight: 500, size: sz(24pt))[✓ Three stories closed] \
+        #v(sz(4pt))
+        #set text(size: sz(22pt), fill: pal.fg-dim)
+        #set par(leading: 0.4em)
+        Protocol selects medium · `OrderId` is `NonEmptyString`-refined · server/client types from one definition.
       ],
       [
-        #text(fill: pal.good, weight: 500, size: sz(24pt))[✓ ALICE]
-        #set text(size: sz(24pt), fill: pal.fg-dim)
-        `OrderId` is `NonEmptyString`-refined. Empty string rejected at the boundary.
-      ],
-      [
-        #text(fill: pal.good, weight: 500, size: sz(24pt))[✓ DANIELLE]
-        #set text(size: sz(24pt), fill: pal.fg-dim)
-        Server and client types from the same definition. Cannot drift.
+        #text(fill: pal.bad, weight: 500, size: sz(24pt))[⚠ Two gaps → Stage 7] \
+        #v(sz(4pt))
+        #set text(size: sz(22pt), fill: pal.fg-dim)
+        #set par(leading: 0.4em)
+        Protocol from ADT, not runtime `Order`. Dropped channel not caught.
       ],
     ),
-    [
-      #text(fill: pal.bad, weight: 500, size: sz(24pt))[⚠ TWO STRUCTURAL GAPS → Stage 7]
-      #set text(size: sz(24pt), fill: pal.fg-dim)
-      Protocol from ADT, not runtime `Order`. Dropped channel not caught. Stage 7 closes both.
-    ],
     test-list((
       ("1",  [Shape confusion — passing an Order where an Authorization belongs], [S·1], "gone"),
       ("2",  [Wrong element type in typed collections],                           [S·2], "gone"),

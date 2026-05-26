@@ -25,12 +25,14 @@
   highlights: (),
   hover:       none,
   diagnostic:  none,
+  code-size:   type-scale.code-sm,              // default 24pt raw (12pt rendered) — fits more lines per pane
+  height:      auto,                            // pass 100% to fill the grid row (equal-height columns)
 ) = {
-  let line-h     = sz(type-scale.code) * 1.5
-  let gutter-w   = sz(type-scale.code) * 2.4    // ~2.2em gutter
-  let gutter-gap = sz(type-scale.code) * 1.6    // gap after gutter
-  let ci-x       = sz(40pt)                     // code-area inset x (≈ pre padding in CSS)
-  let ci-y       = sz(32pt)                     // code-area inset y
+  let line-h     = sz(code-size) * 1.5
+  let gutter-w   = sz(code-size) * 2.4          // ~2.2em gutter
+  let gutter-gap = sz(code-size) * 1.6          // gap after gutter
+  let ci-x       = sz(32pt)                     // code-area inset x
+  let ci-y       = sz(20pt)                     // code-area inset y — tighter than before
 
   // Return highlight kind string for line n, or none.
   let hl-kind(n) = {
@@ -41,6 +43,7 @@
 
   block(
     width:  100%,
+    height: height,
     fill:   pal.bg-dark-2,
     radius: sz(8pt),
     clip:   true,
@@ -64,10 +67,10 @@
       width: 100%,
       inset: (x: ci-x, y: ci-y),
     )[
-      {
+      #{
         // Dark syntax theme; base text colour for un-highlighted tokens.
         set raw(theme: "themes/dark.tmTheme")
-        show raw: set text(font: mono-font, size: sz(type-scale.code), fill: pal.fg-dark)
+        show raw: set text(font: mono-font, size: sz(code-size), fill: pal.fg-dark)
 
         // Per-line layout: gutter number + optional highlight tint.
         // Closure variables are inaccessible inside [content blocks] in show
@@ -83,7 +86,7 @@
           // Space-pad to 2 chars for visual right-alignment in monospace.
           let gnum = text(
             fill: rgb(73, 76, 88),    // #494c58
-            size: sz(type-scale.code),
+            size: sz(code-size),
             font: mono-font,
             (if n < 10 { " " } else { "" }) + str(n),
           )
@@ -102,7 +105,7 @@
         let (h-line, h-col, h-text) = hover
         // Position just above the target line.
         let dy = calc.max(0pt, (h-line - 2) * line-h)
-        let dx = gutter-w + gutter-gap + h-col * sz(type-scale.code) * 0.62
+        let dx = gutter-w + gutter-gap + h-col * sz(code-size) * 0.62
         place(top + left, dy: dy, dx: dx)[
           #block(
             fill:   rgb(42, 45, 58),    // #2a2d3a

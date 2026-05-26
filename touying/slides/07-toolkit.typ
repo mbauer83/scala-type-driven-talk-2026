@@ -6,12 +6,13 @@
   eyebrow: eyebrow([LOGIC & PROOF · 4TH C. BCE → TODAY], style: "accent"),
   [A Toolkit Built Over Two and a Half Thousand Years],
   beat-grid((
-    ([4th c. BCE], [Aristotle], [Valid inference from structural form alone. Replace content with variables; the form holds or it doesn't.]),
-    ([17th c.], [Leibniz], [If valid inference is purely structural, in principle it could be performed by a machine. Sketches a universal formal notation and a "calculus of reasoning" — mechanised inference, two centuries early.]),
+    ([4th c. BCE], [Aristotle], [Valid inference determined by structural form alone - content can be replaced with variables:\
+    All Y are Z. X is Y. → Thus X is Z.]),
+    ([17th c.], [Leibniz], [If valid inference is purely structural, in principle it could be performed by a machine. Discovers binary encoding & sketches ideas for a universal "calculus of reasoning" — mechanised inference, two centuries early.]),
     ([1847], [Boole / DeMorgan], [Logic as algebra: AND, OR, NOT with strict laws. Relations composed as first-class objects.]),
     ([1879–1910], [Frege · Peano · Russell + Whitehead], [Principia Mathematica: an attempt to ground all of mathematics in a single formal system. Syntax (token manipulation) clearly separated from semantics (meaning).]),
   )),
-  footer: ["Formal structure restricts what can be said — so that what #emph[can] be said can be trusted."],
+  footer: ["Formal structure restricts what can be said & inferred — so that valid expressions can be trusted."],
 )
 
 #speaker-note[

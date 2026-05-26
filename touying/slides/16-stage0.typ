@@ -6,12 +6,12 @@
 #stage-opener-slide(
   [0],
   [JavaScript · The Untyped Baseline],
-  [javascript · no static guarantees],
+  [no static guarantees],
   stack(
     dir: ttb,
     spacing: sz(18pt),
     eyebrow(style: "accent")[→ DEMO 1 in `demo.js`],
-    code-pane(filename: "payment.js", language: "javascript")[
+    code-pane(filename: "payment.js", language: "javascript", code-size: type-scale.code-sm)[
 ```js
 function authorize(order, approvalNote) {
   return {
@@ -25,7 +25,7 @@ function authorize(order, approvalNote) {
 function capture(auth) {
   return {
     captureId:      "cap-" + auth.authCode,
-    capturedAmount: auth.authorizedAmount, // undefined if Order passed instead
+    capturedAmount: auth.authorizedAmount, // undefined if Order passed
   };
 }
 ```

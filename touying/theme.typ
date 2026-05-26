@@ -79,7 +79,7 @@
 #let pad-top     = 100pt * scale
 #let pad-bottom  =  88pt * scale
 #let pad-x       = 112pt * scale
-#let gap-title   =  48pt * scale
+#let gap-title   =  80pt * scale     // headline → body — generous breathing room
 #let gap-item    =  28pt * scale
 
 // ─── Font fallback chains ───────────────────────────────────────────────────

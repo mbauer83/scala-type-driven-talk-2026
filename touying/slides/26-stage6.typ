@@ -12,31 +12,40 @@
     spacing: sz(16pt),
     eyebrow(style: "accent")[→ DEMO 6a in `PaymentDemo.scala`],
     grid(
-      columns: (1fr, 1fr),
-      gutter: sz(20pt),
-      stack(
-        dir: ttb,
-        spacing: sz(10pt),
-        text(size: sz(20pt), weight: 500, font: mono-font, fill: pal.fg-dim)[MECHANISMS AT WORK],
-        line(length: 100%, stroke: 0.5pt + pal.rule-strong),
-        ..for (mech, detail) in (
-          ("Refined types",            "NonEmptyString = String :| MinLength[1]"),
-          ("Opaque + refined IDs",     "OrderId, CustomerId"),
-          ("Path-dependent types",     "CanSend[P]#Msg"),
-          ("Compiler-derived evidence","P =:= End"),
-          ("Match types + duality",    "Dual[P] computed by compiler"),
-          ("Higher-kinded types",      "interpret[F[_]: Functor, A]"),
-        ) {
-          (
-            grid(
-              columns: (auto, 1fr),
-              gutter: sz(12pt),
-              text(size: sz(22pt), weight: 500, fill: pal.accent)[#mech],
-              text(size: sz(20pt), fill: pal.fg-dim, font: mono-font)[#detail],
-            ),
-          )
-        },
-      ),
+      columns: (sz(380pt), 1fr),
+      gutter: sz(32pt),
+      align: (left + top, left + top),
+      // ── Left column: header aligned with "Domain.scala" tab bar via the same
+      //   y-inset; title above example with generous spacing both within and
+      //   between rows.
+      block(width: 100%, inset: (top: sz(14pt)))[
+        #stack(
+          dir: ttb,
+          spacing: sz(34pt),
+          text(size: sz(20pt), weight: 500, font: mono-font, fill: pal.fg-dark-dim, tracking: 0.05em)[MECHANISMS AT WORK],
+          stack(
+            dir: ttb,
+            spacing: sz(36pt),                // inter-row breathing room (> intra-row)
+            ..for (mech, detail) in (
+              ("Refined types",            "NonEmptyString = String :| MinLength[1]"),
+              ("Opaque + refined IDs",     "OrderId, CustomerId"),
+              ("Path-dependent types",     "CanSend[P]#Msg"),
+              ("Compiler-derived evidence","P =:= End"),
+              ("Match types + duality",    "Dual[P] computed by compiler"),
+              ("Higher-kinded types",      "interpret[F[_]: Functor, A]"),
+            ) {
+              (
+                stack(
+                  dir: ttb,
+                  spacing: sz(14pt),         // intra-row title → example gap
+                  text(size: sz(22pt), weight: 600, fill: pal.accent)[#mech],
+                  text(size: sz(18pt), fill: pal.fg-dark-dim, font: mono-font)[#detail],
+                ),
+              )
+            },
+          ),
+        )
+      ],
       code-pane(filename: "Domain.scala", language: "scala")[
 ```scala
 def authorize[R <: Risk](
@@ -45,13 +54,13 @@ def authorize[R <: Risk](
 ): AuthorizedPayment[R] =
   val note = approval match
     case AutoApproved        => "auto-approved"
-    case ThreeDSApproved(p)  => s"3ds:${p.challengeId}"
-    case ReviewerApproved(a) => s"manual-review:${a.reviewer}"
+    case ThreeDSApproved(p)  => s"3ds:${p.id}"
+    case ReviewerApproved(a) => s"reviewer:${a.id}"
   AuthorizedPayment(
-    order      = order,
-    authCode   = AuthCode.of(s"auth-${order.orderId.orderIdStr}"),
-    approval   = approval,
-    auditTrail = List(s"authorized:$note"),
+    order    = order,
+    authCode = AuthCode.of(s"auth-${order.id}"),
+    approval = approval,
+    audit    = List(s"authorized:$note"),
   )
 ```
       ],
@@ -71,8 +80,8 @@ Open `Domain.scala`, navigate to `type NonEmptyString = String :| MinLength[1]`.
 → Feature 3 — Path-dependent types (30 sec, LIVE):
 Briefly show `CanSend[P]#Msg` in `Chan.scala`. Point at `ch.send(...)` — say: "The message type is derived from the protocol position. Sending the wrong type or sending on a receive step is a compile error. Defensive per-call-site test gone; behavioural tests stay."
 
-→ Features 4–6 (mention as walk-through, ~30 sec total — no live edits):
-"Three more mechanisms in the file — `=:=` evidence (`finish()` requires a compiler-constructed proof that the protocol equals `End`), opaque types (`AuthCode`, `CaptureId`, `RefundId` are all `String` underneath but the compiler refuses to mix them), and catamorphisms (`interpret[F[_]: Functor, A]`). You can see all three in the repo."
+→ Additional mechanisms (brief verbal mention, ~10 sec — no live edits):
+"One more mechanism worth naming: opaque types — `AuthCode`, `CaptureId`, `RefundId` are all `String` underneath, but the compiler refuses to mix them. I'll show `=:=` evidence and `finish()` in the session-types segment next."
 
 → Return to slide briefly.
 ]

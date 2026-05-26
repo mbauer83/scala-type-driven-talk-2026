@@ -8,7 +8,7 @@
   [Function Pipelines · Rules as First-Class Values],
   stack(
     dir: ttb,
-    spacing: sz(20pt),
+    spacing: sz(40pt),
     code-pane(filename: "Demo.java", language: "java")[
 ```java
 // Business rule as a first-class value

@@ -4,7 +4,7 @@
 -- Lambda-cube position: λC — Calculus of Constructions (all three axes).
 -- Proof-theoretic gain: Π-types — return type depends on runtime input value;
 -- Σ-types — dependent witness pairs (risk level + proof); runtime-to-type bridge eliminated.
--- protocolDerivedFrom : Order -> SessionType IS a Π-type, running at compile time.
+-- protocolFromSnapshot : RiskSnapshot -> SessionType IS a Π-type, running at compile time.
 --
 -- Linearity addition (this stage): the channel API uses Idris 2's
 -- Quantitative Type Theory multiplicities. Every `Session p` argument is
@@ -261,15 +261,15 @@ runScenarioFor refundRequested order
 
 
 ||| The scenario runner. The protocol value passed to `openSession` is the
-||| result of `protocolFromSnapshot snapshot n c` — equivalently
-||| `protocolDerivedFrom order` — a single function call whose return TYPE
-||| flows from the runtime snapshot. The dispatch into typed handlers is then
-||| a single call to `runScenarioFor`, indexed by that same snapshot.
+||| result of `protocolFromSnapshot snapshot n c` — a single function call
+||| whose return TYPE flows from the runtime snapshot. The dispatch into
+||| typed handlers is then a single call to `runScenarioFor`, indexed by
+||| that same snapshot.
 runOrderScenario : {n : Nat} -> {c : Currency} -> (refundRequested : Bool) -> Order n c -> L IO ()
 runOrderScenario refundRequested order = do
   let snapshot = riskSnapshotFor order
   note ("Protocol derived from runtime order value: " ++ protocolLabelFor order)
-  note ("                                ( = protocolDerivedFrom order : SessionType )")
+  note ("                                ( = protocolFromSnapshot snapshot : SessionType )")
   -- Π-elimination running: protocolFromSnapshot snapshot n c computes a
   -- SessionType whose structure depends on the snapshot, and the same
   -- expression flows straight into openSession — its return type is indexed
@@ -390,7 +390,7 @@ demo7 : L IO ()
 demo7 = do
   section "DEMO 7 — Idris-Only Endgame"
   note "dualInvolution : (p : SessionType) -> dual (dual p) = p"
-  note "protocolDerivedFrom order : SessionType"
+  note "protocolFromSnapshot snapshot : SessionType"
   note "assessOrder : Order n c -> (lvl ** Assessment lvl n c)"
   note "authorize : Assessment lvl n c -> Approval lvl -> AuthorizedPayment n c"
   note "Session p consumed at multiplicity 1: dropping it is a compile error."

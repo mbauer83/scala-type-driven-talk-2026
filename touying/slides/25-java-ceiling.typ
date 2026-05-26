@@ -2,48 +2,40 @@
 #import "../theme.typ": *
 #import "../components.typ": *
 
+#let ceiling-col(header, mark-color, mark, items) = stack(
+  dir: ttb,
+  spacing: sz(16pt),
+  text(size: sz(24pt), weight: 500, font: mono-font, fill: pal.fg-dim, tracking: 0.05em)[#header],
+  line(length: 100%, stroke: 0.5pt + pal.rule-strong),
+  stack(
+    dir: ttb,
+    spacing: sz(16pt),
+    ..items.map(s => grid(
+      columns: (sz(36pt), 1fr),
+      gutter: sz(12pt),
+      align: (center + horizon, left + horizon),
+      text(size: sz(28pt), weight: 600, fill: mark-color)[#mark],
+      text(size: sz(28pt))[#s],
+    )),
+  ),
+)
+
 #light-slide(
   eyebrow: eyebrow([Threshold]),
   [The Java Ceiling],
   stack(
     dir: ttb,
-    spacing: sz(28pt),
+    spacing: sz(56pt),  // generous vertical break between table and ceiling callout
     grid(
       columns: (1fr, 1fr),
-      gutter: sz(32pt),
-      stack(
-        dir: ttb,
-        spacing: sz(16pt),
-        text(size: sz(26pt), weight: 500, font: mono-font, fill: pal.fg-dim)[WHAT JAVA CAN ENCODE],
-        line(length: 100%, stroke: 0.5pt + pal.rule-strong),
-        stack(
-          dir: ttb,
-          spacing: sz(14pt),
-          ..("Nominal types", "Parametric polymorphism", "Sum types + exhaustive match", "Phantom lifecycle state").map(s =>
-            grid(
-              columns: (1fr, auto),
-              text(size: sz(28pt))[#s],
-              text(size: sz(28pt), fill: pal.good)[✓],
-            )
-          ),
-        ),
+      gutter: sz(72pt),
+      ceiling-col(
+        [WHAT JAVA CAN ENCODE], pal.good, [✓],
+        ("Nominal types", "Parametric polymorphism", "Sum types + exhaustive match", "Phantom lifecycle state"),
       ),
-      stack(
-        dir: ttb,
-        spacing: sz(16pt),
-        text(size: sz(26pt), weight: 500, font: mono-font, fill: pal.fg-dim)[WHAT JAVA CANNOT STATE],
-        line(length: 100%, stroke: 0.5pt + pal.rule-strong),
-        stack(
-          dir: ttb,
-          spacing: sz(14pt),
-          ..("Approval indexed by risk level", "Predicate carried in the type", "Types computed from types", "Path-dependent message types").map(s =>
-            grid(
-              columns: (1fr, auto),
-              text(size: sz(28pt))[#s],
-              text(size: sz(28pt), fill: pal.bad)[✗],
-            )
-          ),
-        ),
+      ceiling-col(
+        [WHAT JAVA CANNOT STATE], pal.bad, [✗],
+        ("Approval indexed by risk level", "Predicate carried in the type", "Types computed from types", "Path-dependent message types"),
       ),
     ),
     callout(

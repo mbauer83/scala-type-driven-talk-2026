@@ -9,12 +9,16 @@
   [java 17 · sum types + exhaustive switch · Gentzen ∨E],
   stack(
     dir: ttb,
-    spacing: sz(18pt),
+    spacing: sz(28pt),
     eyebrow(style: "accent")[→ DEMO 4 in `Demo.java`],
+    // Two code panes side-by-side; equal-height by 1fr row + 100%-height boxes.
+    // Tighter code-size on both so the RiskDecision lines don't wrap.
     grid(
-      columns: (1fr, auto, 1fr),
+      columns: (1fr, 1fr),
+      rows: (auto,),                       // size to content, not the whole slide
       gutter: sz(24pt),
-      code-pane(filename: "RiskDecision.java", language: "java")[
+      align: (left + top, left + top),
+      code-pane(filename: "RiskDecision.java", language: "java", code-size: 20pt)[
 ```java
 sealed interface RiskDecision
     permits Low, Medium, High {
@@ -23,21 +27,12 @@ sealed interface RiskDecision
   record Medium() implements RiskDecision {}
   record High()   implements RiskDecision {}
 }
+
+// Compiler knows the full variant set.
 ```
       ],
-      align(center + horizon)[
-        #set text(size: sz(22pt), fill: pal.fg-dim, font: mono-font)
-        #stack(
-          dir: ttb,
-          spacing: sz(12pt),
-          [A ∨ B    \[A\]→C    \[B\]→C],
-          line(length: 100%, stroke: 0.5pt + pal.fg-dim),
-          [C],
-        )
-        #v(sz(8pt))
-        #text(size: sz(18pt), fill: pal.fg-faint)[Gentzen ∨E (recall S10)]
-      ],
-      code-pane(filename: "Demo.java", language: "java", highlights: ((4, "hl-good"),))[
+      code-pane(filename: "Demo.java", language: "java", code-size: 20pt,
+                highlights: ((4, "hl-good"),))[
 ```java
 String path = switch (risk) {
     case Low    l -> "fast path";
@@ -48,6 +43,17 @@ String path = switch (risk) {
 ```
       ],
     ),
+    v(sz(40pt)),  // generous breathing room above the recall caption
+    // ── Gentzen ∨E rule — caption row beneath the two panes; (∨E) sits with
+    //   generous horizontal spacing so it doesn't ride into the formula.
+    align(center)[
+      #set text(size: sz(22pt), fill: pal.fg-dark-dim, font: mono-font)
+      A ∨ B  #h(1.4em) \[A\]→C  #h(1.4em) \[B\]→C  #h(1.4em) ⊢  #h(1.4em) C
+      #h(2.4em)
+      #text(fill: pal.accent)[(∨E)]
+      #h(1em)
+      #text(size: sz(18pt), fill: pal.fg-dark-faint)[— recall S10]
+    ],
   ),
 )
 

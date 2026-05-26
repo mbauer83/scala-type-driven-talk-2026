@@ -24,15 +24,17 @@
 #let muted       = rgb("#5a5d68")
 #let back-edge   = rgb("#8a8c93")
 #let fg          = rgb("#14161d")
+#let bg-color    = rgb("#f4f1ea")            // matches pal.bg — masks red path under labels
 
 #let lambda-cube-canvas = canvas({
   import draw: *
 
-  // Cube geometry
-  let w  = 3.2     // front-face width
-  let h  = 2.4     // front-face height
-  let dx = 0.9     // depth offset x
-  let dy = 0.75    // depth offset y
+  // Cube geometry — sized slightly larger than the Phase-1 baseline so the
+  // diagram reads from the back row at projection scale.
+  let w  = 3.8     // front-face width
+  let h  = 2.8     // front-face height
+  let dx = 1.1     // depth offset x
+  let dy = 0.9     // depth offset y
 
   let f-bl = (0,       0)
   let f-br = (w,       0)
@@ -85,24 +87,31 @@
   // ── Vertex label helper
   //
   //   Row 1: "System name  (λ-symbol)"   — primary name + muted lambda
-  //   Row 2: stage tag (only for path vertices)
+  //   Row 2: stage tag — drawn BELOW row 1 regardless of anchor side, so the
+  //          path-stage callout sits beneath its system name in every case.
+  //
+  // Row 1 is wrapped in a `box(fill: bg-color, ...)` so the red highlight path
+  // does not visually cross through the text where the path runs behind a label.
+
+  // Layout lesson: stage tags must sit clearly BELOW the system name. The
+  // drop must exceed the label's own visual height so the two rows separate.
+  // White-bg inset on each row masks the red highlight path running behind.
+  let stage-drop = 0.78
 
   let vlabel(pos, name, lam, anchor, stage: none) = {
-    let row1-y = pos.at(1)
-    let row2-y = if anchor.contains("south") {
-      pos.at(1) + 0.55
-    } else {
-      pos.at(1) - 0.55
-    }
-    let row1 = [
-      #text(weight: "medium", size: 11pt, name)
-      #text(fill: muted, size: 9pt, [ (#lam)])
-    ]
-    content((pos.at(0), row1-y), row1, anchor: anchor)
+    let label-x = pos.at(0)
+    let label-y = pos.at(1)
+    let row1 = box(fill: bg-color, inset: (x: 1.5pt, y: 1pt),
+      text(weight: "medium", size: 12pt, name)
+        + text(fill: muted, size: 9pt, [ (#lam)])
+    )
+    content((label-x, label-y), row1, anchor: anchor)
     if stage != none {
       content(
-        (pos.at(0), row2-y),
-        text(fill: stage-color, size: 9pt, weight: "bold", stage),
+        (label-x, label-y - stage-drop),
+        box(fill: bg-color, inset: (x: 1.5pt, y: 1pt))[
+          #text(fill: stage-color, size: 10pt, weight: "bold", stage)
+        ],
         anchor: anchor,
       )
     }
@@ -115,7 +124,8 @@
          "north-west", stage: [Stage 2])
   vlabel((f-tl.at(0) - 0.20, f-tl.at(1) + 0.40), [F$omega$⁻], $lambda omega$,
          "south-east")
-  vlabel((f-tr.at(0) + 0.20, f-tr.at(1) + 0.40), [System F$omega$],
+  // System Fω: shift further right + down so its stage tag clears CIC above.
+  vlabel((f-tr.at(0) + 0.55, f-tr.at(1) - 0.35), [System F$omega$],
          $lambda omega arrow.r$, "south-west", stage: [Stages 5–6])
 
   // ── Back face
@@ -125,7 +135,8 @@
          $lambda upright(P) 2$, "north-west")
   vlabel((b-tl.at(0) - 0.20, b-tl.at(1) + 0.15), [F$omega$ + dep.],
          $lambda upright(P) omega$, "south-east")
-  vlabel((b-tr.at(0) + 0.20, b-tr.at(1) + 0.55), [CIC], $lambda upright(C)$,
+  // CIC: shift further right; stage tag drops below.
+  vlabel((b-tr.at(0) + 0.55, b-tr.at(1) + 0.50), [CIC], $lambda upright(C)$,
          "south-west", stage: [Stage 7])
 
   // ── Axis 1: terms-on-types (generics) — bottom horizontal
@@ -152,8 +163,10 @@
   )
 
   // ── Axis 3: types-on-terms (dependent types) — depth/diagonal
-  let dep-mid = (-1.3, h + dy + 0.25)
-  let dep-half-len = 0.75
+  // Moved up-and-left from the original (-1.3, h+dy+0.25) so the arrow does
+  // not cross over the "F + dep." label band.
+  let dep-mid = (-2.0, h + dy + 0.95)
+  let dep-half-len = 0.85
   let dep-len = calc.sqrt(dx * dx + dy * dy)
   let dep-dir-x = dx / dep-len
   let dep-dir-y = dy / dep-len

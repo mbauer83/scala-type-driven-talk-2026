@@ -5,7 +5,7 @@
 
 ## Deck Overview
 
-- **Total slides:** 34 main deck, plus 7 optional appendix slides (A1–A7, shown only if Q&A goes there)
+- **Total slides:** 35 main deck, plus 8 optional appendix slides (A1–A8, shown only if Q&A goes there)
 - **IDE/terminal segments:** 8
 - **Hard runtime:** 45 minutes (Q&A is separate)
 - **Format:** 16:9 at 1920×1080, projector-sized typography
@@ -47,11 +47,11 @@ The presentation uses a **light primary palette** with strategic **dark contrast
 | `.s-title` | Slide 1 | dark | jumbo h1, lede, meta row at the bottom |
 | `.s-section` | Section-opener slides between major arcs | dark | mono numeric `.num`, large h2, blurb |
 | `.s-incident` | Cold-open slides (Alice, Bob, Charlie, Danielle) | light | two-column grid: person-block (role / name / verdict) + story (heading / paragraph / `.bug-line` mono callout) |
-| `.s-theory` | Theory slides (S7–S12) | light | h2 with em-accent, `.big-quote` for punchlines, `.beat-grid` for timeline, `.lcube` for the cube |
-| `.s-stage-opener` | Stage intros (S14–S15, S16, S18, S21, S25, S28) | dark | huge mono `.big-num` in accent, h2 description, one-liner with rule above |
+| `.s-theory` | Theory slides (S7–S14) | light | h2 with em-accent, `.big-quote` for punchlines, `.beat-grid` for timeline, `.lcube` for the cube |
+| `.s-stage-opener` | Stage intros (S16–S17, S18, S20, S23, S26, S29) | dark | huge mono `.big-num` in accent, h2 description, one-liner with rule above |
 | `.s-light` | Generic body slide for payoffs, bridges, gaps | light | h2 with em-accent, body paragraphs, room for code panes and callouts |
 | `.s-bignum` | Big-number anchors (e.g. "1 of 4 closed") | dark | 360px mono number in accent, 44px label |
-| `.s-close` | Final close (S34) | light | 92px big statement, em-accent on key phrase |
+| `.s-close` | Final close (S35) | light | 92px big statement, em-accent on key phrase |
 | `.s-qa` | Q&A title card | dark | 280px Q&A in accent, centered, blurb below |
 
 #### Reusable patterns
@@ -62,11 +62,11 @@ The presentation uses a **light primary palette** with strategic **dark contrast
 | `.code-pane` | Code block with a tab bar (filename + accent dot) and gutter; minimal syntax-coloring. *No diagnostic strip and no hover-pop in the deck* — the speaker switches to the real IDE for live edits, so slides only need to show the code snippet itself, not simulate compiler output | Every static code snippet on a slide; the IDE Segments themselves are delivered in the actual IDE |
 | `.eyebrow.--accent` reading "→ DEMO" | Marker that the next moment is an IDE handoff — speaker switches windows | Every IDE Segment hand-off |
 | `.callout` | Left-bar callout box (accent or `.--bad`) with a mono eyebrow label | Stage-payoff takeaways |
-| `.test-list` | Grid of 9 test rows, each with `.idx` / `.desc` / `.closes`; rows take `.--just-gone` (highlighted in `--good-bg` when crossed off this stage) or `.--gone` (line-through, faded) for already-closed | S13 spine slide; re-displayed on every stage payoff with one or more rows transitioning to `.--just-gone` |
+| `.test-list` | Grid of 9 test rows, each with `.idx` / `.desc` / `.closes`; rows take `.--just-gone` (highlighted in `--good-bg` when crossed off this stage) or `.--gone` (line-through, faded) for already-closed | S15 spine slide; re-displayed on every stage payoff with one or more rows transitioning to `.--just-gone` |
 | `.story-strip` | Four-column strip showing Alice / Bob / Charlie / Danielle as chips; `.who.--closed` flips border to accent and state to "CLOSED ✓" | Every stage payoff slide |
-| `.ladder` | Three columns labelled DOCUMENTED / TESTED / ENCODED, with `.rung.--encoded` highlighted | S13 (introducing the framing) and S31 (the climb summary) |
-| `.lcube` | Grid: SVG cube on the left, axis legend on the right (mono `.tag` + label + `.sub`) | S11 |
-| `.beat-grid` | Two-column grid with mono `.when` in accent + body `.what` (optionally with `.sub` subtitle) | S7–S9 history beats |
+| `.ladder` | Three columns labelled DOCUMENTED / TESTED / ENCODED, with `.rung.--encoded` highlighted | S15 (introducing the framing) and S32 (the climb summary) |
+| `.lcube` | Grid: SVG cube on the left, axis legend on the right (mono `.tag` + label + `.sub`) | S14 |
+| `.beat-grid` | Two-column grid with mono `.when` in accent + body `.what` (optionally with `.sub` subtitle) | S7–S9, S11, S13 history beats |
 | `.signature-card` | White card with mono content, used for IDE method signatures pulled out of code panes | Stage 5 / 6 signature highlights |
 
 #### Layout grid
@@ -127,9 +127,9 @@ what the speaker is about to show, not to replicate it.
 Apply these in order — never cut Stage 7:
 
 1. **Theory overran by >1 min:** Cut the MLTT slide (S12) entirely. Say once: "Π and Σ types are how Idris 2 expresses these ideas — I'll show them running in Stage 7."
-2. **Stage 5 overran:** Cut the "what's still open here" bullets in S22; just say "Charlie's bug is closed; risk-level-in-the-type and boundary refinement come at Stage 6."
+2. **Stage 5 overran:** Cut the "what's still open here" bullets in S24; just say "Charlie's bug is closed; risk-level-in-the-type and boundary refinement come at Stage 6."
 3. **Stage 6 overran by >1 min:** Drop the walk-through of Features 4–6 entirely; the three live demos (Features 1–3) are already the heart of the segment. Move straight to session types.
-4. **Never cut Stage 7.** If you are 2 min behind at 35:00, cut 1 min from the Stage 6 ceiling discussion (S27) and shorten the conclusion.
+4. **Never cut Stage 7.** If you are 2 min behind at 35:00, cut 1 min from the Stage 6 ceiling discussion (S28) and shorten the conclusion.
 
 ---
 
@@ -156,50 +156,36 @@ Michael Bauer
 Java Meetup Cologne · Thursday, 28 May 2026
 ```
 
-// @TODO - how should personal introduction be phrased. Establishing too much "why I'm interested" takes time 
-// and lessens the impact of the error-scenarios presented soon after? The facts: I have an MPhil in philosophy and 
-// formal logic & philosophy of science. After that, I started working in IT and became a project manager, 
-// consultant for ERP & E-Commerce and software developer - eventually software and solution architect (last 10 years). 
-// Overall 15 years in IT now. How to condense that into a good introduction where I welcome people to the talk, 
-// thank them for attending and thank the organizers ("Ari") for inviting me?
 **Speaker notes:**
-Personal introduction (handled separately from this guide — 30 seconds). Establish who you are and why you care about this. Close with: "This talk is about specific kinds of bugs we've probably all enountered, and what we can do about them using increasingly expressive typing."
+Personal introduction — 30 seconds. Suggested delivery:
+
+"My name is Michael Bauer. I've been working as a software and solution architect for the last ten years, and I want to show you something that kept coming back to me in that work: specific kinds of production incidents where more expressive types would have made the bug structurally impossible to write in the first place — not just easier to test for. We'll look at four examples, then trace what it takes to get there, step by step, with tools that already exist. Thanks to Ari and the organisers for the invitation."
 
 **IDE / terminal:** None.
 
 ---
 
 ## Section 2 — Cold Open: Four Production Incidents
-// @TODO: maybe a little context about where alice works and what the project does? 
-// (see lines 22, 24, 26, 28 of claude_design_project_index.html)
-// - same question for other scenarios: Maybe briefly establish context in a way similar to how the html does?
-// -> Should affect slides and speaker notes (might take inspiration from HTML here, though scenario-descriptions, 
-// examples etc are out-of-date in html). Though "Charlie's team handles the internal refund-approval workflow" is good! 
-// Do all scenarios now fit with the payment-processing theme and overarching scenario? 
-// If so - should we move its introduction before the error-scenarios and then the only context we need to give those is
-// how they intersect with the overarching scenario and the code we'll look at later? 
-// But Charlie's bug is not really visible in the code - and Danielle's definitely isn't... but our code still shows
-// how to prevent such bugs. So should the scenarios stay separate from the payment-processing flow of the code examples?
-// Or should the error-scenarios be adapted to reflect what the code examples "fix" 
-// in the payment-processing domain through the stages?
+
 ### Slide 2 — Alice: The Stringly-Typed Boundary
 **Clock target:** 0:30–1:45
 **Type:** Incident
 
 **Visual content:**
 ```
+Alice's team owns a checkout invoicing and reconciliation pipeline.
 Alice walks into a question from accounting.
 
   An internal admin tool exports a CSV with a lineTotal column
   (amounts stored in cents).
   A Node.js import job aggregates those rows to build draft invoices.
 
-  total = row1.lineTotal + row2.lineTotal
-         "4500"          "1500"
-       = "45001500"               ← string concatenation, not addition
+  const amounts = csvRows.map(row => row.lineTotal)
+  const total   = amounts.reduce((a, b) => a + b)
 
-  Staged invoice total:  €450,015.00       (= "45001500" cents)
-  Actual invoice total:  €60.00            (= 4500 + 1500 cents)
+  // row.lineTotal = "4500"  (String, not Number)
+  // "4500" + "1500" = "45001500"  ← concat, not addition
+  Staged: €450,015.00  ·  Actual: €60.00
 ```
 
 Small footnote: `*` would not have caught this — JS coerces strings for `*`, `/`, `-`. Only `+` silently concatenates.
@@ -217,18 +203,19 @@ Small footnote: `*` would not have caught this — JS coerces strings for `*`, `
 
 **Visual content:**
 ```
+Bob's team runs the checkout fraud and risk engine.
 Bob is handling an incident.
 
   Checkout service classifies orders: Low / Medium / High risk.
   Medium-risk card orders must complete 3DS before authorization.
 
-  Original code (two risk levels):
-    if (risk != HIGH) fastPath()
-    else              manualReview()
+  if (risk != HIGH) {
+      return fastPath(order);
+  }
+  return manualReview(order);
 
-  Risk engine gains a MEDIUM level.
-  Medium-risk orders silently fall through to fastPath().
-  3DS skipped. Liability shift lost.
+  // MEDIUM added later — still hits fastPath()
+  // 3DS skipped. Liability shift lost.
 ```
 
 **Speaker notes (75 sec):**
@@ -255,6 +242,14 @@ Charlie's team owns the internal refund-approval workflow.
   fetches a refund by id and calls executeRefund(refund)
   without checking the refund's current state.
 
+  void processUrgentRefund(String id) {
+      var ref = repo.findById(id);
+      paymentRail.execute(ref);
+  }
+
+  // ref.state never checked
+  // Requested → Executed, skipping review
+
   A Requested refund (never reviewed) reaches the payment
   rail and posts back to the customer's card.
 ```
@@ -272,13 +267,20 @@ Charlie's team owns the internal refund-approval workflow.
 
 **Visual content:**
 ```
+Danielle's team owns a KYC onboarding service.
 Danielle is debugging.
 
   KYC onboarding service: client uploads documents for compliance review.
   For large payout limits, compliance now requires an extra evidence step.
 
-  Client assumes:   Upload → Evidence → FinalConfirmation
-  Server now needs: Upload → Evidence → EvidenceAccepted → FinalConfirmation
+  // client:
+  client.send(evidenceDocs)
+  val result = client.receive()  // FinalConfirmation
+
+  // server:
+  val ev = server.receive()
+  server.send(EvidenceAccepted)  // ← client never reads this
+  server.receive()               // FinalConfirmation — client hangs
 
   Integration tests miss the exact branch.
   Large uploads timeout in production.
@@ -308,8 +310,8 @@ By the end, following these business rules won't be "well tested" —
 the illegal scenarios simply won't compile anymore.
 ```
 
-**Speaker notes (15 sec):**
-"None of these came from incompetence - such errors happen. And they werend't caught because there was a mismatch between what the business required and what the code enforced. For closing that gap, we have a toolkit — built up over roughly two and a half thousand years. We'll spend a few minutes on history and motivation, and then for the rest of the talk we'll look at how to cash that out in actual code."
+**Speaker notes (30 sec):**
+"In each case, a program was able to express something the business rules said was illegal. For the rest of the talk we'll walk through seven increasingly expressive type systems — from untyped JavaScript through Java and Scala 3 to Idris 2 — and at each stage we'll see one or more of these four incidents become impossible to express. For closing that gap, we have a toolkit built up over roughly two and a half thousand years. We'll spend a few minutes on that history and motivation, and then for the rest of the talk we'll look at how to cash it out in actual code."
 
 **IDE / terminal:** None.
 
@@ -320,8 +322,11 @@ the illegal scenarios simply won't compile anymore.
 ### Slide 7 — A Toolkit Built Over Two and a Half Thousand Years
 **Clock target:** 5:30–7:00
 **Type:** History (Beat 1)
-// @TODO: Maybe headline along the lines of "Logic & Proof - a(n entirely too short) history"?
+
 **Visual content:**
+Eyebrow: `LOGIC & PROOF · 4TH C. BCE → TODAY`
+Headline: *A Toolkit Built Over Two and a Half Thousand Years*
+
 Timeline or stacked list. Each name gets one short label:
 
 ```
@@ -334,6 +339,7 @@ Leibniz (17th c.)
     structural, in principle it could be performed by a machine.
     Sketches a universal formal notation and a "calculus of
     reasoning" — mechanised inference, two centuries early.
+    Also develops binary encoding.
 
 Boole / DeMorgan (1847)
   — Logic as algebra: AND, OR, NOT with strict laws.
@@ -388,24 +394,18 @@ Pivot: drop global completeness.
 
 Bottom line:
 > "Types were invented to stop logic from consuming itself. Modern type checkers are descendants of that project: within a chosen calculus, they enforce specific structural guarantees."
-// @TODO: The "By a proposition [..] Frege made precise" statement has absolutely no connection to its surroundings.
-// Either drop - or explain the difference between propositional and predicate logic somewhere 
-// (relevant at least when we introduce dependent types). Find the optimal positioning and strategy for inclusion 
-// or alternatively argue why it should be left out and why it's not better to include it somewhere 
-// (in an appendix slide if necessary).
-// Also: Speaker notes spend no time explaining "sound" and "complete" -> leave to the slide to explain or mention briefly?
-// (but note 45 minute constraint for the talk - plus an additional 15 min Q & A)
+
 **Speaker notes (90 sec):**
-"Russell found a fatal flaw in the attempts to unify formal reasoning in mathematics and logic. The set of all sets that do not contain themselves — does it contain itself? If yes, it shouldn't. If no, it should. The contradiction lives inside any system that permits unrestricted self-reference. Types were invented as the fix: a strict hierarchy that makes this self-reference structurally impossible. By a proposition I mean a statement that's either true or false; by a predicate, a property of values — the building blocks Frege made precise. Working in parallel with Russell, Hilbert wrote down three requirements he wanted of any formal system: consistent, sound, and complete. Gödel proved in 1931 that for any system strong enough to express arithmetic, completeness in that strong sense is impossible — there will always be true arithmetic statements the system cannot prove. The response was to drop the universal-completeness target and concentrate effort on soundness and consistency within specific calculi. That is the family your compiler's type-checker belongs to: it verifies specific structural guarantees within the calculus the language defines."
+"Russell found a fatal flaw in the attempts to unify formal reasoning in mathematics and logic. The set of all sets that do not contain themselves — does it contain itself? If yes, it shouldn't. If no, it should. The contradiction lives inside any system that permits unrestricted self-reference. Types were invented as the fix: a strict hierarchy that makes this self-reference structurally impossible. Working in parallel with Russell, Hilbert wrote down three requirements he wanted of any formal system: consistent, sound, and complete. The slide defines them — 'sound' means you can only prove what's actually true; 'complete' means everything true is provable. Gödel proved in 1931 that for any system strong enough to express arithmetic, completeness in that strong sense is impossible — there will always be true arithmetic statements the system cannot prove. The response was to drop the universal-completeness target and concentrate effort on soundness and consistency within specific calculi. That is the family your compiler's type-checker belongs to: it verifies specific structural guarantees within the calculus the language defines."
 
 **IDE / terminal:** None.
 
 ---
-### Slide 9 — The Computational Convergence
-**Clock target:** 8:30–10:45 (interleaved with brief dwells on S10 and S12; see below)
-**Type:** History (Beat 3) — **delivered progressively, interleaving S10 and S12**
+### Slide 9 — The Computational Convergence (Part 1)
+**Clock target:** 8:30–9:05
+**Type:** History (Beat 3, Part 1)
 
-**Visual content:** (bullets revealed one beat at a time; S10 and S12 cut in at the marked points)
+**Visual content:** (bullets revealed one beat at a time; advance to Slide 10 after BUILD 2)
 ```
 Church / Turing (1936)                                          [BUILD 1]
   — Formalise execution as reduction.
@@ -420,58 +420,23 @@ Gentzen (1935)                                                  [BUILD 2]
     and how you USE it (elimination).
     Cut elimination = compiler dead-code removal.
 
-           ▼  [INTERLEAVE: cut to Slide 10 for ~30 sec, then back]
-
-Curry-Howard (1969)                                             [BUILD 3]
-  — Proposition  =  Type
-    Proof         =  Program
-    Running       =  Simplifying a proof
-    Writing code that compiles  =  Constructing a proof.
-
-Martin-Löf (1972)                                               [BUILD 4]
-  — Dependent types: return _type_ computed from argument _value_.
-    ∀  →  Π-type (dependent function: "For every x:A,
-            I can give you a y whose type is specific to that x.")
-    ∃  →  Σ-type (dependent pair: "Here's an x:A and a proof
-            that this x has a certain property.")
-
-           ▼  [INTERLEAVE: cut to Slide 12 for ~15 sec, then back]
-
-Coquand (1988)                                                  [BUILD 5]
-  — Calculus of Constructions: dependent types unified with
-    polymorphism in a small, auditable kernel — the engine
-    behind Rocq, Lean, Agda, and Idris.
+           ▼  [advance to Slide 10 for ~30 sec, then advance to Slide 11]
 ```
 
-Bottom line:
-> "Under the Curry-Howard correspondence, well-typed code in a sufficiently expressive calculus IS a proof of the proposition its type expresses. Mainstream type checkers verify weaker, calculus-specific structural guarantees built on the same foundations."
-
-// @TODO: Determine - cut to slides 10 and 12 between beats or for the respective preceding beat 
-// (OR-rules for Gentzen), Pi/Sigma for MLTT - would seem to fit and save time. 
-**Speaker notes (~3 minutes total, including the interleaved dwells):**
+**Speaker notes (~45 sec):**
 
 *Beat 1 (Church/Turing, 20 sec):* "Church and Turing formalised computation in 1936. Later, Church's typed lambda calculus made it safe — types restrict what a function can be applied to, and in the pure simply-typed calculus guarantee that every evaluation terminates. Industrial languages relax this to admit general recursion; what carries over is the technique of restricting inputs by types."
 
-*Beat 2 (Gentzen, 25 sec):* "Gentzen, a year earlier, reframed logic itself: every logical connective — that's the operators that build up complex statements from simpler ones, like AND, OR, IF-THEN — every connective is defined entirely by how you BUILD it and how you USE it. Introduction rules and elimination rules."
+*Beat 2 (Gentzen, 25 sec):* "Gentzen, a year earlier, reframed logic itself: every logical connective — AND, OR, IF-THEN — every connective is defined entirely by how you BUILD it and how you USE it. Introduction rules and elimination rules."
 
-→ *Cut to Slide 10 (~30 sec dwell on Gentzen's OR rules — the worked example), then back to S9.*
-
-*Beat 3 (Curry-Howard, 20 sec):* "Howard, in 1969, showed these two worlds are the same world. A logical proposition corresponds to a type. A proof corresponds to a program. Running a program is simplifying a proof. Writing code that compiles is, structurally, constructing a proof."
-
-*Beat 4 (Martin-Löf, 30 sec):* "Martin-Löf went further: types can depend on values. The Π-type — read as 'for every x of type A, I can produce a y whose type is specific to that x'. The Σ-type — read as 'here's a value, paired with a proof that the value has some property'. These are the building blocks of dependent types."
-
-→ *Cut to Slide 12 (~15 sec dwell on Π and Σ formation rules), then back to S9.*
-
-*Beat 5 (Coquand, 20 sec):* "Coquand, in 1988, unified Martin-Löf's dependent types with polymorphism in a small, auditable type-theory kernel — the Calculus of Constructions, extended to the Calculus of Inductive Constructions. That kernel is what powers Rocq, Lean, Agda, and Idris today."
-
-*Closing line, before advancing to S11:* "In a calculus expressive enough to host the propositions you care about, well-typed code IS a proof of the corresponding statement. Each stage of this talk moves to a calculus that can host more interesting propositions about your code."
+→ *Advance to Slide 10 (~30 sec dwell on Gentzen's OR rules — the worked example), then advance to Slide 11.*
 
 **IDE / terminal:** None.
 
 ---
 ### Slide 10 — Gentzen: Logic as Interface
-**Clock target:** ~9:05–9:35 (cut in from S9 after the Gentzen bullet, then back)
-**Type:** Formal (interleaved within S9)
+**Clock target:** ~9:05–9:35 (advance from S9 after the Gentzen bullet; advance to S11 after)
+**Type:** Formal (interleaved between S9 and S11)
 
 **Visual content:**
 Top of slide, the motivating idea, large:
@@ -512,14 +477,49 @@ Bottom (smaller text):
 >  exactly one variant). Stages 4 onwards add the rules and protocols
 >  layered on top."
 
-**Speaker notes (35 sec):**
-"Gentzen's insight: a logical connective isn't a primitive thing with semantics attached — it's *defined* by how you build it and how you use it. Two rule sets, one connective. For OR: you build it by supplying a proof of either side; you use it by handling every case. That use-rule is what we'll keep meeting — first as exhaustive pattern matching in Stage 4. Two primitives are going to do most of the heavy lifting for the domain data in this talk: records, which are products — all fields present at once — and sealed types, which are sums — exactly one variant. The rules and protocols that go on top of that data come later."
+**Speaker notes (50 sec):**
+"So Gentzen's insight was that a logical connective is *defined* by how you build it and how you use it. For OR: you build it by supplying a proof of one of the two sides; you use it by providing handling for both cases. Worth noticing: these rules represent the *constructive* or *intuitionistic* reading of disjunction. In classical logic, which assumes a fixed "universe of truths", the Law of the Excluded Middle lets you assert 'A or not A' without having evidence of either either. Constructive logic, and Gentzen's natural deduction require you to provide actual constructions of witnesses: to assert A∨B you must supply a proof of A *or* a proof of B. That's what missing the Right-branch means — you haven't provided the handling for all sides, so you can't handle the variant-type (or "sum" type). The compiler enforcing exhaustive matching is enforcing exactly this. Two primitives are going to do most of the heavy lifting for the domain data in this talk: records, which are products — all fields present at once — and sealed types, which are sums — where any value is exactly one variant. The rules and protocols that go on top of that data come later."
 
 **IDE / terminal:** None.
 
 ---
-### Slide 11 — The Lambda Cube
-**Clock target:** 10:45–11:30 (closing map of Section 3, after S9's full disclosure)
+### Slide 11 — The Computational Convergence (Part 2)
+**Clock target:** 9:35–10:05
+**Type:** History (Beat 3, Part 2)
+
+**Visual content:** (previous builds visible; new builds revealed; advance to Slide 12 after BUILD 4)
+```
+Church / Turing (1936)    [visible]
+Gentzen (1935)            [visible]
+
+Curry-Howard (1969)                                             [BUILD 3]
+  — Proposition  =  Type
+    Proof         =  Program
+    Running       =  Simplifying a proof
+    Writing code that compiles  =  Constructing a proof.
+
+Martin-Löf (1972)                                               [BUILD 4]
+  — Dependent types: return _type_ computed from argument _value_.
+    ∀  →  Π-type (dependent function: "For every x:A,
+            I can give you a y whose type is specific to that x.")
+    ∃  →  Σ-type (dependent pair: "Here's an x:A and a proof
+            that this x has a certain property.")
+
+```
+
+**Speaker notes (~50 sec):**
+
+*Beat 3 (Curry-Howard, 20 sec):* "Howard, in 1969, showed these two worlds are the same world. A logical proposition corresponds to a type. A proof corresponds to a program. Running a program is simplifying a proof. Writing code that compiles is, structurally, constructing a proof."
+
+*Beat 4 (Martin-Löf, 30 sec):* "Martin-Löf went further: In his theory - types can depend on values. The Π-type or dependent product says 'for every x of type A, I can produce a y whose type is specific to that x'. The Σ-type or dependent sum says 'here's a value, paired with a proof of some property that's specific to that value'. These are the building blocks of dependent types."
+
+→ *Advance to Slide 12 (~15 sec dwell on Π and Σ formation rules), then advance to Slide 13.*
+
+**IDE / terminal:** None.
+
+---
+### Slide 14 — The Lambda Cube
+**Clock target:** 10:45–11:30 (closing map of Section 3, after the full history sequence)
 **Type:** Map/Diagram
 
 **Visual content:**
@@ -550,7 +550,7 @@ A program is built from two kinds of thing: *terms* (values, expressions — the
                        returns a type);              type dependency),
                        Dual[P], match types         — type-level computation
                                                        ("logic in types")
-  type on term         protocolDerivedFrom(order)   — runtime order shapes
+  type on term         protocolFromSnapshot(snap)   — runtime snapshot shapes
                                                        the resulting type
 ```
 
@@ -588,8 +588,8 @@ Bottom:
 ---
 
 ### Slide 12 — MLTT: Π and Σ Types (Plant the Seed)
-**Clock target:** ~10:05–10:20 (cut in from S9 after the Martin-Löf bullet, then back)
-**Type:** Formal (brief, interleaved within S9)
+**Clock target:** ~10:05–10:20 (advance from S11 after the Martin-Löf bullet; advance to S13 after)
+**Type:** Formal (brief, interleaved between S11 and S13)
 
 **Visual content:**
 Two compact rule blocks. Keep it visually minimal — speak through it, don't let the audience read it:
@@ -612,8 +612,37 @@ Two compact rule blocks. Keep it visually minimal — speak through it, don't le
 Bottom:
 > "Idris 2 runs these rules at every call site. I'll show them in action in Stage 7."
 
-**Speaker notes (15 sec):**
-"Two rules: Π-elimination — the return type is computed from the argument value. Σ-introduction — a value bundled with a proof that depends on that value. You'll see both running as Idris code in Stage 7."
+**Speaker notes (25 sec):**
+"We'll have a brief look at two relevant rules which are actually simpler in principle than they look here: Π-elimination — the return type is computed from the argument value. And Σ-introduction — bundling a value with a proof that depends on that value. Both are rules of predicate logic — where ∀ and ∃ quantify over values, not just propositions. A *proposition* is a statement that's either true or false; a *predicate* is a property that a value may or may not have. Dependent types add that distinction to the type system."
+
+**IDE / terminal:** None.
+
+---
+### Slide 13 — The Computational Convergence (Part 3)
+**Clock target:** 10:20–10:45
+**Type:** History (Beat 3, Part 3)
+
+**Visual content:** (all previous builds visible; final build revealed)
+```
+Church / Turing (1936)    [visible]
+Gentzen (1935)            [visible]
+Curry-Howard (1969)       [visible]
+Martin-Löf (1972)         [visible]
+
+Coquand (1988)                                                  [BUILD 5]
+  — Calculus of Constructions: dependent types unified with
+    polymorphism in a small, auditable kernel — the engine
+    behind Rocq, Lean, Agda, and Idris.
+```
+
+Bottom line:
+> "Under the Curry-Howard correspondence, well-typed code in a sufficiently expressive calculus IS a proof of the proposition its type expresses. Mainstream type checkers verify weaker, calculus-specific structural guarantees built on the same foundations."
+
+**Speaker notes (~25 sec):**
+
+*Beat 5 (Coquand, 20 sec):* "Coquand, in 1988, unified Martin-Löf's dependent types with polymorphism in a small, auditable type-theory kernel — the Calculus of Constructions, extended to the Calculus of Inductive Constructions. That kernel is what powers proof-assistants Rocq, Lean, Agda, and Idris today."
+
+*Closing line, before advancing to S14:* "In a calculus expressive enough to host the propositions you care about, well-typed code IS a proof of the corresponding statement. Each stage of this talk moves to a calculus that can host more interesting propositions about your code."
 
 **IDE / terminal:** None.
 
@@ -621,7 +650,7 @@ Bottom:
 ## Section 4 — Practical Progression
 
 ---
-### Slide 13 — The Payment Domain, the Test Spine, and What "Test Deleted" Really Means
+### Slide 15 — The Payment Domain, the Test Spine, and What "Test Deleted" Really Means
 **Clock target:** 11:30–12:00
 **Type:** Orientation (30 sec; sits between theory section and Stage 0)
 
@@ -668,13 +697,13 @@ Bottom — what "test deleted" actually means:
 ```
 
 **Speaker notes (30 sec):**
-"One scenario carries the rest of the talk: an e-commerce payment — assess, authorize, capture, sometimes refund. What changes at each stage is how much of it the type system enforces. The middle of the slide is the inventory of test obligations Stage 0 leaves us with; each stage we visit ticks one or more off. The bottom is the honest part: defensive tests — 'did the developer remember X' — shrink in proportion to what we encode. Behavioural tests stay; you want those anyway. Verifying that the type definition correctly encodes the rule replaces per-call-site checks — paid once, in code review, at the definition."
+"One scenario carries the rest of the talk: an e-commerce payment — assess, authorize, capture, sometimes refund. What changes at each stage is how much of it the type system enforces. Don't try to read all nine items now — they'll reappear on every payoff slide as we tick them off. The bottom section is the honest part: defensive tests — 'did the developer remember X' — shrink in proportion to what we encode. Behavioural tests stay; you want those anyway. Verifying that the type definition correctly encodes the rule replaces per-call-site checks — paid once, in code review, at the definition."
 
 **IDE / terminal:** None.
 
 ---
 
-### Slide 14 — Stage 0: JavaScript, The Untyped Baseline
+### Slide 16 — Stage 0: JavaScript, The Untyped Baseline
 **Clock target:** 12:00–12:30
 **Type:** Stage intro
 
@@ -697,17 +726,19 @@ Bottom:
 **Speaker notes (30 sec):**
 "Stage 0 is what the baseline gives us: runtime freedom, no structural constraints, every invariant is a test someone has to remember to write. Let's see what that looks like in code, then watch the bugs run silently."
 
+**IDE transition convention (applies to all IDE segments):** Deliver the speaker notes for the current slide in full, then say the handoff line and switch to the IDE. The IDE segment runs between the stage-intro slide and the payoff slide. "Return to slides" always means advancing to the next payoff.
+
 **IDE / terminal transition — IDE Segment 1 (30 sec):**
-→ Open `00-js-untyped-payment/demo.js` in the IDE. Show the payment business logic at the top: `assessRisk`, `authorize`, `capture` — no type annotations anywhere.
-→ Run the two bad demos in the terminal first. The output shows: capture returning `capturedAmount: undefined`; medium-risk getting `approvalNote: 'auto-approved-wrong'`. No errors thrown.
-→ Back in the IDE, navigate to `buggyDemo_CaptureBeforeAuthorize()`: point at `capture(lowRiskCardOrder)` — an Order passed where something else is expected. The interpreter has no complaint.
-→ Then `buggyDemo_Skip3DS()`: point at the `if/else` over risk — medium-risk falls through to auto-approve.
+→ Open `00-js-untyped-payment/demo.js` in the IDE. Show the top section: the shared fixture orders (plain JS objects, no types), then the business functions `assessRisk`, `authorize`, `capture` — no type annotations anywhere.
+→ Run the two bad demos in the terminal: `node demo.js` prints all demos. Point at the bad-demo output: capture returning `capturedAmount: undefined`; medium-risk getting `approvalNote: 'auto-approved-wrong'`. No errors thrown.
+→ Back in the IDE, navigate to `buggyDemo_CaptureBeforeAuthorize()`: point at `capture(lowRiskCardOrder)` — an Order passed where something post-authorization is expected. The interpreter has no complaint.
+→ Then `buggyDemo_Skip3DS()`: point at the `if/else` — only LOW and else; medium-risk falls through to auto-approve with no 3DS.
 → Say: "Both runs succeeded. Both programs are valid. Every business invariant we want to hold is a test we have to remember to write."
 → Close or minimize `demo.js`.
 
 ---
 
-### Slide 15 — Stage 1: Simple Types and Smart Constructors
+### Slide 17 — Stage 1: Simple Types and Smart Constructors
 **Clock target:** 13:00–13:30
 **Type:** Stage intro
 
@@ -730,17 +761,17 @@ Bottom:
 > "Smart constructor = Introduction Rule. The only path to Authorization runs through Authorization.from(Order, …). You cannot fabricate one."
 
 **Speaker notes (30 sec):**
-"Stage 1 adds nominal types and the smart-constructor pattern. The compiler now knows the difference between an Order and an Authorization. You cannot pass one where the other is expected. And because the constructor is private, you cannot fabricate an Authorization — you have to call the factory method, which validates and records the prior step."
+"Stage 1 adds nominal types and the smart-constructor pattern. The compiler now knows the difference between an Order and an Authorization. You cannot pass one where the other is expected. And because the constructor is private, you cannot fabricate an Authorization — you have to call the factory method, which validates and records the prior step. That closes the shape-confusion class and fabricated lifecycle values. The risk level still isn't in the type, so Bob's branching gap remains — Stage 4 closes that. Stage 2 generalises today's gains across every domain type at once."
 
 **IDE / terminal transition — IDE Segment 2 (30 sec):**
+*Switch to IDE after delivering the speaker notes above.*
 → Open `01-java-simple-types/Demo.java`, navigate to `gainDemo_SmartConstructors()`.
 → In the IDE, type `new Authorization(...)` next to the existing `Authorization.from(...)` call — the compiler shows a red squiggle: *"Authorization() has private access"*. Read it aloud: "The constructor is private; the only path in is the smart constructor, which validates and records the prior step."
 → Then navigate to `buggyDemo_Skip3DS()` — it still compiles. Point at it: "The risk level isn't in the type. Bob's branch can still be forgotten — Stage 4 closes that."
 → Return to slide.
 
 ---
-
-### Slide 16 — Stage 2: Generics — Write Once, Prove for All
+### Slide 18 — Stage 2: Generics — Write Once, Prove for All
 **Clock target:** 14:00–14:30
 **Type:** Stage intro
 
@@ -764,59 +795,85 @@ Bottom:
 > "Write once, provably correct for all types. But what states are constructible — and what branches must be handled — hasn't changed."
 
 **Speaker notes (30 sec):**
-"Generics are System F polymorphism: write `Validator` once, the compiler proves it correct for every type it's instantiated with. Same for `AuditTrail` — inserting a Capture into a String-typed log is a compile error, not a runtime surprise. Real architectural wins. But notice the bug class neither stage has touched: branching. The risk decision is a proper enum since Stage 1 — but neither stage 1 nor stage 2 force an `if/else` over that enum to be exhaustive. Bob's incident from the cold open is still a valid program here. Stage 4 closes it."
+"Stage 1 gave us nominal types and smart constructors. Stage 2 adds the second dimension: parametric polymorphism — System F. Write `Validator` once, and the compiler proves it correct for every type it's instantiated with. Same for `AuditTrail` — inserting a Capture into a String-typed log is a compile error, not a runtime surprise. Real architectural wins. But notice the bug class neither stage has touched: branching. The risk decision is a proper enum since Stage 1, but no `if/else` over that enum is forced to be exhaustive. Bob's incident from the opening is still a valid program here. That structural gap is what records and sealed types close, coming up in Stage 4."
 
 **IDE / terminal transition — IDE Segment 3 (30 sec):**
-→ Open `02-java5-generics/` — show `Validator<T>` with `andThen` composition in 10 sec.
-→ Navigate to `AuditTrail<E>` — show the type-safe append in 10 sec.
-→ Navigate to `buggyDemo_ForgottenBranch()` — show the if/else chain over `RiskDecision`, with MEDIUM silently falling to the fast path. Compiles. Runs. Output: "Authorized (no 3DS)" on a medium-risk order.
+*Switch to IDE after delivering the speaker notes above.*
+→ Open `02-java5-generics/` — show `Validator<T>` with `andThen` composition in 10 sec. Demo.java L. 122 (the `Validator` composition demo).
+→ Navigate to `AuditTrail<E>` — show the type-safe append at Demo.java L. 76 (declaration) and PaymentService.java L. 51 (append call in processLowRisk) in 10 sec.
+→ Navigate to `pickAuthPath()` at Demo.java L. 150 first — show the non-exhaustive if/else over `RiskDecision`: LOW and HIGH handled, MEDIUM falls through to the fast path silently. Then navigate to `buggyDemo_ForgottenBranch()` at L. 158 to show it being called.
+→ Run the demo. Output: "Authorized (no 3DS)" on a medium-risk order — no error.
 → Say: "Architectural wins. Bug still compiles."
 
 ---
-
-### Slide 17 — Stage 3: Function Pipelines (Acknowledged, Not Demoed)
+### Slide 19 — Stage 3: Function Pipelines (Acknowledged, Not Demoed)
 **Clock target:** 14:30–15:30
 **Type:** Bridge
 
 **Visual content:**
-Quote block only:
+
+```java
+// Business rule as a first-class value
+Function<Payment<Initiated>, Result<Payment<Authorized>>> authorize3DSRule =
+    payment -> ThreeDSService.challenge(payment)
+               .flatMap(proof -> Payment.authorize3DS(payment, proof));
+
+// Compose rules with andThen — scattered conditions become a pipeline
+Function<Order, Result<Payment<Captured>>> checkoutPipeline =
+    assessRisk
+        .andThen(authorize3DSRule)
+        .andThen(Payment::capture);
+```
+
+Quote block below:
 
 > "Java 8 also gave us function values. Stage 3 makes our business rules first-class — pipeline stages typed as functions from one lifecycle stage to the next, composed with `andThen`; risk rules as explicit, testable values rather than scattered conditions in service code. That code is in the repository. But neither generics nor function values change what states are *constructible* or what branches must be handled. Records and sealed types do. Let's see how."
 
 **Speaker notes (60 sec):**
-Deliver the quote above almost verbatim. Then add: "Stage 3's engineering value is real — rules written down in one place, composable, testable in isolation. But the inventory of remaining tests doesn't move. The medium-risk branch can still be forgotten. A Capture can still be constructed without an Authorization. The structural gap is still open. Stage 4 starts closing it."
+"[Gesture to the snippet.] Java 8 also gave us function values. Stage 3 makes our business rules first-class — pipeline stages typed as functions from one lifecycle stage to the next, composed with `andThen`; risk rules as explicit, testable values rather than scattered conditions in service code. That code is in the repository. But neither generics nor function values change what states are constructible or what branches must be handled. Records and sealed types do. Let's see how."
 
 **IDE / terminal:** None.
 
 ---
 
-### Slide 18 — Stage 4: Records, Sealed Types, and Sum Types
+### Slide 20 — Stage 4: Records, Sealed Types, and Sum Types
 **Clock target:** 15:30–16:00
 **Type:** Stage intro with Gentzen callback
 
 **Visual content:**
-Two columns. Left: the Gentzen ∨E rule (recall from Slide 10, compressed):
+Three columns showing introduction, the rule, and elimination side by side:
 
+Left — the sealed type (OR-introduction, declaring the variants):
+```java
+sealed interface RiskDecision
+    permits Low, Medium, High {
+  record Low()    implements RiskDecision {}
+  record Medium() implements RiskDecision {}
+  record High()   implements RiskDecision {}
+}
+```
+
+Centre — the Gentzen ∨E rule (recall from Slide 10):
 ```
   A ∨ B   [A]→C   [B]→C
   ─────────────────────
            C
 ```
 
-Right: the Java sealed switch:
-
+Right — the exhaustive switch (OR-elimination, consuming the disjunction):
 ```java
 String path = switch (risk) {
     case Low    l -> "fast path";
-    case Medium m -> "3DS path";    // COMPILER WON'T LET YOU FORGET THIS BRANCH
+    case Medium m -> "3DS path";
     case High   h -> "review path";
+    // missing Medium = compile error
 };
 ```
 
-Bottom: "Sealed type = disjunction. Exhaustive switch = ∨-elimination. Missing branch = incomplete proof. Compile error."
+Bottom: "Sealed type = disjunction. The `permits` clause is the introduction rule — it defines every possible variant. Exhaustive switch = ∨-elimination. Missing branch = incomplete proof. Compile error."
 
 **Speaker notes (30 sec):**
-"Records are product types — all fields required, no silent nulls. Sealed interfaces are sum types — only one variant at a time, and the compiler knows all of them. Exhaustive switch is Gentzen's ∨E: to draw any conclusion from a disjunction, you must have handled every variant. Bob can no longer forget the Medium case. The compiler requires it."
+"Records are product types — all fields required, no silent nulls. Sealed interfaces are sum types — the `permits` clause declares every possible variant, and the compiler knows all of them. Exhaustive switch is Gentzen's ∨E: to draw any conclusion from a disjunction, you must have handled every variant. Bob can no longer forget the Medium case. The compiler requires it. Stage 4's live demo will show both the sealed definition and the live deletion of a branch."
 
 **IDE / terminal transition — IDE Segment 4 (3:00):**
 
@@ -834,7 +891,7 @@ Bottom: "Sealed type = disjunction. Exhaustive switch = ∨-elimination. Missing
 
 ---
 
-### Slide 19 — Stage 4 Payoff
+### Slide 21 — Stage 4 Payoff
 **Clock target:** 19:00–19:30
 **Type:** Payoff
 
@@ -859,7 +916,7 @@ Bottom: "Sealed type = disjunction. Exhaustive switch = ∨-elimination. Missing
 
 ---
 
-### Slide 20 — Bridge: From Records to Typestate
+### Slide 22 — Bridge: From Records to Typestate
 **Clock target:** 19:30–21:00
 **Type:** Bridge
 
@@ -878,13 +935,13 @@ Next: make the state the parameter.
 ```
 
 **Speaker notes (90 sec):**
-"Stage 4 gave us honest domain modelling. Risk goes from a plain enum (Java's enum since Stage 1) to a sealed hierarchy that the compiler checks exhaustively. Payment method is a sealed hierarchy of card / wallet / invoice variants. `Result` is a sum type for error handling. All real gains. But look at how lifecycle is modelled: `Authorization` and `Capture` are separate record classes. A developer can still construct a `Capture` without first constructing an `Authorization` — the type system has no opinion on ordering. The lifecycle grammar lives in documentation and developer memory. Stage 5 changes that — the state moves into the type parameter."
+"Stage 4 gave us honest domain modelling. Risk goes from a plain enum (Java's enum since Stage 1) to a sealed hierarchy that the compiler checks exhaustively. Payment method is a sealed hierarchy of card / wallet / invoice variants. `Result` is a sum type for error handling. All real gains. But look at how lifecycle is modelled: `Authorization` and `Capture` are separate record classes. A developer can still construct a `Capture` without first constructing an `Authorization` — the type system has no opinion on ordering. The lifecycle grammar lives in documentation and developer memory. Stage 5 changes that, where the state moves into the type parameter."
 
 **IDE / terminal:** None.
 
 ---
 
-### Slide 21 — Stage 5: Phantom Typestate
+### Slide 23 — Stage 5: Phantom Typestate
 **Clock target:** 21:00–21:30
 **Type:** Stage intro
 
@@ -911,7 +968,7 @@ Bottom:
 > "`Payment<Authorized>` IS the proof that authorization happened. The state is not a flag — it is a type."
 
 **Speaker notes (30 sec):**
-"Charlie's incident in the cold open was a refund approval workflow with an illegal state transition. The demo here uses the same failure shape on payment capture instead — same structural problem, more compact to demonstrate. One class, one type parameter. The parameter is a phantom — it carries no runtime data. What it does is restrict which factory methods can accept which payments. You cannot pass a `Payment<Initiated>` to `capture` — the types don't match. There is no expressible program here that holds a `Payment<Captured>` without having passed through `Payment<Authorized>` first."
+"Charlie's incident in the opening was a refund approval workflow with an illegal state transition. The demo here uses the same failure shape on payment capture instead — same structural problem, a little more compact to demonstrate. The parameter is a phantom — it carries no runtime data. What it does is restrict which factory methods can accept which payments. You cannot pass a `Payment<Initiated>` to `capture` — the types don't match. There is no expressible program here that holds a `Payment<Captured>` without having passed through `Payment<Authorized>` first."
 
 **IDE / terminal transition — IDE Segment 5 (3:30):**
 
@@ -919,7 +976,7 @@ Bottom:
 
 → **Step 2 (30 sec):** Show the `authorizeAuto`, `authorize3DS`, and `capture` signatures side by side. Say: "The method signature family IS the state machine. Each transition is a function that requires the right phantom type on input and produces the next phantom type on output."
 
-→ **Step 3 — LIVE UNCOMMENT MOMENT (60 sec):** Navigate to `demo4_TypestateCompileErrors()` in `Demo.java`. Show the body: an order is built, `init`/`authorized`/`captured` go through the lifecycle, and three commented-out lines sit below — each marked `← UNCOMMENT`. Uncomment the `Payment.capture(init);` line. The compiler reports: *"Payment<Initiated> cannot be converted to Payment<Authorized>"*. Read it aloud: "The capture function requires Payment<Authorized>. We're passing Payment<Initiated>. The lifecycle ordering is now a type constraint, not a convention." Re-comment with the `// ← UNCOMMENT` line restored.
+→ **Step 3 — LIVE UNCOMMENT MOMENT (60 sec):** Navigate to `demo4_TypestateCompileErrors()` in `Demo.java`. Show the body: an order is built, `init`/`authorized`/`captured` go through the lifecycle, and three commented-out lines sit below — each marked `← UNCOMMENT`. Uncomment the `Payment.capture(init);` line. The compiler reports: *"Payment<Initiated> cannot be converted to Payment<Authorized>"*. Read it aloud: "The capture function requires Payment<Authorized>. We're passing Payment<Initiated>. The lifecycle ordering is now a type constraint, not a convention." Re-comment with the `// ← UNCOMMENT` line restored. The second demo line uses `new RefundMechanism.InstantReversal()` — uncomment it next to show the refund-on-authorized error if time permits.
 
 → **Step 4 (60 sec):** Navigate to `buggyDemo_WrongApprovalMethodStillPossible()`. Show a medium-risk order being authorized via `authorizeAuto`. Say: "This compiles. The type of `Payment<Initiated>` does not know which risk level it represents. The risk assessment is a runtime value. Java's phantom generics can carry the lifecycle state — but not the runtime risk classification. That gap is what Scala 3 closes."
 
@@ -927,7 +984,7 @@ Bottom:
 
 ---
 
-### Slide 22 — Stage 5 Payoff: Charlie Closed
+### Slide 24 — Stage 5 Payoff: Charlie Closed
 **Clock target:** 24:30–25:00
 **Type:** Payoff
 
@@ -956,7 +1013,7 @@ Still expressible here:
 **IDE / terminal:** None.
 
 ---
-### Slide 23 — The Java Ceiling
+### Slide 25 — The Java Ceiling
 **Clock target:** 25:00–26:00
 **Type:** Threshold
 
@@ -973,35 +1030,15 @@ Phantom lifecycle state    ✓          Path-dependent message types     ✗
 ```
 
 Bottom:
-> "The issue isn't that Java is wordy. Its type system cannot state these claims at all."
+> "It's not just hard to express these invariants in Java — the type system lacks the machinery to state them at all."
 
 **Speaker notes (60 sec):**
-"By Stage 5 we've used most of what modern Java's type system offers in this domain: sealed types, records, phantom generics, explicit lifecycles. These are all real, all worth using in production. But there's a ceiling — and the things on the other side of it are not just verbose to encode in Java, they are not expressible. Take one example: the risk level. It's a runtime value — the output of `assessRisk(order)`. Java's type system has no mechanism to carry that runtime information into the *shape* of the next method call's signature. Once we classify an order as medium-risk, the developer can still call `authorizeAuto`; the connection between the risk classification and the required authorization method lives in convention and documentation, not in the type-checker. Same story for refined types — a predicate like 'this string is non-empty' is a runtime check in Java, not part of the type. Same story for types computed from other types. Different point on the lambda cube; different expressive power."
+"By Stage 5 we've used most of what modern Java's type system offers in this domain: sealed types, records, phantom generics, explicit lifecycles. These are all real, all worth using in production. But there's a ceiling — and the things on the other side of it are not just verbose to encode in Java, they are not expressible. Take one example: the risk level. It's a runtime value — the output of `assessRisk(order)`. Java's type system has no mechanism to carry that runtime information into the *shape* of the next method call's signature. Once we classify an order as medium-risk, the developer can still call `authorizeAuto`; the connection between the risk classification and the required authorization method lives in convention and documentation, not in the type-checker. Same story for refined types — a predicate like 'this string is non-empty' is a runtime check in Java, not part of the type. Same story for types computed from other types. It's not just hard to express this in Java — we need a more expressive type system. Let's see what that looks like."
 
 **IDE / terminal:** None.
 
 ---
-
-### Slide 24 — Transition to Scala 3
-**Clock target:** 26:00–27:00
-**Type:** Transition
-
-**Visual content:**
-Single quote, large and centered:
-
-> "By Stage 5 we've used most of what modern Java's type system can do for us in this domain — sealed types, phantom generics, explicit lifecycles, all real wins. But there are guarantees we still need tests for that Java's type system cannot encode at all — not because the syntax is bulky, but because the system doesn't have the machinery.
->
-> An approval indexed by the risk level, so the wrong authorization method is a compile error. A type that carries a value-level predicate like 'this string is non-empty.' Types computed from other types at compile time.
->
-> These need a more expressive type system. Let's see what that looks like."
-
-**Speaker notes (60 sec):**
-Deliver the quote above as the spoken transition. This is the most important single transition in the talk — earn it.
-
-**IDE / terminal:** None.
-
----
-### Slide 25 — Stage 6: What Scala 3 Adds
+### Slide 26 — Stage 6: What Scala 3 Adds
 **Clock target:** 27:00–27:30
 **Type:** Stage intro
 
@@ -1010,9 +1047,8 @@ Deliver the quote above as the spoken transition. This is the most important sin
 Stage 6: Scala 3                        Lambda-cube: bounded λω / System Fω
                                          + type families
 
-New mechanisms:
+Mechanisms at work:
   ┌────────────────────────────────────────────────────────────────────┐
-  │  Phantom type indexing     Approval[R <: Risk]                     │
   │  Refined types             NonEmptyString = String :| MinLength[1] │
   │  Opaque + refined IDs      OrderId, CustomerId                     │
   │  Path-dependent types      CanSend[P]#Msg                          │
@@ -1023,15 +1059,15 @@ New mechanisms:
 Each one removes a class of invalid construction.
 Each one deletes a test.
 ```
-
 **Speaker notes (30 sec):**
-"Seven mechanisms. I'll demo three of them live — phantom indexing, refined identifiers, and the path-dependent channel — because those carry most of the punch. The other three sit in the file and I'll point at them during the session-types segment. Then I'll show them combine into session types, where the client/server protocol contract is a compile-time proof."
+"Scala 3's type system opens up mechanisms that Java simply cannot reach. Let's look at three of them in our code — refined identifiers, path-dependent channels, and match types — those carry most of the structural weight. Four more are in the repository; I'll point at them as we move through the session-types demo, and then show how they combine into something that makes Danielle's protocol-drift incident a compile error."
 
 **IDE / terminal transition — IDE Segment 6a: The Toolkit (2:30):**
-
 → **Feature 1 — Phantom indexing with sealed-subtype inference (45 sec):**
 Open `06-scala3-payment/src/main/scala/demos/PaymentDemo.scala`, navigate to `serverMediumRisk`. Change the relevant `authorize(order, ThreeDSApproved(proof))` line to `authorize(order, AutoApproved)`. The IDE shows an error on the next `ch.send(authorized)`. Hover: read "Found: `AuthorizedPayment[LowRisk]`, Required: `AuthorizedPayment[MediumRisk]`." Say: "Worth being precise here. `authorize(order, AutoApproved)` itself is well-typed — it just produces an `AuthorizedPayment[LowRisk]`. The compile error happens one line later, when we try to send that value through the channel: the medium-risk protocol requires `AuthorizedPayment[MediumRisk]` at this position, and `LowRisk` doesn't satisfy it. The protocol context is what catches Bob's mistake. Revert." (⌘Z)
-Speaker note (don't say onstage unless asked): phantom indexing isn't new — we've been using it since Stage 5 (`Payment<S>`). The Scala-specific win here is *inference from sealed subtypes*: passing `AutoApproved` infers `R = LowRisk` without explicit type annotations. Java would require explicit type parameters per call site or separate methods per risk level — same mechanism, different boilerplate.
+Speaker note (don't say onstage unless asked): the `Approval[R]` indexed pattern itself is not Scala-exclusive. Java 17 can express `sealed interface Approval<R extends Risk>` with the same sealed-subtype inference — passing `new AutoApproved()` (which implements `Approval<LowRisk>`) infers `R = LowRisk` without explicit annotation. What IS Scala-exclusive is what the indexed type flows into: the session type machinery. The channel at a medium-risk protocol position structurally requires `AuthorizedPayment[MediumRisk]` at that step, derived via match types (`Dual[P]`) and path-dependent associated types (`CanSend[P]#Msg`) — neither of which Java has any equivalent for.
+
+Note on design: `serverMediumRisk` also calls `riskSnapshotFor(order)` and sends the snapshot to the client. This is not re-evaluating which protocol to use — that decision happened at dispatch level before the handler was called. The snapshot is part of the protocol: the client receives it for transparency and logging. Each handler is committed to its typed protocol; what it computes and sends as content is derived from the order.
 
 → **Feature 2 — Refined types: NonEmptyString-refined identifiers (30 sec):**
 Open `Domain.scala`, navigate to `type NonEmptyString = String :| MinLength[1]` (and the OrderId/CustomerId opaque types layered on top of it). Frame as a domain rule first: "order and customer identifiers must be non-empty — that's a business invariant, not a runtime check to remember at every consumer." In demo4, show two complementary uses:
@@ -1042,20 +1078,19 @@ Say: "Two paths into the type. The smart constructor handles runtime values safe
 → **Feature 3 — Path-dependent types (30 sec, LIVE):**
 Briefly show `CanSend[P]#Msg` in `Chan.scala` or `protocol/` package. Point at `ch.send(...)` — say: "The message type is derived from the protocol position. Sending the wrong type or sending on a receive step is a compile error. Defensive per-call-site test gone; behavioural tests stay."
 
-→ **Features 4–6 (mention as walk-through, ~30 sec total — no live edits):**
-"Three more mechanisms in the file, same idea applied differently — I'll point at them when we open the session-types segment in a moment. (1) `=:=` evidence: `finish()` requires a compiler-constructed proof that the protocol equals `End`; mid-protocol close is a compile error. The `summon[Dual[P] =:= ...]` lines in `Derivation.scala` are compile-time contract tests that run at every build. (2) Opaque types: `AuthCode`, `CaptureId`, `RefundId` are all `String` underneath, but the compiler refuses to mix them. (3) Catamorphisms: `interpret[F[_]: Functor, A]` is `List.foldRight` generalised — `describe` and `analyze` are two algebras over one traversal of a policy tree, and adding a node forces both to handle it. You can see all three in the repo."
+→ **Additional mechanisms (brief verbal mention, ~10 sec — no live edits):**
+"One more mechanism worth naming: opaque types — `AuthCode`, `CaptureId`, `RefundId` are all `String` underneath, but the compiler refuses to mix them. I'll show `=:=` evidence and `finish()` in the session-types segment next."
 
 → Return to slide briefly.
 
 ---
-
-### Slide 26 — Session Types: What They Are
+### Slide 27 — Session Types: What They Are
 **Clock target:** 30:00–30:45
 **Type:** Concept (before IDE Segment 6b)
 
 **Visual content:**
 ```
-A session type describes a whole conversation in the type
+A session type describes a whole conversation (send, receive, offer choice, select choice) in the type
 system — the full sequence of moves, in order, on both sides.
 
   Each channel's type is the *remainder of the protocol*:
@@ -1105,7 +1140,7 @@ Run `sbt run` in the terminal (pre-compiled). Show the output of `demo2()` — m
 
 ---
 
-### Slide 27 — Stage 6 Payoff: Three Stories Closed, Two Gaps Remain
+### Slide 28 — Stage 6 Payoff: Three Stories Closed, Two Gaps Remain
 **Clock target:** 33:45–34:30
 **Type:** Payoff
 
@@ -1145,7 +1180,7 @@ Two structural gaps still expressible:
 ```
 
 **Speaker notes (45 sec):**
-"Bob's story is done in this combination: once the protocol has selected the medium-risk path, a LowRisk approval cannot satisfy the channel's required MediumRisk evidence. It's the protocol context that catches the mistake, not the authorization function in isolation. Alice's boundary class is done — an empty `OrderId` cannot exist at runtime, so consumers don't have to defend. Danielle's story is done — server and client hold types derived from the same protocol definition; they cannot drift. Two structural gaps still expressible at Stage 6: the protocol type is still selected at runtime from a fixed menu rather than computed from the runtime order; and the channel can be dropped without `finish()` being called, even though calling it mid-protocol is already a compile error. Stage 7 closes both."
+"Bob's story is done in this combination: once the protocol has selected the medium-risk path, a LowRisk approval cannot satisfy the channel's required MediumRisk evidence. It's the protocol context that catches the mistake, not the authorization function in isolation. Alice's boundary class is done — an empty `OrderId` cannot exist at runtime, so consumers don't have to defend. Danielle's story is done — server and client hold types derived from the same protocol definition; they cannot drift. But - two structural gaps are still expressible at this stage: the protocol type is still selected at runtime from a fixed menu rather than computed from the runtime order; and the channel can be dropped without `finish()` being called, even though calling it mid-protocol is already a compile error. Stage 7 closes both."
 
 *Optional hook (drop in if you sense a "why doesn't Scala just do dependent types?" question forming):* "Scala can actually get closer than the fixed menu — match types are compile-time type-level computation, and singleton types like `1234.type` can feed a runtime literal into them. That combination mimics dependent types without the totality cost Idris pays. I've got a slide on exactly that if anyone wants it in Q&A." (→ Appendix A8)
 
@@ -1154,7 +1189,7 @@ Two structural gaps still expressible:
 ---
 ## Stage 7 — Idris 2: The Final Bridge
 
-### Slide 28 — Stage 7: The Last Bridge
+### Slide 29 — Stage 7: The Last Bridge
 **Clock target:** 35:00–35:30
 **Type:** Stage intro
 
@@ -1168,11 +1203,11 @@ Scala's ceiling:
 
 The third lambda-cube axis (Idris 2):
 
-  protocolDerivedFrom : Order → SessionType
+  protocolFromSnapshot : RiskSnapshot → SessionType
 
-  The function takes a runtime order and returns a SessionType
-  VALUE computed from the order's risk classification. We then
-  call
+  The function takes a runtime risk snapshot — the output of
+  assessing an order — and returns a SessionType VALUE computed
+  from the snapshot's risk classification. We then call
 
     openSession  (protocolFromSnapshot snapshot n c)
 
@@ -1197,13 +1232,13 @@ The third lambda-cube axis (Idris 2):
 ```
 
 **Speaker notes (45 sec):**
-"In Stages 1 through 6 we moved along the generics axis and the type-operators axis. Stage 7 adds the third: types whose shape depends on runtime values. The protocol *value* for an order isn't selected from a pre-declared menu — it's computed by `protocolDerivedFrom order`. That value then flows into `openSession`, which returns channel endpoints indexed by it. From that point on, every `send` and `receive` on those endpoints is type-checked against the specific protocol the runtime computation selected. That is the third lambda-cube axis firing in practice. On top of that, Stage 7 closes the linearity gap I named in Stage 6. The mechanism is Idris 2's Quantitative Type Theory: every binding has a multiplicity. The default — what every Java and Scala parameter is — is `ω`: use as many times as you want, including zero. Idris 2 also lets you mark a parameter `1` for *use exactly once*, or `0` for *exists only at compile time*. When the session is bound at `1`, the linearity checker refuses to accept a program that drops it. No path through any handler can skip `finish`."
+"Stage 7 adds the third lambda-cube axis: types whose shape depends on runtime values. The protocol isn't selected from a pre-declared menu — `protocolFromSnapshot` takes a runtime risk snapshot and returns a `SessionType` specific to that risk value. That session-type flows into `openSession`, which returns channel endpoints with the appropriate protocol. Every subsequent `send` and `receive` is type-checked against the protocol. Those are the kind of coherence-guarantees afforded by dependent types. Stage 7 also closes the linearity gap from Stage 6. Idris 2 gives every binding a multiplicity: the default is `ω` — unrestricted use as in every other language we've seen. `1` means use exactly once. `0` means erased at runtime. Since the session channel has multiplicity `1`, the linearity checker refuses any program that drops or re-uses it - or fails to call `finish`."
 
 **IDE / terminal:** None.
 
 ---
 
-### Slide 29 — MLTT Rules Running as Programs
+### Slide 30 — MLTT Rules Running as Programs
 **Clock target:** 35:30–36:00
 **Type:** Theory callback
 
@@ -1215,9 +1250,9 @@ Recall the Π and Σ rules from Slide 12, but now annotated with the Idris code:
                 ──────────────────────────
                         f(a) : B(a)
 
-→ protocolDerivedFrom : (order : Order n c) -> SessionType
-  Apply it to a runtime order and you get a SessionType value
-  whose shape was determined by the order's classification.
+→ protocolFromSnapshot : RiskSnapshot -> SessionType
+  Apply it to a runtime risk snapshot and you get a SessionType
+  value whose shape was determined by the snapshot's risk level.
   openSession then accepts that value and returns channel
   endpoints indexed by it.
 
@@ -1233,38 +1268,36 @@ Recall the Π and Σ rules from Slide 12, but now annotated with the Idris code:
 Bottom:
 > "The formal rules from the theory section are what Idris 2's type checker runs at every call site. The slide earlier was the specification; this code is its implementation."
 
-
 **Speaker notes (30 sec):**
-"The Π and Σ rules from the theory section reappear here as ordinary functions. `protocolDerivedFrom order` applies Π-elimination — the return type is computed from the argument value. `assessOrder order` is Σ-introduction — a dependent pair where the risk level is both a value the function returns and an index into the type of the second component. The earlier slide was the formation rule; this is its implementation."
+"The Π and Σ rules from Slide 12 reappear here as ordinary Idris functions in the same payment domain. `protocolFromSnapshot snapshot` is Π-elimination: the return type is a `SessionType` computed from the runtime risk level in the snapshot. `assessOrder order` is Σ-introduction: a dependent pair bundling the risk level with an assessment whose type depends on that level. The rules were the specification; these functions are the implementation."
 
 **IDE / terminal transition — IDE Segment 7: Idris 2 Demo (4:00):**
-
 → **Navigate to key signatures (60 sec):**
-Open `07-idris2-payment/src/PaymentRules.idr` and navigate to `protocolDerivedFrom` (around line 220). Show its signature: `(order : Order n c) -> SessionType`. Say: "SessionType is a first-class type in Idris — this function returns one, computed from a runtime order." Then `protocolFromSnapshot` (which `protocolDerivedFrom` calls): the case-split on `snap.level` that selects the protocol shape. Say: "That case-split is what makes the return type dependent on the runtime value."
+Open `07-idris2-payment/src/PaymentRules.idr` and navigate to `protocolFromSnapshot`. Show its signature: `RiskSnapshot -> SessionType`. Say: "SessionType is a first-class type in Idris — this function returns one, computed from a runtime risk snapshot." Show the case-split on `snap.level` that selects the protocol shape. Say: "That case-split is what makes the return type dependent on the runtime value."
 
 Then `assessOrder` in `PaymentDomain.idr`: show `(lvl : RiskLevel ** Assessment lvl n c)` — say: "That `**` is Idris's Σ-type syntax. `lvl` is both the returned value and the index into the type of the second component."
 
-`authorize`: show `Assessment lvl n c -> Approval lvl -> AuthorizedPayment n c` — say: "The assessment carries the risk level as a type parameter; the required approval is indexed by the same level. `AutoApproved` cannot satisfy `Approval MediumRisk`."
+`authorize` (PaymentDomain.idr L329): show `Assessment lvl n c -> Approval lvl -> AuthorizedPayment n c` — say: "The assessment carries the risk level as a type parameter; the required approval is indexed by the same level. `AutoApproved` cannot satisfy `Approval MediumRisk`."
 
-Finally, `Main.idr` `runOrderScenario`: show the `openSession (protocolFromSnapshot snapshot n c)` line — say: "One call. The Π-elimination fires; the protocol type for this session is computed from the snapshot. The same expression in Scala would have to be selected from a pre-declared ADT."
+Finally, `Main.idr` `runOrderScenario`: show the `openSession (protocolFromSnapshot snapshot n c)` line — say: "One call. `protocolFromSnapshot` computes the protocol type from the snapshot; `openSession` indexes the channel endpoints by it. The same result in Scala requires selecting from a pre-declared ADT — here it's derived directly from the runtime value."
 
 → **Show linearity in action (45 sec):**
 Open `PaymentChannel.idr` and point at the `(1 _ : Session ...)` annotations on `send`, `receive`, `finish`. Say: "Read that `1` as 'consume exactly once' — the multiplicity annotation from Idris 2's Quantitative Type Theory. The function body must use this argument once. Not zero times. Not twice. Once. The default in every other language we've looked at is `ω` — unrestricted." Then demonstrate the bug class: open `Main.idr`, comment out a `finish done` line in one handler, save, run `idris2 --build payment.ipkg`. Show the error live: *"There are 0 uses of linear name done. Suggestion: linearly bounded variables must be used exactly once."* Say: "Forgetting to close the channel is no longer a code-review issue. It's a compile error." Restore the file.
 
-→ **Run the demo (90 sec):**
-Run `./build/exec/paymentdemo` in the terminal (pre-built). Show demo1 (low-risk), demo2 (medium-risk with 3DS), demo3 (high-risk with manual review). Point out the line in the output: "Protocol derived from runtime order value: ..." and the parenthetical "(= protocolDerivedFrom order : SessionType)". Say: "No bridge ADT. The protocol is the value passed to `openSession`. The compiler tracks the result."
+→ **Run the demo (60 sec):**
+Run `./build/exec/paymentdemo` in the terminal (pre-built). Show demo1 (low-risk), demo2 (medium-risk with 3DS visible in the log), demo3 (high-risk with manual review). The logs are annotated — focus on the outcome lines for demos 1–3, then point at the demo7 summary output: `protocolFromSnapshot snapshot : SessionType`. Say: "No bridge ADT. The protocol is a value computed from the runtime snapshot and passed directly to `openSession`. The compiler tracks the result."
 
-→ **Show the duality involution proof (30 sec):**
-Navigate to `dualInvolution : (p : SessionType) -> dual (dual p) = p` in `PaymentSessionTypes.idr`. Say: "Scala's `summon[Dual[P] =:= ...]` checks one concrete protocol. This proves the same property for *every* protocol by structural induction. A proof rather than a test."
+→ **Duality involution (10 sec, no navigation):**
+Say: "There's also `dualInvolution` in `PaymentSessionTypes.idr` — it proves `dual (dual p) = p` for every protocol by structural induction. Scala's `summon[Dual[P] =:= ...]` checks one concrete instance; Idris proves the general case."
 
-→ **Show what's still open (30 sec):**
-Briefly show the `believe_me` casts in `PaymentChannel.idr`. Say: "Honest gap: serialisation relies on unsafe casts. A type mismatch in the transport layer is still a runtime error. The remaining frontier."
+→ **Still open (10 sec, no navigation):**
+Say: "One honest gap: serialisation in `PaymentChannel.idr` relies on `believe_me` casts. A type mismatch in the transport layer is still a runtime error. The remaining frontier."
 
 → Return to slides.
 
 ---
 
-### Slide 30 — Stage 7 Payoff: All Stories Closed
+### Slide 31 — Stage 7 Payoff: All Stories Closed
 **Clock target:** 40:00–40:30
 **Type:** Payoff
 
@@ -1298,7 +1331,7 @@ the ones we started with no longer fit through.
 ```
 
 **Speaker notes (30 sec):**
-"Each of these four production incidents — Alice's boundary, Bob's branch, Charlie's lifecycle, Danielle's protocol — has, at this point, become a program that cannot be expressed in the type system. That is a stronger guarantee than 'we wrote a test that catches it.' We removed the program, not just the path to it."
+"Each of these four production incidents — Alice's boundary, Bob's branch, Charlie's lifecycle, Danielle's protocol — has, at this point, become a program that cannot be expressed in the type system - a much stronger guarantee than 'we wrote a test that catches it.'"
 
 **IDE / terminal:** None.
 
@@ -1306,7 +1339,7 @@ the ones we started with no longer fit through.
 
 ## Section 5 — Conclusion
 
-### Slide 31 — The Climb: What Was Removed at Each Stage
+### Slide 32 — The Climb: What Was Removed at Each Stage
 **Clock target:** 41:00–42:00
 **Type:** Summary
 
@@ -1336,13 +1369,13 @@ Bottom:
 > "Each stage is more than a syntactic improvement. It removes a class of expressible invalid program — and the tests that existed only to catch that class."
 
 **Speaker notes (60 sec):**
-"Let me trace what we removed. JavaScript: every invariant is a test. Stage 1: shape confusion and fabricated lifecycle values are type errors. Stage 2: element-type bugs and parametricity failures are type errors. Stage 4: forgotten branches and unhandled error paths are compile errors — via OR-elimination, the same rule Gentzen formalised. Stage 5: lifecycle ordering is no longer a runtime check, it is a structural impossibility. Stage 6: the approval method for the assessed risk level, non-empty boundary predicates, protocol drift — all become type errors. Stage 7: the bridge from runtime classification to compile-time protocol type goes away — `protocolDerivedFrom order` computes it directly — and the channel becomes a linear resource the program is required to consume."
+"Let me trace what we removed. JavaScript: every invariant is a test. Stage 1: shape confusion and fabricated lifecycle values are type errors. Stage 2: element-type bugs and parametricity failures are type errors. Stage 4: forgotten branches and unhandled error paths are compile errors — via OR-elimination, the same rule Gentzen formalised. Stage 5: lifecycle ordering is no longer a runtime check, it is a structural guarantee. Stage 6: the approval method for the assessed risk level, non-empty boundary predicates, protocol drift — all become type errors. In Stage 7, we no longer have a gap between runtime classification and compile-time protocol-shape — `protocolFromSnapshot snapshot` computes it directly — and the channel becomes a linear resource the program is required to consume."
 
 **IDE / terminal:** None.
 
 ---
 
-### Slide 32 — Expressive Types in the Age of Agentic Development
+### Slide 33 — Expressive Types in the Age of Agentic Development
 **Clock target:** 42:00–43:00
 **Type:** Horizon
 
@@ -1383,13 +1416,13 @@ before merge rather than spotted by a reviewer.
 ```
 
 **Speaker notes (45 sec):**
-"One concrete reason this story matters now. Models can produce a working PR faster than a human can read it carefully. An expressive type system raises the floor of correctness that holds regardless of the author: incomplete protocol steps, skipped lifecycle transitions, empty identifiers, dropped channels — none of those compile, whether a person or a model wrote them. For agentic workflows specifically, the compiler gives the agent a stable, mechanical signal to iterate against; compile errors are actionable without a human in the loop on every step. Proof assistants like Lean, Rocq, Agda, and Idris itself go further: the proof obligation becomes a first-class part of the type. To be precise, these are *interactive* proof assistants — the proof still has to be written, but the machine checks it mechanically and modern tactic libraries automate increasing portions of it."
+"There's another concrete reason this story matters now. AI agents can produce a working PR faster than a human can read it carefully. An expressive type system raises the floor of correctness that holds regardless of the author: incomplete protocol steps, skipped lifecycle transitions, empty identifiers, dropped channels — none of those compile, whether a person or a model wrote them. For agentic workflows specifically, the compiler gives the agent a stable, mechanical signal to iterate against; compile errors are actionable without a human in the loop on every step. Proof assistants like Lean, Rocq, Agda, and Idris itself go further: the proof obligation becomes a first-class part of the type. In contrast to what we've seen — where the type checker automatically verifies structural properties and you just declare the type — proof assistants let you encode more complex propositions as types, but to use a function you must also supply an explicit proof that the precondition holds. The machine checks that proof term mechanically, and modern tactic libraries automate increasing fractions of the work."
 
 **IDE / terminal:** None.
 
 ---
 
-### Slide 33 — Further Horizon
+### Slide 34 — Further Horizon
 **Clock target:** 43:00–43:30
 **Type:** Horizon
 
@@ -1420,7 +1453,7 @@ Bottom:
 
 ---
 
-### Slide 34 — Return to the Promise
+### Slide 35 — Return to the Promise
 **Clock target:** 43:30–45:00
 **Type:** Close
 
@@ -1445,15 +1478,16 @@ disappear with them."
 
 Below: "Thank you. Questions?"
 
-
 **Speaker notes (90 sec):**
 "Alice tracked down an invoice that came out wrong because the type system couldn't tell a string from a number at a boundary. Bob's checkout silently took the wrong path because the type system didn't require every branch to be handled when a third was added. Charlie traced an out-of-order state transition through logs because the lifecycle existed in comments, not in the type. Danielle hit a protocol drift because two services had no shared type-level definition of their contract.
 
-None of these required bad people or bad intentions. They came from a mismatch between what the business required and what the design level could enforce.
+These came from a mismatch between what the business required and what the design level could enforce.
 
 We showed today that the gap can be closed — incrementally, with existing tools, without discarding what works. Modern Java goes a fair distance on its own; Scala 3 goes considerably further; Idris 2 shows the horizon.
 
-The question isn't 'should I use dependent types for my CRUD endpoints'. The question is: *is this invariant expensive enough to encode?* — depending both on how cheap the encoding has become and on how costly the failure mode is. The tools are getting cheaper. The set of invariants worth encoding gets bigger every year.
+In aviation, medical devices, and regulated finance, the regulatory threshold has already made the cost-benefit calculation: the cost of encoding the invariant is lower than the cost of a field incident. In commercial software, that threshold is moving too — partly because the tooling is maturing, and partly because generation speed is outpacing the review capacity that used to catch these things.
+
+The question isn't 'should I use dependent types for my CRUD endpoints'. The question is: *is this invariant expensive enough to encode?* The tools are getting cheaper. The set of invariants worth encoding gets bigger every year.
 
 Thank you."
 
@@ -1478,7 +1512,6 @@ The questions they anticipate:
 | "Why doesn't Scala just do full dependent types? / what's a match type, really?" | A8 |
 
 ---
-
 ### Slide A1 — Tracking Capabilities: Capture Checking and Effect Systems
 **Type:** Optional Q&A
 **Trigger:** capture-checking, ZIO, cats-effect, IO monad, resource leaks, effect tracking.
@@ -1510,15 +1543,10 @@ Two approaches in Scala today:
     Goal: direct imperative code keeps its shape; no monadic
     wrappers.
     Status: experimental in Scala 3; not yet production.
-
-In Idris 2:
-    Multiplicity-1 (which we used for sessions) is a sibling
-    mechanism — restricting how many times a value may be used,
-    rather than tagging which capabilities it carries.
 ```
 
 **Speaker notes (if asked, ~60 sec):**
-"Effect systems and Capture Checking are two answers to the same problem: how do you put 'this function needs a database' or 'this function touches IO' into the type? ZIO and cats-effect — in production now — do it by wrapping the result in a monad whose parameters track the capability, the error channel, and the success type. The cost is that your code becomes monadic; you stay in for-comprehensions. Capture Checking is the Scala 3 experimental direction that tries to do this without the monad — capabilities are tracked as little tags on the type itself, and your code keeps its imperative shape. They are not exclusive: a project can absolutely use ZIO today and migrate piecewise as Capture Checking matures. The linearity we used in Stage 7 is a related but distinct mechanism — it restricts *how many times* a value may be used, rather than tagging *which capabilities* it carries."
+"Effect systems and Capture Checking are two answers to the same problem: how do you put 'this function needs a database' or 'this function touches IO' into the type? ZIO and cats-effect — in production now — do it by wrapping the result in a monad whose parameters track the capability, the error channel, and the success type. The cost is that your code becomes monadic; you stay in for-comprehensions. Capture Checking is the Scala 3 experimental direction that tries to do this without the monad — capabilities are tracked as little tags on the type itself, and your code keeps its imperative shape. They are not exclusive: a project can absolutely use ZIO today and migrate piecewise as Capture Checking matures. If the multiplicity-1 mechanism from Stage 7 comes up here, the linearity slide (A2) covers it — it restricts *how many times* a value may be used, a related but distinct question from *which capabilities* it carries."
 
 ---
 
@@ -1627,7 +1655,6 @@ Leibniz (17th c.)
   to arithmetic. Defines identity: two objects are identical iff
   they share every property.
   → plato.stanford.edu/entries/leibniz/
-  → plato.stanford.edu/entries/leibniz-logic-influence/
 
 Boole (1847)
   Realises the algebraic engine. Proves propositional logic —
@@ -1847,7 +1874,7 @@ For deeper formal-methods study:
 
   Sørensen & Urzyczyn — Lectures on the Curry-Howard Isomorphism
     The book for the propositions-as-types story. Heavier than
-    Pierce; the right next step once TAPL feels comfortable.
+    Pierce; the right next step once the basics of TAPL feel comfortable.
     → Elsevier, 2006 (search by title for current sources)
 
   Friedman & Christiansen — The Little Typer
@@ -1963,10 +1990,10 @@ Five live compile-error moments during the talk. Practise each edit + revert unt
 
 | # | Stage | Edit | Expected error |
 |---|-------|------|----------------|
-| 1 | Stage 1 (S15)  | Type `new Authorization(...)` next to the existing call | *"Authorization() has private access"* |
-| 2 | Stage 4 (S18)  | Delete the `case Medium m -> "3DS path"` line live    | *"switch covers only 2 of 3 permitted subclasses"* |
-| 3 | Stage 5 (S21)  | Uncomment `Payment.capture(init);` in `demo4_TypestateCompileErrors` | *"Payment<Initiated> cannot be converted to Payment<Authorized>"* |
-| 4 | Stage 6 (S25)  | Change `ThreeDSApproved(proof)` to `AutoApproved` in `serverMediumRisk` | *"Found: AuthorizedPayment[LowRisk], Required: AuthorizedPayment[MediumRisk]"* |
+| 1 | Stage 1 (S17)  | Type `new Authorization(...)` next to the existing call | *"Authorization() has private access"* |
+| 2 | Stage 4 (S20)  | Delete the `case Medium m -> "3DS path"` line live    | *"switch covers only 2 of 3 permitted subclasses"* |
+| 3 | Stage 5 (S23)  | Uncomment `Payment.capture(init);` in `demo4_TypestateCompileErrors` | *"Payment<Initiated> cannot be converted to Payment<Authorized>"* |
+| 4 | Stage 6 (S26)  | Change `ThreeDSApproved(proof)` to `AutoApproved` in `serverMediumRisk` | *"Found: AuthorizedPayment[LowRisk], Required: AuthorizedPayment[MediumRisk]"* |
 | 5 | Stage 7 (S29)  | Comment out a `finish done` in any handler in `Main.idr` | *"There are 0 uses of linear name done. Suggestion: linearly bounded variables must be used exactly once"* |
 
 - [ ] Know `⌘Z` (or `Ctrl+Z`) for each — must restore the original within seconds
@@ -1983,7 +2010,7 @@ Five live compile-error moments during the talk. Practise each edit + revert unt
 ### Hard-Cut Cheat Sheet (tape to lectern or keep as phone note)
 ```
 Behind by 1 min at 11:30  → cut MLTT slide (S12)
-Behind by 1 min at 21:00  → trim S22 'still expressible here' bullets to a one-liner
+Behind by 1 min at 21:00  → trim S24 'still expressible here' bullets to a one-liner
 Behind by 1 min at 30:00  → drop the Features 4–6 walk-through; go straight to session types
 Never cut Stage 7
 ```

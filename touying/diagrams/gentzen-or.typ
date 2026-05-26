@@ -22,45 +22,66 @@
 #let bad         = oklch(58%, 0.17, 28deg)
 #let muted       = rgb("#5a5d68")
 #let fg          = rgb("#14161d")
-#let bar-stroke  = (paint: fg, thickness: 0.6pt)
 
 // ─── ND rule helper ─────────────────────────────────────────────────────────
 //
-// Draws one natural-deduction rule:
+// Pure-Typst inference-rule renderer. Lays the rule out as a centred column:
 //
 //                    premise₁    premise₂    …
 //                   ────────────────────────── (label)
 //                            conclusion
 //
-// All premises are centred on x = 0 with `premise-spacing` between them.
-// The horizontal inference bar adapts to the row width via `bar-padding`.
+// The horizontal bar measures to the WIDER of the premise row and the
+// conclusion (plus a thin pad), so the bar is always at least as wide as the
+// widest formula it sits between. The label is then placed just right of the
+// bar's end.
 
 #let nd-rule(
   premises,
   conclusion,
   label: none,
-  premise-spacing: 2.2,
-  bar-padding: 0.6,
-  bar-offset: 0.45,
-) = canvas({
-  import draw: *
+  premise-gap: 18pt,
+  bar-pad:     6pt,
+  label-gap:   8pt,
+  row-gap:     4pt,
+) = context {
+  let prem-row = stack(
+    dir: ltr,
+    spacing: premise-gap,
+    ..premises,
+  )
+  let prem-size = measure(prem-row)
+  let concl-size = measure(conclusion)
+  let bar-width = calc.max(prem-size.width, concl-size.width) + 2 * bar-pad
 
-  let n = premises.len()
-  let total-width = (n - 1) * premise-spacing
-  let bar-half = total-width / 2 + bar-padding
-
-  for (i, p) in premises.enumerate() {
-    let x = -total-width / 2 + i * premise-spacing
-    content((x, bar-offset + 0.25), p)
+  // Two-column grid: premise / bar / conclusion stack in the LEFT column
+  // (width = bar-width), label sits in the RIGHT column (auto width). Premise
+  // and conclusion are centred ONLY over the bar, not over the bar + label.
+  // The label row aligns vertically with the bar via `horizon`.
+  if label == none {
+    align(center)[
+      #stack(
+        dir: ttb,
+        spacing: row-gap,
+        prem-row,
+        line(length: bar-width, stroke: 0.6pt + fg),
+        conclusion,
+      )
+    ]
+  } else {
+    align(center)[
+      #grid(
+        columns: (bar-width, auto),
+        column-gutter: label-gap,
+        row-gutter: row-gap,
+        align: (center + horizon, left + horizon),
+        prem-row,    [],
+        line(length: bar-width, stroke: 0.6pt + fg),  text(fill: accent, label),
+        conclusion,  [],
+      )
+    ]
   }
-
-  line((-bar-half, 0), (bar-half, 0), stroke: bar-stroke)
-  content((0, -0.45), conclusion)
-
-  if label != none {
-    content((bar-half + 0.6, 0), text(fill: accent, label))
-  }
-})
+}
 
 // ─── The canvas itself ──────────────────────────────────────────────────────
 
@@ -68,43 +89,41 @@
   // Two columns: rules on the left, code-side on the right.
   #grid(
     columns: (1.1fr, 1fr),
-    gutter: 14pt,
+    gutter: 22pt,
 
     // ── Left: introduction + elimination rules
     [
-      #text(weight: "bold", size: 12pt)[Introduction rules — building $A or B$]
+      #text(weight: "bold", size: 15pt)[Introduction rules — building $A or B$]
 
       #v(6pt)
 
       #align(center)[
         #grid(
           columns: 2,
-          gutter: 18pt,
+          gutter: 36pt,
           align: center + horizon,
-          nd-rule(($A$,),    $ A or B $, label: $(or upright(I)_1)$),
-          nd-rule(($B$,),    $ A or B $, label: $(or upright(I)_2)$),
+          nd-rule(($A$,),    $A or B$, label: $(or upright(I)_1)$),
+          nd-rule(($B$,),    $A or B$, label: $(or upright(I)_2)$),
         )
       ]
+
+      #v(10pt)
+
+      #text(weight: "bold", size: 15pt)[Elimination rule — using $A or B$]
+
+      #v(6pt)
+
+      #nd-rule(
+        ($A or B$, $[A] arrow.r.long C$, $[B] arrow.r.long C$),
+        $C$,
+        label: $(or upright(E))$,
+        premise-gap: 28pt,
+      )
 
       #v(8pt)
 
-      #text(weight: "bold", size: 12pt)[Elimination rule — using $A or B$]
-
-      #v(6pt)
-
       #align(center)[
-        #nd-rule(
-          ($A or B$, $[A] arrow.r.long C$, $[B] arrow.r.long C$),
-          $ C $,
-          label: $(or upright(E))$,
-          premise-spacing: 2.4,
-        )
-      ]
-
-      #v(6pt)
-
-      #align(center)[
-        #text(fill: muted, size: 9pt)[
+        #text(fill: muted, size: 11pt)[
           Square brackets mark discharged assumptions:
           $[A]$ means "supposing $A$, derive $C$" — the rule
           then retracts the supposition.
@@ -114,13 +133,13 @@
 
     // ── Right: code side
     [
-      #text(weight: "bold", size: 12pt)[On the code side]
+      #text(weight: "bold", size: 15pt)[On the code side]
 
       #v(6pt)
 
       // sealed declaration
       #align(left)[
-        #text(fill: muted, size: 11pt)[
+        #text(fill: muted, size: 13pt)[
           ```scala
           sealed trait Either[+A, +B]
           case class Left [A](a: A) extends Either[A, Nothing]
@@ -133,7 +152,7 @@
 
       // exhaustive match — case arms aligned under `match`
       #align(left)[
-        #text(fill: muted, size: 11pt)[
+        #text(fill: muted, size: 13pt)[
           ```scala
           x match {
             case Left(a)  => useA(a)   // [A] → C
@@ -150,7 +169,7 @@
         stroke: (left: 2pt + bad),
         width: 100%,
       )[
-        #text(size: 10pt)[
+        #text(size: 12pt)[
           #text(fill: bad, weight: "bold")[Missing the Right branch]
           $=$ no $[B] arrow.r.long C$.
           The compiler cannot apply $or upright(E)$. #text(fill: bad)[*Compile error.*]
@@ -166,7 +185,7 @@
     stroke: (left: 2pt + accent),
     width: 100%,
   )[
-    #text(size: 11pt)[
+    #text(size: 13pt)[
       Each connective is defined by its interface: *how to build* a proof
       of it (introduction) and *how to use* one (elimination).
       #text(fill: accent, weight: "bold")[The rest follows.]

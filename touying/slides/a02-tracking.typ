@@ -7,14 +7,14 @@
   [Linearity Across Languages],
   stack(
     dir: ttb,
-    spacing: sz(16pt),
+    spacing: sz(28pt),
     [
       #set text(size: sz(28pt), weight: 300)
       The "use exactly once" idea isn't unique to Idris 2:
     ],
     grid(
       columns: (1fr, 1fr),
-      gutter: sz(16pt),
+      gutter: sz(24pt),
       callout(
         [Idris 2 (QTT)],
         stack(

@@ -143,3 +143,25 @@ expression does **not** render in importing documents.
   names. The fallback chain absorbs missing IBM Plex / JetBrains Mono.
 - **Per-slide page-fill** is handled by each slide-class function via
   `slide-page(fill: ...)`. Slide files should not call `set page(...)`.
+- **Code-on-slides MUST go in a `raw(...)` block** (or fenced ``` `…` ```), never
+  inline markup. Typst's lexer eats `//` as a line comment in markup mode, so
+  anything after `//` — including the trailing `\` line-break — disappears.
+  Inside a `raw` block, `//` is preserved verbatim. Use this pattern for any
+  code snippet shown to the audience:
+  ```typst
+  #raw(lang: "scala", block: true,
+    "// any comment will be preserved\n"
+    + "code line two")
+  ```
+- **Arrow ligatures are language-correct, not visually uniform**. JetBrains
+  Mono renders `->` as `→` (single arrow) and `=>` as `⇒` (double arrow). This
+  matches the actual source-language semantics — Java lambdas + switch arms
+  use `->`, Scala case arms use `=>` — so Java code panes will show single
+  arrows while Scala panes show double arrows. Don't try to normalise; the
+  audience reads the ligature as part of the syntax they already know.
+- **Code-mode blocks `{...}` need a `#` prefix in markup**. Inside markup
+  (`[...]`), a bare `{ set text(...) body }` is parsed as literal text and
+  renders as `{ set text(...) body }` on the slide. Write `#{ ... }` instead
+  — or call the code from inside a function-argument position (which is
+  already code-mode). This is the bug that produced "rendered `set text` directives"
+  across every theory-/light-/bignum-/close-/qa-slide and the code-pane body.

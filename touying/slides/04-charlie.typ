@@ -9,13 +9,20 @@
   [The Illegal State Transition],
   [
     Refund lifecycle: Requested → UnderReview → Approved → Executed.
-    Only Approved refunds may reach the payment rail.
+    Only approved refunds may reach the payment processing.
     An operator-tooling shortcut fetches a refund by id and calls `executeRefund`
-    without checking the current state. A Requested refund posts back to the customer's card.
+    without checking the current state. A requested refund posts back to the customer's card.
   ],
   [
-    executeRefund(refund)  // refund.state not checked\
-    // Requested → Executed, skipping review
+    #raw(lang: "java", block: true,
+      "void processUrgentRefund(String id) {\n"
+      + "  var ref = repo.findById(id);\n"
+      + "  paymentRail.execute(ref);\n"
+      + "}\n"
+      + "\n"
+      + "// ref.state never checked\n"
+      + "// Requested → Executed, skipping review"
+    )
   ],
 )
 

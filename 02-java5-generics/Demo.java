@@ -76,10 +76,7 @@ public class Demo {
         AuditTrail<String> log = AuditTrail.stringLog();  // AuditTrail<String>, not raw List
         RiskDecision risk = PaymentService.assessRisk(order);
         note("Order: " + order + ", risk: " + risk);
-        Authorization auth = PaymentService.authorize(order, "auto-approved");
-        log.append("authorized:" + auth.getAuthCode());
-        Capture cap = PaymentService.capture(auth);
-        log.append("captured:" + cap.getCaptureId());
+        Capture cap = PaymentService.processLowRisk(order, log);
         note("Capture: " + cap);
         Refund ref = PaymentService.refund(cap, order);
         note("Refund: " + ref);
@@ -93,12 +90,7 @@ public class Demo {
         AuditTrail<String> log = AuditTrail.stringLog();
         RiskDecision risk = PaymentService.assessRisk(order);
         note("Order: " + order + ", risk: " + risk);
-        log.append("3ds-challenged:3ds-" + order.getOrderId());
-        log.append("3ds-verified:proof-001");
-        Authorization auth = PaymentService.authorize(order, "3ds:proof-001");
-        log.append("authorized:" + auth.getAuthCode());
-        Capture cap = PaymentService.capture(auth);
-        log.append("captured:" + cap.getCaptureId());
+        Capture cap = PaymentService.processMediumRisk(order, "3ds-" + order.getOrderId(), "proof-001", log);
         note("Capture: " + cap);
         note("Audit: " + log);
         outcome("Medium-risk: 3DS → authorize → capture. Risk enum returned but not forced to act on.");
@@ -110,11 +102,7 @@ public class Demo {
         AuditTrail<String> log = AuditTrail.stringLog();
         RiskDecision risk = PaymentService.assessRisk(order);
         note("Order: " + order + ", risk: " + risk);
-        log.append("manual-review-approved:ops-reviewer");
-        Authorization auth = PaymentService.authorize(order, "manual-review:ops-reviewer");
-        log.append("authorized:" + auth.getAuthCode());
-        Capture cap = PaymentService.capture(auth);
-        log.append("captured:" + cap.getCaptureId());
+        Capture cap = PaymentService.processHighRisk(order, "ops-reviewer", log);
         note("Capture: " + cap);
         try {
             Refund ref = PaymentService.refund(cap, order);

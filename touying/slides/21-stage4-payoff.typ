@@ -4,21 +4,24 @@
 
 #light-slide(
   eyebrow: eyebrow([Stage 4 Payoff · Sum Types]),
+  body-gap: sz(36pt),                            // payoff slides are dense — smaller headline gap
   [Bob Closed — One Gap Remains],
   stack(
     dir: ttb,
-    spacing: sz(16pt),
+    spacing: sz(36pt),                        // generous gap between sections
     grid(
       columns: (1fr, 1fr),
-      gutter: sz(24pt),
+      gutter: sz(28pt),
       [
-        #text(fill: pal.good, weight: 500, size: sz(26pt))[✓ CLOSED]
-        #set text(size: sz(26pt), fill: pal.fg-dim)
+        #text(fill: pal.good, weight: 500, size: sz(26pt))[✓ CLOSED] \
+        #v(sz(6pt))
+        #set text(size: sz(24pt), fill: pal.fg-dim)
         Compiler requires every variant handled. Defensive per-call-site test deleted.
       ],
       [
-        #text(fill: pal.bad, weight: 500, size: sz(26pt))[⚠ STILL EXPRESSIBLE → Stage 6]
-        #set text(size: sz(26pt), fill: pal.fg-dim)
+        #text(fill: pal.bad, weight: 500, size: sz(26pt))[⚠ STILL EXPRESSIBLE → Stage 6] \
+        #v(sz(6pt))
+        #set text(size: sz(24pt), fill: pal.fg-dim)
         Risk level not in authorization type. Wrong approval method still compiles.
       ],
     ),
