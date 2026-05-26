@@ -722,6 +722,35 @@ Total: ~27 hours of focused work, spread across a week of evenings or
 
 ---
 
+## Phase 5–7 — Evaluation (2026-05-25)
+
+**Phase 5 (Progressive disclosure S9–S14): No structural update required.**
+The slide sequence and content structure are unchanged. Speaker-note corrections were made to S10 and S12 (wording aligned to plan, duplicate sentence removed from S12), but these do not affect the slide order, the canvas sizes, or whether `pause` sequences are needed. Validation gates remain valid.
+
+### Phase 5 — COMPLETE 2026-05-26
+
+Phase 5 validation gates verified after the round-2 layout pass:
+
+- [x] S9 → S10 → S11 → S12 → S13 → S14 flow linearly on `→` arrow-key, one slide per beat — no within-slide `pause` sequences needed (architecturally not required, per the original plan).
+- [x] **S9 / S11 / S13 (history beats)** — beat-grid spacing tuned so inter-row gap (`row-gutter: sz(44pt)`) exceeds the intra-row name→description gap (`linebreak`), giving readable hierarchy.
+- [x] **S10 (Gentzen ∨I/∨E)** — `nd-rule` rewritten as pure-Typst `measure`-based layout so the inference bar always spans the wider of premise-row and conclusion. Abbreviations sit `label-gap: 8pt` past the bar. Code-side panel + closing callout fit on one page.
+- [x] **S12 (MLTT Π / Σ)** — Σ-Formation rule added (previously missing). Π-Elim β-reduction folded into its eyebrow caption so 7 rules (Π-Form/Intro/Elim + Σ-Form/Intro/Elim) fit two-column. Footer no longer overflows.
+- [x] **S14 (Lambda Cube)** — cube enlarged (front-face 3.8 × 2.8); stage tags drop `0.78` units below their system labels with white-bg insets masking the red highlight path; dependency-directions legend has title, larger fonts, and `row-gutter: sz(40pt)` exceeding the name→sub gap; legend vertically centered between headline and footer.
+- [x] Every slide is one page at 1920×1080; full deck builds to PDF + per-page PNG with no overflow on S9–S14.
+
+**Phase 6 (Build/export pipeline): No update required.**
+Content changes to speaker notes and slide prose do not affect the Typst build configuration, export formats, or `make` targets.
+
+**Phase 7 (Rehearsal): No structural update required.**
+The following content changes improve timing and should be verified during rehearsal:
+- S29 (Stage 7 bridge) speaker notes trimmed from ~220 words to ~140 words (~45 sec target).
+- S30 (MLTT running) speaker notes trimmed from ~100 words to ~65 words (~30 sec target).
+- IDE Segment 7: run demo reduced from 90 sec to 60 sec; duality involution from 30 sec to 10 sec verbal-only; still-open from 30 sec to 10 sec verbal-only. Net Stage 7 savings ≈ 1:20.
+- IDE Segment 6a: catamorphism walk-through removed (saves ~15 sec); `=:=` evidence deferred to Segment 6b (no duplication).
+These changes bring Stage 7 within the 6:00 budget and Stage 6 within the 8:00 budget with less cut-risk.
+
+---
+
 ## Iteration discipline
 
 After each phase, **commit and tag**. The phases are designed so a regression
@@ -825,6 +854,23 @@ visual regressions only show up by looking.
 - [x] 5 pattern-test slides render correctly (`typst compile test-patterns.typ` → 5 pages, 0 errors)
 - [x] The lambda cube cetz canvas displays inside the `.s-theory` slide chrome next to the axis legend
 - [x] Build still completes in < 10 seconds for the full deck (`typst compile deck.typ deck.pdf`)
+
+### Phase 6 — COMPLETE 2026-05-26
+
+- **`Makefile`** (repo root): targets `all` / `talk.pdf` / `talk-notes` / `talk-svg` / `talk-png` / `watch` / `clean`.
+- **`touying/README.md`**: build commands, font install instructions (IBM Plex Sans + JetBrains Mono), Typst version requirement, Idris syntax note, pympress key bindings.
+- talk.pdf: 42 pages (35 main + Q&A card + 6 appendix; bare `#pagebreak()` before Q&A absorbed by Touying and does not produce its own slide page).
+- SVG export: 42 files in `slides/svg/`.
+- PNG export: 42 files in `slides/png/` at 1920×1080.
+
+#### §6 validation gate
+
+- [x] `make talk.pdf` produces a single PDF in < 1 minute
+- [x] `make talk-svg` produces 42 SVG files (plan estimated 43+; actual deck is 42 pages)
+- [x] `make talk-png` produces 42 PNG files at 1920×1080 (144 ppi)
+- [ ] `make watch` reloads on save and updates the PDF preview in < 2 seconds (manual test required)
+
+---
 
 ### Phase 4C — COMPLETE 2026-05-25
 Slides done: S21, S24, S28, S31–S34, A1–A8 (15 slides)
