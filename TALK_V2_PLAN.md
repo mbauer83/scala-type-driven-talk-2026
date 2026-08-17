@@ -83,7 +83,7 @@ compiling — not up front.
 |---|---|
 | Occasion | Java Meetup, Inspired Consulting GmbH, Köln — **Thu 20 Aug 2026** |
 | Audience | Working Java devs, mixed seniority, little FP/type-theory background |
-| Runtime | 45 min hard; up to 3 min borrowable. Base plan **47:05 — over**; see Part 3's budget note |
+| Runtime | 45 min hard; up to 3 min borrowable. Base plan **40:50**, 4:10 spare at the measured rate |
 | Title | Unchanged: *Type-Driven Programming — Correctness by Construction from the Basics to the Cutting Edge* |
 | Demos | 4 live IDE segments; fallback = **real captured compiler output**, rendered as a terminal pane, hidden until needed |
 | Code | **Talk-only rework.** Existing 7-stage ladder (`00-` … `06-`) unchanged |
@@ -137,7 +137,7 @@ existing drawing; no new geometry.
 
 ---
 
-## Part 3 — The deck: 31 main slides, 47:05 estimated — **over slot, see the budget note**
+## Part 3 — The deck: 31 main slides, **40:50 planned against 45:00** (measured rate)
 
 Legend: **NEW** · **KEEP** · **REWORK** · **MERGE** · **→A** (demoted to appendix)
 
@@ -507,29 +507,39 @@ same conversation — the price, and why the price is worth paying now:
 | 4 — Scala 3 | 8:30 | estimated · **highest volatility + worst budget risk** |
 | 5 — Idris 2 | 5:30 | estimated |
 | 6 — Close | 3:30 | estimated |
-| **Total** | **47:05** | one act measured, six guessed |
+| **Total** | **40:50** | one act measured, six allocated |
 | live demos | **9:15** | measured edits, unmeasured narration — **invisible to `make timing`** |
 
-**The real total is 47:05 against a 45:00 hard stop — 2:05 over before a single estimate is
-tested.** Draft 5 claimed 44:50 and 0:10 spare; that was arrived at by editing the act headers
-to match the budget table without checking the headers against their own rows. Act 4's rows
-sum to 8:30 under a 6:30 header, Act 5's to 5:30 under 5:15.
+**Measured 2026-08-17, standing and projecting: Act 0 runs 3:45.** Seated it read 3:47. So
+**projection and standing cost essentially nothing** — 187 wpm against 185 — and the 30%
+discount baked into the old 130 planning rate was paying for a cost that does not exist.
 
-**This is the third time the budget has been wrong in the same direction** (45:10 → 45:20 →
-44:50, all understated). Part 8/C10 exists because of the first two and did not prevent the
-third. The failure is structural, not careless: **the plan carries derived arithmetic by hand,
-so every edit is an opportunity to drift.** Same class as C12.
+Planning rate is now **150 wpm**: the measured 187 minus 20%, covering audience reaction,
+recovery from a stumble, and ad-lib. Not projection. Every cap in `budget.tsv` has been
+rescaled, so the column total is now the talk's intended length rather than an artefact of a
+superseded rate.
 
-Worse, the Part 6b fallback path — keep v1 notes outside Act 1 — measures **53:21**, and the
-full cut list recovers 5:45 against a gap of 8:21. **The sanctioned fallback does not close.**
+| | |
+|---|---|
+| Planned total | **40:50** |
+| Against 45:00 | **4:10 spare** |
+| Of which unwritten | 17:05 — slides that do not exist yet |
+| Written prose, measured | 35:40 |
 
-Two consequences, both of which change what happens next:
+**The talk fits, and the cut list in Part 6b returns to being a contingency rather than a
+requirement.** That is a real change: draft 6 was 2:05 over and the cut list was mandatory.
 
-1. **The cut list is no longer sufficient.** Content has to come out, and the candidates are
-   named in the volatility triage below rather than shaved off evenly.
-2. **Stop hand-carrying the arithmetic.** `tools/budget.tsv` is the only place act totals
-   should live; the tables here should name slides and ids, not durations. Until that is done,
-   `make timing` is the number and this document is commentary.
+**What this does NOT resolve.** Two risks remain, and they are now the only ones:
+
+1. **Content volume on the 17:05 that is unwritten.** Those caps are allocations, not
+   measurements. Act 0 is the only act ever written against an allocation and it came in at
+   **1.55× its original estimate** — the estimate was 3:30 and the content that emerged needed
+   5:25 of allocation. If Act 1 behaves the same way, 7:10 becomes ~11:00 and the slack is gone.
+2. **Demo narration**, budgeted 8:00 across four slides and still unwritten (Part 6b).
+
+The rate risk is resolved. The volume risk is not, and it is the one to watch on Wednesday.
+
+`make timing` is the number; this document quotes it.
 
 **Cut order if running behind** — apply in this order; never cut Demo 1 or Demo 4:
 
@@ -696,7 +706,10 @@ a two-level session type, a named linear binder, and a `RiskDecision` missing th
 variant that Demo 1 is about. **Every code identifier in this plan must be grepped before it
 becomes a slide.**
 
-### The cut list this triage owes (Part 3 promised it)
+### The cut list — now contingency, not requirement
+
+At the measured rate the talk fits with 4:10 spare, so these are held in reserve for the
+Wednesday read-through rather than applied up front. Ordered by what costs the talk least:
 
 Named, in order, against the v1-measured baseline rather than the estimates:
 
@@ -751,9 +764,10 @@ plan before authoring anything**, and **settle the volatile designs (Part 6b) be
 the prose that depends on them**. Draft 5 put the only feedback signal at step 11 of 11 while
 its own budget section said it should come early.
 
-**Act 0 is the only estimate ever tested against reality: budgeted 3:30, shipped 5:25 — 1.55×.**
-No correction has been applied to the six remaining guessed acts. At 1.55× the 41:40 of estimate
-becomes 64:35; even 1.2× gives 50:00. Treat every unmeasured act as optimistic.
+**Act 0 is the only act ever written against an allocation, and it came in at 1.55×** — budgeted
+3:30, needed 5:25. The rate risk is now measured away (see Part 3), but the *volume* risk is not:
+if Act 1 behaves like Act 0, its 7:10 becomes ~11:00 and the 4:10 of slack disappears. Treat
+every unwritten act's allocation as optimistic.
 
 **Dates, because a hard deadline needs them.** Delivery Thu 20 Aug; today is Mon 17 Aug.
 
@@ -764,7 +778,7 @@ becomes 64:35; even 1.2× gives 50:00. Treat every unmeasured act as optimistic.
 | 3 | Iron refinements in `05-scala3-payment` | Mon | ✅ done |
 | 4 | Demo 3 fixed; four fallbacks captured to `demos/` | Mon | ✅ done |
 | 5 | Mechanical sweep: complete `budget.tsv` incl. **demo + stub rows**; fix the id/number drift | Mon eve | ✅ done |
-| 6 | **Delivery-discount calibration — Act 0 only, delivered standing** | Mon eve, 5 min | |
+| 6 | Delivery-discount calibration — Act 0 standing: **3:45, i.e. 187 wpm** | Mon eve | ✅ done |
 | 7 | **Settle the four OPEN×high-cost items on paper** (Part 6b) — one paragraph each, no slide work | Tue 09:00–12:00, **hard stop** | |
 | 8 | Author Act 1 — **four slides, not six** (take the connectives/quantifiers merge up front) | Tue 12:00 – Wed 12:00 | |
 | 9 | Author `A2-values`, `A2-promises`; the four claim fixes in Part 3 | Wed 12:00–15:00 | |

@@ -2,10 +2,13 @@
 #
 # slide-stem<TAB>m:ss<TAB>kind        kind ∈ prose | demo | stub
 #
-# Rate calibrated 2026-08-17 against two real read-throughs: 547 words in 3:05
-# and 700 words in 3:47 — 177 and 185 wpm. Planning rate is 130, that
-# measurement minus ~28%, deliberately at the cautious end: overrunning is
-# unrecoverable and finishing early is not. Everything below is sized at 130.
+# Rate calibrated 2026-08-17. Three measurements of Act 0:
+#     seated read 1         177 wpm
+#     seated read 2         185 wpm
+#     STANDING, PROJECTING  187 wpm   <- standing costs nothing
+# Planning rate is 150: the measured 187 minus 20%, covering audience reaction,
+# recovery from a stumble and ad-lib, NOT projection. Every cap below is the
+# intended delivery time at 150 wpm, so the column total is the talk's length.
 #
 # `demo` rows score at the lower DEMO_WPM — on a live edit you talk around
 # typing and pause while the room reads the error. The four demos are 9:15,
@@ -19,52 +22,52 @@
 # reverse: three drafts running, hand-carried arithmetic in the plan drifted in
 # the same direction every time (Part 8/C10, C12).
 
-# ── Act 0 · Open — 5:25 · AUTHORED, SIGNED OFF ─────────────────────────────
-01-title	1:00	prose
-02-alice	2:35	prose
-06-pattern	1:50	prose
+# ── Act 0 · Open — 4:40 · AUTHORED, SIGNED OFF ─────────────────────────────
+01-title	0:50	prose
+02-alice	2:15	prose
+06-pattern	1:35	prose
 
-# ── Act 1 · Primer — 8:15 · NOT AUTHORED ───────────────────────────────────
+# ── Act 1 · Primer — 7:10 · NOT AUTHORED ───────────────────────────────────
 # Integration UNSETTLED x highest downstream cost. Cut #5 merges the
 # connectives and quantifiers slides if the read-through measures long.
-07-toolkit	1:15	stub
-a1-connectives	1:30	stub
-a1-quantifiers	1:15	stub
-08-crisis	1:15	stub
-curry-howard	1:45	stub
-a1-above	1:15	stub
+07-toolkit	1:05	stub
+a1-connectives	1:20	stub
+a1-quantifiers	1:05	stub
+08-crisis	1:05	stub
+curry-howard	1:30	stub
+a1-above	1:05	stub
 
-# ── Act 2 · Ground floor — 2:45 · 1 of 3 exists ────────────────────────────
-15-test-spine	0:30	prose
-a2-values	1:00	stub
-a2-promises	1:15	stub
+# ── Act 2 · Ground floor — 2:20 · 1 of 3 exists ────────────────────────────
+15-test-spine	0:25	prose
+a2-values	0:50	stub
+a2-promises	1:05	stub
 
 # ── Act 3 · Java ladder — 13:10 ────────────────────────────────────────────
-17-stage1	1:15	prose
-10-gentzen-or	1:15	prose
-19-stage3	2:00	prose
-a3-demo1	2:30	demo
-20-stage3-payoff	0:40	prose
-22-stage4	2:00	prose
-a3-demo2	2:00	demo
-24-java-ceiling	1:30	prose
+17-stage1	1:05	prose
+10-gentzen-or	1:05	prose
+19-stage3	1:45	prose
+a3-demo1	2:10	demo
+20-stage3-payoff	0:35	prose
+22-stage4	1:45	prose
+a3-demo2	1:45	demo
+24-java-ceiling	1:20	prose
 
-# ── Act 4 · Scala 3 — 8:30 · has never fit any budget; measured 10:36 in v1 ─
-25-stage5	1:30	prose
-a4-demo3	2:15	demo
-26-session-types	1:45	prose
-stage5-mechanisms	1:30	prose
-27-stage5-payoff	1:30	prose
+# ── Act 4 · Scala 3 — 7:20 · has never fit any budget; measured 10:36 in v1 ─
+25-stage5	1:20	prose
+a4-demo3	1:55	demo
+26-session-types	1:30	prose
+stage5-mechanisms	1:20	prose
+27-stage5-payoff	1:20	prose
 
 # ── Act 5 · Idris 2 — 5:30 ─────────────────────────────────────────────────
-28-stage6-bridge	2:00	prose
-a5-demo4	2:30	demo
-30-stage6-payoff	1:00	prose
+28-stage6-bridge	1:45	prose
+a5-demo4	2:10	demo
+30-stage6-payoff	0:50	prose
 
 # ── Act 6 · Close — 3:30 ───────────────────────────────────────────────────
-32-agentic	1:30	prose
-where-to-start	1:00	prose
-34-close	1:00	prose
+32-agentic	1:20	prose
+where-to-start	0:50	prose
+34-close	0:50	prose
 
 # ── Cut or merged (kept so the reason survives) ────────────────────────────
 # 31-the-climb      cut: three summaries in the last four minutes; the dark

@@ -10,20 +10,28 @@ against the per-slide word budget in tools/budget.tsv.
 Why words and not minutes: a time estimate made by someone who is not speaking
 is a guess. A word count is a fact, and words / rate = minutes is arithmetic.
 
-CALIBRATION — two independent read-throughs of Act 0 by MB, 2026-08-17:
+CALIBRATION — three measurements of Act 0 by MB, 2026-08-17:
 
-    read 1   547 words / 185 s = 177 wpm
-    read 2   700 words / 227 s = 185 wpm   (01 206, 02 170, 03 193)
+    seated read 1        547 words / 185 s = 177 wpm
+    seated read 2        700 words / 227 s = 185 wpm
+    STANDING, PROJECTING 701 words / 225 s = 187 wpm
 
-MB reads at 177-185 wpm, and the instrument is stable across sessions. The
-uncertainty that matters is therefore NOT his reading rate — it is the live
-delivery discount, which nobody can measure in advance.
+The third one is the useful one, and it is a surprise: **standing and projecting
+to the back of a room costs nothing.** 187 vs 185 is noise. The 30% discount the
+old 130 rate assumed was paying for a cost that does not exist.
 
-The default is 130, not 181. A quiet read-through is the fastest you will ever
-deliver this; live you are nervous, projecting to the back of a room, breathing,
-and pausing for the audience. 130 is the measured rate discounted by ~28%, which
-is at the cautious end of the usual gap — deliberately, because overrunning is
-unrecoverable and finishing early is not. Sweep it if you want the range: --wpm 150 is the optimistic
+What a solo delivery still cannot measure: nerves, recovery from a stumble
+(MB's first attempt overran badly on exactly that), audience reaction and the
+pauses it creates, ad-lib, and demo overhead beyond the scripted narration.
+Those are real, so the planning rate keeps a discount — just a smaller and
+better-aimed one.
+
+The default is 150: the measured 187 minus 20%, covering interaction and
+recovery rather than projection. Sweep it — `--wpm 187` is the no-audience case
+(what MB actually produced alone), `--wpm 140` is the bad-night case.
+
+Overrunning is unrecoverable and finishing early is not, so the discount stays
+deliberately pessimistic against a number that has now been measured three times. Sweep it if you want the range: --wpm 150 is the optimistic
 case, --wpm 115 the bad-night case.
 
     make timing                 # default 120 wpm
@@ -132,8 +140,8 @@ def fmt(seconds):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--wpm", type=float, default=130.0,
-                    help="planning speaking rate (default 130 — see note above)")
+    ap.add_argument("--wpm", type=float, default=150.0,
+                    help="planning speaking rate (default 150 — see calibration above)")
     ap.add_argument("--slot", type=float, default=45.0, help="slot in minutes")
     ap.add_argument("--verbose", action="store_true",
                     help="also list appendix slides")
