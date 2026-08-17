@@ -40,6 +40,9 @@ MONOTONE_BAND = (4, 15)     # the "punchy short declarative" band
 MIN_LENGTH_VARIATION = 0.38 # stdev/mean below this over a whole note is flat
 
 
+_QUOTE_PARITY = []
+
+
 # ── extraction ───────────────────────────────────────────────────────────────
 
 def _resolve_reads(note, slide_path):
@@ -70,6 +73,7 @@ def spoken_text(src, slide_path=None):
                 break
     note = _resolve_reads(src[j + 1:k], slide_path or '')
     note = re.sub(r"^\s*(→|//).*$", "", note, flags=re.M)
+    _QUOTE_PARITY.append(note.count('"') % 2)
     return " ".join(re.findall(r'"([^"]*)"', note, flags=re.S))
 
 
@@ -163,6 +167,11 @@ JARGON = [
 
 def check(text, path):
     out = []
+    if _QUOTE_PARITY and _QUOTE_PARITY[-1]:
+        out.append(("error", "unbalanced-quotes", "odd number of \" in this note",
+                    "Spoken text is delimited by double quotes. An odd count silently "
+                    "swaps which half is treated as speech — the counter and the linter "
+                    "then measure your commentary and ignore your script."))
     sents = sentences(text)
     low = text.lower()
 
@@ -300,6 +309,9 @@ def lint_file(path):
         src = open(path, encoding="utf-8").read()
     except OSError:
         return []
+    if path.endswith(".md"):
+        # Script files are the note body; wrap so one extractor serves both.
+        src = "#speaker-note[" + src + "]"
     text = spoken_text(src, path)
     if len(words(text)) < 15:
         return []
@@ -345,9 +357,14 @@ def main():
         except Exception:
             return 0
         path = (payload.get("tool_input") or {}).get("file_path")
-        if not path or not path.endswith(".typ"):
+        if not path:
             return 0
-        if os.path.join("touying", "slides") not in path:
+        # The scripts are the source of truth (touying/scripts/README.md); an
+        # earlier matcher accepted only .typ under touying/slides, so the hook
+        # was silently dead on exactly the files it was built to guard.
+        in_slides = path.endswith(".typ") and os.path.join("touying", "slides") in path
+        in_scripts = path.endswith(".md") and os.path.join("touying", "scripts") in path
+        if not (in_slides or in_scripts):
             return 0
         return report(lint_file(path))
 

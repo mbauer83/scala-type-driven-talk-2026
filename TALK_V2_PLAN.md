@@ -1,4 +1,4 @@
-# Talk v2 — Rework Plan (DRAFT 4)
+# Talk v2 — Rework Plan (DRAFT 6)
 
 Branch `talk-v2-rework`, off `talk-v1` (`93c8d95`).
 **Delivery: Thursday 20 August 2026 — Java Meetup, Inspired Consulting GmbH, Köln.**
@@ -83,7 +83,7 @@ compiling — not up front.
 |---|---|
 | Occasion | Java Meetup, Inspired Consulting GmbH, Köln — **Thu 20 Aug 2026** |
 | Audience | Working Java devs, mixed seniority, little FP/type-theory background |
-| Runtime | 45 min hard; up to 3 min borrowable. Base plan 44:50 — the cut list is part of the plan |
+| Runtime | 45 min hard; up to 3 min borrowable. Base plan **47:05 — over**; see Part 3's budget note |
 | Title | Unchanged: *Type-Driven Programming — Correctness by Construction from the Basics to the Cutting Edge* |
 | Demos | 4 live IDE segments; fallback = **real captured compiler output**, rendered as a terminal pane, hidden until needed |
 | Code | **Talk-only rework.** Existing 7-stage ladder (`00-` … `06-`) unchanged |
@@ -119,7 +119,7 @@ dashboard, no strikethrough tables.
 
 ### Device 2 — the technical axis: the lambda cube, progressively disclosed
 
-The cube is **not** front-loaded. It appears three times, at the *threshold* moments, gaining
+The cube is **not** front-loaded. It appears four times — one glimpse and three reveals, at the *threshold* moments, gaining
 lit edges each time — so it functions as a navigation aid that earns its detail as the audience
 acquires it:
 
@@ -137,7 +137,7 @@ existing drawing; no new geometry.
 
 ---
 
-## Part 3 — The deck: 30 main slides, 44:50 (Act 0 measured, rest estimated)
+## Part 3 — The deck: 31 main slides, 47:05 estimated — **over slot, see the budget note**
 
 Legend: **NEW** · **KEEP** · **REWORK** · **MERGE** · **→A** (demoted to appendix)
 
@@ -169,14 +169,14 @@ applied at every call site by the compiler. It no longer restates S1's thesis.
 The braid. Each slide = one person, one problem they were solving, one notation, and the Java
 the audience already writes in that notation.
 
-| # | Slide | Who / what problem | Time | Origin |
+| id | Slide | Who / what problem | Time | Origin |
 |---|---|---|---|---|
-| 4 | What makes an argument valid | **Aristotle**, 4th c. BCE | 1:15 | **NEW** (absorbs `07-toolkit`) |
-| 5 | The connectives — `∨` and `∧` | **Boole** 1847 → **Frege** 1879 | 1:30 | **NEW** (absorbs `07-toolkit`) |
-| 6 | The quantifiers — `∀` and `∃` | **Frege**'s Begriffsschrift | 1:15 | **NEW** |
-| 7 | The crisis, and why it's called a *type* | **Russell** 1901, **Gödel** 1931 | 1:15 | **RESTORED** `08-crisis` |
-| 8 | Proposition = Type. Proof = Program. | **Church/Turing** 1936, **Curry-Howard** 1969, **Lambek** | 1:45 | REWORK `curry-howard` + absorbs `09`/`11-convergence` |
-| 9 | What lies above — briefly uncovered | **Martin-Löf** 1972, **Coquand** 1988 | 1:15 | **NEW** + absorbs `12-mltt`, `13-convergence3` |
+| `A1-aristotle` | What makes an argument valid | **Aristotle**, 4th c. BCE | 1:15 | **NEW** (absorbs `07-toolkit`) |
+| `A1-connectives` | The connectives — `∨` and `∧` | **Boole** 1847 → **Frege** 1879 | 1:30 | **NEW** (absorbs `07-toolkit`) |
+| `A1-quantifiers` | The quantifiers — `∀` and `∃` | **Frege**'s Begriffsschrift | 1:15 | **NEW** |
+| `A1-crisis` | The crisis, and why it's called a *type* | **Russell** 1901, **Gödel** 1931 | 1:15 | **RESTORED** `08-crisis` |
+| `A1-curry-howard` | Proposition = Type. Proof = Program. | **Church/Turing** 1936, **Curry-Howard** 1969, **Lambek** | 1:45 | REWORK `curry-howard` + absorbs `09`/`11-convergence` |
+| `A1-above` | What lies above — briefly uncovered | **Martin-Löf** 1972, **Coquand** 1988 | 1:15 | **NEW** + absorbs `12-mltt`, `13-convergence3` |
 
 **S4** — validity is a property of *form*, not content. Two columns; the right one is the left
 one with the content removed:
@@ -203,11 +203,22 @@ be lifted verbatim from `03-java-function-types-sealed/`, not invented* — the 
 same code fifteen minutes later and any seam is noticeable.
 
 ```
-risk = Low ∨ Medium ∨ High     sealed interface RiskDecision
-                                   permits Low, Medium, High {}   ← the ∨
-medium → threeDS               record Low() implements RiskDecision {}
-¬(captured ∧ ¬authorized)      record Order(String orderId, …)    ← the ∧
+risk = Low ∨ Medium ∨ High     public sealed interface RiskDecision
+                                 permits RiskDecision.Low,
+                                         RiskDecision.Medium,
+                                         RiskDecision.High {        ← the ∨
+                                   record Low()  implements RiskDecision {}
+                                   record High() implements RiskDecision {}   ← the ∧
+                               }
 ```
+
+Snippet is verbatim from `RiskDecision.java:9-13`, including `public`, the **qualified** permits
+names, and the records as **nested members** rather than siblings. An earlier draft paraphrased
+all three while the same paragraph insisted on verbatim — the seam this slide warns about.
+
+`→` and `¬` appear in the left column but are not taught here; name them and move on, or drop
+them. Note also that a classical-looking `¬` sits awkwardly beside S8's claim of an isomorphism
+with *intuitionistic* propositional logic.
 
 Punchline: *"`∨` is a sealed interface — exactly one variant. `∧` is a record — all fields at
 once. **Sums of products.** That combination carries most domain modelling you will ever do, and
@@ -218,11 +229,17 @@ quantifiers that range over values.
 
 ```
 ∀o. medium(o) → needs3DS(o)    static <T> Validator<T> check(…)   ← ∀T
-∃p. proof3DS(p) ∧ covers(p,o)  Optional<Proof> find3DS(Order o)   ← ∃
 ```
 
 Punchline: *"When you wrote your first `<T>`, you wrote a universally quantified statement and
 proved it once, for all T. That is not an analogy. It is the same statement."*
+
+**Do not put `Optional<Proof>` on this slide as `∃`.** It was there and it is wrong: `Optional[T]`
+is `T ∨ 1`, a disjunction. The Curry-Howard reading of `∃x:A. B(x)` is a *dependent pair*, which
+is exactly what S9 introduces as Σ and what Stage 6 shows as the thing Java cannot express. A
+listener who joins this slide to S9 would conclude Java has Σ-types. Either show ∀ alone here,
+or use the honest weaker form: a returned value, when present, is a *witness* for ∃ — it is not
+the existential itself.
 
 **S7 — the crisis, and where the word "type" comes from.** Restored from v1's `08-crisis`, but
 reframed from an academic aside into the origin story of the talk's own subject. This is the
@@ -277,7 +294,11 @@ Lean, Rocq, Agda and Idris. Four one-liners, deliberately *not* explained in dep
 (o : Order) → Assessment (riskOf o)   Π    the result TYPE depends on the VALUE
 (lvl ** Assessment lvl)               Σ    a value bundled with a proof about itself
 (1 ch : Session p) → …                QTT  this resource must be used exactly once
-Send[Order, Recv[Auth, End]]          session type — a whole conversation, as a type
+
+Type names are verbatim from the code: `Receive`, not `Recv`; `AuthorizedPayment[R]`, not `Auth`
+(`protocol/Proto.scala:13`, `PaymentSessionTypes.idr:10`). An earlier draft invented both, and
+S22 shows the real ones twelve minutes later — the deck would have contradicted itself.
+Send[Order, Receive[AuthorizedPayment[R], End]]   session type — a conversation, as a type
 ```
 
 Contract with the room: *"You will not walk out of here fluent in this syntax. That's fine — it
@@ -286,11 +307,11 @@ all four run on a payment flow."* Plus the one-line cube glimpse (Part 2, Device
 
 ### Act 2 — Ground floor · 2:45
 
-| # | id | Slide | Time | Origin |
-|---|---|---|---|---|
-| 10 | `A2-scenario` | One scenario | 0:30 | REWORK `15-test-spine` — flow diagram only, nine-row list → appendix |
-| 11 | `A2-values` | **Types, values, references** | 1:00 | **NEW** |
-| 12 | `A2-promises` | **What a type checker actually promises** | 1:15 | **NEW** — restores the Hilbert/Gödel payoff |
+| id | Slide | Time | Origin |
+|---|---|---|---|
+| `A2-scenario` | One scenario | 0:30 | REWORK `15-test-spine` — flow diagram only, nine-row list → appendix |
+| `A2-values` | **Types, values, references** | 1:00 | **NEW** |
+| `A2-promises` | **What a type checker actually promises** | 1:15 | **NEW** — restores the Hilbert/Gödel payoff |
 
 **S12 (`A2-promises`) was agreed in review and was missing from draft 4 entirely.** Act 2's
 budget was raised to make room for it and the slide was never added — the kind of loss that
@@ -319,7 +340,7 @@ Two things must land, and one correction must not be lost:
 **Do not claim the audience feels incompleteness daily** — MB's experience is that they mostly
 do not, because when the compiler says no it is usually right. You start feeling it when you
 try to encode a *stronger* invariant, which is exactly the cost this talk is asking them to
-weigh. That hands off to S29.
+weigh. That hands off to `A6-cost`.
 
 **S11 is the new grounding slide** requested in review — the hinge between logic and code, kept
 deliberately light:
@@ -356,18 +377,18 @@ This slide pre-empts the "sounds expensive" reflex before it forms, and sets up 
 
 ### Act 3 — The Java ladder · 13:10 — *the payoff section for this audience*
 
-| # | Slide | Time | Origin |
+| id | Slide | Time | Origin |
 |---|---|---|---|
-| 12 | Stages 1+2 — nominal types & generics | 1:15 | MERGE `17-stage1` + `18-stage2` |
-| 13 | Gentzen: how a connective is defined | 1:15 | KEEP `10-gentzen-or`, **moved here** |
-| 14 | Stage 3 — records + sealed = sums of products | 2:00 | REWORK `19-stage3` (**fix overflow bug**) |
-| 15 | → **LIVE DEMO 1** | 2:30 | delete `case Medium` → ∨E |
-| 16 | Payoff — *Bob's bug is now a compile error* | 0:40 | REWORK `20-stage3-payoff` (Device 1) |
-| 17 | Stage 4 — phantom typestate | 2:00 | REWORK `22-stage4` |
-| 18 | → **LIVE DEMO 2** | 2:00 | uncomment `capture(init)` |
-| 19 | Payoff + **Java ceiling** + cube reveal 1 | 1:30 | MERGE `23-stage4-payoff` + `24-java-ceiling` |
+| `A3-stage12` | Stages 1+2 — nominal types & generics | 1:15 | MERGE `17-stage1` + `18-stage2` |
+| `A3-gentzen` | Gentzen: how a connective is defined | 1:15 | KEEP `10-gentzen-or`, **moved here** |
+| `A3-stage3` | Stage 3 — records + sealed = sums of products | 2:00 | REWORK `19-stage3` (**fix overflow bug**) |
+| `A3-demo1` | → **LIVE DEMO 1** | 2:30 | delete `case Medium` → ∨E |
+| `A3-payoff-bob` | Payoff — *Bob's bug is now a compile error* | 0:40 | REWORK `20-stage3-payoff` (Device 1) |
+| `A3-stage4` | Stage 4 — phantom typestate | 2:00 | REWORK `22-stage4` |
+| `A3-demo2` | → **LIVE DEMO 2** | 2:00 | uncomment `capture(init)` |
+| `A3-ceiling` | Payoff + **Java ceiling** + cube reveal 1 | 1:30 | MERGE `23-stage4-payoff` + `24-java-ceiling` |
 
-**S13 is the structural fix for P2** — Gentzen's ∨I₁/∨I₂/∨E now sit sixty seconds before the
+**`A3-gentzen` is the structural fix for P2** — Gentzen's ∨I₁/∨I₂/∨E now sit sixty seconds before the
 compile error they explain instead of eight minutes before it.
 
 **S14** is where Bob's actual buggy code first appears, beside the sealed version. `Result<T>`
@@ -378,52 +399,61 @@ pane wraps comments outside the box and clips at the bottom — fixed as part of
 **S17** is where Charlie's actual buggy code appears, then dies. Stage 0 (JavaScript) and the
 `21-bridge` slide are both gone; each becomes one spoken sentence.
 
-### Act 4 — Scala 3 · 6:30
+### Act 4 — Scala 3 · 8:30 — **the act that has never fit**
 
-| # | Slide | Time | Origin |
+| id | Slide | Time | Origin |
 |---|---|---|---|
-| 20 | Stage 5 — what opens up | 1:30 | REWORK `25-stage5` |
-| 21 | → **LIVE DEMO 3** | 2:15 | `AutoApproved` → error at `ch.send` |
-| 22 | Session types + duality | 1:45 | REWORK `26-session-types` |
-| 23 | Mechanisms + **effects / capture checking** | 1:30 | REWORK `stage5-mechanisms` + promote `a01` |
-| 24 | Payoff + Scala ceiling + cube reveal 2 | 1:30 | MERGE `27-stage5-payoff` + `scala3-ceiling` |
+| `A4-opens` | Stage 5 — what opens up | 1:30 | REWORK `25-stage5` |
+| `A4-demo3` | → **LIVE DEMO 3** | 2:15 | `AutoApproved` → error at `ch.send` |
+| `A4-sessions` | Session types + duality | 1:45 | REWORK `26-session-types` |
+| `A4-mechanisms` | Mechanisms + **effects / capture checking** | 1:30 | REWORK `stage5-mechanisms` + promote `a01` |
+| `A4-ceiling` | Payoff + Scala ceiling + cube reveal 2 | 1:30 | MERGE `27-stage5-payoff` + `scala3-ceiling` |
 
-**S22 is where type-level expressions and pattern matching land explicitly** — `Dual[P] = P match
+**`A4-sessions` is where type-level expressions and pattern matching land explicitly** — `Dual[P] = P match
 { case Send[a,n] => Receive[a, Dual[n]] … }`: pattern matching and recursion, at the type level,
 run by the compiler over types. Also Danielle's close.
 
-**S23** carries the effects aside, ~40 seconds: *"`ZIO[Database, DbError, User]` puts 'this needs
+**`A4-mechanisms`** carries the effects aside, ~40 seconds: *"`ZIO[Database, DbError, User]` puts 'this needs
 a database' in the type. Scala 3's experimental capture checking does the same without the monad
 — `User^{db}`. Same idea one level up: not which values you hold, but which capabilities they
 carry."* Depth stays in appendix A1.
 
-### Act 5 — Idris 2 · 5:15
+### Act 5 — Idris 2 · 5:30
 
-| # | Slide | Time | Origin |
+| id | Slide | Time | Origin |
 |---|---|---|---|
-| 25 | Stage 6 + **MLTT running** | 2:00 | MERGE `28-stage6-bridge` + `29-mltt-running` |
-| 26 | → **LIVE DEMO 4** | 2:30 | drop `finish done` → linearity error |
-| 27 | *Unrepresentable* + cube reveal 3 | 1:00 | KEEP `30-stage6-payoff` (dark slide, emotional peak) |
+| `A5-mltt` | Stage 6 + **MLTT running** | 2:00 | MERGE `28-stage6-bridge` + `29-mltt-running` |
+| `A5-demo4` | → **LIVE DEMO 4** | 2:30 | drop `finish done` → linearity error |
+| `A5-payoff` | *Unrepresentable* + cube reveal 3 | 1:00 | KEEP `30-stage6-payoff` (dark slide, emotional peak) |
 
-**S25 is the payoff for the primer.** The Π and Σ notation from minute 8 is now on screen,
-running: `protocolFromSnapshot : RiskSnapshot -> SessionType` *is* Π-elimination; `assessOrder :
-Order n c -> (lvl ** Assessment lvl n c)` *is* Σ-introduction. Callback: *"That's the notation I
+**`A5-mltt` is the payoff for the primer.** The Π and Σ notation from minute 8 is now on screen,
+running. The real signatures, from the code rather than from memory:
+
+```idris
+protocolFromSnapshot : (snap : RiskSnapshot) -> (n : Nat) -> (c : Currency) -> SessionType
+assessOrder : Order n c -> (lvl : RiskLevel ** Assessment lvl n c)
+```
+
+`protocolFromSnapshot` takes **three** parameters (`PaymentRules.idr:211`) — the one-argument
+story belongs to `protocolDerivedFrom` (`:224`), so use that one if you want the simpler shape
+on screen. And keep `: RiskLevel` in the Σ-type: dropping it is legal sugar that hides the index
+type, which is the entire point of the slide. Callback: *"That's the notation I
 showed you in the primer and promised you'd see run. There it is."*
 
 ### Act 6 — Close · 3:30
 
-| # | id | Slide | Time | Origin |
-|---|---|---|---|---|
-| 28 | `A6-cost` | **What it costs — and why the calculus is shifting** | 1:30 | **NEW** + MERGE `32-agentic` |
-| 29 | `A6-monday` | What to do on Monday | 1:00 | MERGE `where-to-start` + `33-horizon` (3 lines) |
-| 30 | `A6-close` | Close | 1:00 | KEEP `34-close` |
+| id | Slide | Time | Origin |
+|---|---|---|---|
+| `A6-cost` | **What it costs — and why the calculus is shifting** | 1:30 | **NEW** + MERGE `32-agentic` |
+| `A6-monday` | What to do on Monday | 1:00 | MERGE `where-to-start` + `33-horizon` (3 lines) |
+| `A6-close` | Close | 1:00 | KEEP `34-close` |
 
 **`31-the-climb` is cut, structurally rather than to save time.** The last four minutes
 otherwise carry three summaries: the dark *Unrepresentable* slide (the emotional one), the
 climb table (the technical one), and the close (the argumentative one). Two of those are
 enough, and the dark slide plus the close are the two that work. → appendix.
 
-**S29 is the new cost slide**, merged with the agentic-development argument because they are the
+**`A6-cost` is the new cost slide**, merged with the agentic-development argument because they are the
 same conversation — the price, and why the price is worth paying now:
 
 - *Sealed types + records:* zero cost. Java 17, no dependency, one afternoon. Do this regardless.
@@ -453,25 +483,35 @@ same conversation — the price, and why the price is worth paying now:
 | Act | Time | State |
 |---|---|---|
 | 0 — Open | **5:25** | **measured** |
-| 1 — History braided into the primer | 8:15 | estimated |
+| 1 — History braided into the primer | 8:15 | estimated · **highest volatility** |
 | 2 — Ground floor | 2:45 | estimated |
 | 3 — Java ladder | 13:10 | estimated |
-| 4 — Scala 3 | 6:30 | estimated — measured 10:36 in v1, so this is the least trustworthy row |
-| 5 — Idris 2 | 5:15 | estimated |
+| 4 — Scala 3 | 8:30 | estimated · **highest volatility + worst budget risk** |
+| 5 — Idris 2 | 5:30 | estimated |
 | 6 — Close | 3:30 | estimated |
-| **Total** | **44:50** | one act measured, six guessed |
+| **Total** | **47:05** | one act measured, six guessed |
+| live demos | **9:15** | measured edits, unmeasured narration — **invisible to `make timing`** |
 
-Against a 45:00 hard stop, that is **0:10 spare** — which is rounding, not slack.
+**The real total is 47:05 against a 45:00 hard stop — 2:05 over before a single estimate is
+tested.** Draft 5 claimed 44:50 and 0:10 spare; that was arrived at by editing the act headers
+to match the budget table without checking the headers against their own rows. Act 4's rows
+sum to 8:30 under a 6:30 header, Act 5's to 5:30 under 5:15.
 
-**Say this plainly rather than manufacture margin: the base plan does not comfortably fit, and
-the cut list below is therefore part of the plan, not a contingency.** Six of the seven acts
-are estimates by someone who is not the speaker; Act 4 in particular measured 10:36 in v1 and
-is budgeted at 6:30, which is the single largest act of optimism in the table. The number that
-decides this is the stopwatch read-through (execution step 11), and it should happen as soon as
-Act 1 and Act 3 exist rather than at the end.
+**This is the third time the budget has been wrong in the same direction** (45:10 → 45:20 →
+44:50, all understated). Part 8/C10 exists because of the first two and did not prevent the
+third. The failure is structural, not careless: **the plan carries derived arithmetic by hand,
+so every edit is an opportunity to drift.** Same class as C12.
 
-Draft 2's table said 45:10 and draft 4's said 45:20 while claiming 0:35 of slack; both were
-wrong, in the same direction. See Part 8/C10.
+Worse, the Part 6b fallback path — keep v1 notes outside Act 1 — measures **53:21**, and the
+full cut list recovers 5:45 against a gap of 8:21. **The sanctioned fallback does not close.**
+
+Two consequences, both of which change what happens next:
+
+1. **The cut list is no longer sufficient.** Content has to come out, and the candidates are
+   named in the volatility triage below rather than shaved off evenly.
+2. **Stop hand-carrying the arithmetic.** `tools/budget.tsv` is the only place act totals
+   should live; the tables here should name slides and ids, not durations. Until that is done,
+   `make timing` is the number and this document is commentary.
 
 **Cut order if running behind** — apply in this order; never cut Demo 1 or Demo 4:
 
@@ -513,17 +553,38 @@ types · A12 singletons. A genuine Q&A arsenal rather than dead weight.
 
 ## Part 5 — Live demos and their fallbacks
 
-| # | Where | Edit | Expected error |
-|---|---|---|---|
-| 1 | Stage 3, `Demo.java` | delete `case RiskDecision.Medium m -> …` | *"the switch expression does not cover all possible input values"* |
-| 2 | Stage 4, `Demo.java` | uncomment `Payment.capture(init);` | *"Payment&lt;Initiated&gt; cannot be converted to Payment&lt;Authorized&gt;"* |
-| 3 | Stage 5, `PaymentDemo.scala` | `ThreeDSApproved(proof)` → `AutoApproved` | *"Found: AuthorizedPayment[LowRisk], Required: AuthorizedPayment[MediumRisk]"* |
-| 4 | Stage 6, `Main.idr` | comment out a `finish done` | *"There are 0 uses of linear name done"* |
+**All four edits have been executed against the real compilers.** Two were wrong as previously
+documented; both are corrected here. `tools/capture-demos.sh` applies each edit, runs the
+compiler, writes real output to `demos/`, and restores the source — it is the authoritative
+description of what to type on stage, because unlike prose it is executed and cannot drift.
 
-**Fallback mechanism (agreed):** apply each edit, run the real compiler (`javac`, `sbt`,
-`idris2`) headlessly, capture actual output to `demos/*.txt`, and render it on the slide as a
-terminal-styled pane hidden until needed. Genuinely the compiler's output, reproducible, and
-regenerable if the code changes.
+| id | Where | Edit | Captured output |
+|---|---|---|---|
+| `A3-demo1` | `03-…-sealed/Demo.java` | delete the `case RiskDecision.Medium m ->` arm | 4 lines · *"the switch expression does not cover all possible input values"* |
+| `A3-demo2` | `04-…-typestate/Demo.java` | uncomment the line marked `← UNCOMMENT` | 5 lines · *"incompatible types: Payment&lt;Initiated&gt; cannot be converted to Payment&lt;Authorized&gt;"* |
+| `A4-demo3` | `05-scala3-payment/…/PaymentDemo.scala` | `ThreeDSApproved(proof)` → `AutoApproved` | 9 lines · *"Found: payment.AutoApproved.type / Required: payment.Approval[payment.MediumRisk]"* |
+| `A5-demo4` | `06-idris2-payment/src/Main.idr` | **replace** `finish done` **with** `pure ()` | 12 lines · *"There are 0 uses of linear name done"* |
+
+**Two corrections worth keeping visible:**
+
+*Demo 3 did not work as documented.* The claimed error — `Found: AuthorizedPayment[LowRisk],
+Required: AuthorizedPayment[MediumRisk]` — never appeared. The failure surfaced one line later
+at `ch4.send(...)` as `Required: ?1.Msg`, with the real type inside a seven-line `where:` clause
+and two cascading not-found errors behind it: twenty lines of noise, on the slide arguing that
+types give *precise* feedback. The fix is an explicit `: AuthorizedPayment[MediumRisk]`
+ascription on that val, which moves the error to the edited line and reduces it to one. **The
+ascription is load-bearing; removing it silently breaks the demo.** The error it now gives is
+also a better teaching moment: *the approval you supplied is not the approval this risk level
+requires* — Bob's bug, stated in types.
+
+*Demo 4's edit was wrong.* `finish done` is the last statement of its `do` block, so commenting
+it out yields `Last statement in do block must be an expression` — a syntax complaint, not the
+linearity error the slide promises. Replacing it with `pure ()` keeps the block well-formed so
+the linearity checker is what speaks.
+
+**Rendering:** use the existing `code-pane(..., diagnostic: ("bad", label, body))` from
+`code-pane.typ`. Part 5 previously called for a "terminal-styled pane"; that component does not
+exist and does not need to.
 
 ---
 
@@ -543,11 +604,78 @@ regenerable if the code changes.
 | **Why it is called a *type*** | **S7 — Russell's paradox and his own fix** |
 | **Cost, honestly** | **S29** |
 | Java → Scala 3 → Idris 2 | Acts 3, 4, 5 |
-| Pragmatic focus | 24:55 of 44:50 is the code ladder (Acts 3–5) |
+| Pragmatic focus | 27:10 of 47:05 is the code ladder (Acts 3–5), before demo narration |
 
 ---
 
-## Part 6b — Authoring triage: what actually needs a verbatim script
+## Part 6b — Triage by volatility, not by slide count
+
+Draft 5 triaged by *treatment* (which slides need a verbatim script). That was the wrong axis.
+The scarce resource is not typing, it is **design decisions that have not been made and review
+rounds to validate them**. Act 0 cost three slides and a full day precisely because the
+decisions were open, not because the words were long.
+
+### The criterion
+
+Gut feel is the starting point but it is not the test. The test is:
+
+> **Stability lives in artifacts that have been executed. Volatility lives in decisions still
+> written only as sentences.**
+
+Has this been compiled, rendered, measured, or read aloud? Then it is stable, and the remaining
+work is transcription. Is it a paragraph describing what a slide will do? Then it is volatile,
+however confident the paragraph sounds.
+
+This matters because the intuitive classification gets one thing exactly backwards. The code
+examples *are* stable — they compile and their behaviour is fixed. But **the plan's claims
+about them were not**: an independent review found `Optional<Proof>` labelled as ∃ (it is a
+disjunction, not a dependent pair), `Recv`/`Auth` types that exist in neither codebase, Idris
+signatures abbreviated into falsehood, and "must be verbatim" Java snippets that were not
+verbatim. The artifact was stable; the description had drifted. **Stability is a property of
+the thing, never of the sentence about the thing.**
+
+### VOLATILE — unresolved design, needs the review rounds
+
+| Area | Why it is volatile | Where |
+|---|---|---|
+| **Scala on top of Java** | The act has never fit any budget (10:36 in v1, 6:30 then 8:30 here). Five slides — what opens up → session types → mechanisms → ceiling — is a sequence nobody has validated, and it is where the most new machinery arrives at once. **Highest volatility × worst budget risk.** | Act 4 |
+| **History/theory integration** | Six slides exist only as one-line table rows. The pedagogical sequence — which Java mirror sits beside which notation, in what order — is undecided. This is the whole thesis of v2. | Act 1 |
+| **The lambda cube** | Device 2 specifies three reveals; the *content* of each ("the two unlit axes named" — saying what, exactly?) is unspecified, and the parameterised diagram is unbuilt. | `A3-ceiling`, `A4-ceiling`, `A5-payoff` |
+| **The three bridges** | Java ceiling → Scala, Scala ceiling → Idris, and the primer → ladder handoff. These are the joints where the argument holds or fails, and each is currently one sentence. | act boundaries |
+
+**Spend the review rounds here.** These four decide whether the talk works.
+
+### STABLE — executed, needs transcription not design
+
+| Area | Evidence it is stable |
+|---|---|
+| The four bugs and what each shows | authored, signed off, measured twice, linter-clean |
+| The four live demos | all four edits executed against real compilers; output captured to `demos/` |
+| The code ladder | compiles and runs at every stage; unchanged by this rework |
+| Payoff format (Device 1) | format settled; only the wording per stage remains |
+| The visual system | v1's design is good and is not being changed |
+
+**Do not spend design time here.** Where these need work it is mechanical.
+
+### The one place gut feel misleads
+
+"How beats land" was classified stable. The *format* is stable; the *wording* is not — Act 0
+needed many rounds to find the register, and Part 9 exists because of it. Treat beat format as
+stable and beat prose as volatile-but-cheap: it converges fast once the design above is settled,
+and the prose linter catches the recurring faults mechanically.
+
+### Consequence for the schedule
+
+Design the volatile four **first**, on paper, before authoring any slide. A wrong decision in
+Act 4's sequence costs a day of rework; a clumsy sentence costs ten minutes. The current
+execution order does the opposite — it authors Act 1 at step 2 and never explicitly decides
+Act 4's shape at all.
+
+---
+
+### Appendix to Part 6b — authoring treatment (unchanged, still useful)
+
+Once a design is settled, this is how much scripting it needs:
 
 Act 0 was scripted verbatim because it is the stumble zone — cold open, unfamiliar material,
 highest stakes, and the place MB measured a 3–4× overrun on his first attempt. **That reasoning
@@ -576,28 +704,30 @@ does not apply uniformly, and treating all 30 slides as verbatim work is not a p
 
 ## Part 7 — Execution order
 
-Three days. Ordered so that a stop at any point still leaves a deliverable deck.
+Reordered after the independent review. Two principles: **make the instrument able to see the
+plan before authoring anything**, and **settle the volatile designs (Part 6b) before writing
+the prose that depends on them**. Draft 5 put the only feedback signal at step 11 of 11 while
+its own budget section said it should come early.
 
-1. ~~**Bug fix + metadata** — Stage 3 code-pane overflow; title slide date/venue~~ **DONE**
-1b. ~~**Act 0 authored and signed off**; scripts extracted to `touying/scripts/`; prose
-    linter + hook; timing tool calibrated against two real read-throughs~~ **DONE**
-1c. ~~**Iron refinements** in `05-scala3-payment`~~ **DONE**
-2. **Act 1 primer** — S4, S5, S6, S7 new; S8 reworked *(the core ask; biggest authoring block)*
-3. **Act 0** — S2 incidents, S3 the turn
-4. **S10** types/values/references
-5. **Move Gentzen into Act 3**; rework S13 and its payoff to Device 1
-6. **Parameterise the lambda cube** for progressive disclosure; wire reveals into S18, S23, S26
-7. **Merges** — S11, S18, S23, S24, S28, S29
-8. **Re-order `deck.typ`**; move demoted slides into the appendix block
-9. **Capture the four compiler-output fallbacks** into `demos/`
-10. **Speaker notes** rewritten for every changed slide; rebuild `talk.pdfpc`
-11. **Stopwatch read-through**; replace the estimated budget with measured numbers
+| # | Step | State |
+|---|---|---|
+| 1 | Stage 3 overflow fix; title metadata | ✅ done |
+| 2 | Act 0 authored + signed off; scripts to `touying/scripts/`; prose linter + hook; timing tool calibrated on two read-throughs | ✅ done |
+| 3 | Iron refinements in `05-scala3-payment` | ✅ done |
+| 4 | Demo 3 fixed; all four fallbacks captured to `demos/` via `tools/capture-demos.sh` | ✅ done |
+| 5 | **Reorder `deck.typ` to v2 order; add every v2 slide to `budget.tsv` including the four demo rows** | ← next, ~30 min |
+| 6 | **First stopwatch read-through of what exists** — do not wait for the deck to be finished | |
+| 7 | **Settle the four volatile designs on paper** (Part 6b): Act 4's sequence, Act 1's pedagogical order, the cube reveals' content, the three bridges | |
+| 8 | Author Act 1 (verbatim) | |
+| 9 | Author `A2-values`, `A2-promises`; fix the two on-screen overclaims | |
+| 10 | Merges, cube parameterisation, appendix renumber | |
+| 11 | Second read-through; apply the cut list against measured numbers | |
+| 12 | `make talk.pdf talk.pdfpc`; **full dress rehearsal on the real laptop and projector** | |
 
----
-
-## Open questions
-
-None blocking. Retire `PRESENTATION_SLIDE_PLAN.md` once v2 ships (agreed).
+**Acceptance criteria.** Per slide: builds, passes `prose-lint` if it carries a script, and is
+within its `budget.tsv` cap at 130 wpm. Per act: the act total matches `make timing`, and every
+claim about the code has been checked against the code. Whole deck: `make check` green, the
+four demos rehearsed with their fallbacks visible, and a measured read-through under 45:00.
 
 ---
 

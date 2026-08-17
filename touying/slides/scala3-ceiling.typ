@@ -43,7 +43,7 @@
         ),
       ),
       ceiling-col(
-        [WHAT SCALA 3 CANNOT STATE], pal.bad, [✗],
+        [WHAT SCALA 3 CANNOT REACH], pal.bad, [✗],
         (
           "Protocol type from runtime value",
           "Channel-must-be-consumed",
@@ -54,7 +54,7 @@
     ),
     callout(
       [Scala 3 Ceiling],
-      [It's not that Scala 3 handles these badly — it's that the lambda cube has a third axis it cannot reach.],
+      [Scala 3 handles all of these well. The limit is structural: the lambda cube has a third axis, and Scala 3 does not reach it.],
       style: "bad",
     ),
   ),

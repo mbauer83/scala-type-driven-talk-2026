@@ -34,13 +34,13 @@
         ("Nominal types", "Parametric polymorphism", "Sum types + exhaustive match", "Phantom lifecycle state"),
       ),
       ceiling-col(
-        [WHAT JAVA CANNOT STATE], pal.bad, [✗],
-        ("Approval indexed by risk level", "Predicate carried in the type", "Types computed from types", "Path-dependent message types"),
+        [WHAT JAVA CANNOT REACH], pal.bad, [✗],
+        ("Type index derived from a *runtime* value", "Predicate carried in the type", "Types computed from types", "Path-dependent message types"),
       ),
     ),
     callout(
       [Ceiling],
-      [It's not just hard to express these invariants in Java — the type system lacks the machinery to state them at all.],
+      [Java can encode more than it looks like — phantom generics and witness encodings go a long way. What it has no mechanism for is deriving a type from a value the program only learns at runtime.],
       style: "bad",
     ),
     // ── Concrete counter-example: risk level not carried in type ──────────
@@ -63,5 +63,5 @@
 )
 
 #speaker-note[
-"By Stage 4 we've used most of what modern Java's type system offers in this domain: sealed types, records, phantom generics, explicit lifecycles. These are all real, all worth using in production. But there's a ceiling — and the things on the other side of it are not just verbose to encode in Java, they are not expressible. Take one example: the risk level. It's a runtime value — the output of `assessRisk(order)`. Java's type system has no mechanism to carry that runtime information into the shape of the next method call's signature. Once we classify an order as medium-risk, the developer can still call `authorizeAuto`; the connection between the risk classification and the required authorization method lives in convention and documentation, not in the type-checker. Same story for refined types — a predicate like 'this string is non-empty' is a runtime check in Java, not part of the type. Same story for types computed from other types. It's not just hard to express this in Java — we need a more expressive type system. Let's see what that looks like."
+"By Stage 4 we've used most of what modern Java's type system offers in this domain: sealed types, records, phantom generics, explicit lifecycles. These are all real, all worth using in production. But there is a ceiling. Be careful how I put this, because Java can encode more than people expect — you can index approvals by a phantom risk parameter, and with a witness encoding you can even connect a sealed type to its own index. What Java has no mechanism for is taking a value the program only learns at runtime and deriving a type from it. Take one example: the risk level. It's a runtime value — the output of `assessRisk(order)`. Java's type system has no mechanism to carry that runtime information into the shape of the next method call's signature. Once we classify an order as medium-risk, the developer can still call `authorizeAuto`; the connection between the risk classification and the required authorization method lives in convention and documentation, not in the type-checker. Same story for refined types — a predicate like 'this string is non-empty' is a runtime check in Java, not part of the type. Same story for types computed from other types. So the honest ceiling is narrower than 'Java can't do this', and it still holds: no type index from a runtime value, no predicate inside the type, no computing types from types. Let's see what a system with those looks like."
 ]
