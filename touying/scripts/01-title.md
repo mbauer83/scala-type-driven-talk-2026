@@ -11,7 +11,7 @@ opened on a-specific-kind-of-bug, which sets up something much smaller than what
 follows; the audience feels that mismatch by minute ten. The bugs are the way in,
 not the subject.
 
-Do not say "production incidents". Alice's was caught in staging, and whether any
+Do not say production-incidents. Alice's was caught in staging, and whether any
 of the four escaped to production is a matter of process and luck rather than
 anything about the bug. Claiming production overstates three of them and is simply
 wrong about one.

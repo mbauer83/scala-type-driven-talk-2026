@@ -491,3 +491,100 @@ Three days. Ordered so that a stop at any point still leaves a deliverable deck.
 ## Open questions
 
 None blocking. Retire `PRESENTATION_SLIDE_PLAN.md` once v2 ships (agreed).
+
+---
+
+## Part 8 — Standing corrections
+
+Every item below is a mistake made once in this rework and corrected by MB. They
+are recorded because they recur, and because most of them are not matters of taste.
+Where a rule is mechanically checkable it is enforced by `tools/prose-lint.py`;
+the rest have to be checked by reading.
+
+### C1 — Do not read a plan as a description of reality *(enforced by nothing)*
+
+`DOMAIN_REWORK.md` describes desired state in the present tense. An earlier memory
+read it as achieved and was wrong about stage count, stage numbering, and which
+incident closes where. **Verify against artifacts** — the slides, the code, the
+build — never against a document that says what should be true.
+
+### C2 — Overclaiming makes the argument weaker *(enforced: `overclaim`)*
+
+Three separate instances, all with the same shape: reaching for a stronger contrast
+than the facts carry, so the audience immediately supplies the counterexample.
+
+| Claimed | True |
+|---|---|
+| "four production incidents" | Alice's was caught in test; escaping to production is process and luck |
+| "more test coverage would not have changed that" | a two-line fixture is exactly what found Alice's |
+| "not easier to test for — impossible" | also a negative-contrast construction |
+| "Java cannot express approval indexed by risk" | it can, via phantom generics and witness encodings; the real limit is narrower |
+
+The pattern: **the weaker claim is usually the stronger argument.** Concede what is
+true, then draw the distinction that survives scrutiny.
+
+### C3 — Establish a domain before using its vocabulary *(read for it)*
+
+The four bugs used *authorize*, *capture*, *risk tier*, *payment rail*, *refund* and
+*KYC* before anything told the audience what a payment flow looks like. The domain
+strip on S2 now precedes them. Applies to every act: **name the frame, then fill it.**
+
+### C4 — Examples must survive a practitioner's disbelief *(read for it)*
+
+Alice's bug originally produced a €450,015 invoice in a staging batch, which is not
+credible — and the credible version turned out to be *better*, because the reason it
+survived (`reduce` over one element returns that element, so single-line fixtures all
+pass) is itself the point about tests covering only the cases you thought of. Ask of
+each example: would somebody who has built this believe it happened?
+
+### C5 — Do not add jargon the room does not share *(enforced: `jargon`)*
+
+KYC was the only story outside the payment domain, and the term is not universal in
+a Java meetup. It also revealed a deeper mismatch: the Scala session-type code models
+the *payment* protocol, so the story and the code meant to close it described
+different systems. **Prefer a term the talk has already established.**
+
+### C6 — Prose register *(enforced: `tricolon`, `negative-contrast`, `fragment-climax`, `anaphora`, `padding`, `rhetorical-qa`, `kicker`, `monotone`)*
+
+The banned constructions are in `touying/scripts/README.md`. The one worth restating
+here, because it is counter-intuitive and I got it backwards once: **a flat run of
+short declaratives is itself a machine tell.** Shortening everything is not the fix
+for bad prose; varied rhythm with real subordination is. An earlier version of the
+linter enforced a 25-word hard cap and would have driven the prose straight into the
+fault it existed to prevent.
+
+### C7 — Check the joins, not only the beats *(read for it)*
+
+S3 jumped from "more tests would not have helped" straight into the 2,500-year
+framing sentence with nothing between them. Each beat can be right while the
+sequence is unreadable. **After drafting a slide, read the last sentence of the
+previous one and the first of the next.**
+
+### C8 — Facts and theory claims both need checking *(read for it)*
+
+Errors found: 3DS liability runs *to the issuer* on success, so skipping it leaves it
+with the merchant (had it backwards); Aristotle is ~350 BCE, so 2,400 years, not
+2,500; type-checker conservatism is **Rice's theorem and decidability**, not Gödel's
+incompleteness; Curry-Howard-Lambek is precise for STLC ↔ intuitionistic propositional
+logic ↔ cartesian closed categories, and extending it to dependent types is more
+delicate. "Sounds right" is not checked.
+
+### C9 — When told to diagnose, check placement before proposing deletion *(read for it)*
+
+Draft 1 cut the history section because it "motivated in the wrong direction". The
+real fault was that v1 told every idea twice — once abstractly, once concretely —
+and the fix was to braid them, not to amputate the first telling. **Ask whether the
+fault is the content or its position.**
+
+### C10 — Budget honestly; do not shave to fit *(enforced: `make timing`)*
+
+I twice made the arithmetic work by trimming fifteen seconds from several slides,
+which is how a deck overruns on the night. Caps are now set to what the written
+script measures, and when a section grows the time is taken from a named other
+section. Rate is calibrated against a real read-through, not assumed.
+
+### C11 — Write MB's voice only where asked, and always flag the edit *(read for it)*
+
+MB wants verbatim script for the opening. Where his own sentence is restructured,
+the original stays in the script file with the reason, so the change is reversible.
+

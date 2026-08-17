@@ -121,6 +121,45 @@ SUPERLATIVES = [
     r"\bthe most \w+ (thing|part|bug|idea)\b",
 ]
 
+# Overclaims. Every one of these was actually made and had to be retracted during
+# review. The pattern: reaching for a stronger contrast than the facts carry, which
+# makes the argument WEAKER because the audience immediately supplies the
+# counterexample. Errors are the ones already corrected once; warnings are the
+# shapes that tend to slide the same way.
+OVERCLAIM_ERRORS = [
+    (r"\bproduction (incident|bug|failure)s?\b",
+     "Only some of the four bugs escaped to production, and Alice's did not. "
+     "Whether a bug reaches production is process and luck, not a property of "
+     "the bug — and the weaker claim is the stronger argument."),
+    (r"\b(more |additional |no amount of )?test(s| coverage)? would not have\b",
+     "A test could have caught every one of these. The defensible claim is about "
+     "the kind of guarantee, not the possibility."),
+    (r"\bno (test|amount of testing) (would|could)\b",
+     "Same overclaim. Concede that a test could catch it, then draw the "
+     "distinction that survives."),
+    (r"\bjava cannot (express|state|do)\b",
+     "Java can express more than it looks like, via phantom generics and "
+     "GADT-style witness encodings. Narrow the claim: it cannot derive a type "
+     "index from a runtime value without hand-rolled encoding, carry a predicate "
+     "in a type, or compute types from types."),
+]
+
+OVERCLAIM_WARNINGS = [
+    (r"\bimpossible to (write|express|construct)\b",
+     "Prefer the precise form: the state is unrepresentable in the type system. "
+     "'Impossible' invites a counterexample you did not mean to claim against."),
+    (r"\bnever (fails|breaks|happens|goes wrong)\b", "Absolute. Is it true?"),
+    (r"\ball you (need|have to do)\b", "Understates the cost. S29 exists to be honest about it."),
+    (r"\bguarantee[sd]? that\b", "Check the guarantee is the one the calculus actually gives."),
+]
+
+# Terms this audience does not uniformly share. Not banned — glossed, or replaced.
+JARGON = [
+    "kyc", "psd2", "sca", "liability shift", "catamorphism", "involution",
+    "ι-reduction", "iota-reduction", "definitional equality", "hylomorphism",
+    "anamorphism", "profunctor", "bifunctor", "existential quantification",
+]
+
 
 def check(text, path):
     out = []
@@ -235,6 +274,21 @@ def check(text, path):
         for m in re.finditer(pat, low):
             out.append(("warn", "superlative", text[m.start():m.end()],
                         "Ranking claim the audience cannot check."))
+
+    # 12. overclaims — the recurring failure mode, each already retracted once
+    for pat, why in OVERCLAIM_ERRORS:
+        for m in re.finditer(pat, low):
+            out.append(("error", "overclaim", text[m.start():m.end()], why))
+    for pat, why in OVERCLAIM_WARNINGS:
+        for m in re.finditer(pat, low):
+            out.append(("warn", "overclaim", text[m.start():m.end()], why))
+
+    # 13. jargon this room does not uniformly share
+    for term in JARGON:
+        for m in re.finditer(rf"\b{re.escape(term)}\b", low):
+            out.append(("warn", "jargon", text[m.start():m.end()],
+                        "Gloss it in the same breath, or use a term from the "
+                        "payment domain the talk already established."))
 
     return out
 
