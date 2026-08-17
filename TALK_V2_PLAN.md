@@ -1,8 +1,24 @@
-# Talk v2 — Rework Plan (DRAFT 3)
+# Talk v2 — Rework Plan (DRAFT 4)
 
 Branch `talk-v2-rework`, off `talk-v1` (`93c8d95`).
 **Delivery: Thursday 20 August 2026 — Java Meetup, Inspired Consulting GmbH, Köln.**
 45 min + 15 min Q&A (up to 3 min borrowable).
+
+## Status — 2026-08-17
+
+| | |
+|---|---|
+| **Act 0 (slides 1–3)** | **DONE and signed off.** Verbatim scripts in `touying/scripts/`, linter-clean, 5:23 at planning rate / 3:48 at MB's measured rate |
+| Acts 1–6 | not authored; v1 notes still in place and failing the linter in ~23 places (almost all `monotone`) |
+| Toolchain | typst 0.15.1, touying 0.7.4, cetz 0.5.2 — verified |
+| Tooling | `make check` = build + prose lint + timing. Prose linter runs as a PostToolUse hook |
+| Speaking rate | measured twice: 177 and 185 wpm. Planning rate 130 (~28% live discount) |
+| Code | Iron refinements landed in `05-scala3-payment` (`MinLength[1]` on lines, `GreaterEqual[0]` on quantities); compiles and runs |
+
+**Read Part 8 and Part 9 before authoring any slide.** They are the accumulated
+corrections, and every one of them was a mistake made once already.
+
+---
 
 Inputs treated as *proposals, not decisions*: `PRESENTATION_SLIDE_PLAN.md` (drifted from the
 deck; retire after v2 ships), `REFACTOR_STAGE4_REMOVAL.md` and `DOMAIN_REWORK.md` (both verified
@@ -121,17 +137,32 @@ existing drawing; no new geometry.
 
 ---
 
-## Part 3 — The deck: 31 main slides, 44:25
+## Part 3 — The deck: 31 main slides, 45:20 (Act 0 measured, rest estimated)
 
 Legend: **NEW** · **KEEP** · **REWORK** · **MERGE** · **→A** (demoted to appendix)
 
-### Act 0 — Open · 3:30
+### Act 0 — Open · 5:25 — **AUTHORED, SIGNED OFF**
 
-| # | Slide | Time | Origin |
+| # | Slide | Time | Script |
 |---|---|---|---|
-| 1 | Title | 0:30 | KEEP `01-title` — new date + venue |
-| 2 | Four incidents, **no code** | 2:15 | **NEW** — replaces `02`–`05` (4 slides → 1) |
-| 3 | The turn: "you already write logic" | 0:45 | **NEW** — replaces `06-pattern` |
+| 1 | Title — carries the thesis | 1:00 | `scripts/01-title.md` |
+| 2 | Four Bugs That Compiled — with the payment domain frame | 2:35 | `scripts/02-incidents.md` |
+| 3 | The turn | 1:50 | `scripts/03-the-turn.md` |
+
+Act 0 ran over its original 3:30 estimate because two things moved into it that were
+not in draft 3: the **payment-domain frame** (S2 now establishes order → assess risk →
+authorize → capture → refund before the four bugs use that vocabulary), and the
+**thesis promise** (S1 now claims that writing a program which type-checks is, in a
+precise sense, the same act as constructing a proof). Both earn the time. The overage
+is taken from Act 4, which measured 10:36 in v1 against a 6:30 target.
+
+**S1** promises the size of the real talk and puts the speaker inside the set of people
+who have made these mistakes. **S2** frames the domain, then tells four bugs with no
+code panes; the buggy code appears later, at the stage where it stops compiling.
+**S3** concedes that a test could have caught all four, then draws the distinction that
+survives — a test is a case somebody must think of and keep correct, an encoded rule is
+applied at every call site by the compiler. It no longer restates S1's thesis.
+
 
 **S2** — four rows: name · system · what happened · what it cost. Each keeps **one concrete human
 detail** (the Slack message from accounting; the third risk tier added months later; the three
@@ -406,16 +437,16 @@ same conversation — the price, and why the price is worth paying now:
 
 ### Budget
 
-| Act | Time |
-|---|---|
-| 0 — Open | 3:30 |
-| 1 — History braided into the primer | 8:15 |
-| 2 — Ground floor | 1:30 |
-| 3 — Java ladder | 13:10 |
-| 4 — Scala 3 | 8:30 |
-| 5 — Idris 2 | 5:30 |
-| 6 — Close | 4:00 |
-| **Total** | **44:25** |
+| Act | Time | State |
+|---|---|---|
+| 0 — Open | **5:25** | authored, measured |
+| 1 — History braided into the primer | 8:15 | estimated |
+| 2 — Ground floor | 2:45 | estimated |
+| 3 — Java ladder | 13:10 | estimated |
+| 4 — Scala 3 | 6:30 | estimated — **owes Act 0 its overage**; measured 10:36 in v1 |
+| 5 — Idris 2 | 5:15 | estimated |
+| 6 — Close | 4:00 | estimated |
+| **Total** | **45:20** | one act measured, six guessed |
 
 Against 45:00 hard + 3:00 borrowable, leaving **0:35 of slack**. Draft 2's table said 45:10; that was an arithmetic error (Act 6 sums to 4:15, not 5:00). These are still estimates — the honest number comes from the stopwatch read-through (execution step 11), not this table. The cut list below is the safety margin and reaches 39:40.
 
@@ -491,7 +522,10 @@ regenerable if the code changes.
 
 Three days. Ordered so that a stop at any point still leaves a deliverable deck.
 
-1. **Bug fix + metadata** — Stage 3 code-pane overflow; title slide date/venue *(independent of everything)*
+1. ~~**Bug fix + metadata** — Stage 3 code-pane overflow; title slide date/venue~~ **DONE**
+1b. ~~**Act 0 authored and signed off**; scripts extracted to `touying/scripts/`; prose
+    linter + hook; timing tool calibrated against two real read-throughs~~ **DONE**
+1c. ~~**Iron refinements** in `05-scala3-payment`~~ **DONE**
 2. **Act 1 primer** — S4, S5, S6, S7 new; S8 reworked *(the core ask; biggest authoring block)*
 3. **Act 0** — S2 incidents, S3 the turn
 4. **S10** types/values/references
@@ -604,4 +638,110 @@ section. Rate is calibrated against a real read-through, not assumed.
 
 MB wants verbatim script for the opening. Where his own sentence is restructured,
 the original stays in the script file with the reason, so the change is reversible.
+
+---
+
+## Part 9 — What the Act 0 prose diff taught
+
+Part 8 came from MB's change-requests. This part comes from something narrower and
+more useful: comparing what I drafted for Act 0 against what MB actually shipped
+after three rounds. The corrections cluster, and the clusters are not about grammar.
+
+### L1 — I under-promise in openings
+
+| mine | shipped |
+|---|---|
+| "a line of thinking a great deal older than any of us, which most of you already use without calling it that" | "By the end I think you'll see that writing a program that type-checks is, **in a precise sense, the same thing as constructing a proof in formal logic** — and that you've been doing it all along" |
+
+I gestured at the thesis; MB stated it and accepted being held to it. My version was a
+tease, and "already use without calling it that" is the shape of a claim rather than a
+claim. **The strong version is also the honest one** — it tells the audience what they
+are buying. Note this is the *opposite* of the overclaiming in Part 8/C2: I overclaim
+about facts I cannot support and underclaim about the thesis I can. Both are failures
+to say the true thing at its true strength.
+
+### L2 — Put the speaker inside the set
+
+I wrote the four bugs as things that happened to other people. MB added: *"Programmers
+have made these kinds of mistakes for as long as there has been software, and I've
+certainly been one of them."* For a talk arguing that the audience should change how
+they work, the participant stance is far less alienating than the authority stance —
+and it costs one sentence.
+
+### L3 — Name the consequence, not the mechanism
+
+| mine | shipped |
+|---|---|
+| "…almost every fixture used a single-line order, and reduce over one element just hands that element back" | "…almost every fixture used a single-line order — **and so summing wasn't actually tested**" |
+
+Mine correctly explains *how* the symptom is produced. MB's names *what was missing*,
+which is the point of the beat. The `reduce` detail is still needed — for credibility —
+but it belongs in the fact-sheet, not the spoken line. **Explain the mechanism only
+where the mechanism is the argument.**
+
+### L4 — Voicing beats narrating, and it is where the humour lives
+
+| mine | shipped |
+|---|---|
+| "Medium satisfies that condition. So medium-risk orders took the fast path too" | "**Well — medium isn't high… so off to the fast path we go.**" |
+
+MB voices the machine's reasoning in the first person. That is the levity in Act 0, and
+it is not decoration: it dramatises the compiler's indifference, which *is* the thesis.
+Humour in a technical talk lives in voicing the mechanism, not in jokes bolted onto it.
+
+### L5 — Name the topic's real concepts when bridging into it
+
+| mine | shipped |
+|---|---|
+| "What a language lets you say in the first place is a much older question than programming" | "**How we can tell whether something is valid, and how we can say what that means** — those questions are much older than programming" |
+
+Mine was about permission. MB's names **validity** and **meaning** — precisely the two
+threads Act 1 then follows (Aristotle and Gentzen for validity, semantics for meaning).
+A bridge should be built from the material on the far side, not from a generic paraphrase.
+
+### L6 — Compress by fusing, not by deleting
+
+Mine offered the proposition reading only ("a claim about every possible type"). MB's
+fuses proposition and program into one clause — *"stating that you can do something for
+every type"* — which is the Curry-Howard pairing four slides before it is named. And
+"present and future" carries the parametricity point in two words where I had proposed
+nine. **My compression removes content; his compresses content together.**
+
+### L7 — Check what a metaphor implies about the audience's status
+
+I wrote "I want to give you the vocabulary for that." MB: reads like foreign-language
+homework. The metaphor makes the audience pupils. What the talk actually does is show
+connections and the capabilities that follow — which makes them practitioners who gain
+power. Same content, opposite social position. **Ask what relationship a metaphor
+implies before using it.**
+
+### L8 — Monotone register, one level above monotone rhythm
+
+MB's prose moves between registers: *"for as long as there has been software"*, *"off to
+the fast path we go"*, *"twelve digits instead of two"*, then formal precision for the
+thesis. Mine sits at a uniform mid-formal level throughout. This is the same fault the
+linter catches as `monotone` — flatness — but at the register layer, where no rule can
+see it. **Vary the register deliberately; the informal moments are where an audience
+relaxes enough to follow the hard part.**
+
+### L9 — A number lands by contrast, not magnitude
+
+Mine: "a daily total with twelve digits." MB: "twelve digits **instead of two**." The
+comparison does the work; the magnitude alone does not.
+
+### L10 — The unit of coherence is the sequence, not the slide
+
+Caught twice, both by MB. Slide 3 restated slide 1's thesis more weakly once slide 1 had
+been strengthened. Slide 3 re-derived how a test would have caught Alice's, which slide 2
+had already shown happening. I check each slide against its own brief; nobody was
+checking each slide against **what the audience has already been told**. After drafting
+any slide, re-read the two either side of it.
+
+### L11 — Edits have blast radius
+
+In one pass I changed *"I've certainly been one of them"* to *"made my share"* while
+tightening for length — a phrase that was never the problem. Restoring it then created a
+pronoun collision with a later clause ("tools to prevent them" reading as preventing
+programmers). **When editing for one property, diff for changes to the others. A restore
+is an edit too, and needs its neighbourhood re-checked.**
 
