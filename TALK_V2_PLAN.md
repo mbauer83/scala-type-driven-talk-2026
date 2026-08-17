@@ -1525,3 +1525,51 @@ with its Java mirror on the spot. The alternative is to keep Act 1 purely
 conceptual and let each mirror appear at the stage where it pays off. MB is
 unsure; this needs an explicit evaluation, because it governs all six Act 1
 slides and the shape of every act after them.
+
+### Part 10/E — the strategic question, ANSWERED
+
+**Keep pairing each concept with its Java mirror in Act 1. Change nothing.**
+
+*For pairing:* it is the thesis of v2. `A0-turn` promises that a good part of what
+this room does already sits at the end of the thread. A purely conceptual Act 1
+defers that promise by fifteen minutes, and a Java audience given six slides of
+logic with no code decides by the third that the payoff is not coming.
+
+*The real risk,* which is narrower than "too early": a mirror shown before the
+ladder is climbed invites the room to think the mirror is the whole story. Show
+`sealed interface` beside `∨` at minute eight and some of them conclude *fine,
+sum types, I have those* — and the ascent has nothing left to sell.
+
+*The fix that was proposed and REJECTED:* give every mirror an explicit "and here
+is what it does not yet do". MB: too confusing, too much clutter. Correct — and
+it also duplicates something the act already has.
+
+**`A1-above` is the incompleteness beat.** Four notations Java cannot express,
+delivered once, as a slide, with the promise that all four will be seen running.
+The debt is already stated at act level; restating it five times at slide level
+would clutter the slides that work in order to solve a solved problem.
+
+The single local exception stays: `A1-quantifiers` names ∃ and deliberately gives
+it no Java mirror. That one is load-bearing — without it, a listener joining that
+slide to `A1-above` concludes Java has Σ-types.
+
+### Part 10/F — two corrections that are errors, not preferences
+
+Everything else in Part 10 is a clarity or layout fix. These two are wrong as
+written and would ship wrong:
+
+**F1 · `A1-connectives` misattributes mechanical checkability.** The script says of
+Boole: *"that is the moment inference becomes something a machine could do"*. False.
+**Aristotle's insight already makes inference mechanically checkable** — a form can
+be checked by inspection, which is the sense that matters here. What Boole's algebra
+and Leibniz's programme add is **numerical calculability**, a different and later
+property. Fix the script and the slide so the arithmetic turn buys calculability,
+not checkability, and Leibniz sits with binary on the calculable side.
+
+**F2 · `A1-curry-howard`'s caveat overclaims.** As written it implies logic cannot
+capture imperative, impure programs. **It can** — continuations, monadic
+translation and effect calculi do exactly that. The honest limit is *which
+calculus you are in*, not *whether it is possible*. Rewrite so the caveat says the
+STLC correspondence does not cover Java's effects, and that richer calculi do,
+which is also a better setup for the ladder. As it stands this is a Part 8/C2
+overclaim sitting on the slide that carries the thesis.
