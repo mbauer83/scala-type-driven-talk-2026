@@ -4,12 +4,14 @@ Branch `talk-v2-rework`, off `talk-v1` (`93c8d95`).
 **Delivery: Thursday 20 August 2026 — Java Meetup, Inspired Consulting GmbH, Köln.**
 45 min + 15 min Q&A (up to 3 min borrowable).
 
-## Status — 2026-08-17
+## Status — 2026-08-18
 
 | | |
 |---|---|
-| **Act 0 (slides 1–3)** | **DONE and signed off.** Verbatim scripts in `touying/scripts/`, linter-clean, 5:23 at planning rate / 3:48 at MB's measured rate |
-| Acts 1–6 | not authored; v1 notes still in place and failing the linter in ~23 places (almost all `monotone`) |
+| **Act 0 (slides 1–3)** | **DONE and signed off**, plus Part 10's layout and wording corrections. Linter-clean |
+| **Act 1 (6 slides)** | **DONE**, plus every Part 10 correction including 10/F. Linter-clean. **Measures 8:43 against a 7:10 cap** |
+| **Act 2 (3 slides)** | `A2-values` and `A2-promises` **built** — cues plus a scripted landing line, both inside their caps. `A2-scenario` is still the v1 `15-test-spine` note, 0:19 over |
+| Acts 3–6 | not authored; v1 notes still in place and failing the linter in ~19 places (almost all `monotone`) |
 | Toolchain | typst 0.15.1, touying 0.7.4, cetz 0.5.2 — verified |
 | Tooling | `make check` = build + prose lint + timing. Prose linter runs as a PostToolUse hook |
 | Speaking rate | measured twice: 177 and 185 wpm. Planning rate 130 (~28% live discount) |
@@ -1144,11 +1146,13 @@ does not apply uniformly, and treating all 30 slides as verbatim work is not a p
 **Verbatim burden: 9 slides, not 30.** Act 1 is the block that matters.
 
 **Fallback if authoring stalls.** In priority order, what ships:
-1. Act 1 authored — without it the talk has no primer, which is the whole point of v2.
-2. `A2-promises` and `A6-cost` — the two slides carrying content v1 never had.
+1. ~~Act 1 authored~~ — **done.** Without it the talk has no primer, which is the whole point of v2.
+2. ~~`A2-promises`~~ — **done.** `A6-cost` is the remaining slide carrying content v1 never had,
+   and it is now the single highest-value unwritten thing in the deck.
 3. Everything else keeps its v1 note and ships as-is. The v1 notes fail the prose linter in
-   ~23 places, almost all `monotone`, but a linter failure is a register complaint, not a
-   correctness one — those slides are deliverable if unpolished.
+   ~19 places, almost all `monotone`, but a linter failure is a register complaint, not a
+   correctness one — those slides are deliverable if unpolished. **The exception is a claim
+   that is false rather than flat** — Part 11 names the two.
 
 ---
 
@@ -1164,7 +1168,9 @@ its own budget section said it should come early.
 if Act 1 behaves like Act 0, its 7:10 becomes ~11:00 and the 4:10 of slack disappears. Treat
 every unwritten act's allocation as optimistic.
 
-**Dates, because a hard deadline needs them.** Delivery Thu 20 Aug; today is Mon 17 Aug.
+**Dates, because a hard deadline needs them.** Delivery Thu 20 Aug. **Today is Tue 18 Aug**,
+and steps 1–9 are done — the schedule below allotted Act 1 until Wed 12:00, so authoring is
+roughly a day ahead of it. That buys the read-through (step 11) more room, not more scope.
 
 | # | Step | When | State |
 |---|---|---|---|
@@ -1174,11 +1180,12 @@ every unwritten act's allocation as optimistic.
 | 4 | Demo 3 fixed; four fallbacks captured to `demos/` | Mon | ✅ done |
 | 5 | Mechanical sweep: complete `budget.tsv` incl. **demo + stub rows**; fix the id/number drift | Mon eve | ✅ done |
 | 6 | Delivery-discount calibration — Act 0 standing: **3:45, i.e. 187 wpm** | Mon eve | ✅ done |
-| 7 | **Settle the four OPEN×high-cost items on paper** (Part 6b) — one paragraph each, no slide work | Tue 09:00–12:00, **hard stop** | |
-| 8 | Author Act 1 — **six slides**; build it, measure it, rework if it does not fit | Tue 12:00 – Wed 12:00 | |
-| 9 | Author `A2-values`, `A2-promises`; the four claim fixes in Part 3 | Wed 12:00–15:00 | |
-| 10 | Merges, cube parameterisation, **`deck.typ` reorder** | **optional** — only if step 11 comes in under 44:00. The reorder is no longer needed for measurement: `budget.tsv`'s stub rows already let `make timing` report the intended deck |
-| 11 | **First real read-through** — Act 0 + Act 1 + whatever else is authored; apply Part 6b's cut list against measured numbers | Wed 16:00 | |
+| 7 | **Settle the four OPEN×high-cost items on paper** (Part 6b) — one paragraph each, no slide work | Tue 09:00–12:00, **hard stop** | ✅ done — D-A, D-B, D-D decided in Part 6b/D2; D-C deferred to after Act 4 with (d) as the working default |
+| 8 | Author Act 1 — **six slides**; build it, measure it, rework if it does not fit | Tue 12:00 – Wed 12:00 | ✅ built · **measured 8:43 vs 7:10** · rework deferred to step 11, per MB |
+| 8b | **Apply Part 10** — MB's review of Act 0/1 as built, 10/F first | Tue | ✅ done — see Part 10/G |
+| 9 | Author `A2-values`, `A2-promises`; the claim fixes in Part 3 | Wed 12:00–15:00 | ✅ slides done (Part 10/H) · **two claim fixes still open**, both on the unauthored `A5-mltt` — see Part 11 |
+| 10 | Merges, cube parameterisation, **`deck.typ` reorder** | **optional** — only if step 11 comes in under 44:00. The reorder is no longer needed for measurement: `budget.tsv`'s stub rows already let `make timing` report the intended deck | |
+| 11 | **First real read-through** — Act 0 + Act 1 + Act 2 + whatever else is authored; apply Part 6b's cut list against measured numbers | Wed 16:00 | **next** |
 | 12 | `make all`; **dress rehearsal on the real laptop and projector** | Wed 19:00, **immovable** | |
 
 **Why step 6 is not a read-through of the deck.** Acts 1–6 are still v1 notes that this plan
@@ -1446,10 +1453,11 @@ is an edit too, and needs its neighbourhood re-checked.**
 
 ---
 
-## Part 10 — MB review of Act 0/1 as built (17 Aug) — OPEN CORRECTIONS
+## Part 10 — MB review of Act 0/1 as built (17 Aug) — **ALL APPLIED**
 
-Recorded verbatim in substance before any are applied. Each is a defect in what
-is now on screen, not a plan change.
+Recorded verbatim in substance before any were applied. Each is a defect in what
+was on screen, not a plan change. **Every item below is now done**, 10/F first;
+see Part 10/G for what each fix cost and the one thing it did not solve.
 
 ### Layout
 
@@ -1573,3 +1581,171 @@ calculus you are in*, not *whether it is possible*. Rewrite so the caveat says t
 STLC correspondence does not cover Java's effects, and that richer calculi do,
 which is also a better setup for the ladder. As it stands this is a Part 8/C2
 overclaim sitting on the slide that carries the thesis.
+
+### Part 10/G — what applying Part 10 changed, and what it cost
+
+Applied in the order MB asked for: 10/F first, then the layout and wording items,
+then Act 2's two new slides.
+
+**10/F1 · `A1-connectives` — checkability vs calculability.** The script's claim
+that Boole's algebra is *the moment inference becomes something a machine could
+do* is gone. Aristotle's beat now carries mechanical checkability explicitly
+(*a shape is also something you can check by looking at it*), and the algebra
+buys calculation instead: *inference becomes arithmetic, carried out symbol by
+symbol*. The slide's new top line states the distinction in one sentence, and
+the headline — *Logic becomes something you can calculate* — was already right.
+Leibniz sits on the calculable side, with binary.
+
+**10/F2 · `A1-curry-howard` — the caveat no longer overclaims.** It said the
+correspondence is exact for total, pure calculi and that Java is neither, which
+reads as *logic cannot describe imperative programs*. The caveat now names the
+real limit — which calculus you are standing in — and says so: there are calculi
+for state, exceptions and control, and continuations answer to classical
+reasoning; Java is outside *this* one. This is also a better setup for the
+ladder, because every stage is a move toward a calculus that fits.
+
+**The rest.** `A0-incidents` re-spaced (headline gap 44→8, name/tag 4→12, the
+cost line and its grey qualifier are separate blocks now rather than a `\`
+break). `A0-turn`: *every call site* → *every use*; the four fields lost their
+arrows and gained the caption *one question, taken up in four places — none of
+them finished with it*. `A1-aristotle`: MB's line, *validity comes from shape*.
+`A1-connectives`: `∧` moved out from beside the lower pane into a strip under
+both, the `∨` card now says in words that both panes are one connective, and a
+line rules out the `if (a && b)` reading. `A1-quantifiers` rebuilt around the
+concession MB raised — the syllogism already quantifies — so the slide shows
+Aristotle's form beside Frege's and names the three things binding a variable
+adds. `A1-crisis`: headline names the word, the barber opens it, the damage to
+naive set theory is stated before the repair, and Hilbert's column leads with
+the question it answers. Lambek is a faint side note and off the eyebrow. The
+rail ends *Martin-Löf (+)*.
+
+**What it cost, honestly (C10).** Act 1 measured 8:23 before this pass and 8:43
+after — twenty seconds across six slides, spent almost entirely on `A1-crisis`
+(the barber, the damage line, the Hilbert motivation) and `A1-curry-howard` (the
+effects-are-not-beyond-logic correction). Both were content MB asked for. The
+act is now **1:33 over its 7:10 cap**, and the two worst offenders are
+`A1-curry-howard` at +0:31 and `A1-crisis` at +0:25. **Cut #5 — merging
+`A1-connectives` and `A1-quantifiers` — remains the reserve, and the decision
+still belongs after the read-through, not before it.**
+
+**A bookkeeping correction that was hiding this.** Act 1's rows in
+`budget.tsv` were still marked `stub` after the act was written, so `make timing`
+printed the planned cap and never compared it to the script that existed. They
+are `prose` now. The deck's measured prose went from 31:33 to 42:18 the moment
+the tool could see six authored slides and two new ones — none of that is new
+words, it is a number that was always true and was not being reported.
+
+### Part 10/H — Act 2's two new slides, built
+
+**`A2-values`** — value, reference, then the turn: a type is neither, it is the
+compiler's reasoning about which values may flow where, and most of what it buys
+is spent before the program runs. `Payment<Initiated>` and `Payment<Authorized>`
+are the same bytes. Then the cheap/costly pair — phantom parameters carry no
+data, opaque types are plain `String`s, multiplicities are erased, and what you
+erase you cannot ask about later. **The two points Part 3 says must not be
+conflated are both carried:** the argument does not rest on erasure (erasure is
+why it is cheap, not why it is good), and the Stage 6 exception is flagged in a
+footnote so the Idris payoff is not spent here. Gradual typing stays on
+`A6-cost`. 118 words against a 0:50 cap.
+
+**`A2-promises`** — Hilbert's three read off against the compiler in the room,
+with completeness marked *deliberately given up*. Rice and decidability, named as
+such and explicitly not Gödel. Soundness bounded by the hatches, with Java's own
+covariant-array hole as the evidence. The landing line concedes what MB insisted
+on — you do not feel the missing completeness on a normal Tuesday, because when
+the compiler says no it is usually right — and hands the cost question to
+`A6-cost`. 150 words against a 1:05 cap.
+
+Both are cues plus one scripted landing line, per Part 6b/T, so both declare
+`EST-WORDS` rather than carrying a countable script.
+
+**Two small tooling changes fell out of this.** `code-pane` gained a `pad-y`
+parameter (default unchanged) because `A1-connectives` carries two panes and a
+caption strip and the default chrome pushed it off the page. And the prose-lint
+hook no longer lints `scripts/README.md`: that file documents the banned
+constructions by quoting them, so it fails every rule it describes and was
+blocking edits to the one file that explains the rules.
+
+**Still open in Act 2:** `A2-scenario` is the v1 `15-test-spine` note, 0:19 over
+a 0:25 cap and still carrying the nine-row table Part 2 sends to the appendix.
+
+---
+
+## Part 11 — Remaining work, ordered
+
+State at this commit: Acts 0, 1 and two thirds of Act 2 are authored and
+linter-clean; Part 10 is fully applied. `make check` builds, and `make timing`
+reports **42:18 of measured prose against 40:50 of caps** inside a 45:00 slot.
+Everything below is what is left, in the order it pays.
+
+### A — Two claims on screen that are false, not merely flat
+
+These are the only *correctness* defects known to be in the deck. Both sit on
+`A5-mltt`'s source slides, which are unauthored, so they are cheap to fix while
+authoring and expensive to ship. Verified against the code, not from memory (C1):
+
+| Where | On the slide | In the code |
+|---|---|---|
+| `29-mltt-running.typ:42` | `protocolFromSnapshot : RiskSnapshot -> SessionType` | `(snap : RiskSnapshot) -> (n : Nat) -> (c : Currency) -> SessionType` — `PaymentRules.idr:212-214` |
+| `29-mltt-running.typ:59` | `assessOrder : Order n c -> (lvl ** Assessment lvl n c)` | `(lvl : RiskLevel ** Assessment lvl n c)` — `PaymentDomain.idr:255` |
+
+The first is self-contradicting: line 47 of the same slide already calls
+`protocolFromSnapshot snapshot n c` with three arguments. The second drops
+`: RiskLevel`, which is legal sugar that hides the index type — and the index
+type is the entire point of the slide.
+
+### B — The read-through (Part 7 step 11). This is the next thing to do.
+
+Nothing else should be authored before it. Act 1 measures **8:43 against 7:10**;
+five v1 slides are worse. The cut list in Part 6b is contingency and the
+`A1-connectives` + `A1-quantifiers` merge is the primer-side reserve — both are
+decisions to take against measured numbers, which is why they were not taken here.
+
+### C — Unwritten, in the order they pay
+
+1. **`A6-cost`** — the last slide carrying content v1 never had, and the one the
+   whole ladder argues toward. It also absorbs the gradual-typing material moved
+   off `A2-values`.
+2. **Demo narration** — four slides, **9:15, 20% of the slot, invisible to
+   `make timing`**. D-D settled the shape (one sentence before, silence during,
+   the error read verbatim after, fallback on the *next* slide); not one word of
+   it is written, and the four fallback slides do not exist.
+3. **`A2-scenario`** — still the v1 `15-test-spine` note, +0:19 over a 0:25 cap,
+   still carrying the nine-row table Part 2 sends to the appendix.
+4. **Acts 3–5** — cues over v1 notes, per Part 6b/T. Deliverable unpolished.
+
+### D — A structural gap the include list is hiding
+
+Seven slide files were dropped from `deck.typ` when Act 1 landed and are in
+neither the main deck nor the appendix:
+
+`09-convergence1` · `11-convergence2` · `13-convergence3` · `12-mltt` ·
+`14-lambda-cube` · `16-stage0` · **`10-gentzen-or`**
+
+Six of those are the history slides Act 1 absorbs, and Part 4 promises them an
+appendix home (A4–A8) that they do not currently have. That is a decision to
+confirm, not a bug.
+
+**`10-gentzen-or` is different and is a live gap.** Part 3 lists it as `A3-gentzen`
+— *KEEP, moved here* — it is the structural fix for P2, it still has a `prose`
+row in `budget.tsv`, and `make timing` prints it as "not written yet" because it
+is not in the deck. The file exists and is written. **Act 3's rework has to put
+the `#include` back**, or the rule that explains Demo 1's compile error is not in
+the talk at all.
+
+### E — Deferred by decision, not by omission
+
+- **D-C, the three bridges.** Decide after Act 4 exists, (d) capability-led
+  motivated by residual failure as the working default (Part 6b/D2).
+- **Cube parameterisation and the three reveals** (Part 2, Device 2). Not built;
+  `lambda-cube-canvas` is still the fixed unparameterised value and no slide
+  calls it. Part 7 step 10 marks this optional.
+- **`deck.typ` reorder** — optional; `budget.tsv` already lets `make timing`
+  report the intended deck.
+
+### F — Component work still budgeted nowhere (Part 6b's own warning)
+
+The Act 1 progress rail is built and documented. Still outstanding: **Device 1's
+payoff layout**, the **first use of `code-pane(diagnostic:)`** — no slide uses it
+yet, and the four captured fallbacks in `demos/` have nowhere to render — and the
+**cube parameterisation** above.
