@@ -1,5 +1,22 @@
 VERBATIM · cap 1:05 · Act 1 beat 1 of 6 · rail: ARISTOTLE lit
 
+BEATS — delivery aid; the script is below
+
+- Give the argument in the domain first, in full. Medium-risk needs 3DS; this
+  order is medium-risk; so it needs 3DS.
+- Aristotle's move: throw away everything it is about, and it still stands or
+  falls. Walk the left column, then point at the right.
+  › All M are T; x is M; therefore x is T
+- The beat that matters, and pause after it:
+  › the content is gone and the argument survived
+- Therefore it was never about payments — it was about the shape.
+- And a shape can be checked, for every M, T and x, without knowing what any of
+  them are.
+- Close: the next forty minutes are people finding better ways to write shapes
+  down, and better ways to check them.
+
+VERBATIM
+
 "Here is an argument. All medium-risk orders need three-D Secure; this order is
 medium-risk; so this order needs three-D Secure. Nobody disputes that. What
 Aristotle noticed, two and a half thousand years ago, is that you can throw away
@@ -23,8 +40,8 @@ read better, because the three parts are one unit.
 
 DELIVERY
 The syllogism is on the slide in two columns; walk the left one, then point at
-the right. The beat that matters is "the content is gone and the argument
-survived" — pause after it.
+the right. The beat that matters is *the content is gone and the argument survived* — pause
+after it.
 
 C13 CHECK (Part 8)
 Nothing here is yet about programs or types. This beat establishes only that

@@ -903,6 +903,226 @@ touching Demo 1 or Demo 4.
 
 ---
 
+### Part 6b/T — authoring treatment: how much scripting each slide gets
+
+**Verbatim burden stays at 9 slides** — Act 0's three and all six of Act 1.
+
+| Act | Slides | Treatment | Why |
+|---|---|---|---|
+| 0 — Open | 3 | **full verbatim** ✅ done | stumble zone; cold open; no code to lean on; already rehearsed three times |
+| 1 — Primer | 6 | **full verbatim**, plus bullet cues alongside | new and abstract, no code to lean on; the cues are a delivery aid for when the script is known and only the order is needed |
+| 2 — Ground floor | 3 | cues + one scripted landing line each | conceptual but short |
+| 3 — Java ladder | 8 | cues only | MB's own code and two live demos; a script over a live edit is worse than improvising |
+| 4 — Scala 3 | 5 | cues only | same |
+| 5 — Idris 2 | 3 | cues only | same |
+| 6 — Close | 3 | cues + scripted landing line | the last sentence should be exact; the rest need not be |
+
+**The format.** A verbatim slide carries the script *and* a cue layer, because they serve
+different moments: the script is for writing and rehearsing, the cues are for the third run-through
+when you know the words and only need the order.
+
+- **BEATS** — the delivery order as bullets, with `›` sub-bullets marking phrases that must be
+  exact. Fragments here use no double quotes, so `make timing` counts the script once rather
+  than twice.
+- **VERBATIM** — the full script, in double quotes. This is what the word counter and the prose
+  linter read.
+- **MUST LAND** — the one thing that has to survive if everything else is fumbled.
+- **C13 CHECK** — the program/type/checker distinction, wherever the slide is at risk of it.
+- **FACTS** — dates, citations, and every code identifier grepped from source.
+- **EST-WORDS: n** — for cues-only slides in Acts 2–6, which have no full script to count. The
+  author's declared estimate of how much will be said; `make timing` reads it in place of a word
+  count. An inferred count from scattered fragments would be a fiction, and a declared estimate
+  is at least an honest one.
+
+### Part 6b/D — the four decisions, stated as questions
+
+Part 6b named four *areas*. An area is not a decision, and "settle Act 4's sequence" is not
+something you can finish by noon. These are the actual questions; each wants one paragraph.
+
+---
+
+**D-A · Act 4 — what organises the Scala act?**
+
+Seven mechanisms arrive in roughly eight minutes: refined types, opaque types, path-dependent
+types, match types, session duality, higher-kinded types, and the effects/capture aside. The
+current shape is *opens → demo → session types → mechanisms → ceiling*, where `A4-mechanisms`
+is a six-row table. **A table of six mechanisms is a feature tour**, which is the failure mode
+this act has always had.
+
+- **(a) Mechanism-led** — current. Name each mechanism, show it. Honest, complete, flat.
+- **(b) Problem-led** — each mechanism introduced by the bug it kills, the way Act 3 does with
+  Bob. Costs coverage: some mechanisms have no incident attached and would be dropped or named
+  only.
+- **(c) One thread** — take a single order through the whole Scala stage, and let each mechanism
+  appear where that thread needs it. Strongest narrative, hardest to author, and it is the shape
+  Danielle's protocol story already wants.
+
+*What makes this the highest-cost decision:* it governs five slides, the act that has never fit
+any budget, and whether Danielle's close lands as a payoff or as an item.
+
+---
+
+**D-B · Act 1 — chronological or conceptual?**
+
+The six beats are currently ordered by date: Aristotle → Boole/Frege → Frege → Russell →
+Curry-Howard → Martin-Löf/Coquand.
+
+- **(a) Chronological** — current. The 2,400-year sweep is the point, and the rail reinforces it.
+  Risk: Russell's crisis interrupts the connectives→quantifiers→correspondence build.
+- **(b) Conceptual** — connectives, quantifiers, the correspondence, then the crisis as the
+  reason types exist at all, then what lies above. Cleaner build; loses the sweep the rail sells.
+
+Sub-questions that fall out of it: which Java mirror sits beside which beat, how much formalism
+each carries, and whether the progress rail is a per-slide component or one strip that persists.
+
+---
+
+**D-C · The three bridges — what does a transition assert?**
+
+`A3-ceiling` → Act 4, `A4-ceiling` → Act 5, and `A0-turn` → Act 1.
+
+- **(a) Ceiling-first** — current. State what the language *cannot* reach, then move up. Risk:
+  three consecutive "here is what is impossible" beats read as a complaint.
+- **(b) Capability-first** — state what becomes newly *possible*, and let the ceiling be implied.
+- **(c) Alternate** — ceiling at the Java boundary (where the audience lives and needs the limit
+  made concrete), capability at the Scala boundary (where they need a reason to keep climbing).
+
+*What makes this high-cost:* it decides whether the deck reads as one climb or as three talks
+stapled together, and it is currently one sentence per boundary.
+
+---
+
+**D-D · Demo narration — what is said, and does the fallback show?**
+
+Eight minutes across four slides, entirely unwritten and invisible to `make timing`.
+
+- What each demo says *before* the edit (setting up what the audience should watch for), *during*
+  (silence, or narration over typing), and *after* (reading the error aloud, or letting it sit).
+- Placement inside the act: immediately after the setup slide, or after the payoff?
+- **Does the captured fallback pane show by default, or only on failure?** Showing it always is
+  safer and costs nothing on the night; showing it only on failure keeps the live moment live.
+  This is a real trade and it is currently undecided.
+
+---
+
+---
+
+## Part 6b/D2 — decisions taken (MB, 17 Aug)
+
+**D-A — DECIDED: (c) one thread, falling back to (b) problem-led if it will not fit.**
+
+Take a single order through the whole Scala stage and let each mechanism appear where that
+thread needs it. If authoring proves too slow, drop to problem-led: each mechanism introduced by
+the bug it kills. Both beat the mechanism table, which is the feature tour this act has always
+been. Note the two are compatible — the thread *is* a sequence of problems — so starting on (c)
+and degrading to (b) costs nothing already written.
+
+**D-B — DECIDED: chronological stays. Two amendments.**
+
+*i. Leibniz earns a place, but not a slide.* The case for a beat: he is the first person to say
+that valid inference could be carried out **by a machine** — the *characteristica universalis*
+and the *calculus ratiocinator*, "let us calculate" — and mechanical checkability is precisely
+what makes this talk's thesis matter. A proof nobody checks is only a claim; the type checker is
+the machine Leibniz wanted. He also gives a free hook for this audience in binary encoding.
+
+The case against a beat: he produced no working system, the programme failed in his lifetime,
+and Act 1 is already 7:10 across six beats — a seventh costs ~1:10 for an idea that fits in a
+clause. **Resolution: Leibniz is named inside the Boole/Frege beat as the man who wanted the
+machine, and he appears on the progress rail.** That is a place, at a cost of about fifteen
+words rather than seventy seconds.
+
+*ii. Proof-calculi and mechanical checkability get integrated properly*, which is the thing MB
+identified as under-served. The fix is a redistribution across two existing beats rather than a
+new one:
+
+- **`A1-connectives`** now carries *logic becomes algebra, therefore mechanically manipulable* —
+  Boole's algebra is the first time inference becomes symbol-pushing a machine could do, and
+  Leibniz is named here as the one who wanted it.
+- **`A1-crisis`** now carries *what mechanical checking can and cannot promise* — consistency and
+  soundness as the requirements, Gödel as the proof that completeness is not available. This is
+  where proof-calculi belong, and it makes `A2-promises` a cash-out rather than a fresh topic.
+
+**D-B/iii — THE EQUIVOCATION TO AVOID (MB, and it is the sharpest point in this section).**
+
+The talk must never blur **the logic *in* the program** with **the logic *about* the program**.
+
+A Java developer who hears "you already write logic" will think of `if (a && b)` — boolean
+conditions and control flow. That is *not* what Curry-Howard is about, and if the audience
+settles on that reading, the whole primer lands as a triviality they already knew.
+
+The correct statement, in MB's formulation:
+
+> **A program is a construction; under Curry-Howard it *is* a proof. What we are proving is
+> expressed by its type — and that holds even in languages with no written types, where the
+> proposition is implicit and simply goes unchecked. The type also constrains how you may get
+> from one construction to the next.**
+
+So the three things must stay distinct and be *said* distinctly:
+
+| | |
+|---|---|
+| the **program** | the construction — the proof term |
+| the **type** | the proposition being proved |
+| the **checker** | the machine that verifies the construction proves the proposition |
+
+Every beat in Act 1 must be checkable against this table. `A1-connectives` is the one most at
+risk: a sealed interface declares the proposition `A ∨ B`, while the exhaustive match is the
+proof step that eliminates it — the slide must show both halves and name which is which, or it
+collapses into "sum types are nice".
+
+**D-C — NOT YET DECIDED. New leading candidate: (d) capability-led, motivated by residual failure.**
+
+MB: *"Leading with capabilities that are motivated from things that can still go wrong sounds
+like a good idea."* That is neither of the options as posed. Recorded as (d):
+
+> Do not open a bridge with what the language cannot do (three consecutive complaints), nor with
+> a new feature (a feature tour). Open with **what can still go wrong after everything the
+> previous act bought you**, then present the capability that removes it.
+
+This is the same organising principle as D-A(b) applied one level up, which is an argument in its
+favour: the deck would use one shape at act level and at boundary level. **Decide after Act 4 is
+built** — MB wants to see it in context, and Act 4's rework is what produces that context.
+
+**D-D — my judgement, to be revised after the first rehearsal.**
+
+- *Before the edit:* one sentence naming what to watch. "I'm going to delete the Medium case.
+  Watch what the compiler does." Nothing else — the audience cannot read code and listen at once.
+- *During:* silence. The typing is the beat; narrating over it splits attention.
+- *After:* read the error aloud **verbatim**, then one sentence connecting it to the rule the act
+  just established. Then undo, visibly.
+- *Placement:* immediately after its setup slide and **before** the payoff slide, so the payoff
+  lands on a fresh memory of the error rather than on a description of one.
+- *Fallback:* **on the next slide, not hidden on the same one.** A fallback that must be revealed
+  is a fallback you fumble under stress; a fallback on the following slide is recovered by the
+  forward key you are already pressing, and it never shows when the demo works. This also means
+  the captured output needs no reveal mechanism at all — it is just a slide.
+
+**Acceptance for step 7:** D-A, D-B and D-D are decided above. D-C is deliberately deferred to
+after Act 4 exists, with (d) as the working default. No further paragraph is owed before
+authoring begins.
+
+### The cut list — now contingency, not requirement
+
+At the measured rate the talk fits with 4:10 spare, so these are held in reserve for the
+Wednesday read-through rather than applied up front. Ordered by what costs the talk least:
+
+Named, in order, against the v1-measured baseline rather than the estimates:
+
+1. **`A3-gentzen` folded into `A3-stage3`** as an inline rule box — P2's fault was *distance*
+   between rule and error, and a rule on the same slide fixes that as well as a rule sixty
+   seconds earlier (−1:55)
+2. **`A3-ceiling` and `A4-ceiling` capped at 1:00 each** — cube reveal plus one sentence, not a
+   summary (−2:18)
+3. **`A5-mltt` capped at 2:00** — show `assessOrder` and `protocolFromSnapshot`, drop the third
+   example (−1:31)
+4. **`A6-close` capped at 1:00** — it is one paragraph (−1:24)
+5. **`A4-mechanisms` to 1:00**, effects aside to appendix A1 (−0:30)
+
+≈ −7:38 against measured. The existing demo-narration cuts then close the remainder without
+touching Demo 1 or Demo 4.
+
+---
+
 ### Appendix to Part 6b — authoring treatment (unchanged, still useful)
 
 Once a design is settled, this is how much scripting it needs:

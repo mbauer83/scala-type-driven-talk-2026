@@ -1,5 +1,20 @@
 VERBATIM · cap 1:05 · Act 1 beat 3 of 6 · rail: FREGE lit
 
+BEATS — delivery aid; the script is below
+
+- Frege's real invention was not the connectives — it was propositions with holes
+  in them.
+- Before: Socrates is mortal, Plato is mortal. Two facts, nothing joining them.
+- After: a property holds for every object, whatever it turns out to be.
+  › for all x, if x is medium-risk, then x needs 3DS
+- One statement covering every order that will ever exist, including tonight's.
+- Their code: a generic method is a claim about every type it will ever be
+  applied to.
+  › including types nobody has written yet, in codebases that do not exist
+- Land it: proved once, in one place, and the compiler holds you to it everywhere.
+
+VERBATIM
+
 "Frege's real invention was not the connectives. It was propositions with holes
 in them.
 

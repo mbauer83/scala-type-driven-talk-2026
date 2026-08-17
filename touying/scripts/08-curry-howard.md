@@ -1,5 +1,28 @@
 VERBATIM · cap 1:30 · Act 1 beat 5 of 6 · rail: CHURCH · CURRY-HOWARD lit
 
+BEATS — delivery aid; the script is below
+
+- Two more pieces and this closes.
+- Church and Turing, 1936, make computation formal. Church's typed lambda
+  calculus is the direct ancestor of the Function you wrote in Java 8.
+- 1969: Howard writes down what Curry had noticed. The three equations, left
+  column of the slide.
+  › proposition = type, proof = program, running = simplifying the proof
+- Lambek's third leg: the same structure as cartesian closed categories. Logic,
+  computation and algebra as three descriptions of one thing.
+- **The C13 block — deliver this one exactly:**
+  › your program is the construction; its type says what you constructed a proof
+    of; the compiler checks the one against the other
+  › true whether or not you write the types down — untyped just means unchecked
+- The caveat, as a map and not an apology:
+  › exact for total, pure calculi — and Java is neither
+  › null inhabits every reference type, an exception escapes any signature, a
+    loop that never returns inhabits anything at all
+- Pivot into the rest of the talk: everything we climb buys a correspondence a
+  little closer to exact.
+
+VERBATIM
+
 "Two more pieces and this closes.
 
 Church and Turing, both in nineteen thirty-six, made computation itself formal,

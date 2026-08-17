@@ -1,149 +1,84 @@
-// Clock: ~9:35–10:05 (inserted between convergence2 and mltt)
-// §1.1: Curry-Howard gets its own slide — the conceptual fulcrum of the whole talk.
+// A1-curry-howard · cap 1:30 · Act 1 beat 5 of 6 · the fulcrum
+//
+// v1 paired the three equations with a ∨E ≅ exhaustive-match panel. That panel
+// is gone: Gentzen's rule now has its own slide in Act 3 (`A3-gentzen`), sixty
+// seconds before the compile error it explains, so showing it here duplicated
+// it AND overflowed the slide once the C13 block and the caveat were added.
+//
+// What replaces it is the C13 block — program / type / checker named as three
+// different things. See Part 8/C13: this is the one place in the talk where the
+// equivocation is closed explicitly.
 #import "../theme.typ": *
 #import "../components.typ": *
 
-// ── Local nd-rule helper (pure Typst — no cetz) ─────────────────────────────
-// Same layout as diagrams/gentzen-or.typ and diagrams/mltt.typ.
-
-#let _nd-rule(
-  premises,
-  conclusion,
-  label: none,
-  premise-gap: 18pt,
-  bar-pad:     6pt,
-  label-gap:   8pt,
-  row-gap:     4pt,
-) = context {
-  let prem-row = stack(dir: ltr, spacing: premise-gap, ..premises)
-  let prem-size = measure(prem-row)
-  let concl-size = measure(conclusion)
-  let bar-width = calc.max(prem-size.width, concl-size.width) + 2 * bar-pad
-  if label == none {
-    align(center)[
-      #stack(dir: ttb, spacing: row-gap,
-        prem-row,
-        line(length: bar-width, stroke: 0.6pt + pal.fg),
-        conclusion,
-      )
-    ]
-  } else {
-    align(center)[
-      #grid(
-        columns: (bar-width, auto),
-        column-gutter: label-gap,
-        row-gutter: row-gap,
-        align: (center + horizon, left + horizon),
-        prem-row,   [],
-        line(length: bar-width, stroke: 0.6pt + pal.fg),  text(fill: pal.accent, label),
-        conclusion, [],
-      )
-    ]
-  }
-}
-
-// ── The canvas ───────────────────────────────────────────────────────────────
-
-#let ch-canvas = box[
-  #grid(
-    columns: (1.1fr, 1fr),
-    gutter: sz(40pt),
-
-    // ── Left: the three equations ───────────────────────────────────────────
-    [
-      // Three-row equation table
-      #grid(
-        columns: (1fr, sz(32pt), 1fr),
-        row-gutter: sz(22pt),
-        align: (right + horizon, center + horizon, left + horizon),
-
-        text(size: sz(40pt), weight: 400, fill: pal.fg)[Proposition],
-        text(size: sz(36pt), weight: 300, fill: pal.fg-dim)[=],
-        text(size: sz(40pt), weight: 600, fill: pal.accent)[Type],
-
-        text(size: sz(40pt), weight: 400, fill: pal.fg)[Proof],
-        text(size: sz(36pt), weight: 300, fill: pal.fg-dim)[=],
-        text(size: sz(40pt), weight: 600, fill: pal.accent)[Program],
-
-        text(size: sz(40pt), weight: 400, fill: pal.fg)[Simplification],
-        text(size: sz(36pt), weight: 300, fill: pal.fg-dim)[=],
-        text(size: sz(40pt), weight: 600, fill: pal.accent)[Evaluation],
-      )
-
-      #v(sz(32pt))
-      #line(length: 100%, stroke: 0.5pt + pal.rule-strong)
-      #v(sz(20pt))
-
-      #set text(size: sz(28pt), fill: pal.fg-dim)
-      #set par(leading: 0.5em)
-      The reason exhaustive matching IS a proof obligation, \
-      and the reason the type checker IS a theorem prover \
-      within the calculus it defines. \
-      #v(sz(12pt))
-      #text(size: sz(24pt), fill: pal.fg-faint)[
-        (β-reduction IS proof reduction — running a program
-        simplifies the proof it encodes.)
-      ]
-    ],
-
-    // ── Right: ∨E ≅ exhaustive match ────────────────────────────────────────
-    [
-      #set text(size: sz(22pt))
-
-      #text(weight: "bold", size: sz(22pt), fill: pal.fg-dim)[Gentzen ∨E]
-      #v(sz(10pt))
-
-      #_nd-rule(
-        (
-          text[A ∨ B],
-          text[\[A\] → C],
-          text[\[B\] → C],
-        ),
-        text[C],
-        label: text[(∨E)],
-        premise-gap: sz(20pt),
-      )
-
-      #v(sz(20pt))
-      #align(center)[
-        #text(size: sz(44pt), weight: 300, fill: pal.accent)[≅]
-      ]
-      #v(sz(16pt))
-
-      #text(weight: "bold", size: sz(22pt), fill: pal.fg-dim)[Exhaustive match]
-      #v(sz(10pt))
-
-      #block(
-        fill: pal.bg-warm,
-        radius: 3pt,
-        inset: (x: sz(16pt), y: sz(12pt)),
-        width: 100%,
-      )[
-        #set text(font: mono-font, size: sz(20pt), fill: pal.fg)
-        #set par(leading: 0.55em)
-        ```scala
-        risk match {
-          case Low    l => path(l)  // [A]→C
-          case Medium m => path(m)  // [B]→C
-          case High   h => path(h)  // [C]→C
-          // omit any case → compile error
-        }
-        ```
-      ]
-    ],
-  )
-]
-
 #theory-slide(
-  [Curry-Howard Correspondence · 1969],
-  ch-canvas,
-  footer: [Every stage from 3 onward is Curry-Howard made practical: the type is the proposition, the program that type-checks is the proof, and the compile error is the proof assistant rejecting an incomplete argument.],
+  eyebrow: eyebrow([Church/Turing 1936 · Curry-Howard 1969 · Lambek], style: "accent"),
+  [Proposition = Type.  Proof = Program.],
+  [
+    #v(sz(6pt))
+    #grid(
+      columns: (sz(560pt), 1fr),
+      column-gutter: sz(52pt),
+      align: (left + top, left + top),
+
+      // ── left: the correspondence itself
+      [
+        #grid(
+          columns: (sz(230pt), sz(40pt), 1fr),
+          row-gutter: sz(16pt),
+          align: (right + horizon, center + horizon, left + horizon),
+          text(size: sz(34pt), fill: pal.fg)[Proposition],
+          text(size: sz(30pt), fill: pal.fg-dim)[=],
+          text(size: sz(34pt), weight: 600, fill: pal.accent)[Type],
+          text(size: sz(34pt), fill: pal.fg)[Proof],
+          text(size: sz(30pt), fill: pal.fg-dim)[=],
+          text(size: sz(34pt), weight: 600, fill: pal.accent)[Program],
+          text(size: sz(34pt), fill: pal.fg)[Running],
+          text(size: sz(30pt), fill: pal.fg-dim)[=],
+          text(size: sz(34pt), weight: 600, fill: pal.accent)[Simplification],
+        )
+        #v(sz(22pt))
+        #line(length: 100%, stroke: 0.5pt + pal.rule-strong)
+        #v(sz(16pt))
+        #set text(size: sz(24pt), fill: pal.fg-dim)
+        #set par(leading: 0.45em)
+        Lambek adds a third leg — cartesian closed categories. Logic, computation
+        and algebra as three descriptions of one structure.
+      ],
+
+      // ── right: C13, the distinction the whole primer rests on
+      block(fill: pal.bg-warm, inset: (x: sz(26pt), y: sz(22pt)), radius: sz(4pt))[
+        #grid(
+          columns: (sz(180pt), 1fr),
+          row-gutter: sz(12pt),
+          column-gutter: sz(18pt),
+          align: (right + top, left + top),
+          text(size: sz(25pt), weight: 600, fill: pal.accent)[your program],
+          text(size: sz(25pt), fill: pal.fg)[is the construction],
+          text(size: sz(25pt), weight: 600, fill: pal.accent)[its type],
+          text(size: sz(25pt), fill: pal.fg)[says what you constructed a proof of],
+          text(size: sz(25pt), weight: 600, fill: pal.accent)[the compiler],
+          text(size: sz(25pt), fill: pal.fg)[checks the one against the other],
+        )
+        #v(sz(14pt))
+        #text(size: sz(22pt), fill: pal.fg-dim)[
+          True whether or not you write the types down. Untyped only means unchecked.
+        ]
+      ],
+    )
+    #v(sz(28pt))
+    #callout(
+      [The honest caveat — and the reason this talk has stages],
+      [Exact for *total, pure* calculi, and Java is neither: `null` inhabits every reference
+       type, an exception escapes any signature, a loop that never returns inhabits anything at
+       all. So a Java method `A → B` does not prove `A implies B` — and everything we climb from
+       here buys a correspondence a little closer to exact.],
+      style: "bad",
+    )
+  ],
+  footer: act1-rail(lit: ("Church", "Curry-Howard")),
 )
 
 #speaker-note[
-"Howard, in 1969, showed that these two worlds — formal logic and programming — are the same world, described in different notation. A logical proposition corresponds to a type. A proof of that proposition corresponds to a program of that type. Running the program is simplifying the proof: when (lambda x. x+1)(5) reduces to 6, one modus ponens step was applied and discharged. Beta-reduction IS proof reduction.
-
-This is why exhaustive matching is not just a convenience feature. It is enforcing Gentzen's elimination rule for disjunction — the rule we just saw on the previous slide. The compiler is, within the calculus it defines, acting as a theorem prover. It accepts programs that correspond to complete proofs. It rejects programs that correspond to incomplete arguments.
-
-Every stage in the rest of the talk is this idea made practical. The type is the specification. The program that type-checks is the proof that the specification is met. The compile error tells you exactly which proof obligation is unsatisfied."
+#read("../scripts/08-curry-howard.md")
 ]

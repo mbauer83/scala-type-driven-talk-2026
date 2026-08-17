@@ -1,5 +1,24 @@
 VERBATIM · cap 1:05 · Act 1 beat 4 of 6 · rail: RUSSELL · HILBERT · GÖDEL lit
 
+BEATS — delivery aid; the script is below
+
+- 1901: Russell writes to Frege and breaks his life's work with one question.
+  › the set of all sets that do not contain themselves — does it contain itself?
+- Either answer contradicts. The contradiction lives in any system allowing
+  unrestricted self-reference.
+- Russell's own repair, and the reason we are here: stratify it. A predicate
+  cannot apply to things at its own level.
+  › he called the levels types — that is where the word comes from
+- Every sealed interface in this room is downstream of a man trying to stop
+  mathematics from eating itself.
+- Hilbert's three requirements, said as a list, not explained:
+  › consistency, soundness, completeness
+- Gödel 1931: you cannot have all three. Everyone gave up completeness.
+- Hand off: that is the deal your compiler takes every morning. (A2-promises
+  cashes it out; do not do that work here.)
+
+VERBATIM
+
 "In nineteen-oh-one Russell wrote Frege a letter and broke his life's work with
 one question. Consider the set of all sets that do not contain themselves. Does
 it contain itself? Either answer contradicts the other, and the contradiction

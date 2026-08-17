@@ -1,5 +1,25 @@
 VERBATIM · cap 1:05 · Act 1 beat 6 of 6 · rail: MARTIN-LÖF · COQUAND lit, rail complete
 
+BEATS — delivery aid; the script is below
+
+- One last step up, quickly, because all of it turns up running later.
+- Martin-Löf 1972: a type may depend on a value, so the result type can be
+  computed from what you passed in.
+- Coquand 1988: that plus polymorphism, in a small kernel — the one Rocq, Lean,
+  Agda and Idris are built on.
+- Four notations, uncovered together, and say you are not going to teach them.
+  › a type indexed by a runtime value
+  › a value paired with a proof about that specific value
+  › a binding that must be used exactly once
+  › a whole conversation between two services, as one type
+- The contract with the room:
+  › you will not walk out fluent, and that is not the point — you will walk out
+    knowing what each one buys
+- Last line is the cube glimpse. One line, no drawing.
+  › there is a map of this territory, and we will fill it in as we go
+
+VERBATIM
+
 "One last step up, quickly, because you will see all of it running later.
 
 Martin-Löf, nineteen seventy-two, allowed a type to depend on a value — so the

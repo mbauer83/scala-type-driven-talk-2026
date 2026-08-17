@@ -166,7 +166,7 @@ JARGON = [
 ]
 
 
-def check(text, path):
+def check(text, path, rhythm=True):
     out = []
     if _QUOTE_PARITY and _QUOTE_PARITY[-1]:
         out.append(("error", "unbalanced-quotes", "odd number of \" in this note",
@@ -181,6 +181,19 @@ def check(text, path):
         for m in re.finditer(pat, low, flags=re.I | re.M):
             out.append(("error", "negative-contrast", text[m.start():m.end()],
                         f"'{name}' as a sentence shape. State the thing directly."))
+
+    # Rhythm rules need continuous prose. A bullets-plus-fragments note is a set
+    # of disconnected phrases, where "four short sentences in a row" means
+    # nothing — so those rules are skipped and the claim rules still apply.
+    if not rhythm:
+        for pat, why in OVERCLAIM_ERRORS:
+            for m in re.finditer(pat, low):
+                out.append(("error", "overclaim", text[m.start():m.end()], why))
+        for term in JARGON:
+            for m in re.finditer(rf"\b{re.escape(term)}\b", low):
+                out.append(("warn", "jargon", text[m.start():m.end()],
+                            "Gloss it, or use a term the talk established."))
+        return out
 
     # 2. tricolon — three or more consecutive short sentences used for rhythm
     run = 0
@@ -313,11 +326,13 @@ def lint_file(path):
     if path.endswith(".md"):
         # Script files are the note body; wrap so one extractor serves both.
         src = "#speaker-note[" + src + "]"
+    rhythm = "EST-WORDS:" not in src or "WORKED VERBATIM" in src
     text = spoken_text(src, path)
     unbalanced = bool(_QUOTE_PARITY and _QUOTE_PARITY[-1])
     if len(words(text)) < 15 and not unbalanced:
         return []
-    return [(sev, rid, exc, why, path) for sev, rid, exc, why in check(text, path)]
+    return [(sev, rid, exc, why, path)
+            for sev, rid, exc, why in check(text, path, rhythm=rhythm)]
 
 
 def report(findings):

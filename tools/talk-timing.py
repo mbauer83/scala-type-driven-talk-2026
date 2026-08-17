@@ -116,9 +116,16 @@ def spoken_words(stem):
     note = re.sub(r"^\s*(→|//).*$", "", note, flags=re.M)
     note = re.sub(r"[#*_\\`\[\]]", " ", note)
 
-    # Convention: what you actually say is inside double quotes; everything
-    # else in the note is delivery guidance and is not counted. Slides whose
-    # notes predate the convention fall back to counting the whole note.
+    # A note that is bullets-plus-fragments has no full script to count, so it
+    # declares its own estimate:  EST-WORDS: 210
+    # An explicit estimate always wins — it is the author saying how much they
+    # will actually say, which beats any inference from quoted fragments.
+    est = re.search(r"^EST-WORDS:\s*(\d+)", note, flags=re.M)
+    if est:
+        return int(est.group(1))
+
+    # Otherwise: what you actually say is inside double quotes; everything else
+    # in the note is delivery guidance and is not counted.
     quoted = re.findall(r'"([^"]*)"', note)
     spoken = " ".join(quoted)
     if len(spoken.split()) >= 20:
