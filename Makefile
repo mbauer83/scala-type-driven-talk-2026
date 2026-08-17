@@ -40,3 +40,10 @@ watch:
 clean:
 	rm -f talk.pdf talk-with-notes.pdf talk.pdfpc
 	rm -f slides/svg/*.svg slides/png/*.png
+
+# talk-timing: measure speaker notes as speaking time against tools/budget.tsv.
+# Calibrate WPM against a real read-through: read Act 0 aloud, time it, divide.
+WPM ?= 120
+.PHONY: timing
+timing:
+	python3 tools/talk-timing.py --wpm $(WPM)

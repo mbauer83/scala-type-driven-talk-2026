@@ -1,0 +1,50 @@
+# Per-slide speaking budget for talk v2.
+#
+# slide-stem<TAB>m:ss<TAB>kind        kind ∈ prose | demo
+#
+# Target is 41:00 planned against a 45:00 slot — four minutes of real slack
+# before touching the three borrowable from Q&A. Caps are converted to word
+# counts by tools/talk-timing.py at the configured speaking rate; demo slides
+# are scored at a lower rate because you talk more slowly around typing.
+#
+# Only slides currently in deck.typ are listed. Rows are added as v2 slides
+# are authored.
+
+# ── Act 0 · Open — 3:45 · VERBATIM SCRIPT (the part that gets stumbled)
+01-title	0:30	prose
+02-alice	2:15	prose
+06-pattern	1:00	prose
+
+# ── Act 1 · History braided into the primer — 8:30
+07-toolkit	1:15	prose
+08-crisis	1:30	prose
+curry-howard	1:45	prose
+12-mltt	1:15	prose
+
+# ── Act 2 · Ground floor — 2:45
+15-test-spine	0:30	prose
+
+# ── Act 3 · The Java ladder — 12:40
+17-stage1	1:15	prose
+10-gentzen-or	1:15	prose
+19-stage3	2:00	prose
+20-stage3-payoff	0:40	prose
+22-stage4	1:45	prose
+24-java-ceiling	1:30	prose
+
+# ── Act 4 · Scala 3 — 6:30  (v1's fattest act: 10:36 measured)
+25-stage5	1:15	prose
+26-session-types	2:00	prose
+stage5-mechanisms	1:30	prose
+27-stage5-payoff	1:30	prose
+
+# ── Act 5 · Idris 2 — 5:15
+28-stage6-bridge	1:45	prose
+29-mltt-running	1:45	prose
+30-stage6-payoff	1:00	prose
+
+# ── Act 6 · Close — 3:45
+31-the-climb	0:30	prose
+32-agentic	1:30	prose
+where-to-start	0:45	prose
+34-close	1:00	prose

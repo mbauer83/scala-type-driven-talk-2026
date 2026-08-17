@@ -37,9 +37,6 @@
 
 #include "slides/01-title.typ"
 #include "slides/02-alice.typ"
-#include "slides/03-bob.typ"
-#include "slides/04-charlie.typ"
-#include "slides/05-danielle.typ"
 #include "slides/06-pattern.typ"
 #include "slides/07-toolkit.typ"
 #include "slides/08-crisis.typ"

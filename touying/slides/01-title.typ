@@ -10,7 +10,13 @@
 )
 
 #speaker-note[
-Personal introduction — 30 seconds. Suggested delivery:
+VERBATIM · cap 0:30. Get on and off this slide fast — the incidents are the hook,
+not the biography.
 
-"Hi! My name is Michael Bauer. I've been working as a software and solution architect for the last ten years, and I'd like to show you something that kept coming back to me in that work: specific kinds of production incidents that would have been possible to prevent not just by writing more tests, but by encoding business rules in the type-system to make violations impossible. We'll look at four examples, then trace what it takes to get there, step by step, with tools that already exist. Thanks to Ari and the organisers for the invitation."
+"Hi — my name is Michael Bauer. I've worked as a software and solution architect
+for about ten years. Tonight I want to show you a specific kind of production
+bug: the kind where more expressive types would have made it impossible to write
+in the first place. Not easier to test for. Impossible.
+
+Thanks to the organisers for having me."
 ]
