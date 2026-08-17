@@ -5,11 +5,24 @@ Each file here is the verbatim script for one slide. The slide pulls it in with
 truth**: the PDF, the pdfpc presenter notes, the word counts and the prose
 linter all read the same file you edit. There is no second copy to keep in sync.
 
-| script | slide |
-|---|---|
-| `01-title.md` | `slides/01-title.typ` |
-| `02-incidents.md` | `slides/02-alice.typ` |
-| `03-the-turn.md` | `slides/06-pattern.typ` |
+| script | slide | id |
+|---|---|---|
+| `01-title.md` | `slides/01-title.typ` | `A0-title` |
+| `02-incidents.md` | `slides/02-alice.typ` | `A0-incidents` |
+| `03-the-turn.md` | `slides/06-pattern.typ` | `A0-turn` |
+| `04-aristotle.md` | `slides/07-toolkit.typ` | `A1-aristotle` |
+| `05-connectives.md` | `slides/a1-connectives.typ` | `A1-connectives` |
+| `06-quantifiers.md` | `slides/a1-quantifiers.typ` | `A1-quantifiers` |
+| `07-crisis.md` | `slides/08-crisis.typ` | `A1-crisis` |
+| `08-curry-howard.md` | `slides/curry-howard.typ` | `A1-curry-howard` |
+| `09-above.md` | `slides/a1-above.typ` | `A1-above` |
+| `10-values.md` | `slides/a2-values.typ` | `A2-values` |
+| `11-promises.md` | `slides/a2-promises.typ` | `A2-promises` |
+
+The file stems and the slide stems do not match, and that is history rather
+than design: several v2 slides reuse a v1 file. **The id column is the name to
+use in conversation and in the plan** (Part 8/C12) — file names are an
+implementation detail that has already drifted twice.
 
 ## The one formatting rule
 

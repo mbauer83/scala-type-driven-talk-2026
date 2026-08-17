@@ -31,20 +31,25 @@
 02-alice	2:15	prose
 06-pattern	1:35	prose
 
-# ── Act 1 · Primer — 7:10 · NOT AUTHORED ───────────────────────────────────
-# Integration UNSETTLED x highest downstream cost. Cut #5 merges the
-# connectives and quantifiers slides if the read-through measures long.
-07-toolkit	1:05	stub
-a1-connectives	1:20	stub
-a1-quantifiers	1:05	stub
-08-crisis	1:05	stub
-curry-howard	1:30	stub
-a1-above	1:05	stub
+# ── Act 1 · Primer — 7:10 · AUTHORED (Part 10 corrections applied) ─────────
+# These were `stub` rows until the act was written, and stayed `stub` after it
+# was — so `make timing` printed the planned cap and hid the real script. They
+# are `prose` now: the act measures long against its caps and the tool has to
+# say so, which is the whole point of C10. Cut #5 (merge connectives and
+# quantifiers) is the reserve if the read-through confirms it.
+07-toolkit	1:05	prose
+a1-connectives	1:20	prose
+a1-quantifiers	1:05	prose
+08-crisis	1:05	prose
+curry-howard	1:30	prose
+a1-above	1:05	prose
 
-# ── Act 2 · Ground floor — 2:20 · 1 of 3 exists ────────────────────────────
+# ── Act 2 · Ground floor — 2:20 · all three exist ──────────────────────────
+# a2-values and a2-promises are cues + a scripted landing line, so they carry
+# an EST-WORDS declaration rather than a countable script (Part 6b/T).
 15-test-spine	0:25	prose
-a2-values	0:50	stub
-a2-promises	1:05	stub
+a2-values	0:50	prose
+a2-promises	1:05	prose
 
 # ── Act 3 · Java ladder — 13:10 ────────────────────────────────────────────
 17-stage1	1:05	prose
