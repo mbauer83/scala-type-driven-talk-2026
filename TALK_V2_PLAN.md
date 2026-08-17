@@ -242,6 +242,23 @@ That is, to me, the most beautiful fact in computer science."* Then land it oper
 The Lambek claim is precise only for STLC ↔ intuitionistic propositional logic ↔ CCCs; the
 speaker note must carry that caveat (see Part 3's accuracy items).
 
+**S8 must also discharge the promise slide 1 makes.** Slide 1 now claims that writing a
+program which type-checks is, *in a precise sense*, the same act as constructing a proof.
+That phrase points at rigour rather than hedging, so S8 has to say where the rigour ends:
+
+> **The correspondence is exact for total, pure calculi. Java is neither.** `null` inhabits
+> every reference type, unchecked exceptions escape any signature, and non-termination
+> inhabits anything at all — so a Java method `A → B` does *not* prove `A implies B`, and
+> Java's type system is not a sound logic.
+
+This is a gift, not an embarrassment: it is the reason the ladder climbs. Each stage buys a
+correspondence closer to exact — Stage 3 closes the disjunction, Stage 4 the lifecycle,
+Stage 5 the predicate and the protocol, Stage 6 the runtime-to-type bridge and linearity —
+and Idris's totality checker is what finally makes "well-typed means proved" literal.
+Delivered this way, the caveat converts slide 1's promise into the talk's spine rather than
+undercutting it. Delivered badly, someone in the room supplies `return null;` and the thesis
+looks naive (see Part 8/C2).
+
 **S9 — what lies above, briefly uncovered.** Martin-Löf 1972 and Coquand 1988 — the kernel behind
 Lean, Rocq, Agda and Idris. Four one-liners, deliberately *not* explained in depth:
 

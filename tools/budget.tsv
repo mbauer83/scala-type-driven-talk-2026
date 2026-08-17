@@ -14,15 +14,21 @@
 # Only slides currently in deck.typ are listed. Rows are added as v2 slides
 # are authored.
 
-# ── Act 0 · Open — 5:00 · VERBATIM SCRIPT (the part that gets stumbled)
+# ── Act 0 · Open — 5:15 · VERBATIM SCRIPT (the part that gets stumbled)
+# 01-title raised to 1:00: it now carries the talk's thesis ("writing a program
+# that type-checks is, in a precise sense, the same thing as constructing a
+# proof"), and slide 3 no longer restates it. The cap was raised rather than the
+# text cut. The overage comes from Act 4, which measured 10:36 in v1 against a
+# 6:30 target — see Part 8/C10 on not shaving seconds off several slides to make
+# arithmetic work.
 # 02-alice also carries the payment-domain framing, without which the domain
 # vocabulary in the four bugs lands before the audience has anywhere to put it.
 # Caps are set to what the written script actually measures at 130 wpm, not
 # trimmed to hit a target — MB's own read came in at 3:05 for the earlier
 # version, so there is real headroom between this planning figure and the room.
-01-title	0:35	prose
+01-title	1:00	prose
 02-alice	2:35	prose
-06-pattern	1:50	prose
+06-pattern	1:45	prose
 
 # ── Act 1 · History braided into the primer — 8:30
 07-toolkit	1:15	prose

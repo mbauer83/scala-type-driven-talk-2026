@@ -6,24 +6,33 @@ have found Alice's in a day. Each of those tests, though, is a case somebody has
 think of, write down, and keep correct, everywhere the rule applies.
 
 Where the same rule can be encoded in a type at a reasonable price, the compiler
-applies it at every call site, and nobody has to remember. What a language lets you
-say in the first place is a much older question than programming.
+applies it at every call site, and nobody has to remember. How we can tell whether
+something is valid and how we can say what that means 
+- those questions are much older than programming.
 
 The history of what we are doing when we specify programs and types stretches back
 about two and a half thousand years, across philosophy, logic, mathematics, and
-computer science. That is the thread I want to follow tonight, because a good part
-of what everyone in this room does already sits at the end of it.
+computer science. That is the thread I want to follow tonight.
 
 When you write a sealed interface and the compiler makes you handle every case, you
 are applying a rule that Gerhard Gentzen wrote down in 1935. When you write a
-generic method, you are making a claim about every possible type. That is a
-universally quantified statement.
+generic method, you are stating that you can do something for every type - present
+and future. That is a universally quantified statement.
 
-I want to give you the vocabulary for that. Once you can see the structure, you can
-encode a great deal more of what your system actually requires, and have it checked
-for you — and for the agents now writing code next to you."
+Once you can see the structure and the mechanisms, you can encode a great deal more 
+of what your system actually requires, and have it checked for you 
+— and for the agents now writing code next to you."
 
 NOTES ON THE WORDING
+- The hedged restatement — because-a-good-part-of-what-everyone-in-this-room-does-
+  already-sits-at-the-end-of-it — is deliberately GONE. Slide 1 now makes that
+  claim, and harder. What follows here — Gentzen, universal quantification — is the
+  evidence for it, and evidence lands better without a restated thesis in front of
+  it. Do not put it back without also weakening slide 1.
+- "Stating that you can do something for every type" fuses the claim and the
+  capability into one clause instead of offering the audience a disjunction to
+  resolve. It is also the proposition/program pairing, four slides before
+  Curry-Howard names it.
 - Sentence two is yours, lightly restructured so the verb arrives sooner: the
   original subject ran fourteen words before the verb. Your version reads fine
   on paper and is harder to say. Revert if you prefer it.

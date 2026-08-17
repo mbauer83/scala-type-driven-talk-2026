@@ -1,22 +1,21 @@
 VERBATIM · budget 2:15 · 268 words. Checked facts follow the script.
 
-"Everything tonight runs on one scenario, and it is one every person here has used,
-even if you have not built one: ordering something, paying for it, and sometimes
-getting your money back. An order is placed, its risk is assessed, the payment is
-authorized, and later captured — sometimes refunded afterwards. All four of these
-bugs sit somewhere on that spine.
+"Everything tonight will be framed in terms of one scenario, and it is one every 
+person here has used, even if you haven't built it: order processing with payment. 
+An order is placed, its risk is assessed, the payment is authorized, and later captured 
+or refunded. All four of these bugs sit somewhere in that domain.
 
-Alice's team owns the job that reconciles the day's order lines. The amounts arrive
-from a CSV export as strings, nobody converts them, and JavaScript's plus, given two
-strings, concatenates. It survived for months because almost every fixture used a
-single-line order, and reduce over one element just hands that element back. The
-first two-line order in the test data produced a daily total with twelve digits.
+Alice's team owns the job that reconciles the day's order lines, and the amounts
+arrive from a CSV export - as strings, with nothing converting them. JavaScript's
+plus, given two strings, concatenates. It survived for months because almost every fixture used a
+single-line order - and so summing wasn't actually tested. The
+first two-line order in the test data produced a daily total with twelve digits instead of two.
 
 Bob's team added a medium risk tier to their fraud engine. The branch that handled
 risk had been written when there were only two tiers, and it said: if risk is not
-high, take the fast path. Medium satisfies that condition. So medium-risk orders
-took the fast path too and skipped 3-D Secure, which meant the liability for those
-chargebacks stayed with the merchant instead of moving to the issuer.
+high, take the fast path. Well - medium isn't high... so off to the fast path we go.
+... skipping 3-D Secure, which means the liability for those chargebacks stays with
+the merchant instead of moving to the issuer.
 
 Charlie owns the refund approval workflow. A refund moves from requested, through
 review, to approved, and only then out to the payment rail. There is an operator
