@@ -1,9 +1,9 @@
 VERBATIM · budget 1:20 · 168 words. This minute turns four war stories into the
 thesis, and it is the second place you are most likely to stumble. Over-rehearse it.
 
-"A test could have caught every one of those. A fixture with two order lines would
-have found Alice's in a day. Each of those tests, though, is a case somebody has to
-think of, write down, and keep correct, everywhere the rule applies.
+"A test could have caught every one of those - Alice's was, eventually. Each of those
+tests, though, is a case somebody has to think of, write down, and keep correct,
+everywhere the rule applies.
 
 Where the same rule can be encoded in a type at a reasonable price, the compiler
 applies it at every call site, and nobody has to remember. How we can tell whether
@@ -24,6 +24,11 @@ of what your system actually requires, and have it checked for you
 — and for the agents now writing code next to you."
 
 NOTES ON THE WORDING
+- The opening no longer explains how a test would have caught Alice's. Slide 2
+  already showed exactly that (the first two-line order in the test data), so
+  re-deriving it here is redundant — and "would have found it in a day" was wrong
+  anyway: once written, that test fails immediately. "Alice's was, eventually"
+  references the established fact and carries the months in one word.
 - The hedged restatement — because-a-good-part-of-what-everyone-in-this-room-does-
   already-sits-at-the-end-of-it — is deliberately GONE. Slide 1 now makes that
   claim, and harder. What follows here — Gentzen, universal quantification — is the

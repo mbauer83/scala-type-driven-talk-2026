@@ -10,16 +10,20 @@ against the per-slide word budget in tools/budget.tsv.
 Why words and not minutes: a time estimate made by someone who is not speaking
 is a guess. A word count is a fact, and words / rate = minutes is arithmetic.
 
-CALIBRATION (measured 2026-08-17, MB reading Act 0 aloud from the deck):
-    01-title    68 words /  20 s = 204 wpm
-    02-alice   292 words / 100 s = 175 wpm
-    06-pattern 187 words /  65 s = 173 wpm
-    combined   547 words / 185 s = 177 wpm  (including slide navigation)
+CALIBRATION — two independent read-throughs of Act 0 by MB, 2026-08-17:
 
-The default is 130, not 177. A quiet read-through is the fastest you will ever
+    read 1   547 words / 185 s = 177 wpm
+    read 2   700 words / 227 s = 185 wpm   (01 206, 02 170, 03 193)
+
+MB reads at 177-185 wpm, and the instrument is stable across sessions. The
+uncertainty that matters is therefore NOT his reading rate — it is the live
+delivery discount, which nobody can measure in advance.
+
+The default is 130, not 181. A quiet read-through is the fastest you will ever
 deliver this; live you are nervous, projecting to the back of a room, breathing,
-and pausing for the audience. 130 is the measured rate discounted by ~25%, which
-is the usual gap. Sweep it if you want the range: --wpm 150 is the optimistic
+and pausing for the audience. 130 is the measured rate discounted by ~28%, which
+is at the cautious end of the usual gap — deliberately, because overrunning is
+unrecoverable and finishing early is not. Sweep it if you want the range: --wpm 150 is the optimistic
 case, --wpm 115 the bad-night case.
 
     make timing                 # default 120 wpm

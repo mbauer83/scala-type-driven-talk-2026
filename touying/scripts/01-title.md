@@ -3,7 +3,7 @@ VERBATIM · budget 1:00 · 122 words.
 "Good evening. My name is Michael Bauer, and I've spent the last dozen or so years working
 as a software and solution architect. Tonight I would like to start with four bugs.
 Programmers have made these kinds of mistakes for as long as there has been software, and
-I've certainly made my share. We have also been given steadily better tools to prevent them
+I've certainly been one of them. We have also been given steadily better tools to prevent such bugs
 - and following that thread leads somewhere a great deal older than any of us. By the end
 I think you'll see that writing a program that type-checks is, in a precise sense, the same
 thing as constructing a proof in formal logic, and that you've been doing it all along.
