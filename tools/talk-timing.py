@@ -9,8 +9,18 @@ against the per-slide word budget in tools/budget.tsv.
 
 Why words and not minutes: a time estimate made by someone who is not speaking
 is a guess. A word count is a fact, and words / rate = minutes is arithmetic.
-Calibrate `--wpm` against your own measured reading rate — read Act 0 aloud,
-time it, divide.
+
+CALIBRATION (measured 2026-08-17, MB reading Act 0 aloud from the deck):
+    01-title    68 words /  20 s = 204 wpm
+    02-alice   292 words / 100 s = 175 wpm
+    06-pattern 187 words /  65 s = 173 wpm
+    combined   547 words / 185 s = 177 wpm  (including slide navigation)
+
+The default is 130, not 177. A quiet read-through is the fastest you will ever
+deliver this; live you are nervous, projecting to the back of a room, breathing,
+and pausing for the audience. 130 is the measured rate discounted by ~25%, which
+is the usual gap. Sweep it if you want the range: --wpm 150 is the optimistic
+case, --wpm 115 the bad-night case.
 
     make timing                 # default 120 wpm
     make timing WPM=95          # after calibrating against a real read-through
@@ -104,8 +114,8 @@ def fmt(seconds):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--wpm", type=float, default=120.0,
-                    help="your measured speaking rate (default 120)")
+    ap.add_argument("--wpm", type=float, default=130.0,
+                    help="planning speaking rate (default 130 — see note above)")
     ap.add_argument("--slot", type=float, default=45.0, help="slot in minutes")
     ap.add_argument("--verbose", action="store_true",
                     help="also list appendix slides")

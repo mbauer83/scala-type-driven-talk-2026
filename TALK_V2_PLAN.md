@@ -270,6 +270,29 @@ deliberately light:
 - And the honest flip side: what you erase, you cannot ask about later —
   `x instanceof List<String>` doesn't compile for a reason.
 
+**Two points that must land here, and must not be conflated** (raised in review):
+
+1. **The value of types for this talk is mostly independent of erasure.** They are a
+   *design-time and compile-time* tool. Most of the payoff arrives before the program
+   runs — while modelling the domain, while the checker rejects a bad call, while a
+   reader infers the contract from a signature. Whether the type survives to runtime
+   is largely an implementation question. Do not let the argument rest on erasure.
+2. **Dependent types are the deliberate exception, and the nuance must survive.**
+   Stage 6 works precisely because a *runtime value* flows into a type:
+   `protocolFromSnapshot snap` computes a `SessionType` from data only known at
+   runtime. That is a different mechanism from the erased phantom parameters of
+   Stages 4–5, and flattening the two into "types are erased anyway" destroys the
+   Idris payoff before it arrives. State the general rule, then mark the exception
+   explicitly when Stage 6 lands.
+
+**Gradual typing** also belongs here, briefly (raised in review). It is the single
+biggest usability story for both TypeScript and Scala, and the audience knows
+TypeScript: you can add a type layer to an existing untyped codebase incrementally,
+one module at a time, without a rewrite. That matters because it converts "adopt a
+type system" from a migration into a series of small local decisions — which is
+exactly the adoption question S29 answers. One or two sentences here, one callback
+in the cost slide.
+
 This slide pre-empts the "sounds expensive" reflex before it forms, and sets up the cost slide.
 
 ### Act 3 — The Java ladder · 13:10 — *the payoff section for this audience*

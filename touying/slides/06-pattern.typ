@@ -42,6 +42,9 @@ thesis, and it is the second place you are most likely to stumble. Over-rehearse
 program that the business had already ruled out, and more test coverage would not
 have changed that.
 
+What would change it is being able to say, in the language itself, which programs
+are allowed at all. That question is much older than programming.
+
 The history of what we are doing when we specify programs and types stretches back
 about two and a half thousand years, across philosophy, logic, mathematics, and
 computer science. That is the thread I want to follow tonight, because a good part

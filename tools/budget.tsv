@@ -7,16 +7,22 @@
 # counts by tools/talk-timing.py at the configured speaking rate; demo slides
 # are scored at a lower rate because you talk more slowly around typing.
 #
+# Rate calibrated 2026-08-17 against a real read-through: 547 words in 3:05
+# including navigation = 177 wpm. Planning rate is 130 (that measurement minus
+# ~25% for live delivery). Everything below is sized at 130.
+#
 # Only slides currently in deck.typ are listed. Rows are added as v2 slides
 # are authored.
 
-# ── Act 0 · Open — 4:35 · VERBATIM SCRIPT (the part that gets stumbled)
-# Raised from 3:45 after measuring the written script. Four incidents with
-# real texture do not fit in 2:15, and the turn needs 1:20 once the
-# 2,500-year framing sentence is in it. The 0:40 comes out of Act 4.
+# ── Act 0 · Open — 4:50 · VERBATIM SCRIPT (the part that gets stumbled)
+# 02-alice also carries the payment-domain framing, without which the domain
+# vocabulary in the four bugs lands before the audience has anywhere to put it.
+# Caps are set to what the written script actually measures at 130 wpm, not
+# trimmed to hit a target — MB's own read came in at 3:05 for the earlier
+# version, so there is real headroom between this planning figure and the room.
 01-title	0:35	prose
-02-alice	2:30	prose
-06-pattern	1:30	prose
+02-alice	2:35	prose
+06-pattern	1:40	prose
 
 # ── Act 1 · History braided into the primer — 8:30
 07-toolkit	1:15	prose

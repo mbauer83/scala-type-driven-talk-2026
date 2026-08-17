@@ -32,18 +32,42 @@
 
 #let divider = line(length: 100%, stroke: 0.5pt + pal.rule)
 
+// Domain frame. The four stories use payment vocabulary — authorize, capture,
+// risk tier, refund — and without this strip the audience meets the jargon
+// before it has anywhere to put it. The full domain slide comes later; this is
+// just the shape.
+#let domain-strip = block(
+  width: 100%,
+  fill: pal.bg-warm,
+  inset: (x: sz(28pt), y: sz(18pt)),
+  radius: sz(4pt),
+)[
+  #set text(size: sz(24pt), fill: pal.fg-dim)
+  One scenario carries the whole talk — one everybody here has used, even if you
+  have never built one:
+  #v(sz(12pt))
+  #align(center)[
+    #set text(font: mono-font, size: sz(26pt), fill: pal.fg)
+    order #h(sz(14pt)) → #h(sz(14pt)) assess risk #h(sz(14pt)) → #h(sz(14pt))
+    authorize #h(sz(14pt)) → #h(sz(14pt)) capture
+    #h(sz(14pt)) #text(fill: pal.fg-faint)[( → refund )]
+  ]
+]
+
 #light-slide(
   eyebrow: eyebrow([Alice · Bob · Charlie · Danielle], style: "bad"),
   body-gap: sz(44pt),
   [Four Bugs That Compiled],
   block(width: 100%, height: 100%, stack(
     dir: ttb,
-    spacing: sz(54pt),
+    spacing: sz(30pt),
+    domain-strip,
     incident(
-      [Alice], [invoicing · node.js],
-      [A CSV export hands the import job amounts as _strings_.
-       The aggregation sums them with `+` — which, on two strings, concatenates.],
-      [€450,015 draft invoice\ #text(fill: pal.fg-faint)[caught in staging]],
+      [Alice], [reconciliation · node.js],
+      [Order-line amounts arrive from a CSV export as _strings_ and are summed with `+`,
+       which on two strings concatenates. Single-line orders hide it — `reduce` over one
+       element returns that element.],
+      [12-digit daily total\ #text(fill: pal.fg-faint)[survived months of tests]],
     ),
     divider,
     incident(
@@ -61,10 +85,10 @@
     ),
     divider,
     incident(
-      [Danielle], [KYC onboarding · scala],
-      [Compliance adds an evidence step on the server. The client doesn't know.
-       Both sides are correct against their own contract — the contracts have drifted.],
-      [large uploads hang\ #text(fill: pal.fg-faint)[fine for 3 weeks]],
+      [Danielle], [checkout ↔ payment service · scala],
+      [The payment side adds a challenge step above a value threshold, and the checkout
+       client is never updated to read it. Each side is correct against its own contract.],
+      [checkout hangs on\ high-value orders\ #text(fill: pal.fg-faint)[3 weeks before anyone hit it]],
     ),
     v(sz(40pt)),
     align(center)[
@@ -78,12 +102,17 @@
 #speaker-note[
 VERBATIM · budget 2:15 · 268 words. Checked facts follow the script.
 
-"Alice's morning started with a message from accounting. Overnight, the import job
-had drafted an invoice for four hundred and fifty thousand euros, against an order
-worth about sixty. The amounts came out of a CSV export as strings, and nobody had
-converted them. So the aggregation summed them with plus — and plus, given two
-strings, concatenates. The job reported success, and accounting caught the invoice
-in staging before the batch went out.
+"Everything tonight runs on one scenario, and it is one every person here has used,
+even if you have not built one: ordering something, paying for it, and sometimes
+getting your money back. An order is placed, its risk is assessed, the payment is
+authorized, and later captured — sometimes refunded afterwards. All four of these
+bugs sit somewhere on that spine.
+
+Alice's team owns the job that reconciles the day's order lines. The amounts arrive
+from a CSV export as strings, nobody converts them, and JavaScript's plus, given two
+strings, concatenates. It survived for months because almost every fixture used a
+single-line order, and reduce over one element just hands that element back. The
+first two-line order in the test data produced a daily total with twelve digits.
 
 Bob's team added a medium risk tier to their fraud engine. The branch that handled
 risk had been written when there were only two tiers, and it said: if risk is not
@@ -97,27 +126,29 @@ shortcut for urgent cases, which looks a refund up by id and executes it without
 reading its state. One that nobody had reviewed went back to a customer's card.
 Charlie spent about three hours in the logs working out how.
 
-Danielle's team runs KYC onboarding, with a client and a server written against the
-same contract. Compliance added an evidence step on the server for large payout
-limits. The client was never told. Both programs were correct by their own lights,
-the tests covered the common path, and the new branch only fires on large uploads —
-so it ran for three weeks before anyone hit it.
+Danielle owns the integration between checkout and the payment service. The payment
+side added a challenge step for orders above a value threshold, and the checkout
+client was never updated to read the extra message. Each side was correct against
+its own contract. The tests covered the common path, and the new branch only fires
+above the threshold, so it ran for three weeks before anyone hit it.
 
 Every one of those compiled without complaint."
 
 Checked facts and the traps, in case you want to rework any of it:
 
 ALICE — the boundary between untyped input and typed code.
-  fact: an internal admin tool exports CSV; the lineTotal column is amounts in cents.
-  fact: the Node import job reads those cells as JS strings, never coerced.
+  fact: a CSV export carries order-line amounts in cents; the Node job reads them
+        as JS strings and never coerces them.
   fact: `+` on two strings concatenates and throws nothing, so the job exits clean.
-  fact: the run produced a draft invoice in the overnight STAGING batch. Accounting
-        spotted it before the batch went out. Nothing reached a customer — say so,
-        or the story is not credible.
-  beat: the type system had no way to distinguish "a string that looks like a
-        number" from a number.
-  closes: Stage 1. `int` instead of `String` is enough. This is the cheapest rung
-        on the whole ladder, which is the point.
+  fact: THE REASON IT SURVIVES — `[x].reduce((a,b) => a+b)` returns `x` unchanged,
+        so any single-line order looks correct. The bug needs two or more lines,
+        which is exactly what the fixtures did not have. This is the load-bearing
+        detail; without it the story reads as implausible.
+  fact: found in test, not in production. Do not upgrade it to an issued invoice.
+  beat: the type system had no way to distinguish a string that looks like a number
+        from a number.
+  closes: Stage 1. `int` instead of `String` is enough — the cheapest rung on the
+        whole ladder, which is the point.
 
 BOB — a branch that was correct when it was written.
   fact: risk tiers were Low and High; the code read `if (risk != HIGH) fastPath()`.
@@ -138,13 +169,18 @@ CHARLIE — a lifecycle that lived in documentation.
   closes: Stage 4, phantom typestate.
 
 DANIELLE — two correct programs that disagree.
-  fact: KYC onboarding, client and server, Scala.
-  fact: compliance added an evidence step on the server for large payout limits.
-  fact: the client was not updated; each side satisfies its own contract.
-  fact: integration tests covered the common path; the new branch only triggers on
-        large uploads, so it ran ~3 weeks before anyone hit it.
+  fact: the integration between checkout and the payment service, in Scala.
+  fact: the payment side added a challenge step above a value threshold; the
+        checkout client was never updated to read the extra message.
+  fact: each side satisfies its own contract; neither is individually wrong.
+  fact: tests covered the common path, the branch only fires above the threshold,
+        so it ran ~3 weeks before anyone hit it.
   beat: no shared, checkable definition of the conversation existed.
   closes: Stage 5, session types and duality.
+  (Was KYC onboarding in v1. Moved inside the payment frame: KYC is jargon not
+   everyone in the room shares, it was the only story outside the domain spine, and
+   the Scala session-type code models the payment protocol anyway — so v1 had the
+   story and the code that closes it describing different systems.)
   (Do NOT rank this one as the-hardest-to-see. Unverifiable, and it reads as filler.)
 
 CLOSING BEAT: all four passed their compiler. That is the hinge into the next slide.

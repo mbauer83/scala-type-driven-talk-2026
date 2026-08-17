@@ -68,7 +68,7 @@ object PaymentDemo:
   val lowRiskOrder: Either[String, Order] =
     Order.of(
       "ord-low", "cust-01",
-      List(OrderLine.of("BOOK-TDD-001", 4500, 1)),
+      List(OrderLine("BOOK-TDD-001", 4500, 1)),
       PaymentMethod.Card("tok_low"),
     )
 
@@ -76,8 +76,8 @@ object PaymentDemo:
     Order.of(
       "ord-medium", "cust-02",
       List(
-        OrderLine.of("LAPTOP-15", 12000, 1),
-        OrderLine.of("MOUSE-PRO",  3500, 2),
+        OrderLine("LAPTOP-15", 12000, 1),
+        OrderLine("MOUSE-PRO",  3500, 2),
       ),
       PaymentMethod.Card("tok_3ds"),
     )
@@ -85,7 +85,7 @@ object PaymentDemo:
   val highRiskOrder: Either[String, Order] =
     Order.of(
       "ord-high", "cust-03",
-      List(OrderLine.of("B2B-SERVER-RACK", 120000, 1)),
+      List(OrderLine("B2B-SERVER-RACK", 120000, 1)),
       PaymentMethod.Invoice("PO-7788"),
     )
 
@@ -230,8 +230,8 @@ object PaymentDemo:
 
   def demo4(): Unit =
     section("DEMO 4 — Boundary Refinement: NonEmptyString-Refined Identifiers")
-    log(s"Order.of empty orderId    → ${Order.of("", "cust-x", List(OrderLine.of("X", 1000, 1)), PaymentMethod.Card("t"))}")
-    log(s"Order.of empty customerId → ${Order.of("ord-x", "", List(OrderLine.of("X", 1000, 1)), PaymentMethod.Card("t"))}")
+    log(s"Order.of empty orderId    → ${Order.of("", "cust-x", List(OrderLine("X", 1000, 1)), PaymentMethod.Card("t"))}")
+    log(s"Order.of empty customerId → ${Order.of("ord-x", "", List(OrderLine("X", 1000, 1)), PaymentMethod.Card("t"))}")
     log(s"Order.of empty lines      → ${Order.of("ord-x", "cust-x", Nil, PaymentMethod.Card("t"))}")
     log("")
     log("Iron compile-time literal check:")

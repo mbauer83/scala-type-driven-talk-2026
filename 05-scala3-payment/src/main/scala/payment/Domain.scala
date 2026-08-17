@@ -2,6 +2,7 @@ package payment
 
 import io.github.iltotore.iron.*
 import io.github.iltotore.iron.constraint.collection.*
+import io.github.iltotore.iron.constraint.numeric.*
 
 // ─── Stage 06: Scala 3 payment domain ────────────────────────────────────────
 //
@@ -176,23 +177,49 @@ object PaymentMethod:
   final case class Wallet(token: String)      extends PaymentMethod
   final case class Invoice(reference: String) extends PaymentMethod
 
-// OrderLine: quantity is plain Int. A line with quantity 0 is permitted
-// (free promotional items, discount lines). The domain invariant we DO carry
-// in the type lives in the order header below — non-empty identifiers.
-final case class OrderLine(sku: String, unitPriceCents: Int, quantity: Int):
+// ─── Refined quantities ───────────────────────────────────────────────────────
+//
+// A line with quantity 0 is legitimate (free promotional items, discount lines),
+// so the constraint is NonNegative rather than Positive. Negative quantities and
+// negative prices are not part of the domain, and the predicate says so in the
+// type rather than in a comment.
+
+type NonNegativeInt = Int :| GreaterEqual[0]
+
+final case class OrderLine(
+  sku:            String,
+  unitPriceCents: NonNegativeInt,
+  quantity:       NonNegativeInt,
+):
   def totalCents: Int = unitPriceCents * quantity
 
 object OrderLine:
-  def of(sku: String, unitPriceCents: Int, quantity: Int): OrderLine =
-    OrderLine(sku, unitPriceCents, quantity)
+  def of(sku: String, unitPriceCents: Int, quantity: Int): Either[String, OrderLine] =
+    for
+      p <- unitPriceCents.refineEither[GreaterEqual[0]].left.map(_ => "unitPriceCents must be >= 0")
+      q <- quantity.refineEither[GreaterEqual[0]].left.map(_ => "quantity must be >= 0")
+    yield OrderLine(sku, p, q)
+
+// ─── Refined collection ───────────────────────────────────────────────────────
+//
+// An order with no lines is not an order. Carrying MinLength[1] in the TYPE
+// rather than checking it in the constructor is what buys `firstLine` below:
+// every consumer gets a total accessor, with no Option and no defensive branch,
+// because the emptiness was excluded at the boundary and never has to be
+// re-established downstream.
+
+type NonEmptyLines = List[OrderLine] :| MinLength[1]
 
 final case class Order private (
   orderId:       OrderId,
   customerId:    CustomerId,
-  lines:         List[OrderLine],
+  lines:         NonEmptyLines,
   paymentMethod: PaymentMethod,
 ):
   def totalCents: Int = lines.map(_.totalCents).sum
+
+  /** Total, because `lines` cannot be empty. No Option, no exception. */
+  def firstLine: OrderLine = lines.head
 
 object Order:
   def of(
@@ -202,8 +229,8 @@ object Order:
     for
       oid <- OrderId.of(orderId)
       cid <- CustomerId.of(customerId)
-      _   <- Either.cond(lines.nonEmpty, (), "Order must have at least one line")
-    yield Order(oid, cid, lines, paymentMethod)
+      ls  <- lines.refineEither[MinLength[1]].left.map(_ => "Order must have at least one line")
+    yield Order(oid, cid, ls, paymentMethod)
 
 // ─── Risk assessment ──────────────────────────────────────────────────────────
 
