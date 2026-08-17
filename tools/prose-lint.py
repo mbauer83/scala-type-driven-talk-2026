@@ -61,7 +61,8 @@ def spoken_text(src, slide_path=None):
     """The double-quoted spans inside #speaker-note[...]; '' if none."""
     i = src.find("#speaker-note[")
     if i < 0:
-        return ""
+        _QUOTE_PARITY.append(0)   # keep the list aligned; otherwise check()
+        return ""                 # reads the PREVIOUS file's parity
     j = src.index("[", i)
     depth = 0
     for k in range(j, len(src)):

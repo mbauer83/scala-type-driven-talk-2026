@@ -1,4 +1,7 @@
-TYPST_SOURCES := $(shell find touying -name '*.typ')
+# Scripts are .md and are pulled in with #read(); if they are not dependencies,
+# editing a script leaves talk.pdf and talk.pdfpc stale while `make check`
+# still prints "build OK" — and talk.pdfpc is what pympress reads on stage.
+TYPST_SOURCES := $(shell find touying \( -name '*.typ' -o -name '*.md' \))
 
 # typst compile  — PDF, SVG, PNG, and watch (typst-native features: --input,
 #                  page-pattern {0p}, --ppi, typst watch)
@@ -10,7 +13,7 @@ TYPST_SOURCES := $(shell find touying -name '*.typ')
 all: talk.pdf talk.pdfpc
 
 talk.pdf: $(TYPST_SOURCES)
-	typst compile touying/deck.typ talk.pdf
+	typst compile --root . touying/deck.typ talk.pdf
 
 # talk.pdfpc: speaker-note sidecar read by pympress presenter view.
 # Requires the pdfpc.pdfpc-file(here()) call at the end of deck.typ.
@@ -18,15 +21,15 @@ talk.pdfpc: $(TYPST_SOURCES)
 	touying compile touying/deck.typ --format pdfpc --output talk.pdfpc
 
 talk-notes: $(TYPST_SOURCES)
-	typst compile touying/deck.typ --input notes=true talk-with-notes.pdf
+	typst compile --root . touying/deck.typ --input notes=true talk-with-notes.pdf
 
 talk-svg: $(TYPST_SOURCES)
 	mkdir -p slides/svg
-	typst compile touying/deck.typ "slides/svg/slide-{0p}.svg"
+	typst compile --root . touying/deck.typ "slides/svg/slide-{0p}.svg"
 
 talk-png: $(TYPST_SOURCES)
 	mkdir -p slides/png
-	typst compile touying/deck.typ "slides/png/slide-{0p}.png" --format png --ppi 144
+	typst compile --root . touying/deck.typ "slides/png/slide-{0p}.png" --format png --ppi 144
 
 talk-pptx: $(TYPST_SOURCES)
 	touying compile touying/deck.typ --format pptx --output talk.pptx
@@ -35,7 +38,7 @@ talk-html: $(TYPST_SOURCES)
 	touying compile touying/deck.typ --format html --output talk.html
 
 watch:
-	typst watch touying/deck.typ talk.pdf
+	typst watch --root . touying/deck.typ talk.pdf
 
 clean:
 	rm -f talk.pdf talk-with-notes.pdf talk.pdfpc

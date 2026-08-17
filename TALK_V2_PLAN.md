@@ -203,18 +203,26 @@ be lifted verbatim from `03-java-function-types-sealed/`, not invented* — the 
 same code fifteen minutes later and any seam is noticeable.
 
 ```
-risk = Low ∨ Medium ∨ High     public sealed interface RiskDecision
-                                 permits RiskDecision.Low,
-                                         RiskDecision.Medium,
-                                         RiskDecision.High {        ← the ∨
-                                   record Low()  implements RiskDecision {}
-                                   record High() implements RiskDecision {}   ← the ∧
-                               }
+risk = Low ∨ Medium ∨ High
+medium → threeDS
+
+  public sealed interface RiskDecision
+      permits RiskDecision.Low, RiskDecision.Medium, RiskDecision.High {   ← the ∨
+
+      record Low()    implements RiskDecision {}
+      record Medium() implements RiskDecision {}                           ← the ∧
+      record High()   implements RiskDecision {}
+  }
 ```
 
-Snippet is verbatim from `RiskDecision.java:9-13`, including `public`, the **qualified** permits
-names, and the records as **nested members** rather than siblings. An earlier draft paraphrased
-all three while the same paragraph insisted on verbatim — the seam this slide warns about.
+Snippet is verbatim from `RiskDecision.java:9-13` — `public`, the **qualified** permits names on
+**one line**, and the records as **nested members**.
+
+**`record Medium()` must be on the slide.** Draft 6 wrote this snippet with Low and High only,
+while the punchline says *"exactly one variant"* and while Medium is Bob's entire bug and the
+subject of Demo 1 four slides later. That is the third time this paragraph's own instruction was
+violated in the act of restating it — do not paraphrase, extract (see the extract-snippet note in
+Part 7).
 
 `→` and `¬` appear in the left column but are not taught here; name them and move on, or drop
 them. Note also that a classical-looking `¬` sits awkwardly beside S8's claim of an isomorphism
@@ -291,14 +299,23 @@ looks naive (see Part 8/C2).
 Lean, Rocq, Agda and Idris. Four one-liners, deliberately *not* explained in depth:
 
 ```
-(o : Order) → Assessment (riskOf o)   Π    the result TYPE depends on the VALUE
+Approval : RiskLevel -> Type          Π    a TYPE indexed by a runtime VALUE
 (lvl ** Assessment lvl)               Σ    a value bundled with a proof about itself
-(1 ch : Session p) → …                QTT  this resource must be used exactly once
+(1 _ : Session p) -> …                QTT  this resource must be used exactly once
 
-Type names are verbatim from the code: `Receive`, not `Recv`; `AuthorizedPayment[R]`, not `Auth`
-(`protocol/Proto.scala:13`, `PaymentSessionTypes.idr:10`). An earlier draft invented both, and
-S22 shows the real ones twelve minutes later — the deck would have contradicted itself.
-Send[Order, Receive[AuthorizedPayment[R], End]]   session type — a conversation, as a type
+`riskOf` does not exist in `06-idris2-payment` — draft 6 invented it. The real value-indexed
+families are `data Approval : RiskLevel -> Type` (`PaymentDomain.idr:264`) and
+`data AuditTrail : PaymentState -> Currency -> Nat -> Type` (`:284`); the real Π-elimination is
+`protocolFromSnapshot`. The linear binder is always `(1 _ : …)`, never named
+(`PaymentChannel.idr:82,88,98`).
+
+Type names are verbatim (`Receive`, not `Recv` — `protocol/Proto.scala:13`). **Show it as a
+truncated real protocol, not a fabricated short one.** The real `LowRiskProtocol`
+(`Derivation.scala:38-43`) is five levels deep and has a `Receive[RiskSnapshot, …]` step between
+the send and the authorization; draft 6 invented a two-level `Send[Order, Receive[
+AuthorizedPayment[R], End]]` that exists nowhere, one line below the warning against inventing
+types. Either truncate the real one with an ellipsis, or say explicitly that it is schematic.
+Send[Order, Receive[RiskSnapshot, …]]     session type — a conversation, as a type
 ```
 
 Contract with the room: *"You will not walk out of here fluent in this syntax. That's fine — it
@@ -381,7 +398,7 @@ This slide pre-empts the "sounds expensive" reflex before it forms, and sets up 
 |---|---|---|---|
 | `A3-stage12` | Stages 1+2 — nominal types & generics | 1:15 | MERGE `17-stage1` + `18-stage2` |
 | `A3-gentzen` | Gentzen: how a connective is defined | 1:15 | KEEP `10-gentzen-or`, **moved here** |
-| `A3-stage3` | Stage 3 — records + sealed = sums of products | 2:00 | REWORK `19-stage3` (**fix overflow bug**) |
+| `A3-stage3` | Stage 3 — records + sealed = sums of products | 2:00 | REWORK `19-stage3` (overflow already fixed, `bdd1601`) |
 | `A3-demo1` | → **LIVE DEMO 1** | 2:30 | delete `case Medium` → ∨E |
 | `A3-payoff-bob` | Payoff — *Bob's bug is now a compile error* | 0:40 | REWORK `20-stage3-payoff` (Device 1) |
 | `A3-stage4` | Stage 4 — phantom typestate | 2:00 | REWORK `22-stage4` |
@@ -434,9 +451,10 @@ protocolFromSnapshot : (snap : RiskSnapshot) -> (n : Nat) -> (c : Currency) -> S
 assessOrder : Order n c -> (lvl : RiskLevel ** Assessment lvl n c)
 ```
 
-`protocolFromSnapshot` takes **three** parameters (`PaymentRules.idr:211`) — the one-argument
-story belongs to `protocolDerivedFrom` (`:224`), so use that one if you want the simpler shape
-on screen. And keep `: RiskLevel` in the Σ-type: dropping it is legal sugar that hides the index
+`protocolFromSnapshot` takes **three** parameters (`PaymentRules.idr:212-214`) — the one-argument
+story belongs to `protocolDerivedFrom` (`:224`) — but note it takes an `Order`, not a
+`RiskSnapshot`, plus two implicits, so it is not a drop-in substitute. `assessOrder` lives in
+**`PaymentDomain.idr:255`**, not `PaymentRules.idr`. And keep `: RiskLevel` in the Σ-type: dropping it is legal sugar that hides the index
 type, which is the entire point of the slide. Callback: *"That's the notation I
 showed you in the primer and promised you'd see run. There it is."*
 
@@ -524,7 +542,8 @@ Referenced by name, not by number — slide numbers have gone stale twice alread
 5. **Merge `A1-connectives` and `A1-quantifiers`** onto one slide (−1:00) · *the first
    primer-side cut; take it only if Act 1 measures long in the read-through*
 
-Full depth reaches **39:05**, which is the real floor if the read-through comes in long.
+Full depth reaches **41:20** (47:05 − 5:45). Draft 6 said 39:05, which was 44:50 − 5:45 — the
+retracted draft-5 base, three paragraphs below the sentence diagnosing exactly this drift.
 
 ---
 
@@ -608,68 +627,81 @@ exist and does not need to.
 
 ---
 
-## Part 6b — Triage by volatility, not by slide count
+## Part 6b — Triage by volatility
 
-Draft 5 triaged by *treatment* (which slides need a verbatim script). That was the wrong axis.
-The scarce resource is not typing, it is **design decisions that have not been made and review
-rounds to validate them**. Act 0 cost three slides and a full day precisely because the
-decisions were open, not because the words were long.
+Draft 5 triaged by *treatment* (which slides need a verbatim script). Wrong axis. Draft 6
+triaged by whether an artifact had been executed — closer, but still wrong, because it measured
+the **process** and the question is about the **talk's content**.
 
-### The criterion
+### Two axes, not one
 
-Gut feel is the starting point but it is not the test. The test is:
+**Axis 1 — content volatility.** Is the talk's argument settled at this point, or is it still
+being designed? This is about the material, not about whether a file exists.
 
-> **Stability lives in artifacts that have been executed. Volatility lives in decisions still
-> written only as sentences.**
+**Axis 2 — downstream cost.** How many artifacts depend on the decision, and what does rework
+cost if it changes? A decision that governs six slides and a shared component is worth an hour
+of thought; one that governs three sentences is not.
 
-Has this been compiled, rendered, measured, or read aloud? Then it is stable, and the remaining
-work is transcription. Is it a paragraph describing what a slide will do? Then it is volatile,
-however confident the paragraph sounds.
+**Focus where both are high.** That is the whole triage. A third consideration — has this been
+executed and verified? — is not a volatility axis at all; it belongs in the acceptance criteria
+(Part 7), and treating it as one is what produced draft 6's two wrong classifications below.
 
-This matters because the intuitive classification gets one thing exactly backwards. The code
-examples *are* stable — they compile and their behaviour is fixed. But **the plan's claims
-about them were not**: an independent review found `Optional<Proof>` labelled as ∃ (it is a
-disjunction, not a dependent pair), `Recv`/`Auth` types that exist in neither codebase, Idris
-signatures abbreviated into falsehood, and "must be verbatim" Java snippets that were not
-verbatim. The artifact was stable; the description had drifted. **Stability is a property of
-the thing, never of the sentence about the thing.**
+### OPEN content × high downstream cost — this is where the thinking goes
 
-### VOLATILE — unresolved design, needs the review rounds
-
-| Area | Why it is volatile | Where |
+| What is undecided | Downstream | Why it is open |
 |---|---|---|
-| **Scala on top of Java** | The act has never fit any budget (10:36 in v1, 6:30 then 8:30 here). Five slides — what opens up → session types → mechanisms → ceiling — is a sequence nobody has validated, and it is where the most new machinery arrives at once. **Highest volatility × worst budget risk.** | Act 4 |
-| **History/theory integration** | Six slides exist only as one-line table rows. The pedagogical sequence — which Java mirror sits beside which notation, in what order — is undecided. This is the whole thesis of v2. | Act 1 |
-| **The lambda cube** | Device 2 specifies three reveals; the *content* of each ("the two unlit axes named" — saying what, exactly?) is unspecified, and the parameterised diagram is unbuilt. | `A3-ceiling`, `A4-ceiling`, `A5-payoff` |
-| **The three bridges** | Java ceiling → Scala, Scala ceiling → Idris, and the primer → ladder handoff. These are the joints where the argument holds or fails, and each is currently one sentence. | act boundaries |
+| **How Scala's additions over Java are introduced and progressed** | Act 4's 5 slides; the act that has never fit any budget | Refinements, opaque types, match types, path-dependent types, session duality, HKT and the effects aside all arrive in ~8 minutes. No sequence for them has been validated, and it is the densest new machinery in the talk. |
+| **How history and theory integrate** | Act 1's 6 slides **+ the progress rail component** | Which Java mirror sits beside which notation, in what order, and how much formalism each beat carries. This is the thesis of v2. |
+| **How features bridge across Java → Scala 3 → Idris 2** | 3 act boundaries | The Java ceiling, the Scala ceiling, and the primer→ladder handoff. Each is currently one sentence, and they are the joints where the argument holds or fails. |
+| **Demo narration and placement** | 4 slides, **9:15 = 20% of the slot** | *Reclassified from STABLE.* The edits are executed and the errors captured — that is the artifact. What each demo *says*, how long it runs, and where it sits inside its act is unwritten and **invisible to `make timing`** (Part 3's budget note). The largest unmeasured block in the talk. |
 
-**Spend the review rounds here.** These four decide whether the talk works.
+### OPEN content × low downstream cost — decide fast, do not agonise
 
-### STABLE — executed, needs transcription not design
-
-| Area | Evidence it is stable |
+| What | Downstream |
 |---|---|
-| The four bugs and what each shows | authored, signed off, measured twice, linter-clean |
-| The four live demos | all four edits executed against real compilers; output captured to `demos/` |
-| The code ladder | compiles and runs at every stage; unchanged by this rework |
-| Payoff format (Device 1) | format settled; only the wording per stage remains |
-| The visual system | v1's design is good and is not being changed |
+| What each lambda-cube reveal actually says | 3 slides, ~3 sentences. The drawing already exists (`diagrams/lambda-cube.typ:29-195`) and its three highlight edges are already separate at `:71-73`, mapping 1:1 onto the reveals. Only the wording is open. |
+| Which of `→` and `¬` to name on `A1-connectives` | one line |
 
-**Do not spend design time here.** Where these need work it is mechanical.
+### SETTLED content — transcription and checking, not design
 
-### The one place gut feel misleads
+| What | Why it is settled |
+|---|---|
+| The four bugs, what each shows, which stage closes it | authored, signed off, measured twice |
+| What each demo *proves* (not what it says) | four edits executed; four real errors captured to `demos/` |
+| The code ladder and what each stage demonstrates | compiles and runs; unchanged by this rework |
+| The payoff format (Device 1) | format fixed; only per-stage wording remains |
+| The visual system | v1's design is good and is not being changed — **except** the cube parameterisation, Device 1's payoff layout, the first-ever use of `code-pane(diagnostic:)`, and the Act 1 progress rail, all of which are new component work and are budgeted nowhere |
 
-"How beats land" was classified stable. The *format* is stable; the *wording* is not — Act 0
-needed many rounds to find the register, and Part 9 exists because of it. Treat beat format as
-stable and beat prose as volatile-but-cheap: it converges fast once the design above is settled,
-and the prose linter catches the recurring faults mechanically.
+### The trap this triage exists to avoid
 
-### Consequence for the schedule
+**Settled content is not settled prose.** Act 0's content was settled before a word was written;
+the wording still took many rounds, and Part 9 exists because of it. Treat content as the thing
+to design and prose as the thing to converge — the prose linter catches the recurring faults
+mechanically, so prose is cheap once the content is fixed.
 
-Design the volatile four **first**, on paper, before authoring any slide. A wrong decision in
-Act 4's sequence costs a day of rework; a clumsy sentence costs ten minutes. The current
-execution order does the opposite — it authors Act 1 at step 2 and never explicitly decides
-Act 4's shape at all.
+**And settled content is not verified description.** The code examples are stable; the plan's
+claims about them were repeatedly not. Draft 6 asserted "stability is a property of the thing,
+never of the sentence about the thing" and then, on the same page, invented a `riskOf` function,
+a two-level session type, a named linear binder, and a `RiskDecision` missing the `Medium`
+variant that Demo 1 is about. **Every code identifier in this plan must be grepped before it
+becomes a slide.**
+
+### The cut list this triage owes (Part 3 promised it)
+
+Named, in order, against the v1-measured baseline rather than the estimates:
+
+1. **`A3-gentzen` folded into `A3-stage3`** as an inline rule box — P2's fault was *distance*
+   between rule and error, and a rule on the same slide fixes that as well as a rule sixty
+   seconds earlier (−1:55)
+2. **`A3-ceiling` and `A4-ceiling` capped at 1:00 each** — cube reveal plus one sentence, not a
+   summary (−2:18)
+3. **`A5-mltt` capped at 2:00** — show `assessOrder` and `protocolFromSnapshot`, drop the third
+   example (−1:31)
+4. **`A6-close` capped at 1:00** — it is one paragraph (−1:24)
+5. **`A4-mechanisms` to 1:00**, effects aside to appendix A1 (−0:30)
+
+≈ −7:38 against measured. The existing demo-narration cuts then close the remainder without
+touching Demo 1 or Demo 4.
 
 ---
 
@@ -709,20 +741,30 @@ plan before authoring anything**, and **settle the volatile designs (Part 6b) be
 the prose that depends on them**. Draft 5 put the only feedback signal at step 11 of 11 while
 its own budget section said it should come early.
 
-| # | Step | State |
-|---|---|---|
-| 1 | Stage 3 overflow fix; title metadata | ✅ done |
-| 2 | Act 0 authored + signed off; scripts to `touying/scripts/`; prose linter + hook; timing tool calibrated on two read-throughs | ✅ done |
-| 3 | Iron refinements in `05-scala3-payment` | ✅ done |
-| 4 | Demo 3 fixed; all four fallbacks captured to `demos/` via `tools/capture-demos.sh` | ✅ done |
-| 5 | **Reorder `deck.typ` to v2 order; add every v2 slide to `budget.tsv` including the four demo rows** | ← next, ~30 min |
-| 6 | **First stopwatch read-through of what exists** — do not wait for the deck to be finished | |
-| 7 | **Settle the four volatile designs on paper** (Part 6b): Act 4's sequence, Act 1's pedagogical order, the cube reveals' content, the three bridges | |
-| 8 | Author Act 1 (verbatim) | |
-| 9 | Author `A2-values`, `A2-promises`; fix the two on-screen overclaims | |
-| 10 | Merges, cube parameterisation, appendix renumber | |
-| 11 | Second read-through; apply the cut list against measured numbers | |
-| 12 | `make talk.pdf talk.pdfpc`; **full dress rehearsal on the real laptop and projector** | |
+**Act 0 is the only estimate ever tested against reality: budgeted 3:30, shipped 5:25 — 1.55×.**
+No correction has been applied to the six remaining guessed acts. At 1.55× the 41:40 of estimate
+becomes 64:35; even 1.2× gives 50:00. Treat every unmeasured act as optimistic.
+
+**Dates, because a hard deadline needs them.** Delivery Thu 20 Aug; today is Mon 17 Aug.
+
+| # | Step | When | State |
+|---|---|---|---|
+| 1 | Stage 3 overflow fix; title metadata | — | ✅ done |
+| 2 | Act 0 authored + signed off; scripts, linter, hook, calibration | Mon | ✅ done |
+| 3 | Iron refinements in `05-scala3-payment` | Mon | ✅ done |
+| 4 | Demo 3 fixed; four fallbacks captured to `demos/` | Mon | ✅ done |
+| 5 | Mechanical sweep: reorder `deck.typ`; complete `budget.tsv` incl. **demo rows**; fix the id/number drift | Mon eve, ~2 h | ← next |
+| 6 | **First stopwatch read-through of what exists** | Mon eve | |
+| 7 | **Settle the four OPEN×high-cost items on paper** (Part 6b) — one paragraph each, no slide work | Tue 09:00–12:00, **hard stop** | |
+| 8 | Author Act 1 — **four slides, not six** (take the connectives/quantifiers merge up front) | Tue 12:00 – Wed 12:00 | |
+| 9 | Author `A2-values`, `A2-promises`; the four claim fixes in Part 3 | Wed 12:00–15:00 | |
+| 10 | Merges, cube parameterisation | **optional** — only if step 11 comes in under 44:00 |
+| 11 | Second read-through; apply Part 6b's cut list against measured numbers | Wed 16:00 | |
+| 12 | `make all`; **dress rehearsal on the real laptop and projector** | Wed 19:00, **immovable** | |
+
+**Freeze.** Whatever is authored by **Wed 16:00** ships. Everything else keeps its v1 note.
+That is a decision with a time on it, not a contingency — the appendix renumber is cut outright,
+since nothing in the talk depends on appendix numbering and Q&A slides can be found by title.
 
 **Acceptance criteria.** Per slide: builds, passes `prose-lint` if it carries a script, and is
 within its `budget.tsv` cap at 130 wpm. Per act: the act total matches `make timing`, and every

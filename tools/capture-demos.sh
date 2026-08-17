@@ -38,7 +38,7 @@ if want 1; then
   echo "demo 1: deleting the Medium arm from the switch…"
   d=03-java-function-types-sealed
   edit_file "$d/Demo.java" '/case RiskDecision.Medium m ->/d'
-  ( cd "$d" && javac -d /tmp/demo1-out *.java ) > "$OUT/1-exhaustiveness.txt" 2>&1
+  ( cd "$d" && javac -d /tmp/demo1-out *.java ) 2>&1 | sed "s|$ROOT/||g" > "$OUT/1-exhaustiveness.txt"
   echo "  -> demos/1-exhaustiveness.txt"
 fi
 
@@ -48,7 +48,7 @@ if want 2; then
   echo "demo 2: uncommenting Payment.capture(init)…"
   d=04-java-advanced-generics-typestate
   edit_file "$d/Demo.java" 's|// *Payment\.capture(init);|Payment.capture(init);|'
-  ( cd "$d" && javac -d /tmp/demo2-out *.java ) > "$OUT/2-typestate.txt" 2>&1
+  ( cd "$d" && javac -d /tmp/demo2-out *.java ) 2>&1 | sed "s|$ROOT/||g" > "$OUT/2-typestate.txt"
   echo "  -> demos/2-typestate.txt"
 fi
 
@@ -66,7 +66,8 @@ if want 3; then
   d=05-scala3-payment
   edit_file "$d/src/main/scala/demos/PaymentDemo.scala" \
             's|      authorize(order, ThreeDSApproved(proof))|      authorize(order, AutoApproved)|'
-  ( cd "$d" && sbt -batch -warn compile ) 2>&1 | grep -v '^\[info\]' > "$OUT/3-risk-indexed-approval.txt"
+  ( cd "$d" && sbt -batch -warn compile ) 2>&1 | grep -v '^\[info\]' \
+    | sed "s|$ROOT/||g" > "$OUT/3-risk-indexed-approval.txt"
   echo "  -> demos/3-risk-indexed-approval.txt"
 fi
 
@@ -82,7 +83,7 @@ if want 4; then
   echo "demo 4: replacing 'finish done' with 'pure ()'…"
   d=06-idris2-payment
   edit_file "$d/src/Main.idr" '0,/finish done/{s|finish done|pure ()|}'
-  ( cd "$d" && idris2 --build payment.ipkg ) > "$OUT/4-linearity.txt" 2>&1
+  ( cd "$d" && idris2 --build payment.ipkg ) 2>&1 | sed "s|$ROOT/||g" > "$OUT/4-linearity.txt"
   echo "  -> demos/4-linearity.txt"
 fi
 
