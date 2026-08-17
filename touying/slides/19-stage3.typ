@@ -10,11 +10,11 @@
   [java 8–17 · lambdas → map synthesis · records ⊕ sealed · Gentzen ∨E],
   stack(
     dir: ttb,
-    spacing: sz(22pt),
+    spacing: sz(16pt),
     eyebrow(style: "accent")[→ DEMO 3 in `Demo.java`],
     // ── Beat 1: function types as first-class values ──────────────────────
     // Non-generic example first, then the synthesis with Stage 2 generics.
-    code-pane(filename: "Demo.java", language: "java", code-size: 18pt)[
+    code-pane(filename: "Demo.java", language: "java", code-size: 16pt)[
 ```java
 // A function type is an ordinary type — the lambda is an ordinary value  (t·t)
 Function<String, Integer> idLength = s -> s.length();
@@ -34,19 +34,19 @@ List<Integer> lengths = List.of("ord-001", "ord-002")  // List<String>
       rows: (auto,),
       gutter: sz(24pt),
       align: (left + top, left + top),
-      code-pane(filename: "RiskDecision.java", language: "java", code-size: 20pt)[
+      code-pane(filename: "RiskDecision.java", language: "java", code-size: 18pt)[
 ```java
-// Sum type: exactly one of {Low, Medium, High}  (∨)
+// Sum (∨): exactly one variant holds
 sealed interface RiskDecision
     permits Low, Medium, High {
-
-  record Low()    implements RiskDecision {}  // product
-  record Medium() implements RiskDecision {}  // product
-  record High()   implements RiskDecision {}  // product
+  // each variant is a product (∧)
+  record Low()    implements RiskDecision {}
+  record Medium() implements RiskDecision {}
+  record High()   implements RiskDecision {}
 }
 ```
       ],
-      code-pane(filename: "Demo.java", language: "java", code-size: 20pt,
+      code-pane(filename: "Demo.java", language: "java", code-size: 18pt,
                 highlights: ((4, "hl-good"),))[
 ```java
 String path = switch (risk) {
@@ -58,7 +58,7 @@ String path = switch (risk) {
 ```
       ],
     ),
-    v(sz(20pt)),
+    v(sz(4pt)),
     // ── Gentzen ∨E recall caption ─────────────────────────────────────────
     align(center)[
       #set text(size: sz(22pt), fill: pal.fg-dark-dim, font: mono-font)

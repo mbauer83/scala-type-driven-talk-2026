@@ -5,7 +5,7 @@
 #title-slide(
   [Type-Driven Programming],
   [Correctness by Construction from the Basics to the Cutting Edge],
-  [Java Meetup Cologne · 28 May 2026],
+  [Java Meetup · Inspired Consulting, Köln · 20 Aug 2026],
   [Michael Bauer],
 )
 
