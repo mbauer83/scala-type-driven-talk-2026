@@ -5,11 +5,11 @@ Each file here is the verbatim script for one slide. The slide pulls it in with
 truth**: the PDF, the pdfpc presenter notes, the word counts and the prose
 linter all read the same file you edit. There is no second copy to keep in sync.
 
-| script | slide | cap |
-|---|---|---|
-| `01-title.md` | `slides/01-title.typ` | 0:35 |
-| `02-incidents.md` | `slides/02-alice.typ` | 2:35 |
-| `03-the-turn.md` | `slides/06-pattern.typ` | 1:50 |
+| script | slide |
+|---|---|
+| `01-title.md` | `slides/01-title.typ` |
+| `02-incidents.md` | `slides/02-alice.typ` |
+| `03-the-turn.md` | `slides/06-pattern.typ` |
 
 ## The one formatting rule
 
@@ -24,9 +24,18 @@ without the commentary inflating the timing.
 Anything out here is a reminder, a fact-check, or a warning. Not counted.
 ```
 
-Plain text. No Typst syntax needed. Two things to avoid, because the file is
-included into Typst markup: unbalanced `[` or `]`, and a leading `#` on a line
-(it would be read as code). Both are caught immediately by `make check`.
+Plain text. No Typst syntax needed, and no Typst hazards either — `#read()`
+returns a string, and a string in content position renders literally rather than
+being re-parsed. A leading `#`, an unbalanced bracket, `*asterisks*` and `$x$`
+all compile fine. (An earlier version of this file warned otherwise; it was
+teaching a constraint that does not exist.)
+
+**Caps live in `tools/budget.tsv`, not here and not in the file headers.** Word
+counts are computed by `make timing`. Both drifted when they were written in
+three places.
+
+One thing that DOES matter: **an odd number of `"` in a file** silently swaps
+which half is treated as speech. The linter now errors on it.
 
 ## After editing
 

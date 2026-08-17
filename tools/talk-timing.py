@@ -42,8 +42,10 @@ SLIDES = os.path.join(ROOT, "touying", "slides")
 BUDGET = os.path.join(ROOT, "tools", "budget.tsv")
 
 # Demo slides are spoken more slowly — you pause, you type, the room reads the
-# error. Empirically this lands nearer 70 wpm than 120.
-DEMO_WPM_FACTOR = 70.0 / 120.0
+# error. An absolute rate, NOT a ratio: an earlier version scaled 70/120 by
+# whatever --wpm was passed, so sweeping the prose rate silently moved the demo
+# rate with it.
+DEMO_WPM = 70.0
 
 
 def deck_order():
@@ -144,14 +146,28 @@ def main():
     print("-" * 55)
 
     total_words = total_spoken = total_cap = 0
+    planned_unwritten = 0
     over = []
+    # Any budgeted slide absent from deck.typ is still planned time — stubs AND
+    # the four demo slides, which are 9:15 and were previously invisible.
+    for stem, (cap_s, kind) in caps.items():
+        if stem not in main_slides:
+            total_cap += cap_s
+            planned_unwritten += cap_s
+            label = "live demo" if kind == "demo" else "not written yet"
+            print(f"{stem:<26}{'—':>6}{'—':>9}{fmt(cap_s):>8}  {label}")
     for stem in main_slides:
         w = spoken_words(stem)
         if w is None:
             print(f"{stem:<26}{'MISSING':>6}")
             continue
         cap_s, kind = caps.get(stem, (None, "prose"))
-        rate = args.wpm * (DEMO_WPM_FACTOR if kind == "demo" else 1.0)
+        if kind == "stub":
+            total_cap += cap_s
+            planned_unwritten += cap_s
+            print(f"{stem:<26}{w:>6}{'—':>9}{fmt(cap_s):>8}  stub (v1 note present)")
+            continue
+        rate = DEMO_WPM if kind == "demo" else args.wpm
         spoken = w / rate * 60.0
         total_words += w
         total_spoken += spoken
@@ -169,12 +185,19 @@ def main():
           f"{(fmt(total_cap) if total_cap else '—'):>8}")
     print()
     print(f"speaking rate assumed : {args.wpm:.0f} wpm "
-          f"({args.wpm * DEMO_WPM_FACTOR:.0f} wpm on demo slides)")
+          f"({DEMO_WPM:.0f} wpm on demo slides)")
     print(f"slot                  : {fmt(args.slot * 60)}")
     slack = args.slot * 60 - total_spoken
     verdict = "within slot" if slack >= 0 else "OVER SLOT"
     print(f"prose vs slot         : {fmt(abs(slack))} "
           f"{'of slack' if slack >= 0 else 'over'}  <- {verdict}")
+    if planned_unwritten:
+        print(f"unwritten (planned)   : {fmt(planned_unwritten)} of the cap total "
+              f"is slides that do not exist yet")
+    if total_cap:
+        cap_slack = args.slot * 60 - total_cap
+        print(f"PLANNED total (caps)  : {fmt(total_cap)}  -> "
+              f"{fmt(abs(cap_slack))} {'spare' if cap_slack >= 0 else 'OVER SLOT'}")
 
     if over:
         print()

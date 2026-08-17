@@ -1,65 +1,79 @@
-# Per-slide speaking budget for talk v2.
+# Per-slide speaking budget.
 #
-# slide-stem<TAB>m:ss<TAB>kind        kind ∈ prose | demo
+# slide-stem<TAB>m:ss<TAB>kind        kind ∈ prose | demo | stub
 #
-# Target is 41:00 planned against a 45:00 slot — four minutes of real slack
-# before touching the three borrowable from Q&A. Caps are converted to word
-# counts by tools/talk-timing.py at the configured speaking rate; demo slides
-# are scored at a lower rate because you talk more slowly around typing.
+# Rate calibrated 2026-08-17 against two real read-throughs: 547 words in 3:05
+# and 700 words in 3:47 — 177 and 185 wpm. Planning rate is 130, that
+# measurement minus ~28%, deliberately at the cautious end: overrunning is
+# unrecoverable and finishing early is not. Everything below is sized at 130.
 #
-# Rate calibrated 2026-08-17 against a real read-through: 547 words in 3:05
-# including navigation = 177 wpm. Planning rate is 130 (that measurement minus
-# ~25% for live delivery). Everything below is sized at 130.
+# `demo` rows score at the lower DEMO_WPM — on a live edit you talk around
+# typing and pause while the room reads the error. The four demos are 9:15,
+# 20% of the slot, and before these rows existed the tool could not see one
+# second of it.
 #
-# Only slides currently in deck.typ are listed. Rows are added as v2 slides
-# are authored.
+# `stub` rows are v2 slides that do not exist yet, carrying their planned cap
+# so `make timing` measures the deck we INTEND rather than the deck we have.
+#
+# ONE SOURCE OF TRUTH for durations. The plan quotes this file, never the
+# reverse: three drafts running, hand-carried arithmetic in the plan drifted in
+# the same direction every time (Part 8/C10, C12).
 
-# ── Act 0 · Open — 5:15 · VERBATIM SCRIPT (the part that gets stumbled)
-# 01-title raised to 1:00: it now carries the talk's thesis ("writing a program
-# that type-checks is, in a precise sense, the same thing as constructing a
-# proof"), and slide 3 no longer restates it. The cap was raised rather than the
-# text cut. The overage comes from Act 4, which measured 10:36 in v1 against a
-# 6:30 target — see Part 8/C10 on not shaving seconds off several slides to make
-# arithmetic work.
-# 02-alice also carries the payment-domain framing, without which the domain
-# vocabulary in the four bugs lands before the audience has anywhere to put it.
-# Caps are set to what the written script actually measures at 130 wpm, not
-# trimmed to hit a target — MB's own read came in at 3:05 for the earlier
-# version, so there is real headroom between this planning figure and the room.
+# ── Act 0 · Open — 5:25 · AUTHORED, SIGNED OFF ─────────────────────────────
 01-title	1:00	prose
 02-alice	2:35	prose
 06-pattern	1:50	prose
 
-# ── Act 1 · History braided into the primer — 8:30
-07-toolkit	1:15	prose
-08-crisis	1:30	prose
-curry-howard	1:45	prose
-12-mltt	1:15	prose
+# ── Act 1 · Primer — 8:15 · NOT AUTHORED ───────────────────────────────────
+# Integration UNSETTLED x highest downstream cost. Cut #5 merges the
+# connectives and quantifiers slides if the read-through measures long.
+07-toolkit	1:15	stub
+a1-connectives	1:30	stub
+a1-quantifiers	1:15	stub
+08-crisis	1:15	stub
+curry-howard	1:45	stub
+a1-above	1:15	stub
 
-# ── Act 2 · Ground floor — 2:45
+# ── Act 2 · Ground floor — 2:45 · 1 of 3 exists ────────────────────────────
 15-test-spine	0:30	prose
+a2-values	1:00	stub
+a2-promises	1:15	stub
 
-# ── Act 3 · The Java ladder — 12:40
+# ── Act 3 · Java ladder — 13:10 ────────────────────────────────────────────
 17-stage1	1:15	prose
 10-gentzen-or	1:15	prose
 19-stage3	2:00	prose
+a3-demo1	2:30	demo
 20-stage3-payoff	0:40	prose
-22-stage4	1:45	prose
+22-stage4	2:00	prose
+a3-demo2	2:00	demo
 24-java-ceiling	1:30	prose
 
-# ── Act 4 · Scala 3 — 6:30  (v1's fattest act: 10:36 measured)
-25-stage5	1:15	prose
-26-session-types	2:00	prose
+# ── Act 4 · Scala 3 — 8:30 · has never fit any budget; measured 10:36 in v1 ─
+25-stage5	1:30	prose
+a4-demo3	2:15	demo
+26-session-types	1:45	prose
 stage5-mechanisms	1:30	prose
 27-stage5-payoff	1:30	prose
 
-# ── Act 5 · Idris 2 — 5:15
-28-stage6-bridge	1:45	prose
-29-mltt-running	1:45	prose
+# ── Act 5 · Idris 2 — 5:30 ─────────────────────────────────────────────────
+28-stage6-bridge	2:00	prose
+a5-demo4	2:30	demo
 30-stage6-payoff	1:00	prose
 
-# ── Act 6 · Close — 3:45
-31-the-climb	0:30	prose
+# ── Act 6 · Close — 3:30 ───────────────────────────────────────────────────
 32-agentic	1:30	prose
-where-to-start	0:45	prose
+where-to-start	1:00	prose
 34-close	1:00	prose
+
+# ── Cut or merged (kept so the reason survives) ────────────────────────────
+# 31-the-climb      cut: three summaries in the last four minutes; the dark
+#                   Unrepresentable slide and the close are the two that work
+# 29-mltt-running   merged into 28-stage6-bridge  -> A5-mltt
+# scala3-ceiling    merged into 27-stage5-payoff  -> A4-ceiling
+# 23-stage4-payoff  merged into 24-java-ceiling   -> A3-ceiling
+# 18-stage2         merged into 17-stage1         -> A3-stage12
+# 21-bridge         two spoken sentences between A3-payoff-bob and A3-stage4
+# 16-stage0         one line on A2-scenario
+# 33-horizon        three lines on A6-monday
+# 09/11/13-convergence, 12-mltt, 14-lambda-cube   absorbed into Act 1 / reveals

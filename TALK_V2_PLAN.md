@@ -125,10 +125,10 @@ acquires it:
 
 | Appearance | Where | What is lit |
 |---|---|---|
-| Glimpse | S9, primer — one line, no explanation | nothing lit; "there is a map of this territory; we'll fill it in as we go" |
-| Reveal 1 | S19, the Java ceiling | `f(x)` → `f[A]` edge lit — Java's reach; the two unlit axes named |
-| Reveal 2 | S24, the Scala ceiling | `F[A]` edge lit — type-level computation; one axis still dark |
-| Reveal 3 | S27, after Idris | `B(a)` edge lit — the cube is complete |
+| Glimpse | `A1-above`, primer — one line, no explanation | nothing lit; "there is a map of this territory; we'll fill it in as we go" |
+| Reveal 1 | `A3-ceiling`, the Java ceiling | `f(x)` → `f[A]` edge lit — Java's reach; the two unlit axes named |
+| Reveal 2 | `A4-ceiling`, the Scala ceiling | `F[A]` edge lit — type-level computation; one axis still dark |
+| Reveal 3 | `A5-payoff`, after Idris | `B(a)` edge lit — the cube is complete |
 
 **Implementation:** refactor `diagrams/lambda-cube.typ` from a fixed canvas value into
 `lambda-cube-canvas(reveal: 0)`, where `reveal` selects which path edges are drawn in the
@@ -150,18 +150,18 @@ Legend: **NEW** · **KEEP** · **REWORK** · **MERGE** · **→A** (demoted to a
 | 3 | The turn | 1:50 | `scripts/03-the-turn.md` |
 
 Act 0 ran over its original 3:30 estimate because two things moved into it that were
-not in draft 3: the **payment-domain frame** (S2 now establishes order → assess risk →
+not in draft 3: the **payment-domain frame** (`A0-incidents` now establishes order → assess risk →
 authorize → capture → refund before the four bugs use that vocabulary), and the
-**thesis promise** (S1 now claims that writing a program which type-checks is, in a
+**thesis promise** (`A0-title` now claims that writing a program which type-checks is, in a
 precise sense, the same act as constructing a proof). Both earn the time. The overage
 is taken from Act 4, which measured 10:36 in v1 against a 6:30 target.
 
-**S1** promises the size of the real talk and puts the speaker inside the set of people
-who have made these mistakes. **S2** frames the domain, then tells four bugs with no
+**`A0-title`** promises the size of the real talk and puts the speaker inside the set of people
+who have made these mistakes. **`A0-incidents`** frames the domain, then tells four bugs with no
 code panes; the buggy code appears later, at the stage where it stops compiling.
-**S3** concedes that a test could have caught all four, then draws the distinction that
+**`A0-turn`** concedes that a test could have caught all four, then draws the distinction that
 survives — a test is a case somebody must think of and keep correct, an encoded rule is
-applied at every call site by the compiler. It no longer restates S1's thesis.
+applied at every call site by the compiler. It no longer restates `A0-title`'s thesis.
 
 
 ### Act 1 — Where this comes from, and why you already write it · 8:15 — *the main new content*
@@ -178,7 +178,7 @@ the audience already writes in that notation.
 | `A1-curry-howard` | Proposition = Type. Proof = Program. | **Church/Turing** 1936, **Curry-Howard** 1969, **Lambek** | 1:45 | REWORK `curry-howard` + absorbs `09`/`11-convergence` |
 | `A1-above` | What lies above — briefly uncovered | **Martin-Löf** 1972, **Coquand** 1988 | 1:15 | **NEW** + absorbs `12-mltt`, `13-convergence3` |
 
-**S4** — validity is a property of *form*, not content. Two columns; the right one is the left
+**`A1-aristotle`** — validity is a property of *form*, not content. Two columns; the right one is the left
 one with the content removed:
 
 ```
@@ -196,7 +196,7 @@ A thin progress rail runs along the bottom of every Act 1 slide — Aristotle ·
 Russell · Church · Curry-Howard · Martin-Löf · Coquand — with the current beat lit. It gives the
 2,400-year sweep continuously, for free, without ever being a slide of its own.
 
-**S5 — the connectives.** Boole 1847 turns logic into algebra; Frege 1879 builds the first system
+**`A1-connectives` — the connectives.** Boole 1847 turns logic into algebra; Frege 1879 builds the first system
 that can actually carry mathematics. Formalism left, the Java they already write right.
 *Snippets must
 be lifted verbatim from `03-java-function-types-sealed/`, not invented* — the audience sees this
@@ -225,14 +225,14 @@ violated in the act of restating it — do not paraphrase, extract (see the extr
 Part 7).
 
 `→` and `¬` appear in the left column but are not taught here; name them and move on, or drop
-them. Note also that a classical-looking `¬` sits awkwardly beside S8's claim of an isomorphism
+them. Note also that a classical-looking `¬` sits awkwardly beside `A1-curry-howard`'s claim of an isomorphism
 with *intuitionistic* propositional logic.
 
 Punchline: *"`∨` is a sealed interface — exactly one variant. `∧` is a record — all fields at
 once. **Sums of products.** That combination carries most domain modelling you will ever do, and
-it shipped in Java 17."* This is where sum-of-products is planted; paid off at S14–S16.
+it shipped in Java 17."* This is where sum-of-products is planted; paid off at `A3-stage3` through `A3-payoff-bob`.
 
-**S6 — the quantifiers.** Frege's real innovation: propositions with holes in them, and
+**`A1-quantifiers` — the quantifiers.** Frege's real innovation: propositions with holes in them, and
 quantifiers that range over values.
 
 ```
@@ -244,12 +244,12 @@ proved it once, for all T. That is not an analogy. It is the same statement."*
 
 **Do not put `Optional<Proof>` on this slide as `∃`.** It was there and it is wrong: `Optional[T]`
 is `T ∨ 1`, a disjunction. The Curry-Howard reading of `∃x:A. B(x)` is a *dependent pair*, which
-is exactly what S9 introduces as Σ and what Stage 6 shows as the thing Java cannot express. A
-listener who joins this slide to S9 would conclude Java has Σ-types. Either show ∀ alone here,
+is exactly what `A1-above` introduces as Σ and what Stage 6 shows as the thing Java cannot express. A
+listener who joins this slide to `A1-above` would conclude Java has Σ-types. Either show ∀ alone here,
 or use the honest weaker form: a returned value, when present, is a *witness* for ∃ — it is not
 the existential itself.
 
-**S7 — the crisis, and where the word "type" comes from.** Restored from v1's `08-crisis`, but
+**`A1-crisis` — the crisis, and where the word "type" comes from.** Restored from v1's `08-crisis`, but
 reframed from an academic aside into the origin story of the talk's own subject. This is the
 philosophy → logic → mathematics → CS hinge, and it is ~40 seconds of genuine narrative:
 
@@ -264,7 +264,7 @@ can have is that it never proves something false — and that is the deal every 
 Hilbert's consistent / sound / complete triple is the one genuinely academic beat with low payoff
 for this room; it compresses into that line, with the full slide staying in the appendix.
 
-**S8 — Curry-Howard(-Lambek), the fulcrum.** Church and Turing 1936 as a one-line lead-in — *"the
+**`A1-curry-howard` — Curry-Howard(-Lambek), the fulcrum.** Church and Turing 1936 as a one-line lead-in — *"the
 typed lambda calculus is the direct ancestor of the `Function<String,Integer>` you write in Java
 8"* — then the correspondence itself, plus Lambek's third leg: *"…and cartesian closed
 categories. Logic, computation and algebra turn out to be three descriptions of one structure.
@@ -278,9 +278,9 @@ That is, to me, the most beautiful fact in computer science."* Then land it oper
 The Lambek claim is precise only for STLC ↔ intuitionistic propositional logic ↔ CCCs; the
 speaker note must carry that caveat (see Part 3's accuracy items).
 
-**S8 must also discharge the promise slide 1 makes.** Slide 1 now claims that writing a
+**`A1-curry-howard` must also discharge the promise slide 1 makes.** `A0-title` now claims that writing a
 program which type-checks is, *in a precise sense*, the same act as constructing a proof.
-That phrase points at rigour rather than hedging, so S8 has to say where the rigour ends:
+That phrase points at rigour rather than hedging, so `A1-curry-howard` has to say where the rigour ends:
 
 > **The correspondence is exact for total, pure calculi. Java is neither.** `null` inhabits
 > every reference type, unchecked exceptions escape any signature, and non-termination
@@ -295,7 +295,7 @@ Delivered this way, the caveat converts slide 1's promise into the talk's spine 
 undercutting it. Delivered badly, someone in the room supplies `return null;` and the thesis
 looks naive (see Part 8/C2).
 
-**S9 — what lies above, briefly uncovered.** Martin-Löf 1972 and Coquand 1988 — the kernel behind
+**`A1-above` — what lies above, briefly uncovered.** Martin-Löf 1972 and Coquand 1988 — the kernel behind
 Lean, Rocq, Agda and Idris. Four one-liners, deliberately *not* explained in depth:
 
 ```
@@ -330,9 +330,9 @@ all four run on a payment flow."* Plus the one-line cube glimpse (Part 2, Device
 | `A2-values` | **Types, values, references** | 1:00 | **NEW** |
 | `A2-promises` | **What a type checker actually promises** | 1:15 | **NEW** — restores the Hilbert/Gödel payoff |
 
-**S12 (`A2-promises`) was agreed in review and was missing from draft 4 entirely.** Act 2's
+**`A2-promises` (`A2-promises`) was agreed in review and was missing from draft 4 entirely.** Act 2's
 budget was raised to make room for it and the slide was never added — the kind of loss that
-only surfaces when the numbers stop working. It cashes out Act 1's S7 for practitioners:
+only surfaces when the numbers stop working. It cashes out Act 1's `A1-crisis` for practitioners:
 
 | | In logic | In your type checker |
 |---|---|---|
@@ -359,7 +359,7 @@ do not, because when the compiler says no it is usually right. You start feeling
 try to encode a *stronger* invariant, which is exactly the cost this talk is asking them to
 weigh. That hands off to `A6-cost`.
 
-**S11 is the new grounding slide** requested in review — the hinge between logic and code, kept
+**`A2-values` is the new grounding slide** requested in review — the hinge between logic and code, kept
 deliberately light:
 
 - A *value* is a bit pattern plus an agreement about how to read it. A *reference* is a value
@@ -408,12 +408,12 @@ This slide pre-empts the "sounds expensive" reflex before it forms, and sets up 
 **`A3-gentzen` is the structural fix for P2** — Gentzen's ∨I₁/∨I₂/∨E now sit sixty seconds before the
 compile error they explain instead of eight minutes before it.
 
-**S14** is where Bob's actual buggy code first appears, beside the sealed version. `Result<T>`
+**`A3-stage3`** is where Bob's actual buggy code first appears, beside the sealed version. `Result<T>`
 lands here as the same rule applied again: *"no `.get()` escape hatch. Scala spells it `Either`,
 Rust spells it `Result`."* The current slide has a real rendering bug — the `RiskDecision.java`
 pane wraps comments outside the box and clips at the bottom — fixed as part of this.
 
-**S17** is where Charlie's actual buggy code appears, then dies. Stage 0 (JavaScript) and the
+**`A3-stage4`** is where Charlie's actual buggy code appears, then dies. Stage 0 (JavaScript) and the
 `21-bridge` slide are both gone; each becomes one spoken sentence.
 
 ### Act 4 — Scala 3 · 8:30 — **the act that has never fit**
@@ -553,14 +553,14 @@ Nothing is deleted; eight things stop being spoken by default.
 
 | Was | v1 cost | Now |
 |---|---|---|
-| `07-toolkit` — 2,500 years of logic | 1:30 | **absorbed** into S4/S5 as each notation's origin |
-| `08-crisis` — Russell / Gödel | 1:30 | **restored as S7**; only Hilbert's sound/complete triple → A5 |
-| `09/11/13-convergence` — five history beats | 1:45 | **absorbed** into S8 and S9 |
-| `12-mltt` — Π/Σ rules standalone | 0:25 | **absorbed** into S9; shown running at S25 → A7 |
-| `14-lambda-cube` — the cube as a slide | 1:00 | progressive reveals at S19/S24/S27; full slide → A8 |
+| `07-toolkit` — 2,500 years of logic | 1:30 | **absorbed** into `A1-aristotle`/`A1-connectives` as each notation's origin |
+| `08-crisis` — Russell / Gödel | 1:30 | **restored as `A1-crisis`**; only Hilbert's sound/complete triple → A5 |
+| `09/11/13-convergence` — five history beats | 1:45 | **absorbed** into `A1-curry-howard` and `A1-above` |
+| `12-mltt` — Π/Σ rules standalone | 0:25 | **absorbed** into `A1-above`; shown running at `A5-mltt` → A7 |
+| `14-lambda-cube` — the cube as a slide | 1:00 | progressive reveals at `A3-ceiling`/`A4-ceiling`/`A5-payoff`; full slide → A8 |
 | `15-test-spine` — the nine-invariant table | ~1:15 | → A9, the complete inventory |
-| `21-bridge` — records → typestate | 1:30 | two sentences between S16 and S17 |
-| `16-stage0` — JavaScript baseline | 0:45 | one line on S10 |
+| `21-bridge` — records → typestate | 1:30 | two sentences between `A3-payoff-bob` and `A3-stage4` |
+| `16-stage0` — JavaScript baseline | 0:45 | one line on `A2-scenario` |
 
 Only four of these are genuine time recoveries — the cube slide, the invariant table, the bridge and Stage 0, about 4:30 between them. The history slides are **absorbed, not cut**: their content moves into Act 1 as each notation's origin story. What actually pays for the longer primer is the removal of v1's *second telling* — the ladder no longer re-teaches ideas the history already covered.
 
@@ -611,17 +611,17 @@ exist and does not need to.
 
 | Required | Slide(s) |
 |---|---|
-| **Philosophy → logic → maths → CS** | **Act 1 entire (S4–S9), braided** |
-| **Sum-of-products as core tactic** | planted S5, paid off S14–S16, recalled S28 |
-| Typestate | S17, S18 |
-| Generics | S6 (as ∀), S12 |
-| Type-level expressions & pattern matching | S22 (`Dual[P]` match type), A11 |
-| `Either` / `Result` | S14, same ∨E rule applied again |
-| Effect systems, capture checking, capabilities | S23 (~40 sec), depth in A1 |
-| **Types / values / references / memory model** | **S11** |
-| Curry-Howard(-Lambek) | S8, the fulcrum |
-| **Why it is called a *type*** | **S7 — Russell's paradox and his own fix** |
-| **Cost, honestly** | **S29** |
+| **Philosophy → logic → maths → CS** | **Act 1 entire (`A1-aristotle`…`A1-above`), braided** |
+| **Sum-of-products as core tactic** | planted `A1-connectives`, paid off `A3-stage3`–`A3-payoff-bob`, recalled `A6-cost` |
+| Typestate | `A3-stage4`, `A3-demo2` |
+| Generics | `A1-quantifiers` (as ∀), `A3-stage12` |
+| Type-level expressions & pattern matching | `A4-sessions` (`Dual[P]` match type), appendix |
+| `Either` / `Result` | `A3-stage3`, same ∨E rule applied again |
+| Effect systems, capture checking, capabilities | `A4-mechanisms` (~40 sec), depth in appendix |
+| **Types / values / references / memory model** | **`A2-values`** |
+| Curry-Howard(-Lambek) | `A1-curry-howard`, the fulcrum |
+| **Why it is called a *type*** | **`A1-crisis` — Russell's paradox and his own fix** |
+| **Cost, honestly** | **`A6-cost`** |
 | Java → Scala 3 → Idris 2 | Acts 3, 4, 5 |
 | Pragmatic focus | 27:10 of 47:05 is the code ladder (Acts 3–5), before demo narration |
 
@@ -635,49 +635,59 @@ the **process** and the question is about the **talk's content**.
 
 ### Two axes, not one
 
-**Axis 1 — content volatility.** Is the talk's argument settled at this point, or is it still
-being designed? This is about the material, not about whether a file exists.
+**Axis 1 — how settled the integration and presentation is.** Not *what are we claiming* — the
+argument is clear and consistent throughout the talk, and has been since draft 3. What is
+unsettled is **how the material is woven into the talk**: where a piece sits in the sequence,
+how it interleaves with what surrounds it, in what order features are introduced and how each
+builds on the last, how one act hands off to the next, what carries the point on the slide, and
+how much time and detail each beat gets.
+
+That is the work that remains, and it is why "the argument is settled" is no comfort: the same
+argument can be delivered as a climb or as a list, and the difference is entirely integration.
 
 **Axis 2 — downstream cost.** How many artifacts depend on the decision, and what does rework
-cost if it changes? A decision that governs six slides and a shared component is worth an hour
-of thought; one that governs three sentences is not.
+cost if it changes? A decision governing six slides and a shared component is worth an hour of
+thought; one governing three sentences is not.
 
-**Focus where both are high.** That is the whole triage. A third consideration — has this been
-executed and verified? — is not a volatility axis at all; it belongs in the acceptance criteria
-(Part 7), and treating it as one is what produced draft 6's two wrong classifications below.
+**Focus where both are high.**
 
-### OPEN content × high downstream cost — this is where the thinking goes
+Two things that are *not* volatility axes, both of which produced wrong classifications in
+earlier drafts: whether an artifact has been executed (that is an acceptance criterion, Part 7),
+and whether the prose is written (prose converges quickly once integration is fixed — see the
+trap below).
 
-| What is undecided | Downstream | Why it is open |
+### Integration UNSETTLED × high downstream cost — this is where the thinking goes
+
+| What is unsettled | Downstream | What exactly is open |
 |---|---|---|
-| **How Scala's additions over Java are introduced and progressed** | Act 4's 5 slides; the act that has never fit any budget | Refinements, opaque types, match types, path-dependent types, session duality, HKT and the effects aside all arrive in ~8 minutes. No sequence for them has been validated, and it is the densest new machinery in the talk. |
-| **How history and theory integrate** | Act 1's 6 slides **+ the progress rail component** | Which Java mirror sits beside which notation, in what order, and how much formalism each beat carries. This is the thesis of v2. |
-| **How features bridge across Java → Scala 3 → Idris 2** | 3 act boundaries | The Java ceiling, the Scala ceiling, and the primer→ladder handoff. Each is currently one sentence, and they are the joints where the argument holds or fails. |
-| **Demo narration and placement** | 4 slides, **9:15 = 20% of the slot** | *Reclassified from STABLE.* The edits are executed and the errors captured — that is the artifact. What each demo *says*, how long it runs, and where it sits inside its act is unwritten and **invisible to `make timing`** (Part 3's budget note). The largest unmeasured block in the talk. |
+| **How Scala's additions over Java are introduced and progressed** | Act 4's 5 slides; the act that has never fit any budget | *What* Scala adds is settled. **How it is introduced and progressed is not.** Refinements, opaque types, match types, path-dependent types, session duality, HKT and the effects aside all arrive inside ~8 minutes; no order has been validated, and delivered as a list rather than a progression this act becomes a feature tour. The densest integration problem in the talk. |
+| **How history and theory integrate** | Act 1's 6 slides **+ the progress rail component** | *That* history and logic braid into the primer is settled. **The braiding itself is not** — which Java mirror sits beside which notation, in what order, how much formalism each beat carries, and how the rail threads the eight names through six slides without becoming decoration. |
+| **How features bridge across Java → Scala 3 → Idris 2** | 3 act boundaries | *That* each language hits a ceiling is settled. **How the transition is staged is not** — these are the joints that decide whether the deck reads as one climb or as three talks stapled together, and each is currently one sentence. |
+| **Demo narration and placement** | 4 slides, **9:15 = 20% of the slot** | *Reclassified from SETTLED.* What each demo *proves* is settled; the edits run and the errors are captured. **How each is framed, how long it runs, and where it sits inside its act is not** — and it is **invisible to `make timing`** (Part 3's budget note). The largest unmeasured block in the talk at 20% of the slot. |
 
-### OPEN content × low downstream cost — decide fast, do not agonise
+### Integration UNSETTLED × low downstream cost — decide fast, do not agonise
 
 | What | Downstream |
 |---|---|
 | What each lambda-cube reveal actually says | 3 slides, ~3 sentences. The drawing already exists (`diagrams/lambda-cube.typ:29-195`) and its three highlight edges are already separate at `:71-73`, mapping 1:1 onto the reveals. Only the wording is open. |
 | Which of `→` and `¬` to name on `A1-connectives` | one line |
 
-### SETTLED content — transcription and checking, not design
+### Integration SETTLED — transcription and checking, not design
 
 | What | Why it is settled |
 |---|---|
-| The four bugs, what each shows, which stage closes it | authored, signed off, measured twice |
-| What each demo *proves* (not what it says) | four edits executed; four real errors captured to `demos/` |
+| The four bugs — content **and** placement (one slide up front, code deferred to the stage that kills it) | authored, signed off, measured twice |
+| What each demo *proves* — its content, not its framing | four edits executed; four real errors captured to `demos/` |
 | The code ladder and what each stage demonstrates | compiles and runs; unchanged by this rework |
 | The payoff format (Device 1) | format fixed; only per-stage wording remains |
 | The visual system | v1's design is good and is not being changed — **except** the cube parameterisation, Device 1's payoff layout, the first-ever use of `code-pane(diagnostic:)`, and the Act 1 progress rail, all of which are new component work and are budgeted nowhere |
 
-### The trap this triage exists to avoid
+### Two traps this triage exists to avoid
 
-**Settled content is not settled prose.** Act 0's content was settled before a word was written;
-the wording still took many rounds, and Part 9 exists because of it. Treat content as the thing
-to design and prose as the thing to converge — the prose linter catches the recurring faults
-mechanically, so prose is cheap once the content is fixed.
+**Settled integration is not settled prose.** Act 0's argument *and* its integration were settled
+before a word was written; the wording still took many rounds, and Part 9 exists because of it.
+Prose converges quickly once integration is fixed — the linter catches the recurring faults
+mechanically — so prose is cheap, and integration is not.
 
 **And settled content is not verified description.** The code examples are stable; the plan's
 claims about them were repeatedly not. Draft 6 asserted "stability is a property of the thing,
@@ -806,7 +816,7 @@ true, then draw the distinction that survives scrutiny.
 
 The four bugs used *authorize*, *capture*, *risk tier*, *payment rail*, *refund* and
 *KYC* before anything told the audience what a payment flow looks like. The domain
-strip on S2 now precedes them. Applies to every act: **name the frame, then fill it.**
+strip on `A0-incidents` now precedes them. Applies to every act: **name the frame, then fill it.**
 
 ### C4 — Examples must survive a practitioner's disbelief *(read for it)*
 
@@ -834,7 +844,7 @@ fault it existed to prevent.
 
 ### C7 — Check the joins, not only the beats *(read for it)*
 
-S3 jumped from "more tests would not have helped" straight into the 2,500-year
+`A0-turn` jumped from "more tests would not have helped" straight into the 2,500-year
 framing sentence with nothing between them. Each beat can be right while the
 sequence is unreadable. **After drafting a slide, read the last sentence of the
 previous one and the first of the next.**
@@ -866,7 +876,7 @@ section. Rate is calibrated against a real read-through, not assumed.
 
 The plan has been renumbered twice and both times left stale cross-references, because slide
 numbers are simultaneously identifiers and positions — so any insertion silently invalidates
-every reference downstream. The cut list still said `S12 Gentzen` after Gentzen became 13.
+every reference downstream. The cut list still said ``A2-promises` Gentzen` after Gentzen became 13.
 **Cross-references now use stable ids** (`A3-gentzen`, `A4-mechanisms`) and the numbers are
 treated as derived. Same failure mode as C1: trusting a representation that drifts from what
 it describes.

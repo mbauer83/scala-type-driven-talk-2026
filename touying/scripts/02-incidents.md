@@ -1,4 +1,4 @@
-VERBATIM · budget 2:15 · 268 words. Checked facts follow the script.
+VERBATIM · cap 2:35 · word count is computed by `make timing`, not stated here. Checked facts follow the script.
 
 "Everything tonight will be framed in terms of one scenario, and it is one every 
 person here has used, even if you haven't built it: order processing with payment. 

@@ -1,4 +1,4 @@
-VERBATIM · budget 1:20 · 168 words. This minute turns four war stories into the
+VERBATIM · cap 1:50 · word count is computed by `make timing`, not stated here. This minute turns four war stories into the
 thesis, and it is the second place you are most likely to stumble. Over-rehearse it.
 
 "A test could have caught every one of those - Alice's was, eventually. Each of those
@@ -45,7 +45,7 @@ NOTES ON THE WORDING
   figure is about 2,376 years. About-two-and-a-half-thousand is a fair round
   number; two-thousand-five-hundred states more precision than the date supports.
 - Gentzen 1935 is the Untersuchungen über das logische Schließen, which introduces
-  natural deduction and the introduction/elimination rules. Slide 13 shows them.
+  natural deduction and the introduction/elimination rules. The Gentzen slide (`A3-gentzen`) shows them.
 - The claim is deliberately sits-at-the-end-of-it rather than is-proof-theory.
   A sealed interface instantiates a structure proof theory studies; saying it IS
   proof theory overclaims and loses anyone who knows the difference.

@@ -1,4 +1,4 @@
-VERBATIM · budget 1:00 · 122 words.
+VERBATIM · cap 1:00 · word count is computed by `make timing`, not stated here.
 
 "Good evening. My name is Michael Bauer, and I've spent the last dozen or so years working
 as a software and solution architect. Tonight I would like to start with four bugs.
@@ -21,7 +21,7 @@ before slide 8.
 
 "In a precise sense" is not a hedge. It points at where the rigour lives: the
 Curry-Howard correspondence is an isomorphism, not an analogy. The caveat it
-promises is discharged on slide 8 — see the note there about total pure calculi
+promises is discharged on `A1-curry-howard` — see the note there about total pure calculi
 versus Java's null, exceptions and non-termination.
 
 Do not say production-incidents. Alice's was caught in staging, and whether any
