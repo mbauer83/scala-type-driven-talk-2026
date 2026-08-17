@@ -47,3 +47,11 @@ WPM ?= 120
 .PHONY: timing
 timing:
 	python3 tools/talk-timing.py --wpm $(WPM)
+
+# check: everything that can be verified without you reading aloud.
+# Run this after editing any script in touying/scripts/.
+.PHONY: check
+check:
+	@typst compile touying/deck.typ talk.pdf && echo "build      OK"
+	@python3 tools/prose-lint.py --all && echo "prose      OK"
+	@python3 tools/talk-timing.py --wpm $(WPM)

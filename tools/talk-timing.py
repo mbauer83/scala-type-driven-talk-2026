@@ -55,6 +55,18 @@ def deck_order():
     return main, appendix
 
 
+def _resolve_reads(note, slide_path):
+    """Inline any #read("...") the note delegates to, so tools see real prose."""
+    def sub(m):
+        rel = m.group(1)
+        target = os.path.normpath(os.path.join(os.path.dirname(slide_path), rel))
+        try:
+            return open(target, encoding="utf-8").read()
+        except OSError:
+            return ""
+    return re.sub(r'#read\(\s*"([^"]+)"\s*\)', sub, note)
+
+
 def spoken_words(stem):
     """Words in the slide's speaker note that will actually be said aloud."""
     path = os.path.join(SLIDES, stem + ".typ")
@@ -73,7 +85,7 @@ def spoken_words(stem):
             depth -= 1
             if depth == 0:
                 break
-    note = src[j + 1:k]
+    note = _resolve_reads(src[j + 1:k], path)
     # Drop presenter navigation cues and authoring comments — not spoken.
     note = re.sub(r"^\s*(→|//).*$", "", note, flags=re.M)
     note = re.sub(r"[#*_\\`\[\]]", " ", note)

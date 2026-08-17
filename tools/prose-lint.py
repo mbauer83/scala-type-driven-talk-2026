@@ -42,7 +42,19 @@ MIN_LENGTH_VARIATION = 0.38 # stdev/mean below this over a whole note is flat
 
 # ── extraction ───────────────────────────────────────────────────────────────
 
-def spoken_text(src):
+def _resolve_reads(note, slide_path):
+    """Inline any #read("...") the note delegates to, so tools see real prose."""
+    def sub(m):
+        rel = m.group(1)
+        target = os.path.normpath(os.path.join(os.path.dirname(slide_path), rel))
+        try:
+            return open(target, encoding="utf-8").read()
+        except OSError:
+            return ""
+    return re.sub(r'#read\(\s*"([^"]+)"\s*\)', sub, note)
+
+
+def spoken_text(src, slide_path=None):
     """The double-quoted spans inside #speaker-note[...]; '' if none."""
     i = src.find("#speaker-note[")
     if i < 0:
@@ -56,7 +68,7 @@ def spoken_text(src):
             depth -= 1
             if depth == 0:
                 break
-    note = src[j + 1:k]
+    note = _resolve_reads(src[j + 1:k], slide_path or '')
     note = re.sub(r"^\s*(→|//).*$", "", note, flags=re.M)
     return " ".join(re.findall(r'"([^"]*)"', note, flags=re.S))
 
@@ -234,7 +246,7 @@ def lint_file(path):
         src = open(path, encoding="utf-8").read()
     except OSError:
         return []
-    text = spoken_text(src)
+    text = spoken_text(src, path)
     if len(words(text)) < 15:
         return []
     return [(sev, rid, exc, why, path) for sev, rid, exc, why in check(text, path)]
