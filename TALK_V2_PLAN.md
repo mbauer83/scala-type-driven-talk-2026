@@ -1443,3 +1443,85 @@ pronoun collision with a later clause ("tools to prevent them" reading as preven
 programmers). **When editing for one property, diff for changes to the others. A restore
 is an edit too, and needs its neighbourhood re-checked.**
 
+
+---
+
+## Part 10 — MB review of Act 0/1 as built (17 Aug) — OPEN CORRECTIONS
+
+Recorded verbatim in substance before any are applied. Each is a defect in what
+is now on screen, not a plan change.
+
+### Layout
+
+**`A0-incidents`** — too much space between the headline and the first row; too
+little for everything below it. In the left column, name and scenario tag are set
+too close together. In the right column, the orange cost line and the grey
+qualifier under it need more separation.
+
+### Wording and claims
+
+**`A0-turn`** — three problems:
+1. *"A type constrains every call site"* is wrong. **Types do not have call
+   sites**, and they are useful well beyond functions and methods. → **"A type
+   constrains every use."**
+2. `philosophy → logic → mathematics → your compiler` reads as a progression in
+   which each supplants or improves on the last. **It is not one.** These are not
+   successive refinements of one activity.
+3. The arithmetic/algebraic turn is **not** what makes logic mechanically
+   checkable — **Aristotle's insight already does that**, because a form can be
+   checked by inspection. Numeric encoding and the algebraic treatment make it
+   *numerically calculable*, which is a different and later thing, and that is
+   where Leibniz and binary belong.
+
+**`A1-aristotle`** — *"The content is gone. The argument survived."* is
+overused-AI phrasing. Direction: **"Validity comes from shape. True premises →
+true conclusions."**
+
+**`A1-connectives`** —
+1. Both code panes show a **disjunction at type level**: its declaration and its
+   use. The left column pairs `∨` above and `∧` below, which makes the layout
+   imply that the upper pane is the disjunction and the lower one the
+   conjunction. It does not say that; the layout does.
+2. The distinction between **program-level boolean logic** and **type-level
+   sum/product construction** is still not sharp enough (this is C13 again, and
+   it is the slide most at risk).
+3. The code panes themselves are good and stay.
+
+**`A1-quantifiers`** — the added value is not clear, because **the Aristotelian
+syllogism on `A1-aristotle` already contains a universal quantification**. The
+slide must say what quantification *adds* once you have the syllogism — explicit
+binding, quantifying over an unbounded domain, and ∃ as a separate thing — rather
+than presenting ∀ as new.
+
+**`A1-crisis`** —
+1. Headline *"The crisis, and where the word comes from"* is bad: **"the word" is
+   an unintelligible forward reference** until the reader reaches "types".
+2. It poses the set-of-all-sets question and then jumps to the repair **without
+   naming the problem** — that the contradiction destroys naive set theory and
+   with it the foundation being built for logic and proof theory.
+3. *"What Hilbert wanted of a system"* arrives unmotivated. **Keep it**, but
+   motivate it.
+4. Consider opening with the **barber** — the barber who shaves everyone who does
+   not shave themselves — above the set-theoretic form, as the intuitive version.
+
+**`A1-curry-howard`** —
+1. **Lambek should be a smaller, more general side note**, not a co-equal third.
+2. The caveat currently implies **logic cannot capture imperative, impure
+   programs. It can** — just not via STLC. Continuations and related machinery do
+   exactly this. Rewrite so the limit is about *which calculus*, not about
+   *whether it is possible*.
+
+### Rail
+
+Last element must read **"Martin-Löf (+)"** — quantitative type theory, session
+types with duality and the rest are all beyond MLTT, and the bare name overstates
+where the rail ends.
+
+### Open strategic question — answer before Act 2
+
+**Is introducing the programming meaning of each theoretical concept this early
+right, before the ladder has been climbed?** Act 1 currently pairs every notation
+with its Java mirror on the spot. The alternative is to keep Act 1 purely
+conceptual and let each mirror appear at the stage where it pays off. MB is
+unsure; this needs an explicit evaluation, because it governs all six Act 1
+slides and the shape of every act after them.
