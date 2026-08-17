@@ -27,12 +27,15 @@
   diagnostic:  none,
   code-size:   type-scale.code-sm,              // default 24pt raw (12pt rendered) — fits more lines per pane
   height:      auto,                            // pass 100% to fill the grid row (equal-height columns)
+  pad-y:       20pt,                            // code-area inset y, in slide-plan px. Lower it on a
+                                                // slide carrying two panes and a caption strip; the
+                                                // default is the comfortable single-pane value.
 ) = {
   let line-h     = sz(code-size) * 1.5
   let gutter-w   = sz(code-size) * 2.4          // ~2.2em gutter
   let gutter-gap = sz(code-size) * 1.6          // gap after gutter
   let ci-x       = sz(32pt)                     // code-area inset x
-  let ci-y       = sz(20pt)                     // code-area inset y — tighter than before
+  let ci-y       = sz(pad-y)                    // code-area inset y
 
   // Return highlight kind string for line n, or none.
   let hl-kind(n) = {

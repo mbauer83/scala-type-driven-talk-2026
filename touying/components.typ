@@ -698,6 +698,14 @@
   "Russell", "Church", "Curry-Howard", "Martin-Löf",
 )
 
+// Display label where it differs from the key. The last beat reads
+// "Martin-Löf (+)" because quantitative type theory, session types with duality
+// and the rest of what `A1-above` shows all sit beyond MLTT — the bare name
+// would claim the rail ends where it does not (Part 10).
+#let act1-labels = (
+  "Martin-Löf": "Martin-Löf (+)",
+)
+
 #let act1-rail(lit: ()) = {
   let seen = false
   block(width: 100%, inset: (top: sz(10pt)))[
@@ -721,7 +729,7 @@
           fill: if active { pal.accent }
                 else if past { pal.fg-dim }
                 else { pal.fg-faint.transparentize(40%) },
-          name,
+          act1-labels.at(name, default: name),
         )
       }),
     )

@@ -6,13 +6,14 @@ tests, though, is a case somebody has to think of, write down, and keep correct,
 everywhere the rule applies.
 
 Where the same rule can be encoded in a type at a reasonable price, the compiler
-applies it at every call site, and nobody has to remember. How we can tell whether
+applies it at every use, and nobody has to remember. How we can tell whether
 something is valid and how we can say what that means 
 - those questions are much older than programming.
 
 The history of what we are doing when we specify programs and types stretches back
 about two and a half thousand years, across philosophy, logic, mathematics, and
-computer science. That is the thread I want to follow tonight.
+computer science. None of them finished with it. That is the thread I want to
+follow tonight.
 
 When you write a sealed interface and the compiler makes you handle every case, you
 are applying a rule that Gerhard Gentzen wrote down in 1935. When you write a
@@ -24,6 +25,21 @@ of what your system actually requires, and have it checked for you
 — and for the agents now writing code next to you."
 
 NOTES ON THE WORDING
+- PART 10, three corrections applied here.
+  1. "every call site" is gone. **Types do not have call sites**, and they are
+     useful well beyond functions and methods — a field, a record component, a
+     type parameter, a variable binding. "Every use" is both correct and wider.
+  2. The four fields were joined by arrows on the slide, which reads as a
+     progression where each supplants or improves on the last. It is not one.
+     They are middots now, with a caption saying what the row means, and the
+     script says it too.
+  3. The arithmetic/algebraic turn is NOT what makes logic mechanically
+     checkable — **Aristotle's insight already does**, because a form can be
+     checked by inspection. What the algebra buys is numerical *calculability*,
+     which is later and different, and is where Leibniz and binary belong.
+     Nothing on this slide claims otherwise; the claim lived on
+     `A1-connectives` and is corrected there (Part 10/F1). Recorded here so the
+     two slides cannot drift apart again.
 - The opening no longer explains how a test would have caught Alice's. Slide 2
   already showed exactly that (the first two-line order in the test data), so
   re-deriving it here is redundant — and "would have found it in a day" was wrong

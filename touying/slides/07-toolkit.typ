@@ -33,10 +33,18 @@
         text(font: mono-font, size: sz(33pt), fill: pal.fg)[x is T],
       )
     ]
-    #v(sz(60pt))
+    #v(sz(56pt))
+    // Part 10: "The content is gone. The argument survived." was overused-AI
+    // phrasing. MB's direction — validity comes from shape; true premises give
+    // true conclusions. The second line also carries the F1 point: a shape is
+    // checkable by inspection, which is where mechanical checking actually
+    // starts. Boole buys calculability later, not checkability.
     #align(center)[
       #set text(size: sz(36pt), weight: 400, fill: pal.fg)
-      The content is gone. #text(fill: pal.accent)[The argument survived.]
+      Validity comes from #text(fill: pal.accent)[shape.]
+      #v(sz(14pt))
+      #set text(size: sz(30pt), fill: pal.fg-dim)
+      True premises → true conclusions, whatever M and T and x turn out to be.
     ]
   ],
   footer: act1-rail(lit: ("Aristotle",)),

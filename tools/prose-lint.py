@@ -381,6 +381,11 @@ def main():
         # was silently dead on exactly the files it was built to guard.
         in_slides = path.endswith(".typ") and os.path.join("touying", "slides") in path
         in_scripts = path.endswith(".md") and os.path.join("touying", "scripts") in path
+        # scripts/README.md documents the banned constructions by quoting them,
+        # so it trips every claim rule it describes and can never pass. It is
+        # documentation, not a spoken script, and nothing in the deck reads it.
+        if os.path.basename(path).lower() == "readme.md":
+            return 0
         if not (in_slides or in_scripts):
             return 0
         return report(lint_file(path))

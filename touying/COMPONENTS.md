@@ -46,9 +46,11 @@ The on-page render multiplies them by `scale` (= 0.5).
 
 | Signature | Renders |
 |-----------|---------|
-| `code-pane(filename: "Demo.java", language: "java", body, highlights: (), hover: none, diagnostic: none)` | Dark `pal.bg-dark-2` block. **Tab bar** (`pal.bg-dark`): accent dot + mono filename. **Code area**: `themes/dark.tmTheme` syntax highlighting via `show raw.line:`; space-padded line-number gutter (colour `#494c58`). Per-line background tints per `highlights`. **Hover-pop**: `pal.bg-dark-3` tooltip `place`d above the specified line. **Diagnostic strip**: `pal.bg-dark-3` band with bad/good/note colouring. |
+| `code-pane(filename: "Demo.java", language: "java", body, highlights: (), hover: none, diagnostic: none, code-size: …, height: auto, pad-y: 20pt)` | Dark `pal.bg-dark-2` block. **Tab bar** (`pal.bg-dark`): accent dot + mono filename. **Code area**: `themes/dark.tmTheme` syntax highlighting via `show raw.line:`; space-padded line-number gutter (colour `#494c58`). Per-line background tints per `highlights`. **Hover-pop**: `pal.bg-dark-3` tooltip `place`d above the specified line. **Diagnostic strip**: `pal.bg-dark-3` band with bad/good/note colouring. |
 
 `body` — content containing a `raw(lang: …, block: true, "…")` element. Plain-text content is accepted but produces no gutter or tints (backward-compat only).
+
+`pad-y` — vertical inset of the code area, in slide-plan px (default `20pt`). Lower it on a slide carrying two panes plus a caption strip, where the default chrome is what pushes the content off the page. `A1-connectives` uses `8pt`.
 
 `highlights` — array of `(line-number, kind)` where `kind ∈ "err" | "hl" | "hl-good"`.
 `hover` — `(line, col, text)` or `none`. Tooltip placed above the given line.
@@ -85,6 +87,7 @@ refine the *bodies* (typography, slot styling) but not the shape.
 | `callout(label, body, style: "accent")` | Left-bar callout. Mono uppercase label (22pt, 0.06em tracking), body 28pt. `style ∈ "accent" \| "bad"`. |
 | `signature-card(body)` | White card with mono body (30pt), border + light shadow. Used for IDE method signatures. |
 | `beat-grid(entries)` | Two-column grid (120pt mono accent `when` + body `what` with optional `sub`). `entries: array of (when, what, sub)`. |
+| `act1-rail(lit: ())` | The Act 1 progress rail: the eight names of `act1-beats` in order along the slide footer, current beat(s) in accent, earlier beats dim, later beats faint. Pass via `theory-slide(footer: …)`. `lit` holds the **keys** from `act1-beats`; `act1-labels` overrides the displayed string where it differs (the last beat renders as `Martin-Löf (+)`, because QTT, session duality and the rest of `A1-above` all sit beyond MLTT and the bare name would claim the rail ends where it does not). |
 
 ### Phase 3 patterns (implemented)
 

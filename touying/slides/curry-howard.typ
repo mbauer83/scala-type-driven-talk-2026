@@ -12,7 +12,10 @@
 #import "../components.typ": *
 
 #theory-slide(
-  eyebrow: eyebrow([Church/Turing 1936 · Curry-Howard 1969 · Lambek], style: "accent"),
+  // Lambek is off the eyebrow on purpose (Part 10): listed beside Church/Turing
+  // and Curry-Howard he reads as a co-equal third pillar. He is a side note in
+  // the left column instead.
+  eyebrow: eyebrow([Church/Turing 1936 · Curry-Howard 1969], style: "accent"),
   [Proposition = Type.  Proof = Program.],
   [
     #v(sz(6pt))
@@ -39,11 +42,11 @@
         )
         #v(sz(22pt))
         #line(length: 100%, stroke: 0.5pt + pal.rule-strong)
-        #v(sz(16pt))
-        #set text(size: sz(24pt), fill: pal.fg-dim)
+        #v(sz(14pt))
+        #set text(size: sz(21pt), fill: pal.fg-faint)
         #set par(leading: 0.45em)
-        Lambek adds a third leg — cartesian closed categories. Logic, computation
-        and algebra as three descriptions of one structure.
+        Lambek later found the same structure a third time, over in category
+        theory.
       ],
 
       // ── right: C13, the distinction the whole primer rests on
@@ -68,11 +71,12 @@
     )
     #v(sz(28pt))
     #callout(
-      [The honest caveat — and the reason this talk has stages],
-      [Exact for *total, pure* calculi, and Java is neither: `null` inhabits every reference
-       type, an exception escapes any signature, a loop that never returns inhabits anything at
-       all. So a Java method `A → B` does not prove `A implies B` — and everything we climb from
-       here buys a correspondence a little closer to exact.],
+      [The honest caveat — *which calculus*, not whether],
+      [This correspondence is with a *total, pure* calculus, and Java is neither: `null` inhabits
+       every reference type, an exception escapes any signature, a loop that never returns
+       inhabits anything at all. That does not put effects beyond logic — there are calculi for
+       state, exceptions and control, and continuations answer to classical reasoning. It puts
+       Java outside *this* one, and every stage we climb from here moves it closer.],
       style: "bad",
     )
   ],
