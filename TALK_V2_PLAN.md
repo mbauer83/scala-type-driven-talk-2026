@@ -83,7 +83,7 @@ compiling — not up front.
 |---|---|
 | Occasion | Java Meetup, Inspired Consulting GmbH, Köln — **Thu 20 Aug 2026** |
 | Audience | Working Java devs, mixed seniority, little FP/type-theory background |
-| Runtime | 45 min hard; up to 3 min borrowable. **Plan to ~44:00** |
+| Runtime | 45 min hard; up to 3 min borrowable. Base plan 44:50 — the cut list is part of the plan |
 | Title | Unchanged: *Type-Driven Programming — Correctness by Construction from the Basics to the Cutting Edge* |
 | Demos | 4 live IDE segments; fallback = **real captured compiler output**, rendered as a terminal pane, hidden until needed |
 | Code | **Talk-only rework.** Existing 7-stage ladder (`00-` … `06-`) unchanged |
@@ -137,7 +137,7 @@ existing drawing; no new geometry.
 
 ---
 
-## Part 3 — The deck: 31 main slides, 45:20 (Act 0 measured, rest estimated)
+## Part 3 — The deck: 30 main slides, 44:50 (Act 0 measured, rest estimated)
 
 Legend: **NEW** · **KEEP** · **REWORK** · **MERGE** · **→A** (demoted to appendix)
 
@@ -163,26 +163,6 @@ code panes; the buggy code appears later, at the stage where it stops compiling.
 survives — a test is a case somebody must think of and keep correct, an encoded rule is
 applied at every call site by the compiler. It no longer restates S1's thesis.
 
-
-**S2** — four rows: name · system · what happened · what it cost. Each keeps **one concrete human
-detail** (the Slack message from accounting; the third risk tier added months later; the three
-hours of log archaeology; the three weeks it ran fine before anyone tried a large upload). No
-code panes. Closing line: *"Four bugs. None of them is stupidity. All four compiled."*
-
-**S3** — the pivot. Slide reads: *"A test catches the cases you thought of. A type
-constrains every call site — whether you thought of it or not."*
-
-**Do not claim tests could not have caught these.** They could: a fixture with two
-order lines finds Alice's in a day. The claim that survives scrutiny is about the
-*kind* of guarantee — a test is a case somebody has to think of, write down, and
-keep correct at every place the rule applies, whereas an encoded rule is applied by
-the compiler at every call site whether or not anyone remembered. Overclaiming here
-also contradicts the Alice story itself, where a two-line fixture is what finds it.
-
-Then the bridge into the framing sentence: *"The history of what we are doing when
-we specify programs and types stretches back about two and a half thousand years,
-across philosophy, logic, mathematics, and computer science."* MB's sentence,
-lightly restructured; the original is preserved in the slide's note.
 
 ### Act 1 — Where this comes from, and why you already write it · 8:15 — *the main new content*
 
@@ -304,12 +284,42 @@ Contract with the room: *"You will not walk out of here fluent in this syntax. T
 isn't the point. You'll walk out knowing what each of these **buys** you, and you'll have watched
 all four run on a payment flow."* Plus the one-line cube glimpse (Part 2, Device 2).
 
-### Act 2 — Ground floor · 1:30
+### Act 2 — Ground floor · 2:45
 
-| # | Slide | Time | Origin |
-|---|---|---|---|
-| 10 | One scenario | 0:30 | REWORK `15-test-spine` — flow diagram only, nine-row list → appendix |
-| 11 | **Types, values, references** | 1:00 | **NEW** |
+| # | id | Slide | Time | Origin |
+|---|---|---|---|---|
+| 10 | `A2-scenario` | One scenario | 0:30 | REWORK `15-test-spine` — flow diagram only, nine-row list → appendix |
+| 11 | `A2-values` | **Types, values, references** | 1:00 | **NEW** |
+| 12 | `A2-promises` | **What a type checker actually promises** | 1:15 | **NEW** — restores the Hilbert/Gödel payoff |
+
+**S12 (`A2-promises`) was agreed in review and was missing from draft 4 entirely.** Act 2's
+budget was raised to make room for it and the slide was never added — the kind of loss that
+only surfaces when the numbers stop working. It cashes out Act 1's S7 for practitioners:
+
+| | In logic | In your type checker |
+|---|---|---|
+| **Consistent** | never derives a contradiction | no well-typed program can inhabit an impossible type |
+| **Sound** | provable ⟹ true | if it compiles, the property holds |
+| **Complete** | true ⟹ provable | every safe program is accepted — **deliberately abandoned** |
+
+Two things must land, and one correction must not be lost:
+
+1. **Completeness is given up for decidability, and that is Rice's theorem, not Gödel.** Every
+   non-trivial semantic property of programs is undecidable, so a checker that always
+   terminates must approximate, and it approximates on the safe side. Conflating this with
+   Gödel's incompleteness is a real error and someone in the room may know it.
+2. **Soundness is bounded by the escape hatches you use.** Java's own famous hole is the
+   honest evidence:
+   ```java
+   Object[] arr = new String[1];
+   arr[0] = 42;              // compiles. ArrayStoreException at runtime.
+   ```
+   Plus `null`, unchecked casts, Scala's `asInstanceOf`, Idris's `believe_me`.
+
+**Do not claim the audience feels incompleteness daily** — MB's experience is that they mostly
+do not, because when the compiler says no it is usually right. You start feeling it when you
+try to encode a *stronger* invariant, which is exactly the cost this talk is asking them to
+weigh. That hands off to S29.
 
 **S11 is the new grounding slide** requested in review — the hinge between logic and code, kept
 deliberately light:
@@ -342,14 +352,6 @@ deliberately light:
    Idris payoff before it arrives. State the general rule, then mark the exception
    explicitly when Stage 6 lands.
 
-**Gradual typing** also belongs here, briefly (raised in review). It is the single
-biggest usability story for both TypeScript and Scala, and the audience knows
-TypeScript: you can add a type layer to an existing untyped codebase incrementally,
-one module at a time, without a rewrite. That matters because it converts "adopt a
-type system" from a migration into a series of small local decisions — which is
-exactly the adoption question S29 answers. One or two sentences here, one callback
-in the cost slide.
-
 This slide pre-empts the "sounds expensive" reflex before it forms, and sets up the cost slide.
 
 ### Act 3 — The Java ladder · 13:10 — *the payoff section for this audience*
@@ -376,7 +378,7 @@ pane wraps comments outside the box and clips at the bottom — fixed as part of
 **S17** is where Charlie's actual buggy code appears, then dies. Stage 0 (JavaScript) and the
 `21-bridge` slide are both gone; each becomes one spoken sentence.
 
-### Act 4 — Scala 3 · 8:30
+### Act 4 — Scala 3 · 6:30
 
 | # | Slide | Time | Origin |
 |---|---|---|---|
@@ -395,7 +397,7 @@ a database' in the type. Scala 3's experimental capture checking does the same w
 — `User^{db}`. Same idea one level up: not which values you hold, but which capabilities they
 carry."* Depth stays in appendix A1.
 
-### Act 5 — Idris 2 · 5:30
+### Act 5 — Idris 2 · 5:15
 
 | # | Slide | Time | Origin |
 |---|---|---|---|
@@ -408,14 +410,18 @@ running: `protocolFromSnapshot : RiskSnapshot -> SessionType` *is* Π-eliminatio
 Order n c -> (lvl ** Assessment lvl n c)` *is* Σ-introduction. Callback: *"That's the notation I
 showed you in the primer and promised you'd see run. There it is."*
 
-### Act 6 — Close · 4:00
+### Act 6 — Close · 3:30
 
-| # | Slide | Time | Origin |
-|---|---|---|---|
-| 28 | The climb | 0:30 | KEEP `31-the-climb`, tightened |
-| 29 | **What it costs — and why the calculus is shifting** | 1:30 | **NEW** + MERGE `32-agentic` |
-| 30 | What to do on Monday | 1:00 | MERGE `where-to-start` + `33-horizon` (3 lines) |
-| 31 | Close | 1:00 | KEEP `34-close` |
+| # | id | Slide | Time | Origin |
+|---|---|---|---|---|
+| 28 | `A6-cost` | **What it costs — and why the calculus is shifting** | 1:30 | **NEW** + MERGE `32-agentic` |
+| 29 | `A6-monday` | What to do on Monday | 1:00 | MERGE `where-to-start` + `33-horizon` (3 lines) |
+| 30 | `A6-close` | Close | 1:00 | KEEP `34-close` |
+
+**`31-the-climb` is cut, structurally rather than to save time.** The last four minutes
+otherwise carry three summaries: the dark *Unrepresentable* slide (the emotional one), the
+climb table (the technical one), and the close (the argumentative one). Two of those are
+enough, and the dark slide plus the close are the two that work. → appendix.
 
 **S29 is the new cost slide**, merged with the agentic-development argument because they are the
 same conversation — the price, and why the price is worth paying now:
@@ -431,6 +437,13 @@ same conversation — the price, and why the price is worth paying now:
 - Then the shift: *code is now generated faster than it can be reviewed. An expressive type
   system raises the floor of correctness that holds regardless of who — or what — wrote the code.
   And the compiler's type error is precise enough to be a specification an agent can act on.*
+- **Gradual typing** (raised in review). Moved here from `A2-values`: it is an *adoption*
+  argument, not a claim about what a type is, and "how do I start without a rewrite" is the
+  question this slide exists to answer. Frame it in terms this room already lives in — `var`,
+  raw types interoperating with generics, `@Nullable` layered onto an existing codebase,
+  Kotlin's platform types at the Java boundary — and name TypeScript only as the cleanest
+  large-scale demonstration. The point: a type layer can be added incrementally, one module at
+  a time, which turns "adopt a type system" from a migration into a series of local decisions.
 - Landing line: *"The question was never 'should I use dependent types for my CRUD endpoints.'
   It's: is this invariant expensive enough to encode? The tools keep getting cheaper, so that
   set keeps getting bigger."*
@@ -439,23 +452,39 @@ same conversation — the price, and why the price is worth paying now:
 
 | Act | Time | State |
 |---|---|---|
-| 0 — Open | **5:25** | authored, measured |
+| 0 — Open | **5:25** | **measured** |
 | 1 — History braided into the primer | 8:15 | estimated |
 | 2 — Ground floor | 2:45 | estimated |
 | 3 — Java ladder | 13:10 | estimated |
-| 4 — Scala 3 | 6:30 | estimated — **owes Act 0 its overage**; measured 10:36 in v1 |
+| 4 — Scala 3 | 6:30 | estimated — measured 10:36 in v1, so this is the least trustworthy row |
 | 5 — Idris 2 | 5:15 | estimated |
-| 6 — Close | 4:00 | estimated |
-| **Total** | **45:20** | one act measured, six guessed |
+| 6 — Close | 3:30 | estimated |
+| **Total** | **44:50** | one act measured, six guessed |
 
-Against 45:00 hard + 3:00 borrowable, leaving **0:35 of slack**. Draft 2's table said 45:10; that was an arithmetic error (Act 6 sums to 4:15, not 5:00). These are still estimates — the honest number comes from the stopwatch read-through (execution step 11), not this table. The cut list below is the safety margin and reaches 39:40.
+Against a 45:00 hard stop, that is **0:10 spare** — which is rounding, not slack.
+
+**Say this plainly rather than manufacture margin: the base plan does not comfortably fit, and
+the cut list below is therefore part of the plan, not a contingency.** Six of the seven acts
+are estimates by someone who is not the speaker; Act 4 in particular measured 10:36 in v1 and
+is budgeted at 6:30, which is the single largest act of optimism in the table. The number that
+decides this is the stopwatch read-through (execution step 11), and it should happen as soon as
+Act 1 and Act 3 exist rather than at the end.
+
+Draft 2's table said 45:10 and draft 4's said 45:20 while claiming 0:35 of slack; both were
+wrong, in the same direction. See Part 8/C10.
 
 **Cut order if running behind** — apply in this order; never cut Demo 1 or Demo 4:
 
-1. Demo 3 → narrate over the static pane (−1:30)
-2. S22 mechanisms → name three of six, drop the effects aside (−1:00)
-3. S12 Gentzen → state the rule verbally over S13 (−1:00)
-4. Demo 2 → narrate over the static pane (−1:15)
+Referenced by name, not by number — slide numbers have gone stale twice already (Part 8/C12).
+
+1. `A4-demo3` → narrate over the static pane (−1:30)
+2. `A4-mechanisms` → name three of six, drop the effects aside (−1:00)
+3. `A3-gentzen` → state the rule verbally over the Stage 3 slide (−1:00)
+4. `A3-demo2` → narrate over the static pane (−1:15)
+5. **Merge `A1-connectives` and `A1-quantifiers`** onto one slide (−1:00) · *the first
+   primer-side cut; take it only if Act 1 measures long in the read-through*
+
+Full depth reaches **39:05**, which is the real floor if the read-through comes in long.
 
 ---
 
@@ -474,7 +503,7 @@ Nothing is deleted; eight things stop being spoken by default.
 | `21-bridge` — records → typestate | 1:30 | two sentences between S16 and S17 |
 | `16-stage0` — JavaScript baseline | 0:45 | one line on S10 |
 
-Only three of these are genuine time recoveries (the cube slide, the invariant table, the bridge and Stage 0 — about 4:30). The history slides are **absorbed, not cut**: their content moves into Act 1 as each notation's origin story. What actually pays for the longer primer is the removal of v1's *second telling* — the ladder no longer re-teaches ideas the history already covered.
+Only four of these are genuine time recoveries — the cube slide, the invariant table, the bridge and Stage 0, about 4:30 between them. The history slides are **absorbed, not cut**: their content moves into Act 1 as each notation's origin story. What actually pays for the longer primer is the removal of v1's *second telling* — the ladder no longer re-teaches ideas the history already covered.
 
 Appendix after the rework: A1 effects/capture · A2 linearity across languages · A3 Idris live
 mismatch · A4–A8 the demoted theory · A9 the invariant inventory · A10 reading list · A11 match
@@ -514,7 +543,34 @@ regenerable if the code changes.
 | **Why it is called a *type*** | **S7 — Russell's paradox and his own fix** |
 | **Cost, honestly** | **S29** |
 | Java → Scala 3 → Idris 2 | Acts 3, 4, 5 |
-| Pragmatic focus | 27:10 of 44:25 is the code ladder |
+| Pragmatic focus | 24:55 of 44:50 is the code ladder (Acts 3–5) |
+
+---
+
+## Part 6b — Authoring triage: what actually needs a verbatim script
+
+Act 0 was scripted verbatim because it is the stumble zone — cold open, unfamiliar material,
+highest stakes, and the place MB measured a 3–4× overrun on his first attempt. **That reasoning
+does not apply uniformly, and treating all 30 slides as verbatim work is not a plan.**
+
+| Act | Slides | Treatment | Why |
+|---|---|---|---|
+| 0 — Open | 3 | **verbatim** ✅ done | stumble zone; no code to lean on |
+| 1 — Primer | 6 | **verbatim** | new, abstract, no code to lean on; the biggest authoring block left |
+| 2 — Ground floor | 3 | cues + one scripted landing line each | conceptual but short |
+| 3 — Java ladder | 8 | **cues only** | MB's own code and two live demos; reading a script over a live edit is worse than improvising |
+| 4 — Scala 3 | 5 | **cues only** | same |
+| 5 — Idris 2 | 3 | **cues only** | same |
+| 6 — Close | 3 | cues + scripted landing line | the last sentence should be exact; the rest need not be |
+
+**Verbatim burden: 9 slides, not 30.** Act 1 is the block that matters.
+
+**Fallback if authoring stalls.** In priority order, what ships:
+1. Act 1 authored — without it the talk has no primer, which is the whole point of v2.
+2. `A2-promises` and `A6-cost` — the two slides carrying content v1 never had.
+3. Everything else keeps its v1 note and ships as-is. The v1 notes fail the prose linter in
+   ~23 places, almost all `monotone`, but a linter failure is a register complaint, not a
+   correctness one — those slides are deliverable if unpolished.
 
 ---
 
@@ -633,6 +689,15 @@ I twice made the arithmetic work by trimming fifteen seconds from several slides
 which is how a deck overruns on the night. Caps are now set to what the written
 script measures, and when a section grows the time is taken from a named other
 section. Rate is calibrated against a real read-through, not assumed.
+
+### C12 — Do not use derived numbers as identifiers *(read for it)*
+
+The plan has been renumbered twice and both times left stale cross-references, because slide
+numbers are simultaneously identifiers and positions — so any insertion silently invalidates
+every reference downstream. The cut list still said `S12 Gentzen` after Gentzen became 13.
+**Cross-references now use stable ids** (`A3-gentzen`, `A4-mechanisms`) and the numbers are
+treated as derived. Same failure mode as C1: trusting a representation that drifts from what
+it describes.
 
 ### C11 — Write MB's voice only where asked, and always flag the edit *(read for it)*
 
