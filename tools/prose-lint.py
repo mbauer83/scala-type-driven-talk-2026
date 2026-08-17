@@ -313,7 +313,8 @@ def lint_file(path):
         # Script files are the note body; wrap so one extractor serves both.
         src = "#speaker-note[" + src + "]"
     text = spoken_text(src, path)
-    if len(words(text)) < 15:
+    unbalanced = bool(_QUOTE_PARITY and _QUOTE_PARITY[-1])
+    if len(words(text)) < 15 and not unbalanced:
         return []
     return [(sev, rid, exc, why, path) for sev, rid, exc, why in check(text, path)]
 
