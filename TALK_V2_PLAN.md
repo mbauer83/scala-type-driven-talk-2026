@@ -138,11 +138,20 @@ detail** (the Slack message from accounting; the third risk tier added months la
 hours of log archaeology; the three weeks it ran fine before anyone tried a large upload). No
 code panes. Closing line: *"Four bugs. None of them is stupidity. All four compiled."*
 
-**S3** — the pivot: *"None of these is a testing failure — in each one the language let someone
-write down something the business had already declared illegal. Logic happens to be a
-long-standing interest of mine, so here's my claim for the next forty-five minutes: everyone in
-this room already writes logic and proofs for a living. You just don't call it that. Types are
-how you get to do logic **about** your programs."*
+**S3** — the pivot. Slide reads: *"A test catches the cases you thought of. A type
+constrains every call site — whether you thought of it or not."*
+
+**Do not claim tests could not have caught these.** They could: a fixture with two
+order lines finds Alice's in a day. The claim that survives scrutiny is about the
+*kind* of guarantee — a test is a case somebody has to think of, write down, and
+keep correct at every place the rule applies, whereas an encoded rule is applied by
+the compiler at every call site whether or not anyone remembered. Overclaiming here
+also contradicts the Alice story itself, where a two-line fixture is what finds it.
+
+Then the bridge into the framing sentence: *"The history of what we are doing when
+we specify programs and types stretches back about two and a half thousand years,
+across philosophy, logic, mathematics, and computer science."* MB's sentence,
+lightly restructured; the original is preserved in the slide's note.
 
 ### Act 1 — Where this comes from, and why you already write it · 8:15 — *the main new content*
 

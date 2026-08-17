@@ -13,9 +13,9 @@
     #align(center)[
       #set text(size: sz(52pt), weight: 300, fill: pal.fg)
       #set par(leading: 0.8em, justify: false)
-      None of these is a testing failure.\
-      In each one, the language let someone write down\
-      something the business had already declared #text(fill: pal.bad)[illegal].
+      A test catches the cases you thought of.\
+      A type constrains #text(fill: pal.accent)[every call site] —\
+      whether you thought of it or not.
     ]
     #v(sz(96pt))
     #align(center)[
@@ -38,12 +38,13 @@
 VERBATIM · budget 1:20 · 168 words. This minute turns four war stories into the
 thesis, and it is the second place you are most likely to stumble. Over-rehearse it.
 
-"None of those four was a testing failure. In every case the language accepted a
-program that the business had already ruled out, and more test coverage would not
-have changed that.
+"A test could have caught every one of those. A fixture with two order lines would
+have found Alice's in a day. Each of those tests, though, is a case somebody has to
+think of, write down, and keep correct, everywhere the rule applies.
 
-What would change it is being able to say, in the language itself, which programs
-are allowed at all. That question is much older than programming.
+Where the same rule can be encoded in a type at a reasonable price, the compiler
+applies it at every call site, and nobody has to remember. What a language lets you
+say in the first place is a much older question than programming.
 
 The history of what we are doing when we specify programs and types stretches back
 about two and a half thousand years, across philosophy, logic, mathematics, and
@@ -55,10 +56,9 @@ are applying a rule that Gerhard Gentzen wrote down in 1935. When you write a
 generic method, you are making a claim about every possible type. That is a
 universally quantified statement.
 
-I want to give you the vocabulary for that, and some sense of how far it goes. Once
-you can see the structure, you can encode much more of what your system actually
-requires. The compiler will check it for you — and for the agents now writing code
-next to you."
+I want to give you the vocabulary for that. Once you can see the structure, you can
+encode a great deal more of what your system actually requires, and have it checked
+for you — and for the agents now writing code next to you."
 
 NOTES ON THE WORDING
 - Sentence two is yours, lightly restructured so the verb arrives sooner: the
