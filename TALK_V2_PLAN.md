@@ -714,6 +714,81 @@ a two-level session type, a named linear binder, and a `RiskDecision` missing th
 variant that Demo 1 is about. **Every code identifier in this plan must be grepped before it
 becomes a slide.**
 
+### Part 6b/D — the four decisions, stated as questions
+
+Part 6b named four *areas*. An area is not a decision, and "settle Act 4's sequence" is not
+something you can finish by noon. These are the actual questions; each wants one paragraph.
+
+---
+
+**D-A · Act 4 — what organises the Scala act?**
+
+Seven mechanisms arrive in roughly eight minutes: refined types, opaque types, path-dependent
+types, match types, session duality, higher-kinded types, and the effects/capture aside. The
+current shape is *opens → demo → session types → mechanisms → ceiling*, where `A4-mechanisms`
+is a six-row table. **A table of six mechanisms is a feature tour**, which is the failure mode
+this act has always had.
+
+- **(a) Mechanism-led** — current. Name each mechanism, show it. Honest, complete, flat.
+- **(b) Problem-led** — each mechanism introduced by the bug it kills, the way Act 3 does with
+  Bob. Costs coverage: some mechanisms have no incident attached and would be dropped or named
+  only.
+- **(c) One thread** — take a single order through the whole Scala stage, and let each mechanism
+  appear where that thread needs it. Strongest narrative, hardest to author, and it is the shape
+  Danielle's protocol story already wants.
+
+*What makes this the highest-cost decision:* it governs five slides, the act that has never fit
+any budget, and whether Danielle's close lands as a payoff or as an item.
+
+---
+
+**D-B · Act 1 — chronological or conceptual?**
+
+The six beats are currently ordered by date: Aristotle → Boole/Frege → Frege → Russell →
+Curry-Howard → Martin-Löf/Coquand.
+
+- **(a) Chronological** — current. The 2,400-year sweep is the point, and the rail reinforces it.
+  Risk: Russell's crisis interrupts the connectives→quantifiers→correspondence build.
+- **(b) Conceptual** — connectives, quantifiers, the correspondence, then the crisis as the
+  reason types exist at all, then what lies above. Cleaner build; loses the sweep the rail sells.
+
+Sub-questions that fall out of it: which Java mirror sits beside which beat, how much formalism
+each carries, and whether the progress rail is a per-slide component or one strip that persists.
+
+---
+
+**D-C · The three bridges — what does a transition assert?**
+
+`A3-ceiling` → Act 4, `A4-ceiling` → Act 5, and `A0-turn` → Act 1.
+
+- **(a) Ceiling-first** — current. State what the language *cannot* reach, then move up. Risk:
+  three consecutive "here is what is impossible" beats read as a complaint.
+- **(b) Capability-first** — state what becomes newly *possible*, and let the ceiling be implied.
+- **(c) Alternate** — ceiling at the Java boundary (where the audience lives and needs the limit
+  made concrete), capability at the Scala boundary (where they need a reason to keep climbing).
+
+*What makes this high-cost:* it decides whether the deck reads as one climb or as three talks
+stapled together, and it is currently one sentence per boundary.
+
+---
+
+**D-D · Demo narration — what is said, and does the fallback show?**
+
+Eight minutes across four slides, entirely unwritten and invisible to `make timing`.
+
+- What each demo says *before* the edit (setting up what the audience should watch for), *during*
+  (silence, or narration over typing), and *after* (reading the error aloud, or letting it sit).
+- Placement inside the act: immediately after the setup slide, or after the payoff?
+- **Does the captured fallback pane show by default, or only on failure?** Showing it always is
+  safer and costs nothing on the night; showing it only on failure keeps the live moment live.
+  This is a real trade and it is currently undecided.
+
+---
+
+**Acceptance for step 7:** one paragraph per decision, written into this section, before any
+slide is authored. If a decision cannot be made in a paragraph, it is not ready and the default
+(the current shape) stands.
+
 ### The cut list — now contingency, not requirement
 
 At the measured rate the talk fits with 4:10 spare, so these are held in reserve for the
