@@ -680,3 +680,50 @@
     ),
   )
 }
+
+// ─── Act 1 progress rail ─────────────────────────────────────────────────────
+//
+// A thin strip along the bottom of every Act 1 slide, carrying the eight names
+// in order with the current beat lit. It gives the 2,400-year sweep
+// continuously, without ever costing a slide of its own — which is what lets
+// the history be braided into the primer rather than told separately.
+//
+// `lit` is the set of names active on this slide; earlier names stay legible
+// (the sweep is cumulative), later ones are faint.
+//
+//   #act1-rail(lit: ("Boole", "Frege"))
+
+#let act1-beats = (
+  "Aristotle", "Leibniz", "Boole", "Frege",
+  "Russell", "Church", "Curry-Howard", "Martin-Löf",
+)
+
+#let act1-rail(lit: ()) = {
+  let seen = false
+  block(width: 100%, inset: (top: sz(10pt)))[
+    #line(length: 100%, stroke: 0.5pt + pal.rule)
+    #v(sz(12pt))
+    #grid(
+      columns: act1-beats.map(_ => 1fr),
+      align: center + horizon,
+      ..act1-beats.map(name => {
+        let active = lit.contains(name)
+        // Names before the current beat stay readable; later ones recede.
+        let idx = act1-beats.position(n => n == name)
+        let last-lit = if lit.len() == 0 { -1 } else {
+          calc.max(..lit.map(l => act1-beats.position(n => n == l)))
+        }
+        let past = idx < last-lit
+        text(
+          font: mono-font,
+          size: sz(if active { 20pt } else { 18pt }),
+          weight: if active { 700 } else { 400 },
+          fill: if active { pal.accent }
+                else if past { pal.fg-dim }
+                else { pal.fg-faint.transparentize(40%) },
+          name,
+        )
+      }),
+    )
+  ]
+}

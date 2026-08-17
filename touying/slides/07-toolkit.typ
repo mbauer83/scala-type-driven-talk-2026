@@ -1,20 +1,47 @@
-// Clock: 5:30–7:00
+// A1-aristotle · cap 1:05 · Act 1 beat 1 of 6
+// Validity is a property of form. Absorbs v1's `07-toolkit` history slide:
+// the 2,400-year sweep now runs along the rail instead of costing a beat.
 #import "../theme.typ": *
 #import "../components.typ": *
 
 #theory-slide(
-  eyebrow: eyebrow([LOGIC & PROOF · 4TH C. BCE → TODAY], style: "accent"),
-  [A Toolkit Built Over Two and a Half Thousand Years],
-  beat-grid((
-    ([4th c. BCE], [Aristotle], [Valid inference determined by structural form alone - content can be replaced with variables:\
-    All Y are Z. X is Y. → Thus X is Z.]),
-    ([17th c.], [Leibniz], [If valid inference is purely structural, in principle it could be performed by a machine. Discovers binary encoding & sketches ideas for a universal "calculus of reasoning" — mechanised inference, two centuries early.]),
-    ([1847], [Boole / DeMorgan], [Logic as algebra: AND, OR, NOT with strict laws. Relations composed as first-class objects.]),
-    ([1879–1910], [Frege · Peano · Russell + Whitehead], [Principia Mathematica: an attempt to ground all of mathematics in a single formal system. Syntax (token manipulation) clearly separated from semantics (meaning).]),
-  )),
-  footer: ["Formal structure restricts what can be said & inferred — so that valid expressions can be trusted."],
+  eyebrow: eyebrow([Aristotle · 4th century BCE], style: "accent"),
+  [What makes an argument valid],
+  [
+    #v(sz(30pt))
+    #align(center)[
+      #grid(
+        columns: (sz(520pt), sz(110pt), sz(300pt)),
+        column-gutter: sz(28pt),
+        row-gutter: sz(20pt),
+        align: (right + horizon, center + horizon, left + horizon),
+
+        text(size: sz(31pt), fill: pal.fg-dim)[All medium-risk orders need 3DS.],
+        [],
+        text(font: mono-font, size: sz(33pt), fill: pal.fg)[All M are T],
+
+        text(size: sz(31pt), fill: pal.fg-dim)[This order is medium-risk.],
+        [],
+        text(font: mono-font, size: sz(33pt), fill: pal.fg)[x is M],
+
+        line(length: 100%, stroke: 0.6pt + pal.rule-strong),
+        [],
+        line(length: 100%, stroke: 0.6pt + pal.fg),
+
+        text(size: sz(31pt), fill: pal.fg-dim)[So this order needs 3DS.],
+        [],
+        text(font: mono-font, size: sz(33pt), fill: pal.fg)[x is T],
+      )
+    ]
+    #v(sz(60pt))
+    #align(center)[
+      #set text(size: sz(36pt), weight: 400, fill: pal.fg)
+      The content is gone. #text(fill: pal.accent)[The argument survived.]
+    ]
+  ],
+  footer: act1-rail(lit: ("Aristotle",)),
 )
 
 #speaker-note[
-"The thread we'll follow is one specific question: what does it take to make valid inference explicit — the question of whether a conclusion really does follow from its premises? Aristotle gave the first clean answer: validity comes from the structural form of an argument, not its content. Replace the words with variables; the form holds or it doesn't. Leibniz, two thousand years later, pushed this further — if valid inference is purely structural, then in principle it could be reduced to calculation, performed by a machine. He sketched both the notation and the calculus he thought would do it. The programme failed in his lifetime, but the idea is the line we're still walking. Boole and DeMorgan turned propositional logic into algebra. And at the turn of the 20th century, Frege, Peano, Russell and Whitehead tried to put all of mathematics inside a single formal system. At every step, the move is the same: tighten what counts as a valid step, so more kinds of invalid judgements can be identified and excluded."
+#read("../scripts/04-aristotle.md")
 ]
