@@ -510,34 +510,38 @@ same conversation — the price, and why the price is worth paying now:
 | **Total** | **40:50** | one act measured, six allocated |
 | live demos | **9:15** | measured edits, unmeasured narration — **invisible to `make timing`** |
 
-**Measured 2026-08-17, standing and projecting: Act 0 runs 3:45.** Seated it read 3:47. So
-**projection and standing cost essentially nothing** — 187 wpm against 185 — and the 30%
-discount baked into the old 130 planning rate was paying for a cost that does not exist.
+**Measured 2026-08-17 — three solo runs of Act 0, all 177–187 wpm.** The third was standing and
+projecting; the conditions of the first two were never reported, and an earlier version of this
+plan invented a seated-vs-standing comparison from that gap. **There is no such comparison.**
+What the three runs establish is only this: alone in a room, MB delivers at about 180 wpm, and
+the instrument is stable.
 
-Planning rate is now **150 wpm**: the measured 187 minus 20%, covering audience reaction,
-recovery from a stumble, and ad-lib. Not projection. Every cap in `budget.tsv` has been
-rescaled, so the column total is now the talk's intended length rather than an artefact of a
-superseded rate.
+**Planning rate is 140** — ~180 minus 22%, covering nerves, recovery from a stumble, questions
+from the floor, and the pauses audience reaction creates. None of those can be measured solo,
+which is exactly why the discount exists.
+
+**A cap is the airtime a slide gets on the night** — a pacing decision. It does not move when
+the planning rate moves; the rate only decides how many words fit inside it.
 
 | | |
 |---|---|
-| Planned total | **40:50** |
+| Caps total — the talk's intended length | **40:50** |
 | Against 45:00 | **4:10 spare** |
-| Of which unwritten | 17:05 — slides that do not exist yet |
-| Written prose, measured | 35:40 |
+| Of which unwritten | 17:05 |
+| Allocated to slides that already have notes | 23:45 |
+| …which currently hold v1 prose running | **38:12** |
 
-**The talk fits, and the cut list in Part 6b returns to being a contingency rather than a
-requirement.** That is a real change: draft 6 was 2:05 over and the cut list was mandatory.
+**The real work item, stated plainly: the slides that already have notes must lose about 12:45
+during the rework.** That is what REWORK and MERGE mean in Part 3 — not polish, compression. The
+worst offenders are named by `make timing` and led by `34-close` (+1:24 over its cap even now),
+`10-gentzen-or`, `26-session-types`.
 
-**What this does NOT resolve.** Two risks remain, and they are now the only ones:
+**Two risks remain, and the rate is no longer one of them.**
 
-1. **Content volume on the 17:05 that is unwritten.** Those caps are allocations, not
-   measurements. Act 0 is the only act ever written against an allocation and it came in at
-   **1.55× its original estimate** — the estimate was 3:30 and the content that emerged needed
-   5:25 of allocation. If Act 1 behaves the same way, 7:10 becomes ~11:00 and the slack is gone.
-2. **Demo narration**, budgeted 8:00 across four slides and still unwritten (Part 6b).
-
-The rate risk is resolved. The volume risk is not, and it is the one to watch on Wednesday.
+1. **Volume on the 17:05 that is unwritten.** Those caps are allocations, not measurements. Act 0
+   is the only act ever written against an allocation and it came in at **1.55×**. If Act 1
+   behaves the same way its 7:10 becomes ~11:00 and the 4:10 of slack is gone.
+2. **Demo narration**, 8:00 across four slides, still unwritten.
 
 `make timing` is the number; this document quotes it.
 
@@ -549,8 +553,12 @@ Referenced by name, not by number — slide numbers have gone stale twice alread
 2. `A4-mechanisms` → name three of six, drop the effects aside (−1:00)
 3. `A3-gentzen` → state the rule verbally over the Stage 3 slide (−1:00)
 4. `A3-demo2` → narrate over the static pane (−1:15)
-5. **Merge `A1-connectives` and `A1-quantifiers`** onto one slide (−1:00) · *the first
-   primer-side cut; take it only if Act 1 measures long in the read-through*
+5. **Merge `A1-connectives` and `A1-quantifiers`** onto one slide (−1:00) · *the primer-side
+   cut, held in reserve.* MB's decision (17 Aug) is to **build Act 1 at six slides, measure, and
+   rework only if it does not fit** — the merge was a scheduling default adopted while the
+   budget was 2:05 over, and at 4:10 of slack it is no longer forced. Deciding it after
+   measurement rather than before is also the right order: the ∀-is-a-generic-method beat may
+   earn its own slide, and that is a question about the primer rather than about arithmetic.
 
 Full depth reaches **41:20** (47:05 − 5:45). Draft 6 said 39:05, which was 44:50 − 5:45 — the
 retracted draft-5 base, three paragraphs below the sentence diagnosing exactly this drift.
@@ -780,7 +788,7 @@ every unwritten act's allocation as optimistic.
 | 5 | Mechanical sweep: complete `budget.tsv` incl. **demo + stub rows**; fix the id/number drift | Mon eve | ✅ done |
 | 6 | Delivery-discount calibration — Act 0 standing: **3:45, i.e. 187 wpm** | Mon eve | ✅ done |
 | 7 | **Settle the four OPEN×high-cost items on paper** (Part 6b) — one paragraph each, no slide work | Tue 09:00–12:00, **hard stop** | |
-| 8 | Author Act 1 — **four slides, not six** (take the connectives/quantifiers merge up front) | Tue 12:00 – Wed 12:00 | |
+| 8 | Author Act 1 — **six slides**; build it, measure it, rework if it does not fit | Tue 12:00 – Wed 12:00 | |
 | 9 | Author `A2-values`, `A2-promises`; the four claim fixes in Part 3 | Wed 12:00–15:00 | |
 | 10 | Merges, cube parameterisation, **`deck.typ` reorder** | **optional** — only if step 11 comes in under 44:00. The reorder is no longer needed for measurement: `budget.tsv`'s stub rows already let `make timing` report the intended deck |
 | 11 | **First real read-through** — Act 0 + Act 1 + whatever else is authored; apply Part 6b's cut list against measured numbers | Wed 16:00 | |

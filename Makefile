@@ -46,7 +46,7 @@ clean:
 
 # talk-timing: measure speaker notes as speaking time against tools/budget.tsv.
 # Calibrate WPM against a real read-through: read Act 0 aloud, time it, divide.
-WPM ?= 150   # calibrated: 187 wpm standing+projecting, minus 20% for audience and recovery
+WPM ?= 140   # calibrated: ~180 wpm solo, minus 22% for nerves, interruptions, audience
 .PHONY: timing
 timing:
 	python3 tools/talk-timing.py --wpm $(WPM)

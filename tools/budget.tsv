@@ -6,9 +6,13 @@
 #     seated read 1         177 wpm
 #     seated read 2         185 wpm
 #     STANDING, PROJECTING  187 wpm   <- standing costs nothing
-# Planning rate is 150: the measured 187 minus 20%, covering audience reaction,
-# recovery from a stumble and ad-lib, NOT projection. Every cap below is the
-# intended delivery time at 150 wpm, so the column total is the talk's length.
+# All three runs were SOLO — there is no seated-vs-standing comparison; an
+# earlier note claimed one from assumed conditions. Planning rate is 140: ~180
+# minus 22% for nerves, recovery, questions from the floor and audience pauses.
+#
+# A cap is the AIRTIME a slide gets on the night. It is a pacing decision and
+# does NOT move when the planning rate moves — the rate only decides how many
+# words fit inside it. Caps total 40:50 against a 45:00 slot.
 #
 # `demo` rows score at the lower DEMO_WPM — on a live edit you talk around
 # typing and pause while the room reads the error. The four demos are 9:15,

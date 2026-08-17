@@ -10,25 +10,37 @@ against the per-slide word budget in tools/budget.tsv.
 Why words and not minutes: a time estimate made by someone who is not speaking
 is a guess. A word count is a fact, and words / rate = minutes is arithmetic.
 
-CALIBRATION — three measurements of Act 0 by MB, 2026-08-17:
+CALIBRATION — three measurements of Act 0 by MB, 2026-08-17, ALL SOLO:
 
-    seated read 1        547 words / 185 s = 177 wpm
-    seated read 2        700 words / 227 s = 185 wpm
-    STANDING, PROJECTING 701 words / 225 s = 187 wpm
+    run 1   547 words / 185 s = 177 wpm
+    run 2   700 words / 227 s = 185 wpm
+    run 3   701 words / 225 s = 187 wpm   (standing, projecting)
 
-The third one is the useful one, and it is a surprise: **standing and projecting
-to the back of a room costs nothing.** 187 vs 185 is noise. The 30% discount the
-old 130 rate assumed was paying for a cost that does not exist.
+MB's solo delivery rate is 177-187 wpm and the instrument is stable across
+sessions. **No comparison between conditions exists** — an earlier version of
+this file labelled runs 1 and 2 as "seated" and drew a standing-vs-seated
+conclusion from it. That labelling was assumed, not reported. There is no
+seated baseline.
 
-What a solo delivery still cannot measure: nerves, recovery from a stumble
-(MB's first attempt overran badly on exactly that), audience reaction and the
-pauses it creates, ad-lib, and demo overhead beyond the scripted narration.
-Those are real, so the planning rate keeps a discount — just a smaller and
-better-aimed one.
+What none of these runs can measure, because all three were alone in a room:
+nerves, recovery from a stumble (MB's first attempt at this talk overran badly
+on exactly that), interruptions and questions, audience reaction and the pauses
+it creates, and demo overhead beyond the scripted narration. Those are the whole
+justification for the discount below.
 
-The default is 150: the measured 187 minus 20%, covering interaction and
-recovery rather than projection. Sweep it — `--wpm 187` is the no-audience case
-(what MB actually produced alone), `--wpm 140` is the bad-night case.
+The default is 140 — the measured ~180 minus 22%, covering nerves, recovery
+from a stumble, questions from the floor, and the pauses audience reaction
+creates. Sweep it:
+
+    --wpm 180   what MB produces alone; a ceiling, never a plan
+    --wpm 140   default
+    --wpm 130   bad night
+
+A NOTE ON WHAT A CAP MEANS, because getting this wrong caused churn: a cap is
+the AIRTIME a slide gets on the night — a design decision about pacing. It does
+not move when the planning rate moves. The rate converts a written script into
+airtime so the tool can say whether that script fits its slot. Raise the rate
+and more words fit in the same cap; it does not buy you a longer talk.
 
 Overrunning is unrecoverable and finishing early is not, so the discount stays
 deliberately pessimistic against a number that has now been measured three times. Sweep it if you want the range: --wpm 150 is the optimistic
@@ -140,8 +152,8 @@ def fmt(seconds):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--wpm", type=float, default=150.0,
-                    help="planning speaking rate (default 150 — see calibration above)")
+    ap.add_argument("--wpm", type=float, default=140.0,
+                    help="planning speaking rate (default 140 — see calibration above)")
     ap.add_argument("--slot", type=float, default=45.0, help="slot in minutes")
     ap.add_argument("--verbose", action="store_true",
                     help="also list appendix slides")
