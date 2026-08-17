@@ -172,9 +172,9 @@ the audience already writes in that notation.
 | id | Slide | Who / what problem | Time | Origin |
 |---|---|---|---|---|
 | `A1-aristotle` | What makes an argument valid | **Aristotle**, 4th c. BCE | 1:15 | **NEW** (absorbs `07-toolkit`) |
-| `A1-connectives` | The connectives — `∨` and `∧` | **Boole** 1847 → **Frege** 1879 | 1:30 | **NEW** (absorbs `07-toolkit`) |
+| `A1-connectives` | The connectives — and logic becomes mechanical | **Leibniz** (named) → **Boole** 1847 → **Frege** 1879 | 1:30 | **NEW** (absorbs `07-toolkit`) |
 | `A1-quantifiers` | The quantifiers — `∀` and `∃` | **Frege**'s Begriffsschrift | 1:15 | **NEW** |
-| `A1-crisis` | The crisis, and why it's called a *type* | **Russell** 1901, **Gödel** 1931 | 1:15 | **RESTORED** `08-crisis` |
+| `A1-crisis` | The crisis, why it's called a *type*, and what checking can promise | **Russell** 1901, **Hilbert**, **Gödel** 1931 | 1:15 | **RESTORED** `08-crisis` |
 | `A1-curry-howard` | Proposition = Type. Proof = Program. | **Church/Turing** 1936, **Curry-Howard** 1969, **Lambek** | 1:45 | REWORK `curry-howard` + absorbs `09`/`11-convergence` |
 | `A1-above` | What lies above — briefly uncovered | **Martin-Löf** 1972, **Coquand** 1988 | 1:15 | **NEW** + absorbs `12-mltt`, `13-convergence3` |
 
@@ -196,7 +196,7 @@ A thin progress rail runs along the bottom of every Act 1 slide — Aristotle ·
 Russell · Church · Curry-Howard · Martin-Löf · Coquand — with the current beat lit. It gives the
 2,400-year sweep continuously, for free, without ever being a slide of its own.
 
-**`A1-connectives` — the connectives.** Boole 1847 turns logic into algebra; Frege 1879 builds the first system
+**`A1-connectives` — the connectives, and the moment logic becomes mechanical.** Boole 1847 turns logic into algebra — the first time inference becomes symbol-pushing a machine could do, which is what **Leibniz** had wanted two centuries earlier when he imagined a *calculus of reasoning* and said *let us calculate*. Leibniz is named here, in a clause, and appears on the rail; he does not get a beat (see Part 6b/D2). Frege 1879 then builds the first system
 that can actually carry mathematics. Formalism left, the Java they already write right.
 *Snippets must
 be lifted verbatim from `03-java-function-types-sealed/`, not invented* — the audience sees this
@@ -785,9 +785,101 @@ Eight minutes across four slides, entirely unwritten and invisible to `make timi
 
 ---
 
-**Acceptance for step 7:** one paragraph per decision, written into this section, before any
-slide is authored. If a decision cannot be made in a paragraph, it is not ready and the default
-(the current shape) stands.
+---
+
+## Part 6b/D2 — decisions taken (MB, 17 Aug)
+
+**D-A — DECIDED: (c) one thread, falling back to (b) problem-led if it will not fit.**
+
+Take a single order through the whole Scala stage and let each mechanism appear where that
+thread needs it. If authoring proves too slow, drop to problem-led: each mechanism introduced by
+the bug it kills. Both beat the mechanism table, which is the feature tour this act has always
+been. Note the two are compatible — the thread *is* a sequence of problems — so starting on (c)
+and degrading to (b) costs nothing already written.
+
+**D-B — DECIDED: chronological stays. Two amendments.**
+
+*i. Leibniz earns a place, but not a slide.* The case for a beat: he is the first person to say
+that valid inference could be carried out **by a machine** — the *characteristica universalis*
+and the *calculus ratiocinator*, "let us calculate" — and mechanical checkability is precisely
+what makes this talk's thesis matter. A proof nobody checks is only a claim; the type checker is
+the machine Leibniz wanted. He also gives a free hook for this audience in binary encoding.
+
+The case against a beat: he produced no working system, the programme failed in his lifetime,
+and Act 1 is already 7:10 across six beats — a seventh costs ~1:10 for an idea that fits in a
+clause. **Resolution: Leibniz is named inside the Boole/Frege beat as the man who wanted the
+machine, and he appears on the progress rail.** That is a place, at a cost of about fifteen
+words rather than seventy seconds.
+
+*ii. Proof-calculi and mechanical checkability get integrated properly*, which is the thing MB
+identified as under-served. The fix is a redistribution across two existing beats rather than a
+new one:
+
+- **`A1-connectives`** now carries *logic becomes algebra, therefore mechanically manipulable* —
+  Boole's algebra is the first time inference becomes symbol-pushing a machine could do, and
+  Leibniz is named here as the one who wanted it.
+- **`A1-crisis`** now carries *what mechanical checking can and cannot promise* — consistency and
+  soundness as the requirements, Gödel as the proof that completeness is not available. This is
+  where proof-calculi belong, and it makes `A2-promises` a cash-out rather than a fresh topic.
+
+**D-B/iii — THE EQUIVOCATION TO AVOID (MB, and it is the sharpest point in this section).**
+
+The talk must never blur **the logic *in* the program** with **the logic *about* the program**.
+
+A Java developer who hears "you already write logic" will think of `if (a && b)` — boolean
+conditions and control flow. That is *not* what Curry-Howard is about, and if the audience
+settles on that reading, the whole primer lands as a triviality they already knew.
+
+The correct statement, in MB's formulation:
+
+> **A program is a construction; under Curry-Howard it *is* a proof. What we are proving is
+> expressed by its type — and that holds even in languages with no written types, where the
+> proposition is implicit and simply goes unchecked. The type also constrains how you may get
+> from one construction to the next.**
+
+So the three things must stay distinct and be *said* distinctly:
+
+| | |
+|---|---|
+| the **program** | the construction — the proof term |
+| the **type** | the proposition being proved |
+| the **checker** | the machine that verifies the construction proves the proposition |
+
+Every beat in Act 1 must be checkable against this table. `A1-connectives` is the one most at
+risk: a sealed interface declares the proposition `A ∨ B`, while the exhaustive match is the
+proof step that eliminates it — the slide must show both halves and name which is which, or it
+collapses into "sum types are nice".
+
+**D-C — NOT YET DECIDED. New leading candidate: (d) capability-led, motivated by residual failure.**
+
+MB: *"Leading with capabilities that are motivated from things that can still go wrong sounds
+like a good idea."* That is neither of the options as posed. Recorded as (d):
+
+> Do not open a bridge with what the language cannot do (three consecutive complaints), nor with
+> a new feature (a feature tour). Open with **what can still go wrong after everything the
+> previous act bought you**, then present the capability that removes it.
+
+This is the same organising principle as D-A(b) applied one level up, which is an argument in its
+favour: the deck would use one shape at act level and at boundary level. **Decide after Act 4 is
+built** — MB wants to see it in context, and Act 4's rework is what produces that context.
+
+**D-D — my judgement, to be revised after the first rehearsal.**
+
+- *Before the edit:* one sentence naming what to watch. "I'm going to delete the Medium case.
+  Watch what the compiler does." Nothing else — the audience cannot read code and listen at once.
+- *During:* silence. The typing is the beat; narrating over it splits attention.
+- *After:* read the error aloud **verbatim**, then one sentence connecting it to the rule the act
+  just established. Then undo, visibly.
+- *Placement:* immediately after its setup slide and **before** the payoff slide, so the payoff
+  lands on a fresh memory of the error rather than on a description of one.
+- *Fallback:* **on the next slide, not hidden on the same one.** A fallback that must be revealed
+  is a fallback you fumble under stress; a fallback on the following slide is recovered by the
+  forward key you are already pressing, and it never shows when the demo works. This also means
+  the captured output needs no reveal mechanism at all — it is just a slide.
+
+**Acceptance for step 7:** D-A, D-B and D-D are decided above. D-C is deliberately deferred to
+after Act 4 exists, with (d) as the working default. No further paragraph is owed before
+authoring begins.
 
 ### The cut list — now contingency, not requirement
 
@@ -991,6 +1083,25 @@ I twice made the arithmetic work by trimming fifteen seconds from several slides
 which is how a deck overruns on the night. Caps are now set to what the written
 script measures, and when a section grows the time is taken from a named other
 section. Rate is calibrated against a real read-through, not assumed.
+
+### C13 — Never blur the logic *in* the program with the logic *about* it *(read for it)*
+
+"You already write logic" is heard by a Java developer as `if (a && b)` — boolean conditions and
+control flow. That reading makes the primer a triviality and loses the talk. Keep three things
+distinct and say which is which:
+
+| the **program** | the construction — the proof term |
+| the **type** | the proposition being proved |
+| the **checker** | the machine verifying that the construction proves the proposition |
+
+The correct claim: *a program is a construction and, under Curry-Howard, a proof; its type
+expresses what is being proved — which holds even in untyped languages, where the proposition is
+implicit and unchecked; and the type constrains how you may get from one construction to the
+next.*
+
+Highest-risk slides: `A1-connectives` (a sealed interface declares `A ∨ B`; the exhaustive match
+is the elimination — show both halves and name them, or it collapses into "sum types are nice"),
+`A1-curry-howard`, and `A2-values`.
 
 ### C12 — Do not use derived numbers as identifiers *(read for it)*
 
