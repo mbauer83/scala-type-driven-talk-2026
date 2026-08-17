@@ -43,9 +43,10 @@
       [
         #set text(size: sz(28pt), weight: 300)
         #set par(leading: 0.45em)
-        For agentic workflows specifically: the compiler gives the agent a stable, mechanical
-        signal to iterate against. Compile errors are actionable without a human in the loop
-        on every step.
+        For agentic workflows specifically: the type error is precise.
+        #text(fill: pal.fg-dim, font: mono-font, size: sz(24pt))["Approval[LowRisk] does not conform to Approval[MediumRisk]"]
+        tells the agent exactly which type is wrong and where — no human needed to interpret
+        the failure. The compiler's type error IS the specification.
       ],
       [
         #set text(size: sz(26pt), fill: pal.fg-dim)
@@ -58,5 +59,5 @@
 )
 
 #speaker-note[
-"There's another concrete reason this story matters now. AI agents can produce a working PR faster than a human can read it carefully. An expressive type system raises the floor of correctness that holds regardless of the author: incomplete protocol steps, skipped lifecycle transitions, empty identifiers, dropped channels — none of those compile, whether a person or a model wrote them. For agentic workflows specifically, the compiler gives the agent a stable, mechanical signal to iterate against; compile errors are actionable without a human in the loop on every step. Proof assistants like Lean, Rocq, Agda, and Idris itself go further: the proof obligation becomes a first-class part of the type. In contrast to what we've seen — where the type checker automatically verifies structural properties, and you just declare the type — proof assistants let you encode more complex propositions as types, but to use a function you must also supply an explicit proof that the precondition holds. The machine checks that proof term mechanically, and modern tactic libraries automate increasing fractions of the work."
+"There's another concrete reason this story matters now. AI agents can produce a working PR faster than a human can read it carefully. An expressive type system raises the floor of correctness that holds regardless of the author: incomplete protocol steps, skipped lifecycle transitions, empty identifiers, dropped channels — none of those compile, whether a person or a model wrote them. For agentic workflows specifically: the type error is precise. "Approval[LowRisk] does not conform to Approval[MediumRisk]" tells the agent exactly which type is wrong and where. The agent doesn't need a human to interpret the failure — the compiler's type error IS the specification. This is qualitatively different from a test failure, which says "the output was wrong" without saying what structural change would make it right. Proof assistants like Lean, Rocq, Agda, and Idris itself go further: the proof obligation becomes a first-class part of the type. In contrast to what we've seen — where the type checker automatically verifies structural properties, and you just declare the type — proof assistants let you encode more complex propositions as types, but to use a function you must also supply an explicit proof that the precondition holds. The machine checks that proof term mechanically, and modern tactic libraries automate increasing fractions of the work."
 ]

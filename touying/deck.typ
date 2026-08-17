@@ -15,13 +15,25 @@
 #import "components.typ": *
 #import "code-pane.typ": code-pane
 
-// TODO Phase 6 — speaker-note export. Plan in TOUYING_CONVERSION_PLAN.md
-// §"Speaker notes on the laptop, slides on the projector".
-// #import "@preview/touying-exporter:0.1.0": *
 
 #show: our-theme
 
-// ─── Main deck (S1 — S35) ───────────────────────────────────────────────────
+// ─── Main deck ──────────────────────────────────────────────────────────────
+//
+// Stage numbering (0–6, seven stages):
+//   Stage 0  JS untyped baseline         S17
+//   Stage 1  Java simple types            S18
+//   Stage 2  Java generics                S19
+//   Stage 3  Function types + sealed      S20  (merged: was Stage 3 + Stage 4)
+//   Stage 4  Phantom typestate            S23
+//   Stage 5  Scala 3 refinement/session   S26
+//   Stage 6  Idris 2 / MLTT / QTT        S31+
+//
+// New slides added (§1.1, §1.3, §1.4, §2.5):
+//   curry-howard.typ     — between convergence2 and mltt
+//   scala3-ceiling.typ   — between stage5-payoff and stage6-bridge
+//   stage5-mechanisms.typ— between session-types and stage5-payoff
+//   where-to-start.typ   — between horizon and close
 
 #include "slides/01-title.typ"
 #include "slides/02-alice.typ"
@@ -34,6 +46,7 @@
 #include "slides/09-convergence1.typ"
 #include "slides/10-gentzen-or.typ"
 #include "slides/11-convergence2.typ"
+#include "slides/curry-howard.typ"         // §1.1 — Curry-Howard dedicated slide
 #include "slides/12-mltt.typ"
 #include "slides/13-convergence3.typ"
 #include "slides/14-lambda-cube.typ"
@@ -42,22 +55,24 @@
 #include "slides/17-stage1.typ"
 #include "slides/18-stage2.typ"
 #include "slides/19-stage3.typ"
-#include "slides/20-stage4.typ"
-#include "slides/21-stage4-payoff.typ"
-#include "slides/22-bridge.typ"
-#include "slides/23-stage5.typ"
-#include "slides/24-stage5-payoff.typ"
-#include "slides/25-java-ceiling.typ"
-#include "slides/26-stage6.typ"
-#include "slides/27-session-types.typ"
-#include "slides/28-stage6-payoff.typ"
-#include "slides/29-stage7-bridge.typ"
-#include "slides/30-mltt-running.typ"
-#include "slides/31-stage7-payoff.typ"
-#include "slides/32-the-climb.typ"
-#include "slides/33-agentic.typ"
-#include "slides/34-horizon.typ"
-#include "slides/35-close.typ"
+#include "slides/20-stage3-payoff.typ"
+#include "slides/21-bridge.typ"
+#include "slides/22-stage4.typ"
+#include "slides/23-stage4-payoff.typ"
+#include "slides/24-java-ceiling.typ"
+#include "slides/25-stage5.typ"
+#include "slides/26-session-types.typ"
+#include "slides/stage5-mechanisms.typ"    // §2.5 — mechanisms reference slide
+#include "slides/27-stage5-payoff.typ"
+#include "slides/scala3-ceiling.typ"       // §1.3 — Scala 3 ceiling slide
+#include "slides/28-stage6-bridge.typ"
+#include "slides/29-mltt-running.typ"
+#include "slides/30-stage6-payoff.typ"
+#include "slides/31-the-climb.typ"
+#include "slides/32-agentic.typ"
+#include "slides/33-horizon.typ"
+#include "slides/where-to-start.typ"       // §1.4 — Where to start tomorrow
+#include "slides/34-close.typ"
 
 // ─── Appendix (A1 — A8) ─────────────────────────────────────────────────────
 //
@@ -80,3 +95,16 @@
 #include "slides/a07-tracking.typ"
 #include "slides/a08-singleton.typ"
 #include "slides/a09-singletons.typ"
+
+// ─── pdfpc sidecar generation ────────────────────────────────────────────────
+//
+// Collects all <pdfpc> metadata (NewSlide boundaries + Note elements) and
+// packages them into a single <pdfpc-file> metadata node.  Extract with:
+//
+//   typst query touying/deck.typ "<pdfpc-file>" --field value --one \
+//     > talk.pdfpc
+//
+// pympress reads talk.pdfpc automatically when it opens talk.pdf (same dir,
+// same stem).  The Makefile `talk.pdfpc` target runs this command.
+
+#context pdfpc.pdfpc-file(here())

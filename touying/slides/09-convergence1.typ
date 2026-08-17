@@ -4,7 +4,7 @@
 
 #theory-slide(
   [The Computational Convergence],
-  beat-grid((
+  beat-grid(dim_previous: true, (
     ([1936], [Church / Turing], [Formalise execution as reduction. Simply Typed Lambda Calculus (pure STLC): types restrict inputs, and — in the pure calculus — guarantee that every evaluation terminates. Real-world languages relax this to admit general recursion.]),
     ([1935], [Gentzen], [Logic as local interface. Every connective defined by: how you BUILD it (introduction) and how you USE it (elimination). Cut elimination = compiler dead-code removal.]),
   )),

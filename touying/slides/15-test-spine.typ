@@ -90,13 +90,13 @@
     test-list((
       ("1",  [Shape confusion — passing an Order where an Authorization belongs], [S·1], "active"),
       ("2",  [Wrong element type in typed collections],                           [S·2], "active"),
-      ("3",  [All risk branches handled exhaustively],                            [S·4], "active"),
-      ("4",  [Lifecycle ordering — capture only after authorize],                 [S·5], "active"),
-      ("5",  [Right authorization method for the assessed risk level],            [S·6], "active"),
-      ("6",  [Boundary constraints — non-empty identifiers],                      [S·6], "active"),
-      ("7",  [Client/server agree on the protocol shape],                         [S·6], "active"),
-      ("8",  [Channel is consumed completely (never dropped mid-protocol)],       [S·7], "active"),
-      ("9",  [Protocol shape matches the runtime risk classification],            [S·7], "active"),
+      ("3",  [All risk branches handled exhaustively],                            [S·3], "active"),
+      ("4",  [Lifecycle ordering — capture only after authorize],                 [S·4], "active"),
+      ("5",  [Right authorization method for the assessed risk level],            [S·5], "active"),
+      ("6",  [Boundary constraints — non-empty identifiers],                      [S·5], "active"),
+      ("7",  [Client/server agree on the protocol shape],                         [S·5], "active"),
+      ("8",  [Channel is consumed completely (never dropped mid-protocol)],       [S·6], "active"),
+      ("9",  [Protocol shape matches the runtime risk classification],            [S·6], "active"),
     )),
     // "What 'test deleted' really means" — three-line callout.
     block(

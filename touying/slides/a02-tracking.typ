@@ -23,7 +23,7 @@
           raw(lang: "haskell", "(1 ch : Session p) -> ..."),
           [
             #set text(size: sz(24pt), fill: pal.fg-dim)
-            Multiplicities `0` / `1` / `ω` on bindings. We used this in Stage 7 for the channel. The channel must be consumed exactly once — `finish` or chain to the next step.
+            Multiplicities `0` / `1` / `ω` on bindings. We used this in Stage 6 for the channel. The channel must be consumed exactly once — `finish` or chain to the next step.
           ],
         ),
         style: "accent",

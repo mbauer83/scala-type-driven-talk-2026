@@ -26,7 +26,7 @@
 )
 
 #theory-slide(
-  eyebrow: eyebrow(style: "accent")[→ DEMO 7 in `Main.idr`],
+  eyebrow: eyebrow(style: "accent")[→ DEMO 6 in `Main.idr`],
   [MLTT Rules Running as Programs],
   stack(
     dir: ttb,
@@ -68,10 +68,10 @@ assessOrder : Order n c -> (lvl ** Assessment lvl n c)
 )
 
 #speaker-note[
-"The Π and Σ rules from Slide 12 reappear here as ordinary Idris functions in the same payment domain. `protocolFromSnapshot snapshot` is Π-elimination: the return type is a `SessionType` computed from the runtime risk level in the snapshot. `assessOrder order` is Σ-introduction: a dependent pair bundling the risk level with an assessment whose type depends on that level. The rules were the specification; these functions are the implementation."
+"The Π and Σ rules from Slide 13 reappear here as ordinary Idris functions in the same payment domain. `protocolFromSnapshot snapshot` is Π-elimination: the return type is a `SessionType` computed from the runtime risk level in the snapshot. `assessOrder order` is Σ-introduction: a dependent pair bundling the risk level with an assessment whose type depends on that level. The rules were the specification; these functions are the implementation."
 
 → Navigate to key signatures (60 sec):
-Open `07-idris2-payment/src/PaymentRules.idr` and navigate to `protocolFromSnapshot`. Show its signature: `RiskSnapshot -> SessionType`. Say: "SessionType is a first-class type in Idris — this function returns one, computed from a runtime risk snapshot." Show the case-split on `snap.level` that selects the protocol shape. Say: "That case-split is what makes the return type dependent on the runtime value."
+Open `06-idris2-payment/src/PaymentRules.idr` and navigate to `protocolFromSnapshot`. Show its signature: `RiskSnapshot -> SessionType`. Say: "SessionType is a first-class type in Idris — this function returns one, computed from a runtime risk snapshot." Show the case-split on `snap.level` that selects the protocol shape. Say: "That case-split is what makes the return type dependent on the runtime value."
 
 Then `assessOrder` in `PaymentDomain.idr`: show `(lvl : RiskLevel ** Assessment lvl n c)` — say: "That `**` is Idris's Σ-type syntax. `lvl` is both the returned value and the index into the type of the second component."
 

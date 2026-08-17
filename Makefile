@@ -1,11 +1,21 @@
 TYPST_SOURCES := $(shell find touying -name '*.typ')
 
+# typst compile  — PDF, SVG, PNG, and watch (typst-native features: --input,
+#                  page-pattern {0p}, --ppi, typst watch)
+# touying compile — HTML and PPTX exports, and pdfpc sidecar generation.
+#                   Output path uses --output (named flag), not a positional arg.
+
 .PHONY: all talk-notes talk-svg talk-png watch clean
 
 all: talk.pdf
 
 talk.pdf: $(TYPST_SOURCES)
 	typst compile touying/deck.typ talk.pdf
+
+# talk.pdfpc: speaker-note sidecar read by pympress presenter view.
+# Requires the pdfpc.pdfpc-file(here()) call at the end of deck.typ.
+talk.pdfpc: $(TYPST_SOURCES)
+	touying compile touying/deck.typ --format pdfpc --output talk.pdfpc
 
 talk-notes: $(TYPST_SOURCES)
 	typst compile touying/deck.typ --input notes=true talk-with-notes.pdf
@@ -19,14 +29,14 @@ talk-png: $(TYPST_SOURCES)
 	typst compile touying/deck.typ "slides/png/slide-{0p}.png" --format png --ppi 144
 
 talk-pptx: $(TYPST_SOURCES)
-	typst compile touying/deck.typ talk.pptx --format pptx
+	touying compile touying/deck.typ --format pptx --output talk.pptx
 
 talk-html: $(TYPST_SOURCES)
-	typst compile touying/deck.typ talk.html --format html
+	touying compile touying/deck.typ --format html --output talk.html
 
 watch:
 	typst watch touying/deck.typ talk.pdf
 
 clean:
-	rm -f talk.pdf talk-with-notes.pdf
+	rm -f talk.pdf talk-with-notes.pdf talk.pdfpc
 	rm -f slides/svg/*.svg slides/png/*.png

@@ -107,7 +107,7 @@ inspected one-at-a-time with `typst compile diagrams/<name>.typ`.
 | File | Exported binding | Content |
 |------|------------------|---------|
 | `diagrams/gentzen-or.typ` | `gentzen-or-canvas` | OR-introduction rules `∨I₁`, `∨I₂` + elimination `∨E` with discharged-assumption gloss. Code side: sealed `Either` + exhaustive `match` (case arms left-aligned under `match`). Closing line: "The rest follows." |
-| `diagrams/lambda-cube.typ` | `lambda-cube-canvas` | 3D cube with 8 labelled vertices (STLC, System F, F$\omega$⁻, System F$\omega$, LF, F+dep., F$\omega$+dep., CIC), three labelled axes (terms-on-types, types-on-types, types-on-terms), stage tags on the talk's path (Stage 1 → Stage 2 → Stages 5–6 → Stage 7), red highlight path. |
+| `diagrams/lambda-cube.typ` | `lambda-cube-canvas` | 3D cube with 8 labelled vertices (STLC, System F, F$\omega$⁻, System F$\omega$, LF, F+dep., F$\omega$+dep., CIC), three labelled axes (terms-on-types, types-on-types, types-on-terms), stage tags on the talk's path (Stage 1 → Stage 2 → Stages 4–5 → Stage 6), red highlight path. |
 | `diagrams/mltt.typ` | `mltt-canvas` | Two-column Π / Σ rules. Π: Formation, Introduction (λ), Elimination (application), β-reduction. Σ: Introduction (pair), Elimination (fst, snd). Brief gloss per column. Bottom line: "`protocolFromSnapshot` is Π-elimination; `assessOrder` is Σ-introduction." |
 
 A trailing `#<name>-canvas` line at the bottom of each file is the

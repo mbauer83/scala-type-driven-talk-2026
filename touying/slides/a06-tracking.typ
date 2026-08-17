@@ -24,7 +24,7 @@
     (
       [1972],
       [Martin-Löf — Dependent Type Theory],
-      [Types depend on runtime values. Π-type = ∀. Σ-type = ∃. This is Stage 7.],
+      [Types depend on runtime values. Π-type = ∀. Σ-type = ∃. This is Stage 6.],
     ),
     (
       [1988 / 2000s],
@@ -35,5 +35,5 @@
 )
 
 #speaker-note[
-"Church and Turing formalise computation; the typed lambda calculus is the safe sub-language where evaluation terminates. Gentzen redefines logic as something compositional — every connective has an introduction rule and an elimination rule, no more no less. Howard sees that these two systems — Gentzen's logic and Church's typed code — are the same mathematical structure under different names. Martin-Löf opens up the type system so types can depend on runtime values, which is exactly what we showed in Stage 7. Coquand packages all of this into the small auditable kernels that power modern proof assistants. Voevodsky reformulates equality itself as a topological object — the most aggressive recent move, still working its way into mainstream tooling."
+"Church and Turing formalise computation; the typed lambda calculus is the safe sub-language where evaluation terminates. Gentzen redefines logic as something compositional — every connective has an introduction rule and an elimination rule, no more no less. Howard sees that these two systems — Gentzen's logic and Church's typed code — are the same mathematical structure under different names. Martin-Löf opens up the type system so types can depend on runtime values, which is exactly what we showed in Stage 6. Coquand packages all of this into the small auditable kernels that power modern proof assistants. Voevodsky reformulates equality itself as a topological object — the most aggressive recent move, still working its way into mainstream tooling."
 ]

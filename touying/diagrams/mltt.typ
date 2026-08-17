@@ -4,13 +4,13 @@
 //
 // Built from scratch for the Touying deck. Exposes `mltt-canvas`, a
 // self-contained two-column rule diagram placed inside the .s-theory slide
-// for S12.
+// for S13.
 //
-// Content requirements (Phase 1 spec):
+// Content:
 //   - Two-column layout: Π left, Σ right
-//   - Π: Formation, Introduction (λ), Elimination (application), β-reduction
-//   - Σ: Introduction (pair), Elimination (fst / snd projections)
-//   - Brief gloss under each column
+//   - Π: Introduction (λ), Elimination (application + β-reduction) — Formation removed
+//   - Σ: Introduction (pair), Elimination (fst / snd projections) — Formation removed
+//   - Inline plain-English gloss after each rule
 //   - Bottom line: "protocolFromSnapshot is Π-elimination;
 //                   assessOrder is Σ-introduction."
 // =============================================================================
@@ -83,16 +83,6 @@
 
       #v(4pt)
 
-      // Formation
-      #text(fill: muted, size: 9pt)[Formation]
-      #nd-rule(
-        ($Gamma tack.r A : cal(U)$, $Gamma, x:A tack.r B(x) : cal(U)$),
-        $Gamma tack.r (Pi x:A). B(x) : cal(U)$,
-        label: $(Pi"-Form")$,
-      )
-
-      #v(4pt)
-
       // Introduction
       #text(fill: muted, size: 9pt)[Introduction (λ)]
       #nd-rule(
@@ -100,23 +90,22 @@
         $Gamma tack.r lambda x. b(x) : (Pi x:A). B(x)$,
         label: $(Pi"-Intro")$,
       )
+      #text(fill: muted, size: 9pt, style: "italic")[
+        λ-abstraction: if f(x) has type B(x) for each x:A, then λx.f(x) has type (Πx:A).B(x)
+      ]
 
       #v(4pt)
 
       // Elimination
-      #text(fill: muted, size: 9pt)[Elimination (application) — β: $(lambda x. b)(a) equiv b[a slash x]$]
+      #text(fill: muted, size: 9pt)[Elimination (application)]
       #nd-rule(
         ($Gamma tack.r f : (Pi x:A). B(x)$, $Gamma tack.r a : A$),
         $Gamma tack.r f(a) : B(a)$,
         label: $(Pi"-Elim")$,
       )
-
-      #v(4pt)
-
-      #align(left)[
-        #text(fill: muted, size: 10pt, style: "italic")[
-          Applied to a runtime value → return type depends on that value.
-        ]
+      #text(fill: muted, size: 9pt, style: "italic")[
+        Application: the return type B(a) is indexed by the argument value a.
+        β-reduction $(lambda x. b)(a) equiv b[a slash x]$ IS proof reduction.
       ]
     ],
 
@@ -128,16 +117,6 @@
 
       #v(4pt)
 
-      // Formation
-      #text(fill: muted, size: 9pt)[Formation]
-      #nd-rule(
-        ($Gamma tack.r A : cal(U)$, $Gamma, x:A tack.r B(x) : cal(U)$),
-        $Gamma tack.r (Sigma x:A). B(x) : cal(U)$,
-        label: $(Sigma"-Form")$,
-      )
-
-      #v(4pt)
-
       // Introduction
       #text(fill: muted, size: 9pt)[Introduction (pair)]
       #nd-rule(
@@ -145,6 +124,9 @@
         $Gamma tack.r (a, b) : (Sigma x:A). B(x)$,
         label: $(Sigma"-Intro")$,
       )
+      #text(fill: muted, size: 9pt, style: "italic")[
+        Bundle a value with a proof whose type mentions that value.
+      ]
 
       #v(4pt)
 
@@ -155,13 +137,8 @@
         $Gamma tack.r upright("fst")(p) : A #h(1.4em) Gamma tack.r upright("snd")(p) : B(upright("fst")(p))$,
         label: $(Sigma"-Elim")$,
       )
-
-      #v(4pt)
-
-      #align(left)[
-        #text(fill: muted, size: 10pt, style: "italic")[
-          A value bundled with a proof that depends on it.
-        ]
+      #text(fill: muted, size: 9pt, style: "italic")[
+        Project: fst recovers the value; snd recovers the proof (indexed by that value).
       ]
     ],
   )
@@ -174,7 +151,7 @@
     width: 100%,
   )[
     #text(size: 12pt)[
-      In Stage 7: `protocolFromSnapshot` is
+      In Stage 6: `protocolFromSnapshot` is
       #text(fill: accent, weight: "bold")[Π-elimination];
       `assessOrder` is
       #text(fill: accent, weight: "bold")[Σ-introduction].

@@ -22,5 +22,7 @@ In aviation, medical devices, and regulated finance, the regulatory threshold ha
 
 The question isn't 'should I use dependent types for my CRUD endpoints'. The question is: is this invariant expensive enough to encode? The tools are getting cheaper. The set of invariants worth encoding gets bigger every year.
 
+One practical footnote: the machinery we've seen carries zero runtime overhead through Stage 5. Sealed types, phantom generics, Iron's refinements, path-dependent channel types — all erased at compile time. The protocol constraint exists only in the compiler's reasoning; the runtime object is a plain reference. In Stage 6, Idris 2's multiplicity annotations are likewise erased: the channel is a normal reference at runtime, linearity checked entirely at compile time. You pay in compile-time expressiveness, not in runtime cost.
+
 Thank you."
 ]

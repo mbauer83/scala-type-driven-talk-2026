@@ -2,7 +2,7 @@
 // diagrams/lambda-cube.typ — Barendregt's lambda cube with stage tags.
 //
 // Built from scratch for the Touying deck. Exposes `lambda-cube-canvas`, a
-// self-contained cetz canvas placed inside the .s-theory slide for S14.
+// self-contained cetz canvas placed inside the .s-theory slide for S15.
 //
 // Content requirements (Phase 1 spec):
 //   - 3D cube, 8 labelled vertices
@@ -12,7 +12,7 @@
 //       · terms-on-types       (bottom, horizontal — generics)
 //       · types-on-types       (right, vertical — type operators)
 //       · types-on-terms       (depth, diagonal — dependent types)
-//   - Stage tags: Stage 1 / Stage 2 / Stages 5–6 / Stage 7 at the path vertices
+//   - Stage tags: Stage 1 / Stage 2 / Stages 4–5 / Stage 6 at the path vertices
 //   - Highlight path: λ→ → λ2 → λω→ → λC (front-bottom-left → back-top-right)
 // =============================================================================
 
@@ -137,7 +137,7 @@
          $lambda upright(P) omega$, "south-east")
   // CIC: shift further right; stage tag drops below.
   vlabel((b-tr.at(0) + 0.55, b-tr.at(1) + 0.50), [CIC], $lambda upright(C)$,
-         "south-west", stage: [Stage 7])
+         "south-west", stage: [Stage 6])
 
   // ── Axis 1: terms-on-types (generics) — bottom horizontal
   line(

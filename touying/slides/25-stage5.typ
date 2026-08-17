@@ -4,49 +4,14 @@
 #import "../code-pane.typ": *
 
 #stage-opener-slide(
-  [6],
+  [5],
   [Scala 3 · What Opens Up],
   [scala 3 · bounded λω + type families · Iron refinements],
   stack(
     dir: ttb,
-    spacing: sz(16pt),
-    eyebrow(style: "accent")[→ DEMO 6a in `PaymentDemo.scala`],
-    grid(
-      columns: (sz(380pt), 1fr),
-      gutter: sz(32pt),
-      align: (left + top, left + top),
-      // ── Left column: header aligned with "Domain.scala" tab bar via the same
-      //   y-inset; title above example with generous spacing both within and
-      //   between rows.
-      block(width: 100%, inset: (top: sz(14pt)))[
-        #stack(
-          dir: ttb,
-          spacing: sz(34pt),
-          text(size: sz(20pt), weight: 500, font: mono-font, fill: pal.fg-dark-dim, tracking: 0.05em)[MECHANISMS AT WORK],
-          stack(
-            dir: ttb,
-            spacing: sz(36pt),                // inter-row breathing room (> intra-row)
-            ..for (mech, detail) in (
-              ("Refined types",            "NonEmptyString = String :| MinLength[1]"),
-              ("Opaque + refined IDs",     "OrderId, CustomerId"),
-              ("Path-dependent types",     "CanSend[P]#Msg"),
-              ("Compiler-derived evidence","P =:= End"),
-              ("Match types + duality",    "Dual[P] computed by compiler"),
-              ("Higher-kinded types",      "interpret[F[_]: Functor, A]"),
-            ) {
-              (
-                stack(
-                  dir: ttb,
-                  spacing: sz(14pt),         // intra-row title → example gap
-                  text(size: sz(22pt), weight: 600, fill: pal.accent)[#mech],
-                  text(size: sz(18pt), fill: pal.fg-dark-dim, font: mono-font)[#detail],
-                ),
-              )
-            },
-          ),
-        )
-      ],
-      code-pane(filename: "Domain.scala", language: "scala")[
+    spacing: sz(18pt),
+    eyebrow(style: "accent")[→ DEMO 5a in `PaymentDemo.scala`],
+    code-pane(filename: "Domain.scala", language: "scala")[
 ```scala
 def authorize[R <: Risk](
     order:    Order,
@@ -63,16 +28,22 @@ def authorize[R <: Risk](
     audit    = List(s"authorized:$note"),
   )
 ```
-      ],
-    ),
+    ],
   ),
 )
 
 #speaker-note[
+// CUES:
+// 1. Open PaymentDemo.scala → serverMediumRisk → change ThreeDSApproved to AutoApproved → error on ch.send line
+// 2. Revert ⌘Z → "Protocol context catches Bob's mistake — not the authorize call itself"
+// 3. Show NonEmptyString in Domain.scala → OrderId.of("") returns Left (safe) vs refineUnsafe[MinLength[1]] (compile-time check)
+// 4. Show CanSend[P]#Msg in Chan.scala → "message type derived from protocol position — send wrong type → compile error"
+// 5. Mention =:= evidence and finish() in session-types segment next
+
 "Scala 3's type system opens up mechanisms that Java simply cannot reach. Let's look at three of them in our code — refined identifiers, path-dependent channels, and match types — those carry most of the structural weight. Four more are in the repository; I'll point at them as we move through the session-types demo, and then show how they combine into something that makes Danielle's protocol-drift incident a compile error."
 
 → Feature 1 — Phantom indexing with sealed-subtype inference (45 sec):
-Open `06-scala3-payment/src/main/scala/demos/PaymentDemo.scala`, navigate to `serverMediumRisk`. Change the relevant `authorize(order, ThreeDSApproved(proof))` line to `authorize(order, AutoApproved)`. The IDE shows an error on the next `ch.send(authorized)`. Hover: read "Found: `AuthorizedPayment[LowRisk]`, Required: `AuthorizedPayment[MediumRisk]`." Say: "Worth being precise here. `authorize(order, AutoApproved)` itself is well-typed — it just produces an `AuthorizedPayment[LowRisk]`. The compile error happens one line later, when we try to send that value through the channel: the medium-risk protocol requires `AuthorizedPayment[MediumRisk]` at this position, and `LowRisk` doesn't satisfy it. The protocol context is what catches Bob's mistake. Revert." (⌘Z)
+Open `05-scala3-payment/src/main/scala/demos/PaymentDemo.scala`, navigate to `serverMediumRisk`. Change the relevant `authorize(order, ThreeDSApproved(proof))` line to `authorize(order, AutoApproved)`. The IDE shows an error on the next `ch.send(authorized)`. Hover: read "Found: `AuthorizedPayment[LowRisk]`, Required: `AuthorizedPayment[MediumRisk]`." Say: "Worth being precise here. `authorize(order, AutoApproved)` itself is well-typed — it just produces an `AuthorizedPayment[LowRisk]`. The compile error happens one line later, when we try to send that value through the channel: the medium-risk protocol requires `AuthorizedPayment[MediumRisk]` at this position, and `LowRisk` doesn't satisfy it. The protocol context is what catches Bob's mistake. Revert." (⌘Z)
 
 → Feature 2 — Refined types: NonEmptyString-refined identifiers (30 sec):
 Open `Domain.scala`, navigate to `type NonEmptyString = String :| MinLength[1]`. Frame as a domain rule first: "order and customer identifiers must be non-empty — that's a business invariant, not a runtime check to remember at every consumer." Show `OrderId.of("")` → returns `Left(...)` (smart constructor for runtime values). Show `"".refineUnsafe[MinLength[1]]` → DOES NOT COMPILE (macro checks at compile time). Say: "Two paths into the type. The smart constructor handles runtime values safely. The macro path proves the predicate at compile time for literals."

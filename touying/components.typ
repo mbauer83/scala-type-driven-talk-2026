@@ -16,8 +16,50 @@
 
 // ─── helpers ────────────────────────────────────────────────────────────────
 
-// speaker-note: no-op in PDF output — notes are for presenter reference only.
-#let speaker-note(body) = []
+// Recursively extract plain text from a Typst content block so it can be
+// serialised into pdfpc Note metadata (which only accepts strings).
+#let _extract-text(it) = {
+  if type(it) == str { return it }
+  if type(it) != content { return "" }
+  if it == [] { return "" }
+  // Inline text node
+  if it.has("text") and type(it.at("text")) == str { return it.at("text") }
+  // Typst smart-quote elements (apostrophes, curly quotes) — context-neutral fallback
+  if it.func() == smartquote {
+    return if it.at("double", default: false) { "\"" } else { "'" }
+  }
+  // Line / paragraph breaks → newlines
+  if it.func() in (linebreak, parbreak) { return "\n" }
+  // Sequence (e.g. multiple paragraphs)
+  if it.has("children") { return it.children.map(_extract-text).join("") }
+  // Paragraph body
+  if it.has("body") { return _extract-text(it.body) }
+  return ""
+}
+
+// speaker-note: emits a pdfpc Note metadata element so pympress can display
+// notes in its presenter view.  The note must appear in document order between
+// the NewSlide marker of its own slide and the NewSlide marker of the next
+// slide; calling it right after the slide function satisfies this constraint.
+//
+// When compiled with `--input notes=true` the note is also rendered as a
+// visible tinted block (useful for proof-reading or a printed notes PDF).
+#let speaker-note(body) = {
+  let note-text = _extract-text(body).trim()
+  [#metadata((t: "Note", v: note-text))<pdfpc>]
+  if sys.inputs.at("notes", default: "false") == "true" {
+    block(
+      fill: rgb("#fffde7"),
+      width: 100%,
+      inset: (x: 12pt, y: 8pt),
+      radius: 4pt,
+      stroke: 0.5pt + rgb("#f9a825"),
+    )[
+      #set text(size: 10pt)
+      #body
+    ]
+  }
+}
 
 // `slide-pad` wraps content in a fixed-size block sized to the slide chrome
 // so that `v(1fr)` distributes the remaining vertical space (it would not
@@ -110,32 +152,39 @@
 // entries: array of (when, what, sub). `when` mono accent (30pt), `what` body
 // 34pt, optional `sub` 28pt dim — matches `.beat-grid` from the CSS.
 
-#let beat-grid(entries) = {
+#let beat-grid(entries, dim_previous: false) = {
+  // dim_previous: true dims all entries except the last, so the newest
+  // entry stands out at full weight while earlier ones recede.
   set par(leading: 0.55em)
+  let n = entries.len()
+  let cells = ()
+  for i in range(n) {
+    let (when_, what_, sub) = entries.at(i)
+    let is_dim = dim_previous and (i < n - 1)
+    cells.push({
+      set text(
+        font: mono-font,
+        size: sz(28pt),
+        weight: 500,
+        fill: if is_dim { pal.fg-dim } else { pal.accent },
+      )
+      when_
+    })
+    cells.push({
+      set text(size: sz(32pt), weight: 500, fill: if is_dim { pal.fg-dim } else { pal.fg })
+      what_
+      if sub != none and sub != [] {
+        linebreak()
+        set text(size: sz(26pt), weight: 400, fill: pal.fg-dim)
+        sub
+      }
+    })
+  }
   grid(
     columns: (140pt, 1fr),
     gutter: sz(28pt),
     row-gutter: sz(48pt),    // inter-row spacing — must clearly exceed intra-row gap
-    ..entries.map(((when_, what_, sub)) => (
-      {
-        set text(
-          font: mono-font,
-          size: sz(28pt),
-          weight: 500,
-          fill: pal.accent,
-        )
-        when_
-      },
-      {
-        set text(size: sz(32pt), weight: 500, fill: pal.fg)
-        what_
-        if sub != none and sub != [] {
-          linebreak()
-          set text(size: sz(26pt), weight: 400, fill: pal.fg-dim)
-          sub
-        }
-      },
-    )).flatten()
+    ..cells,
   )
 }
 
@@ -503,7 +552,7 @@
         v(sz(8pt)),
         {
           set par(leading: 0.4em)
-          text(size: sz(22pt), weight: 400, fill: pal.fg)[#what]
+          text(size: sz(26pt), weight: 400, fill: pal.fg)[#what]
         },
         v(sz(10pt)),
         text(font: mono-font, size: sz(18pt), weight: 500, fill: state-color, tracking: 0.04em)[#state-text],
@@ -539,13 +588,15 @@
   ]
 
   let make-cell(body, state: "active", left-sep: false) = {
-    let bg = if state == "just-gone" { pal.good-bg } else { none }
-    let text-fill = if state == "gone" { pal.fg-faint } else { pal.fg }
+    let bg = if state == "just-gone" { pal.good-bg } else if state == "summary" { pal.good.transparentize(88%) } else { none }
+    let text-fill = if state == "gone" { pal.fg-faint } else if state == "summary" { pal.good } else { pal.fg }
     let stk = if left-sep { (bottom: row-sep, left: sep) } else { (bottom: row-sep) }
     let decorated = if state == "just-gone" {
       strike(body, stroke: 0.6pt + pal.good)
     } else if state == "gone" {
       strike(body)
+    } else if state == "summary" {
+      text(weight: 500)[#body]
     } else {
       body
     }
@@ -555,7 +606,7 @@
       inset: (x: sz(12pt), y: sz(7pt)),
       stroke: stk,
     )[
-      #set text(size: sz(26pt), fill: text-fill)
+      #set text(size: sz(30pt), fill: text-fill)
       #decorated
     ]
   }
@@ -614,10 +665,10 @@
       ..axes.map(axis => {
         let (tag, label, sub) = axis
         grid(
-          columns: (sz(64pt), 1fr),
+          columns: (sz(80pt), 1fr),
           gutter: sz(16pt),
           align: (left + top, left + top),
-          text(font: mono-font, size: sz(28pt), weight: 600, fill: pal.accent)[#tag],
+          text(font: mono-font, size: sz(26pt), weight: 600, fill: pal.accent)[#tag],
           stack(
             dir: ttb,
             spacing: sz(8pt),                  // intra-row name → sub gap

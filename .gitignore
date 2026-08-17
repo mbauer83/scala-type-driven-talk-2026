@@ -44,3 +44,23 @@ Thumbs.db
 .codex
 .codex/
 .claude/
+.agents/
+memory/
+
+# Talk build outputs (regenerate with `make`)
+/talk.pdf
+/talk-with-notes.pdf
+/talk.pdfpc
+/talk.html
+/talk.pptx
+touying/deck.pdf
+touying/deck.html
+touying/*.pdf
+slides/png/
+slides/svg/
+slides/*.pdf
+slides/*.svg
+slides/*.png
+
+# WSL / Windows interop artefacts
+*:Zone.Identifier

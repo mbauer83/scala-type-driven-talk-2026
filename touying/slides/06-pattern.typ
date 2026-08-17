@@ -34,11 +34,20 @@
         By the end, following these business rules won't be "well tested" —
         #text(weight: 600, fill: pal.accent)[the illegal scenarios simply won't compile anymore.]
       ],
+      text(font: mono-font, size: sz(40pt), weight: 600, fill: pal.accent)[•],
+      [
+        #set text(size: sz(34pt), fill: pal.fg)
+        #set par(leading: 0.45em)
+        Tests still matter — but for *behaviour*, not for invariant coverage
+        #text(fill: pal.fg-dim)[the compiler now handles.]
+      ],
     )
     #v(1fr)
   ],
 )
 
 #speaker-note[
-"In each case, a program was able to express something the business rules said was illegal. For the rest of the talk we'll walk through seven increasingly expressive type systems — from untyped JavaScript through Java and Scala 3 to Idris 2 — and at each stage we'll see one or more of these four incidents become impossible to express. For closing that gap, we have a toolkit built up over roughly two and a half thousand years. We'll spend a few minutes on that history and motivation, and then for the rest of the talk we'll look at how to cash it out in actual code."
+"In each case, a program was able to express something the business rules said was illegal. For the rest of the talk we'll walk through seven increasingly expressive type systems — from untyped JavaScript through Java and Scala 3 to Idris 2 — and at each stage we'll see one or more of these four incidents become impossible to express. For closing that gap, we have a toolkit built up over roughly two and a half thousand years. We'll spend a few minutes on that history and motivation, and then for the rest of the talk we'll look at how to cash it out in actual code.
+
+Tests are still essential. The question is what they're testing. Once the compiler knows a medium-risk order requires 3DS, you don't write a test that checks 'did we call 3DS?' You write a test that checks 'did 3DS succeed?' The test surface shrinks. The confidence floor rises."
 ]

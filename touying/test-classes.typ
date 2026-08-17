@@ -49,7 +49,7 @@ else if (risk === "HIGH") refer();
     ([1969], [Curry–Howard — propositions ≡ types], [Proofs are programs; running ≡ simplifying.]),
     ([1972], [Martin-Löf — dependent types], [Types compute over values; Π and Σ types.]),
   )),
-  footer: [→ S10 / S12 / S14 for the worked examples.],
+  footer: [→ S10 / S13 / S15 for the worked examples.],
 )
 
 // ─── .s-stage-opener ────────────────────────────────────────────────────────

@@ -6,7 +6,11 @@
 #theory-slide(
   [MLTT: Π and Σ Types],
   mltt-canvas,
-  footer: ["Idris 2 runs these rules at every call site. I'll show them in action in Stage 7."],
+  footer: [
+    #text(fill: pal.accent)[Γ ⊢] reads "in some context Γ (variable assignments and type annotations in scope), we can derive that..." — Γ accumulates as you move under binders. \
+    #v(sz(4pt))
+    Idris 2 runs these rules at every call site. I'll show them in action in Stage 6.
+  ],
 )
 
 #speaker-note[

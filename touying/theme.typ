@@ -121,6 +121,12 @@
 // single self-contained page with the right fill colour. This avoids the
 // "next slide inherits the previous slide's set page" footgun and lets a deck
 // be assembled as a simple concatenation of slide-class invocations.
+//
+// pdfpc slide-boundary markers (NewSlide / Idx / LogicalSlide) are injected
+// at the top of every page so that `typst query "<pdfpc-file>"` can build a
+// correct .pdfpc sidecar understood by pympress.
+
+#let _slide-counter = counter("__pdfpc_slide__")
 
 #let slide-page(fill: pal.bg, fg: pal.fg, body) = page(
   width:  page-width,
@@ -128,6 +134,13 @@
   margin: 0pt,
   fill:   fill,
 )[
+  #_slide-counter.step()
+  #context {
+    let n = _slide-counter.get().first()
+    [#metadata((t: "NewSlide"))<pdfpc>]
+    [#metadata((t: "Idx", v: n - 1))<pdfpc>]
+    [#metadata((t: "LogicalSlide", v: n))<pdfpc>]
+  }
   #set text(fill: fg)
   #body
 ]
