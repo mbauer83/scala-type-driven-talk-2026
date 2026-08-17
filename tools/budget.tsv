@@ -10,10 +10,13 @@
 # Only slides currently in deck.typ are listed. Rows are added as v2 slides
 # are authored.
 
-# ── Act 0 · Open — 3:45 · VERBATIM SCRIPT (the part that gets stumbled)
-01-title	0:30	prose
-02-alice	2:15	prose
-06-pattern	1:00	prose
+# ── Act 0 · Open — 4:35 · VERBATIM SCRIPT (the part that gets stumbled)
+# Raised from 3:45 after measuring the written script. Four incidents with
+# real texture do not fit in 2:15, and the turn needs 1:20 once the
+# 2,500-year framing sentence is in it. The 0:40 comes out of Act 4.
+01-title	0:35	prose
+02-alice	2:30	prose
+06-pattern	1:30	prose
 
 # ── Act 1 · History braided into the primer — 8:30
 07-toolkit	1:15	prose

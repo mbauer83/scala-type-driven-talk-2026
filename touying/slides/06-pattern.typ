@@ -21,7 +21,8 @@
     #align(center)[
       #set text(size: sz(36pt), weight: 300, fill: pal.fg-dim)
       #set par(leading: 0.7em, justify: false)
-      Writing down a type is a #text(fill: pal.fg, weight: 500)[two-and-a-half-thousand-year-old] activity.
+      What we are doing when we specify programs and types\
+      has a history of about #text(fill: pal.fg, weight: 500)[two and a half thousand years.]
     ]
     #v(sz(28pt))
     #align(center)[
@@ -34,32 +35,39 @@
 ]
 
 #speaker-note[
-MB WRITES THE WORDS. Budget 1:00 — about 115 spoken words. This is the minute
-that turns four war stories into the thesis, and it is the second place you are
-most likely to stumble, so it is worth over-rehearsing whatever you write.
+VERBATIM · budget 1:20 · 168 words. This minute turns four war stories into the
+thesis, and it is the second place you are most likely to stumble. Over-rehearse it.
 
-Beats it has to hit, in this order:
+"None of those four was a testing failure. In every case the language accepted a
+program that the business had already ruled out, and more test coverage would not
+have changed that.
 
-1. The four incidents are not testing failures. In each one the language allowed
-   a program that the business had already ruled out.
+The history of what we are doing when we specify programs and types stretches back
+about two and a half thousand years, across philosophy, logic, mathematics, and
+computer science. That is the thread I want to follow tonight, because a good part
+of what everyone in this room does already sits at the end of it.
 
-2. The scale of what follows. Specifying programs with types sits at the end of a
-   long line running through philosophy, logic, mathematics and computer science.
-   Your own draft used "two-thousand-five-hundred years"; Aristotle is 4th c. BCE,
-   so 2,400 is the defensible number and "two and a half thousand" is a fair
-   round figure. Say it however you say it — do not let me write it for you.
+When you write a sealed interface and the compiler makes you handle every case, you
+are applying a rule that Gerhard Gentzen wrote down in 1935. When you write a
+generic method, you are making a claim about every possible type. That is a
+universally quantified statement.
 
-3. The claim: a substantial part of what this room does daily is the same activity
-   that proof theory describes. Careful with the strength here — a sealed
-   interface is an instance of a structure proof theory studies, not itself proof
-   theory. Overclaiming loses the people who know the difference.
+I want to give you the vocabulary for that, and some sense of how far it goes. Once
+you can see the structure, you can encode much more of what your system actually
+requires. The compiler will check it for you — and for the agents now writing code
+next to you."
 
-4. What understanding it buys: stating stronger and more precise invariants and
-   having the machine check them, with fast and specific feedback when they break.
-
-5. Agents get one clause at most. The full argument is slide 29 and spending it
-   here weakens the close.
-
-AVOID: "you just don't call it that" and similar stock kickers — the linter
-blocks that one by name.
+NOTES ON THE WORDING
+- Sentence two is yours, lightly restructured so the verb arrives sooner: the
+  original subject ran fourteen words before the verb. Your version reads fine
+  on paper and is harder to say. Revert if you prefer it.
+- 2,500 vs 2,400: Aristotle's Prior Analytics is roughly 350 BCE, so the literal
+  figure is about 2,376 years. About-two-and-a-half-thousand is a fair round
+  number; two-thousand-five-hundred states more precision than the date supports.
+- Gentzen 1935 is the Untersuchungen über das logische Schließen, which introduces
+  natural deduction and the introduction/elimination rules. Slide 13 shows them.
+- The claim is deliberately sits-at-the-end-of-it rather than is-proof-theory.
+  A sealed interface instantiates a structure proof theory studies; saying it IS
+  proof theory overclaims and loses anyone who knows the difference.
+- The agents clause is one clause on purpose. Slide 29 carries that argument.
 ]

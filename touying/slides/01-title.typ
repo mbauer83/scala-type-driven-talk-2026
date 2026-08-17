@@ -10,18 +10,16 @@
 )
 
 #speaker-note[
-MB WRITES THE WORDS. Budget 0:30 — about 60 spoken words.
+VERBATIM · budget 0:30 · 62 words.
 
-Content: name, roughly ten years as a software and solution architect, thanks to
-the organisers. Then one sentence of framing before the incidents.
+"Good evening. My name is Michael Bauer, and I have spent about ten years working
+as a software and solution architect. Tonight I would like to start with a handful
+of production incidents. They lead into a line of thinking a great deal older than
+any of us, which most of you already use without calling it that. Thanks to the
+organisers for having me."
 
-FRAMING PROBLEM to avoid: my earlier draft opened with "a specific kind of
-production bug". That is too narrow and it underpromises — the talk is about a
-2,400-year thread running from philosophy through logic and mathematics into the
-type checker, and about the fact that this audience already writes logic for a
-living. Opening on bug-of-the-week sets up a much smaller talk than the one that
-follows, and the audience will feel the mismatch at minute ten.
-
-The framing should promise the size of the actual talk. The four incidents are
-the way in, not the subject.
+The framing deliberately promises the size of the real talk. An earlier draft
+opened on "a specific kind of production bug", which sets up something much
+smaller than what follows; the audience feels that mismatch by minute ten.
+The incidents are the way in, not the subject.
 ]

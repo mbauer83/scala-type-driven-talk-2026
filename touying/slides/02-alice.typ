@@ -76,9 +76,36 @@
 )
 
 #speaker-note[
-MB WRITES THE WORDS. Budget 2:15 — about 260 spoken words at 120 wpm, so roughly
-65 per incident. Below are the checked facts and the beat each story has to hit.
-Nothing here is delivery prose.
+VERBATIM · budget 2:15 · 268 words. Checked facts follow the script.
+
+"Alice's morning started with a message from accounting. Overnight, the import job
+had drafted an invoice for four hundred and fifty thousand euros, against an order
+worth about sixty. The amounts came out of a CSV export as strings, and nobody had
+converted them. So the aggregation summed them with plus — and plus, given two
+strings, concatenates. The job reported success, and accounting caught the invoice
+in staging before the batch went out.
+
+Bob's team added a medium risk tier to their fraud engine. The branch that handled
+risk had been written when there were only two tiers, and it said: if risk is not
+high, take the fast path. Medium satisfies that condition. So medium-risk orders
+took the fast path too and skipped 3-D Secure, which meant the liability for those
+chargebacks stayed with the merchant instead of moving to the issuer.
+
+Charlie owns the refund approval workflow. A refund moves from requested, through
+review, to approved, and only then out to the payment rail. There is an operator
+shortcut for urgent cases, which looks a refund up by id and executes it without
+reading its state. One that nobody had reviewed went back to a customer's card.
+Charlie spent about three hours in the logs working out how.
+
+Danielle's team runs KYC onboarding, with a client and a server written against the
+same contract. Compliance added an evidence step on the server for large payout
+limits. The client was never told. Both programs were correct by their own lights,
+the tests covered the common path, and the new branch only fires on large uploads —
+so it ran for three weeks before anyone hit it.
+
+Every one of those compiled without complaint."
+
+Checked facts and the traps, in case you want to rework any of it:
 
 ALICE — the boundary between untyped input and typed code.
   fact: an internal admin tool exports CSV; the lineTotal column is amounts in cents.
@@ -118,7 +145,7 @@ DANIELLE — two correct programs that disagree.
         large uploads, so it ran ~3 weeks before anyone hit it.
   beat: no shared, checkable definition of the conversation existed.
   closes: Stage 5, session types and duality.
-  (Do NOT rank this one as "the hardest to see" — unverifiable and it reads as filler.)
+  (Do NOT rank this one as the-hardest-to-see. Unverifiable, and it reads as filler.)
 
 CLOSING BEAT: all four passed their compiler. That is the hinge into the next slide.
 ]
