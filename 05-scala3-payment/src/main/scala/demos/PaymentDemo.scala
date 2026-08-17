@@ -119,7 +119,8 @@ object PaymentDemo:
     val challenge         = ThreeDSChallenge(s"3ds-${order.orderId.orderIdStr}", "soft")
     val ch3               = ch2.send(challenge)
     val (proof, ch4)      = ch3.receive()
-    val authorized        = authorize(order, ThreeDSApproved(proof))
+    val authorized: AuthorizedPayment[MediumRisk] =
+      authorize(order, ThreeDSApproved(proof))
     val ch5               = ch4.send(authorized)
     val captured          = capture(authorized)
     val ch6               = ch5.send(captured)

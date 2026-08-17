@@ -1,0 +1,4 @@
+Demo.java:121: error: the switch expression does not cover all possible input values
+        String label = switch (decision) {
+                       ^
+1 error

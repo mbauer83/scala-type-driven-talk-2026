@@ -1,0 +1,5 @@
+Demo.java:170: error: incompatible types: Payment<Initiated> cannot be converted to Payment<Authorized>
+            Payment.capture(init);                                    // ← UNCOMMENT
+                            ^
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+1 error
