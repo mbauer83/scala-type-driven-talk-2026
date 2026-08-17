@@ -12,7 +12,7 @@
 //     aligned under the `match` keyword
 // =============================================================================
 
-#import "@preview/cetz:0.3.4": canvas, draw
+#import "@preview/cetz:0.5.2": canvas, draw
 
 // ─── Local theme tokens — mirror the deck palette so the canvas looks at home
 // on a light .s-theory slide. Tokens are repeated rather than imported to keep

@@ -5,7 +5,7 @@
 // Compile:  typst compile slide-11-lambda-cube.typ slide-11-lambda-cube.svg
 // =============================================================================
 
-#import "@preview/cetz:0.3.4"
+#import "@preview/cetz:0.5.2"
 
 // ─── Page / theme ───────────────────────────────────────────────────────────
 

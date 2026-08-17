@@ -1,7 +1,7 @@
 // Clock: 11:30–12:00
 #import "../theme.typ": *
 #import "../components.typ": *
-#import "@preview/cetz:0.3.4": canvas, draw
+#import "@preview/cetz:0.5.2": canvas, draw
 
 // ── ArchiMate-style flow: Order → assess → authorize → capture →⟨×⟩→ refund / invoice
 //

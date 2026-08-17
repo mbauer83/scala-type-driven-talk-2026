@@ -8,7 +8,7 @@
 // Requires the cetz package (auto-downloaded from typst-universe on first run).
 // =============================================================================
 
-#import "@preview/cetz:0.3.4"
+#import "@preview/cetz:0.5.2"
 
 // ─── Page / theme ───────────────────────────────────────────────────────────
 

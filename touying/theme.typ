@@ -22,7 +22,7 @@
 //                    suffers.
 // =============================================================================
 
-#import "@preview/touying:0.5.5": *
+#import "@preview/touying:0.7.4": *
 
 // ─── Palette (OKLCH where the slide plan uses OKLCH) ────────────────────────
 

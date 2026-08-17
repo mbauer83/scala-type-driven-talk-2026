@@ -16,7 +16,7 @@
 //   - Highlight path: λ→ → λ2 → λω→ → λC (front-bottom-left → back-top-right)
 // =============================================================================
 
-#import "@preview/cetz:0.3.4": canvas, draw
+#import "@preview/cetz:0.5.2": canvas, draw
 
 #let accent      = oklch(62%, 0.14, 55deg)
 #let stage-color = oklch(75%, 0.16, 75deg)   // warm gold for stage tags

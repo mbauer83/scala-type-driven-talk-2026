@@ -23,7 +23,7 @@ make clean        # delete generated artefacts
 
 **Build tools (WSL2 / Linux):**
 
-- **Typst** 0.11 or later (tested with 0.14.2):
+- **Typst** 0.15 or later (tested with 0.15.1):
   ```bash
   curl -fsSL https://typst.app/install.sh | sh
   # or: snap install typst
