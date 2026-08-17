@@ -763,14 +763,37 @@ becomes 64:35; even 1.2× gives 50:00. Treat every unmeasured act as optimistic.
 | 2 | Act 0 authored + signed off; scripts, linter, hook, calibration | Mon | ✅ done |
 | 3 | Iron refinements in `05-scala3-payment` | Mon | ✅ done |
 | 4 | Demo 3 fixed; four fallbacks captured to `demos/` | Mon | ✅ done |
-| 5 | Mechanical sweep: reorder `deck.typ`; complete `budget.tsv` incl. **demo rows**; fix the id/number drift | Mon eve, ~2 h | ← next |
-| 6 | **First stopwatch read-through of what exists** | Mon eve | |
+| 5 | Mechanical sweep: complete `budget.tsv` incl. **demo + stub rows**; fix the id/number drift | Mon eve | ✅ done |
+| 6 | **Delivery-discount calibration — Act 0 only, delivered standing** | Mon eve, 5 min | |
 | 7 | **Settle the four OPEN×high-cost items on paper** (Part 6b) — one paragraph each, no slide work | Tue 09:00–12:00, **hard stop** | |
 | 8 | Author Act 1 — **four slides, not six** (take the connectives/quantifiers merge up front) | Tue 12:00 – Wed 12:00 | |
 | 9 | Author `A2-values`, `A2-promises`; the four claim fixes in Part 3 | Wed 12:00–15:00 | |
-| 10 | Merges, cube parameterisation | **optional** — only if step 11 comes in under 44:00 |
-| 11 | Second read-through; apply Part 6b's cut list against measured numbers | Wed 16:00 | |
+| 10 | Merges, cube parameterisation, **`deck.typ` reorder** | **optional** — only if step 11 comes in under 44:00. The reorder is no longer needed for measurement: `budget.tsv`'s stub rows already let `make timing` report the intended deck |
+| 11 | **First real read-through** — Act 0 + Act 1 + whatever else is authored; apply Part 6b's cut list against measured numbers | Wed 16:00 | |
 | 12 | `make all`; **dress rehearsal on the real laptop and projector** | Wed 19:00, **immovable** | |
+
+**Why step 6 is not a read-through of the deck.** Acts 1–6 are still v1 notes that this plan
+deletes, merges or rewrites; reading them aloud measures a deck we are removing, and `make
+timing` already measures those exact words at the same rate without anyone speaking. The number
+a read-through would produce is one we have.
+
+What we do **not** have is the **live-delivery discount**. Every cap in `budget.tsv` is scaled
+by the 130 wpm planning rate, which is MB's measured *reading* rate (177 and 185 on two
+occasions) minus a 28% discount that is a guess. It is the least-supported number in the project
+and it multiplies everything.
+
+Measure it on Act 0, which is authored, signed off and already measured seated at 3:48: deliver
+it **standing, projecting to the back of a room, with the slides advancing**. Five minutes.
+
+| Live Act 0 | Implied discount | Planning rate | 47:05 becomes |
+|---|---|---|---|
+| ~4:10 | ~10% | 165 | ~37:00 — comfortable |
+| ~4:45 | ~20% | 148 | ~41:30 — fits |
+| ~5:25 | ~28% | 130 | 47:05 — the current assumption |
+| ~6:15 | ~38% | 115 | ~53:00 — cut hard |
+
+Then `make timing WPM=<measured>` re-scales the whole budget, and Tuesday's cut decisions are
+made against a measured rate instead of an assumed one.
 
 **Freeze.** Whatever is authored by **Wed 16:00** ships. Everything else keeps its v1 note.
 That is a decision with a time on it, not a contingency — the appendix renumber is cut outright,
