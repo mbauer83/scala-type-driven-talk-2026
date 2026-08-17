@@ -34,23 +34,32 @@
 ]
 
 #speaker-note[
-VERBATIM. Four sentences, four breaths. Do not improvise here — this is the
-minute that converts the war stories into the thesis, and it is the second
-place you are most likely to stumble.
+MB WRITES THE WORDS. Budget 1:00 — about 115 spoken words. This is the minute
+that turns four war stories into the thesis, and it is the second place you are
+most likely to stumble, so it is worth over-rehearsing whatever you write.
 
-"None of these is a testing failure. In each one, the language let someone write
-down something the business had already declared illegal.
+Beats it has to hit, in this order:
 
-Writing down a type is a two-and-a-half-thousand-year-old activity. The thread
-runs from philosophy into logic, into mathematics, and into the compiler you
-used this morning.
+1. The four incidents are not testing failures. In each one the language allowed
+   a program that the business had already ruled out.
 
-My claim for the next forty-five minutes is simple. A good part of what you
-already do every day is proof theory. You just don't call it that.
+2. The scale of what follows. Specifying programs with types sits at the end of a
+   long line running through philosophy, logic, mathematics and computer science.
+   Your own draft used "two-thousand-five-hundred years"; Aristotle is 4th c. BCE,
+   so 2,400 is the defensible number and "two and a half thousand" is a fair
+   round figure. Say it however you say it — do not let me write it for you.
 
-Once you can see that, you can push on it — state stronger rules about your
-system, and have the machine enforce them. For you, and for whatever else is
-writing code in your repository these days."
+3. The claim: a substantial part of what this room does daily is the same activity
+   that proof theory describes. Careful with the strength here — a sealed
+   interface is an instance of a structure proof theory studies, not itself proof
+   theory. Overclaiming loses the people who know the difference.
 
-(Last clause plants the agentic argument. Do not spend it here — slide 32 lands it.)
+4. What understanding it buys: stating stronger and more precise invariants and
+   having the machine check them, with fast and specific feedback when they break.
+
+5. Agents get one clause at most. The full argument is slide 29 and spending it
+   here weakens the close.
+
+AVOID: "you just don't call it that" and similar stock kickers — the linter
+blocks that one by name.
 ]

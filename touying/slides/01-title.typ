@@ -10,13 +10,18 @@
 )
 
 #speaker-note[
-VERBATIM · cap 0:30. Get on and off this slide fast — the incidents are the hook,
-not the biography.
+MB WRITES THE WORDS. Budget 0:30 — about 60 spoken words.
 
-"Hi — my name is Michael Bauer. I've worked as a software and solution architect
-for about ten years. Tonight I want to show you a specific kind of production
-bug: the kind where more expressive types would have made it impossible to write
-in the first place. Not easier to test for. Impossible.
+Content: name, roughly ten years as a software and solution architect, thanks to
+the organisers. Then one sentence of framing before the incidents.
 
-Thanks to the organisers for having me."
+FRAMING PROBLEM to avoid: my earlier draft opened with "a specific kind of
+production bug". That is too narrow and it underpromises — the talk is about a
+2,400-year thread running from philosophy through logic and mathematics into the
+type checker, and about the fact that this audience already writes logic for a
+living. Opening on bug-of-the-week sets up a much smaller talk than the one that
+follows, and the audience will feel the mismatch at minute ten.
+
+The framing should promise the size of the actual talk. The four incidents are
+the way in, not the subject.
 ]

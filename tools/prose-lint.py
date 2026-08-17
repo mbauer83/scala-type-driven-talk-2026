@@ -1,0 +1,296 @@
+#!/usr/bin/env python3
+"""
+prose-lint.py — reject LLM-tell prose in speaker notes.
+
+Scope: the text a human will actually say. By convention that is the double-
+quoted spans inside a slide's `#speaker-note[...]` block; everything else in a
+note is delivery guidance and is not linted.
+
+The target register is varied, natural sentence rhythm with real subordination.
+That cuts both ways: the cadence tricks below read as machine-written, and so
+does their opposite — a flat run of short declaratives. Both are flagged.
+
+Note on sentence length: a very long sentence is a *delivery* risk for a talk
+given in a second language, so it warns. It is not an error, because forcing
+everything short produces exactly the staccato monotone this file exists to
+prevent.
+
+Usage:
+    python3 tools/prose-lint.py touying/slides/02-alice.typ ...
+    python3 tools/prose-lint.py --all
+    python3 tools/prose-lint.py --hook        # reads Claude Code hook JSON on stdin
+
+Exit codes: 0 clean (warnings allowed), 2 one or more errors.
+"""
+
+import argparse
+import glob
+import json
+import os
+import re
+import sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SLIDE_GLOB = os.path.join(ROOT, "touying", "slides", "*.typ")
+
+LONG_SENTENCE_WORDS = 35    # delivery risk — warns, never blocks
+MAX_EMDASH_PER_100 = 2.5
+MONOTONE_RUN = 4            # consecutive same-band sentences that read as flat
+MONOTONE_BAND = (4, 15)     # the "punchy short declarative" band
+MIN_LENGTH_VARIATION = 0.38 # stdev/mean below this over a whole note is flat
+
+
+# ── extraction ───────────────────────────────────────────────────────────────
+
+def spoken_text(src):
+    """The double-quoted spans inside #speaker-note[...]; '' if none."""
+    i = src.find("#speaker-note[")
+    if i < 0:
+        return ""
+    j = src.index("[", i)
+    depth = 0
+    for k in range(j, len(src)):
+        if src[k] == "[":
+            depth += 1
+        elif src[k] == "]":
+            depth -= 1
+            if depth == 0:
+                break
+    note = src[j + 1:k]
+    note = re.sub(r"^\s*(→|//).*$", "", note, flags=re.M)
+    return " ".join(re.findall(r'"([^"]*)"', note, flags=re.S))
+
+
+def sentences(text):
+    text = re.sub(r"\s+", " ", text).strip()
+    parts = re.split(r"(?<=[.!?])\s+", text)
+    return [p.strip() for p in parts if p.strip()]
+
+
+def words(s):
+    return re.findall(r"[A-Za-z0-9'’\-]+", s)
+
+
+# ── rules ────────────────────────────────────────────────────────────────────
+# Each rule yields (severity, rule_id, excerpt, explanation).
+
+PADDING = [
+    "in order to", "the fact that", "at the end of the day", "when it comes to",
+    "it is important to note", "it's worth noting", "needless to say",
+    "simply put", "to be honest", "quite frankly", "at its core", "in essence",
+    "it turns out that", "the reality is", "more often than not",
+]
+
+AI_DICTION = [
+    "delve", "tapestry", "testament to", "landscape of", "realm of", "pivotal",
+    "leverage", "seamless", "underscore", "showcase", "foster", "harness",
+    "unlock", "elevate", "game-changer", "deep dive", "here's the thing",
+    "the beauty of", "moreover", "furthermore", "crucially", "notably",
+    "it's worth remembering", "let that sink in",
+]
+
+NOT_X_BUT_Y = [
+    (r"\bnot (just|only|merely|simply)\b[^.?!]{0,70}\bbut\b", "not-just-X-but-Y"),
+    (r"\bit'?s not\b[^.?!]{0,60}[—–]\s*it'?s\b", "it's-not-X—it's-Y"),
+    (r"\bisn'?t\b[^.?!]{0,60}[—–]\s*it'?s\b", "isn't-X—it's-Y"),
+    (r"\bnot\b[^.?!]{0,50}\bbut rather\b", "not-X-but-rather-Y"),
+    (r"\bthat'?s not\b[^.?!]{0,40}[.—–]\s*that'?s\b", "that's-not-X.-that's-Y"),
+]
+
+KICKERS = [
+    (r"\byou just don'?t call it that\b", "stock kicker"),
+    (r"\bwhich is exactly\b", "which-is-exactly"),
+    (r"^and that'?s (the|what|why|how)\b", "and-that's-the-… kicker"),
+    (r"\bwelcome to\b", "welcome-to- kicker"),
+]
+
+SUPERLATIVES = [
+    r"\bthe (hardest|worst|best|single biggest|most important|most interesting)\b",
+    r"\bthe most \w+ (thing|part|bug|idea)\b",
+]
+
+
+def check(text, path):
+    out = []
+    sents = sentences(text)
+    low = text.lower()
+
+    # 1. not-X-but-Y and its variants
+    for pat, name in NOT_X_BUT_Y:
+        for m in re.finditer(pat, low, flags=re.I | re.M):
+            out.append(("error", "negative-contrast", text[m.start():m.end()],
+                        f"'{name}' as a sentence shape. State the thing directly."))
+
+    # 2. tricolon — three or more consecutive short sentences used for rhythm
+    run = 0
+    for s in sents:
+        if len(words(s)) <= 6:
+            run += 1
+            if run == 3:
+                out.append(("error", "tricolon", s,
+                            "Three consecutive short sentences read as cadence, "
+                            "not argument. Join them or cut one."))
+        else:
+            run = 0
+
+    # 3. fragment-climax — a very short sentence dropped after a long one
+    hits = 0
+    for a, b in zip(sents, sents[1:]):
+        if len(words(a)) >= 8 and len(words(b)) <= 3:
+            hits += 1
+            if hits >= 2:
+                out.append(("error", "fragment-climax", f"… {a} {b}",
+                            "Long sentence followed by a one-or-two-word "
+                            "punch, more than once. This is a build-up tic."))
+                break
+
+    # 4. anaphora — same opening repeated across consecutive sentences
+    for i in range(len(sents) - 2):
+        heads = [" ".join(words(s)[:2]).lower() for s in sents[i:i + 3]]
+        if len(set(heads)) == 1 and heads[0]:
+            out.append(("error", "anaphora", " / ".join(sents[i:i + 3]),
+                        f"Three sentences opening '{heads[0]}…'. "
+                        "Rhythm device; vary or merge."))
+            break
+
+    # 5. padding and filler
+    for p in PADDING:
+        if p in low:
+            out.append(("error", "padding", p, "Pleonasm. Delete it."))
+
+    # 6. rhetorical question answered immediately
+    for m in re.finditer(r"\?\s+(Because|It means|The answer|Simply|Well,)", text):
+        out.append(("error", "rhetorical-qa", text[max(0, m.start() - 40):m.end()],
+                    "Rhetorical question followed by its own answer."))
+
+    # 7. stock kickers
+    for pat, name in KICKERS:
+        for s in sents:
+            if re.search(pat, s.strip(), flags=re.I):
+                out.append(("error", "kicker", s, f"'{name}'."))
+
+    # 8. monotone — a flat run of short declaratives is its own LLM tell,
+    #    and it is what you get if you "fix" prose by shortening everything.
+    lo, hi = MONOTONE_BAND
+    run, start = 0, 0
+    for i, s in enumerate(sents):
+        if lo <= len(words(s)) <= hi:
+            if run == 0:
+                start = i
+            run += 1
+            if run == MONOTONE_RUN:
+                out.append(("error", "monotone", " ".join(sents[start:i + 1]),
+                            f"{MONOTONE_RUN} consecutive sentences of {lo}–{hi} "
+                            "words. Flat staccato. Subordinate a clause, or join two."))
+                run = 0
+        else:
+            run = 0
+
+    lens = [len(words(s)) for s in sents]
+    if len(lens) >= 6:
+        mean = sum(lens) / len(lens)
+        var = sum((n - mean) ** 2 for n in lens) / len(lens)
+        if mean > 0 and (var ** 0.5) / mean < MIN_LENGTH_VARIATION:
+            out.append(("error", "monotone-overall",
+                        f"{len(lens)} sentences, mean {mean:.0f} words, "
+                        f"variation {(var ** 0.5) / mean:.2f}",
+                        "Sentence lengths barely vary across the note. Real speech "
+                        "mixes long and short."))
+
+    # 9. very long sentences — delivery risk only, never blocking
+    for s in sents:
+        n = len(words(s))
+        if n > LONG_SENTENCE_WORDS:
+            out.append(("warn", "long-sentence", s,
+                        f"{n} words. Hard to deliver in one breath — consider "
+                        "splitting, but do not shorten everything."))
+
+    # 9. AI diction (warning — some of these are legitimate words)
+    for w in AI_DICTION:
+        if re.search(rf"\b{re.escape(w)}\b", low):
+            out.append(("warn", "ai-diction", w, "Overused register. Prefer plainer."))
+
+    # 10. em-dash density
+    n_words = max(1, len(words(text)))
+    dashes = len(re.findall(r"[—–]", text))
+    if dashes / n_words * 100 > MAX_EMDASH_PER_100:
+        out.append(("warn", "em-dash-density",
+                    f"{dashes} dashes / {n_words} words",
+                    "Dashes used as drama. Most should be full stops."))
+
+    # 11. unearned superlatives
+    for pat in SUPERLATIVES:
+        for m in re.finditer(pat, low):
+            out.append(("warn", "superlative", text[m.start():m.end()],
+                        "Ranking claim the audience cannot check."))
+
+    return out
+
+
+# ── driver ───────────────────────────────────────────────────────────────────
+
+def lint_file(path):
+    try:
+        src = open(path, encoding="utf-8").read()
+    except OSError:
+        return []
+    text = spoken_text(src)
+    if len(words(text)) < 15:
+        return []
+    return [(sev, rid, exc, why, path) for sev, rid, exc, why in check(text, path)]
+
+
+def report(findings):
+    if not findings:
+        return 0
+    errors = [f for f in findings if f[0] == "error"]
+    by_file = {}
+    for f in findings:
+        by_file.setdefault(f[4], []).append(f)
+    lines = []
+    for path, fs in by_file.items():
+        lines.append(f"\n{os.path.relpath(path, ROOT)}")
+        for sev, rid, exc, why, _ in fs:
+            tag = "ERROR" if sev == "error" else "warn "
+            exc = re.sub(r"\s+", " ", exc).strip()
+            if len(exc) > 96:
+                exc = exc[:93] + "…"
+            lines.append(f"  {tag} [{rid}]  {exc}")
+            lines.append(f"        → {why}")
+    lines.append("")
+    lines.append("Target: varied rhythm, real subordination, claims that are true. "
+                 "No tricolons, no not-X-but-Y, no fragment build-ups, no padding — "
+                 "and no flat run of short declaratives either.")
+    sys.stderr.write("\n".join(lines) + "\n")
+    return 2 if errors else 0
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("files", nargs="*")
+    ap.add_argument("--all", action="store_true")
+    ap.add_argument("--hook", action="store_true",
+                    help="read Claude Code hook JSON from stdin")
+    args = ap.parse_args()
+
+    if args.hook:
+        try:
+            payload = json.load(sys.stdin)
+        except Exception:
+            return 0
+        path = (payload.get("tool_input") or {}).get("file_path")
+        if not path or not path.endswith(".typ"):
+            return 0
+        if os.path.join("touying", "slides") not in path:
+            return 0
+        return report(lint_file(path))
+
+    paths = sorted(glob.glob(SLIDE_GLOB)) if args.all else args.files
+    findings = []
+    for p in paths:
+        findings.extend(lint_file(p))
+    return report(findings)
+
+
+if __name__ == "__main__":
+    sys.exit(main())

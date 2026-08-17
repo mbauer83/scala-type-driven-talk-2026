@@ -43,14 +43,14 @@
       [Alice], [invoicing · node.js],
       [A CSV export hands the import job amounts as _strings_.
        The aggregation sums them with `+` — which, on two strings, concatenates.],
-      [€450,015 invoiced\ #text(fill: pal.fg-faint)[should have been €60]],
+      [€450,015 draft invoice\ #text(fill: pal.fg-faint)[caught in staging]],
     ),
     divider,
     incident(
       [Bob], [fraud & risk · java],
       [A third risk tier is added years after the branch was written.
        `if (risk != HIGH)` was correct for two tiers. Medium falls straight through it.],
-      [3DS skipped\ #text(fill: pal.fg-faint)[liability shift lost]],
+      [3DS skipped\ #text(fill: pal.fg-faint)[merchant keeps chargeback liability]],
     ),
     divider,
     incident(
@@ -69,38 +69,56 @@
     v(sz(40pt)),
     align(center)[
       #text(size: sz(40pt), weight: 400, fill: pal.fg)[
-        Four bugs. None of them is stupidity.
-        #text(weight: 600, fill: pal.accent)[All four compiled.]
+        Every one of these #text(weight: 600, fill: pal.accent)[compiled without complaint.]
       ]
     ],
   )),
 )
 
 #speaker-note[
-VERBATIM — this is the part that gets stumbled. Short sentences, one breath each.
-Let the €450,015 land; it is the only laugh in the talk, so take the beat.
+MB WRITES THE WORDS. Budget 2:15 — about 260 spoken words at 120 wpm, so roughly
+65 per incident. Below are the checked facts and the beat each story has to hit.
+Nothing here is delivery prose.
 
-"Alice's morning starts with a Slack message from accounting. An invoice in the
-overnight batch came out at four hundred and fifty thousand euros. It should have
-been sixty. The CSV parser had handed the code strings. The aggregation used plus.
-In JavaScript, plus on two strings concatenates. The job ran clean.
+ALICE — the boundary between untyped input and typed code.
+  fact: an internal admin tool exports CSV; the lineTotal column is amounts in cents.
+  fact: the Node import job reads those cells as JS strings, never coerced.
+  fact: `+` on two strings concatenates and throws nothing, so the job exits clean.
+  fact: the run produced a draft invoice in the overnight STAGING batch. Accounting
+        spotted it before the batch went out. Nothing reached a customer — say so,
+        or the story is not credible.
+  beat: the type system had no way to distinguish "a string that looks like a
+        number" from a number.
+  closes: Stage 1. `int` instead of `String` is enough. This is the cheapest rung
+        on the whole ladder, which is the point.
 
-Bob's team added a medium risk tier to the fraud engine. The original code said:
-if risk is not high, take the fast path. That was correct when there were two
-tiers. Medium fell straight through it. No 3-D Secure. The liability shift went
-to the merchant. Nothing broke. It had always compiled.
+BOB — a branch that was correct when it was written.
+  fact: risk tiers were Low and High; the code read `if (risk != HIGH) fastPath()`.
+  fact: a Medium tier was added later, and satisfied `!= HIGH`, so it took fastPath.
+  fact: Medium-risk card orders are the ones that require 3-D Secure.
+  fact: CORRECTION on the v1 note — completing 3DS shifts chargeback liability TO
+        THE ISSUER. Skipping it means no shift happens and the MERCHANT keeps the
+        liability. The v1 note had this backwards.
+  beat: nothing in the language required anyone to revisit that branch.
+  closes: Stage 3, sealed types + exhaustive switch.
 
-Charlie owns the refund approval workflow. Requested, under review, approved,
-executed. Only approved refunds reach the payment rail. There is an operator
-shortcut for emergencies. It fetches a refund by id and executes it, without
-checking the state. A refund nobody had reviewed went back to a customer's card.
-Three hours of log archaeology to work out why.
+CHARLIE — a lifecycle that lived in documentation.
+  fact: refunds go Requested → UnderReview → Approved → Executed.
+  fact: an operator-tooling shortcut fetches by id and executes, without reading state.
+  fact: a Requested refund reached the payment rail and posted back to a card.
+  fact: ~3 hours of log reading to reconstruct what happened.
+  beat: the state machine existed in the wiki and in three developers' heads.
+  closes: Stage 4, phantom typestate.
 
-Danielle's was the hardest to see. A KYC service — client and server. Compliance
-added an evidence step on the server. The client didn't know. Both sides were
-correct according to their own contract. The contracts had drifted. Integration
-tests covered the common path. It ran fine for three weeks, until somebody
-uploaded a large document.
+DANIELLE — two correct programs that disagree.
+  fact: KYC onboarding, client and server, Scala.
+  fact: compliance added an evidence step on the server for large payout limits.
+  fact: the client was not updated; each side satisfies its own contract.
+  fact: integration tests covered the common path; the new branch only triggers on
+        large uploads, so it ran ~3 weeks before anyone hit it.
+  beat: no shared, checkable definition of the conversation existed.
+  closes: Stage 5, session types and duality.
+  (Do NOT rank this one as "the hardest to see" — unverifiable and it reads as filler.)
 
-Four bugs. None of them is stupidity. All four compiled."
+CLOSING BEAT: all four passed their compiler. That is the hinge into the next slide.
 ]

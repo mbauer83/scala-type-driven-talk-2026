@@ -44,6 +44,8 @@ Thumbs.db
 .codex
 .codex/
 .claude/
+# ...except the project hook config, which is part of the quality gate
+!.claude/settings.json
 .agents/
 memory/
 
