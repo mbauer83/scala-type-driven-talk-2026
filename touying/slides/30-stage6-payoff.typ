@@ -40,5 +40,5 @@
 // 3. "Not 'we wrote a test.' Not 'we reviewed the PR.' Unrepresentable."
 // 4. Advance to S34 (The Climb) for the technical bookkeeping.
 
-"Each of these four production incidents — Alice's boundary, Bob's branch, Charlie's lifecycle, Danielle's protocol — has, at this point, become a program that cannot be expressed in the type system. That is a much stronger guarantee than a test that catches it: there is no test to write, no PR to review, no runtime check to remember. The shape of the type makes the violation unrepresentable. The compiler required the proof. Gentzen required it. Curry-Howard required it."
+"Each of these four bugs — Alice's boundary, Bob's branch, Charlie's lifecycle, Danielle's protocol — has, at this point, become a program that cannot be expressed in the type system. That is a much stronger guarantee than a test that catches it: there is no test to write, no PR to review, no runtime check to remember. The shape of the type makes the violation unrepresentable. The compiler required the proof. Gentzen required it. Curry-Howard required it."
 ]

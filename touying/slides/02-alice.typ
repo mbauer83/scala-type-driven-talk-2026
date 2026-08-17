@@ -33,7 +33,7 @@
 #let divider = line(length: 100%, stroke: 0.5pt + pal.rule)
 
 #light-slide(
-  eyebrow: eyebrow([Four Production Incidents], style: "bad"),
+  eyebrow: eyebrow([Alice · Bob · Charlie · Danielle], style: "bad"),
   body-gap: sz(44pt),
   [Four Bugs That Compiled],
   block(width: 100%, height: 100%, stack(

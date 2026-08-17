@@ -3,7 +3,7 @@
 #import "../components.typ": *
 
 #close-slide([
-  Some production incidents aren't "just part of engineering life" — they're artifacts of a language level that can't express the invariants we care about.
+  Some bugs aren't "just part of engineering life" — they're artifacts of a language level that can't express the invariants we care about.
 
   With the right type-level encoding, specific bug classes #text(fill: pal.accent)[stop being expressible in our code] — and the runtime incidents disappear with them.
 
