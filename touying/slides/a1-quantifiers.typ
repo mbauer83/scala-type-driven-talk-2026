@@ -46,10 +46,12 @@
     #block(width: 100%)[
       #set text(size: sz(25pt), fill: pal.fg-dim)
       #set par(leading: 0.5em)
-      Frege's move: put a hole in a proposition, then bind it. Every signature you
-      write already does that over the #text(fill: pal.fg, weight: 500)[values] of
-      its arguments — #text(font: mono-font, size: sz(23pt), fill: pal.fg)[∀ o : Order. assessRisk(o) : RiskDecision].
-      A generic does it one level up.
+      Frege's move: let a proposition contain a #text(fill: pal.fg, weight: 500)[variable],
+      then say what holds for every value it could take. Every signature you write
+      already does that —
+      #text(font: mono-font, size: sz(23pt), fill: pal.fg)[∀ o : Order. assessRisk(o) : RiskDecision].
+      A generic moves the variable #text(fill: pal.fg, weight: 500)[one level up],
+      so it ranges over types.
     ]
     #v(sz(58pt))
     #grid(
@@ -67,10 +69,7 @@
         #v(sz(20pt))
         #set text(size: sz(23pt), fill: pal.fg-dim)
         #set par(leading: 0.45em)
-        The variable ranges over
-        #text(fill: pal.accent, weight: 500)[types], not values.
-        #v(sz(16pt))
-        #set text(size: sz(22pt), fill: pal.fg-faint)
+        #set text(size: sz(23pt), fill: pal.fg-dim)
         The same shape as _all medium-risk orders need 3DS_ two slides ago:
         a for-all with an #text(font: mono-font)[if] inside it.
       ],

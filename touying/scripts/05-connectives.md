@@ -25,12 +25,21 @@ named after addition and multiplication, and you can count the values*, the beat
 worked. That is a fact about types they have never been told and cannot confuse
 with anything else they know.
 
-THIS SLIDE NOW CARRIES THE LEVEL DISTINCTION FOR THE WHOLE ACT (MB, 18 Aug)
-The program-level / type-level point used to be defended slide by slide, as a
-disclaimer wherever it was at risk. It is made once here instead, positively, on
-the first slide where Java appears: **these land one level above the booleans a
-program works out while it runs.** That single word — *level* — then does work
-three more times without further explanation:
+THIS SLIDE DEMONSTRATES THE LEVEL POINT; `A0-turn` MAKES IT (MB, 18 Aug)
+The claim — *all programming already does logic with conditionals and control
+flow, and types do logic one level up, about the program* — is stated on
+`A0-turn`, where the incidents become the thesis and Bob's `if (risk != HIGH)` is
+one slide old. **This slide is the demonstration, not the claim:** `||` and `&&`
+are the connectives the room already has, and the two panes are the same two
+connectives over types.
+
+An earlier attempt put the whole thing here as a clause — *Watch which level they
+land on in Java: one above the booleans you compute while the program runs* —
+which MB rejected, correctly. It never affirmed the first half, it dismissed
+program logic instead of crediting it, and it interrupted a sentence about
+algebra to do it. Claim first, on its own slide; demonstration here.
+
+The word *level* then does work three more times without further explanation:
 
   `A1-quantifiers`  a generic quantifies one level up again, over types
   `A1-above`        Π lets a type depend on a value, and the levels collapse
@@ -113,9 +122,9 @@ categorical logic for example are definitely part of the same endeavor...
 and he invented binary encoding along the way.
 
 Boole turned logic into algebra in eighteen forty-seven. He wrote OR as a plus
-sign and AND as a times sign, and there's a mathematical reason for that. Watch
-which level they land on in Java: one above the booleans you compute while the
-program runs, in the shape of the data itself.
+sign and AND as a times sign, and there's a mathematical reason for that. You
+know both of these already from boolean expressions — here they are over types
+instead.
 
 Here is his plus: a risk decision is low, medium or high, and nothing else - 
 a sum of three parts with one inhabitant each. Here is his times — pair a risk decision 

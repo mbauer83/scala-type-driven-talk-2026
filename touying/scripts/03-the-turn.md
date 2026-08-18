@@ -10,18 +10,53 @@ applies it at every use, and nobody has to remember. How we can tell whether
 something is valid and how we can say what that means 
 - those questions are much older than programming.
 
-The history of what we are doing when we specify programs and types stretches back
-about two and a half thousand years, across philosophy, logic, mathematics, and
-computer science. That is the thread I want to follow tonight.
+That history stretches back about two and a half thousand years, across
+philosophy, logic, mathematics and computer science. It is the thread I want to
+follow tonight.
 
-When you write a sealed interface and the compiler makes you handle every case, you
-are applying a rule that Gerhard Gentzen wrote down in 1935. When you write a
-generic method, you are stating that you can do something for every type - present
-and future. That is a universally quantified statement.
+You have been writing logic all along - every if, every guard. A type does the
+same job one level up, about the program itself.
+
+You write that kind too: when you write a sealed interface and the compiler makes
+you handle every case, you are applying a rule that Gerhard Gentzen wrote down in
+1935. When you write a generic method, you are stating that
+you can do something for every type - present and future. That is a universally
+quantified statement.
 
 Once you can see the structure and the mechanisms, you can encode a great deal more 
 of what your system actually requires, and have it checked for you 
 — and for the agents now writing code next to you."
+
+EDIT TO MB'S PROSE, FLAGGED (C11) — 18 Aug
+The fourth paragraph was: *When you write a sealed interface … That is a
+universally quantified statement.* Both sentences survive verbatim. What is new
+is the claim they are now evidence **for**, because MB asked for this to land
+early and it was not being said anywhere:
+
+> All programming already does logic — conditionals, guards, control flow. Types
+> do logic **one level up**, where it specifies and constrains the program
+> itself.
+
+Two reasons it belongs here rather than in Act 1. This slide is where four war
+stories turn into the thesis, so a claim about what kind of thing a type *is*
+belongs in the same breath. And Bob's `if (risk != HIGH)` is one slide old — the
+room has just watched program-level logic be correct, compile, and be wrong
+anyway, which is the strongest possible setup for *there is another level*.
+
+C3 in its usual form: **name the frame here, fill it at `A1-connectives`**, where
+`||` and `&&` reappear as `∨` and `∧` over types. An earlier attempt tried to do
+both jobs inside a clause on `A1-connectives` — *Watch which level they land on
+in Java* — which stated neither half, dismissed program logic rather than
+affirming it, and was rightly called out.
+
+The spoken version is deliberately the short one — **the slide carries the full
+statement**, so the speaker names the level and moves on rather than reading it
+out. Paragraph three was also tightened by twelve words (it was restating the
+slide almost verbatim), which is where most of the new airtime came from.
+
+Revert freely if the wording is not yours; the claim has to stay somewhere in
+this minute. If the cap needs to move to hold it, `A0-turn` is the slide to move
+it for, and the time comes from Act 4 (Part 3's standing rule for overage).
 
 NOTES ON THE WORDING
 - PART 10, three corrections applied here.

@@ -1451,6 +1451,39 @@ programmers). **When editing for one property, diff for changes to the others. A
 is an edit too, and needs its neighbourhood re-checked.**
 
 
+### L17 — a claim about the whole talk goes where the thesis is formed, not where an example turns up
+
+MB asked for one thing to land early: **all programming already does logic —
+conditionals, guards, control flow — and types do logic one level up, where it
+specifies and constrains the program.** I put it on `A1-connectives`, beat 2 of
+Act 1, as a clause inside a sentence about Boole's `+` and `×`:
+
+> *Watch which level they land on in Java: one above the booleans you compute
+> while the program runs, in the shape of the data itself.*
+
+Four things wrong with that, and they are worth separating because only one is
+about wording:
+
+1. **It never said the first half.** The claim credits program logic as logic.
+   Mine mentioned booleans only as the thing to be above.
+2. **It was a disclaimer wearing a positive costume.** R1 again — the shape was
+   *these are not those*, dressed up.
+3. **Wrong slide.** MB: *"relatively late for such a general point to shape
+   expectations of the talk."* A claim about what the whole talk is doing belongs
+   where the thesis is formed, not where the first example appears.
+4. **Wrong register.** *Watch which level they land on* is a stage direction.
+
+**It now lives on `A0-turn`**, which is the right slide for three reasons: it is
+where four war stories become the thesis; it is where the tests-versus-types
+concession already sits, so a second sentence about what a type *is* belongs in
+the same breath; and Bob's `if (risk != HIGH)` is **one slide old**, so the room
+has just watched program-level logic be correct, compile, and be wrong anyway.
+
+`A1-connectives` keeps the **demonstration** and drops the claim: *you know both
+already, as `||` and `&&` over booleans — here they are over types.* That is C3
+in its usual form: name the frame where the thesis is formed, fill it where the
+code appears.
+
 ### L12–L16 — from MB's rewrite of `04-aristotle` and `05-connectives` (18 Aug)
 
 He rewrote two scripts I had called finished. Both came out better; one came out

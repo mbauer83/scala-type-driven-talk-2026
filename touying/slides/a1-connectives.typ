@@ -53,8 +53,8 @@
       #text(fill: pal.fg, weight: 500)[compute] with: OR became
       #text(font: mono-font, fill: pal.fg)[+], AND became
       #text(font: mono-font, fill: pal.fg)[×], and there is a mathematical reason
-      for that. In Java both land #text(fill: pal.fg, weight: 500)[one level above]
-      the booleans a program works out while it runs — in the shape of the data.
+      for that. You know both already, as `||` and `&&` over booleans. Here they
+      are over #text(fill: pal.fg, weight: 500)[types].
     ]
     #v(sz(20pt))
     #grid(

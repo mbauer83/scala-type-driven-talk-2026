@@ -48,7 +48,9 @@ WHAT IS DELIBERATELY NOT HERE
 
 BEATS
 
-- Frege 1879: a hole in a proposition, then a binder to close it.
+- Frege 1879: a proposition with a **variable** in it, and a way to say what
+  holds for every value that variable could take. **Say "variable", not "a hole
+  in a proposition"** — MB, 18 Aug: the room has the first word already.
 - You already write it — every signature is one. `assessRisk` over every `Order`.
   › a function type is a for-all whose body never mentions what it bound
 - The move: a generic quantifies over TYPES.
@@ -145,12 +147,12 @@ FACTS — grepped, not remembered (C1)
 
 VERBATIM
 
-"Frege's move, in eighteen seventy-nine: put a hole in a proposition, then bind
-it. You already write that — every signature quantifies over the values of its
-arguments, and assessRisk holds for every order there will ever be, including the
-ones placed tonight.
+"Frege's move, in eighteen seventy-nine: let a proposition contain a variable,
+then say what holds for every value it could take. You already write that — every
+signature does it over the values of its arguments, and assessRisk holds for
+every order there will ever be.
 
-A generic moves the variable up a level, from values to types. And look at the
+A generic moves the variable one level up, from values to types. And look at the
 shape it takes: for all T, if T can be compared, then a list of T gives you back
 a T. That is a for-all with an if inside it — the same form we started with two
 slides ago. The bound is the if. It says which types the claim covers —
