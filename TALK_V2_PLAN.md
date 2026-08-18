@@ -2272,75 +2272,183 @@ are over budget; nothing reported slides the plan says should not be there.
 
 ---
 
-## Part 15 — STATE OF PLAY · 18 Aug, end of session · READ FIRST
+## Part 15 — STATE OF PLAY · 18 Aug, end of session 3 · READ FIRST
 
-**Delivery: Thursday 20 August. One working day left.**
+**Delivery: Thursday 20 August.**
 
-### Deck
+### The deck is written
 
-**19 of 31 main slides carry a finished three-part script**; the deck has 45
-includes in total (main + appendix + demo frames). Acts 0, 1, 2 and 3 are
-written and lint-clean. Acts 4, 5 and 6 are untouched v1 prose.
+**All 30 main beats carry a finished three-part script.** Acts 0 through 6 are
+authored and lint-clean; the four demos are captured from the real compilers.
 
 | act | beats | state |
 |---|---|---|
 | 0 — Open | 3 | done · reviewed and amended by MB · **measured** |
 | 1 — Primer | 6 | done · reviewed twice · **measured** |
 | 2 — Ground floor | 2 | done (`a2-values` cut) · **measured** |
-| 3 — Java ladder | 8 beats / 12 files | **done** |
-| 4 — Scala 3 | 5 | **v1 — next** |
-| 5 — Idris 2 | 3 | v1 |
-| 6 — Close | 3 | v1 · `34-close` is +1:24, the worst slide in the deck |
+| 3 — Java ladder | 8 beats / 12 files | done |
+| 4 — Scala 3 | 5 beats / 7 files | **done** |
+| 5 — Idris 2 | 3 beats / 5 files | **done, this session** |
+| 6 — Close | 3 | **done, this session** |
 
-`make timing`: **44:11 of prose against 45:00**, 0:49 of slack, plus 4:05 of
-caps for slides that do not exist. Every script header now agrees with
-`budget.tsv`.
+`make timing`: **40:07 of prose against 40:45 of caps**, in a 45:00 slot. Nothing
+is unwritten. **Every slide from `A3-stage12` onward is at or under its cap**;
+the only overruns left are Act 0 and Act 1, which MB has read standing and which
+Part 13's open question 2 leaves to the read-through.
+
+### Where the four notations from `A1-above` get paid off
+
+`A1-above` puts four rows on the wall at minute nine with their real code, and
+promises *you will walk out knowing what each one buys, having watched all four
+run on the payment flow*. That promise is now the spine of Acts 4 and 5:
+
+| row | promised as | paid off at |
+|---|---|---|
+| ⇄ `Send[Order, Receive[RiskSnapshot, …]]` | a whole conversation, as one type | `A4-sessions` |
+| Π `Approval : RiskLevel -> Type` | a type indexed by a runtime value | `A5-mltt` |
+| Σ `(lvl : RiskLevel ** Assessment lvl n c)` | a value paired with a proof about it | `A5-mltt` |
+| 1 `(1 _ : Session p) -> …` | a binding used exactly once | `A5-mltt`, fired by Demo 4 |
+
+`A4-ceiling`'s two remaining limits are Π and 1 stated as absences, so the act
+boundary is the promise and the payoff meeting. Each callback costs one clause
+and no slide narrates the structure.
+
+### Acts 4, 5 and 6 as built
+
+| id | file | cap | does |
+|---|---|---|---|
+| `A4-opens` | `25-stage5` | 1:20 | `Approval[R]`, and `:| MinLength[1]` with `firstLine` total |
+| `A4-demo3` | `a4-demo3` ×3 | 1:55 | `ThreeDSApproved(proof)` → `AutoApproved`, live |
+| `A4-sessions` | `26-session-types` | 1:30 | `Dual[P]` as a match type · **Danielle** |
+| `A4-mechanisms` | `stage5-mechanisms` | 1:20 | names what ran, then ZIO / capture checking |
+| `A4-ceiling` | `27-stage5-payoff` | 1:20 | the payoff, then the two limits Act 5 removes |
+| `A5-mltt` | `28-stage6-bridge` | 1:45 | `protocolFromSnapshot` → `openSession`; Σ; the `1` |
+| `A5-demo4` | `a5-demo4` ×3 | 2:10 | `finish done` → `pure ()`, live |
+| `A5-payoff` | `30-stage6-payoff` | 0:50 | the dark *Unrepresentable* slide, unchanged |
+| `A6-cost` | `32-agentic` | 1:45 | what each stage costs · erasure · the agentic shift |
+| `A6-monday` | `where-to-start` | 0:55 | the ladder, framed by gradual typing |
+| `A6-close` | `34-close` | 0:50 | the thesis from `A0-title`, returned |
+
+**`openSession : (p : SessionType) -> L1 IO (LPair (Session p) (Session (dual p)))`**
+(`PaymentChannel.idr:73`) is the best single line in the repositories for this
+talk: the return type is indexed by the argument *value*, and both ends come out
+of one expression. It is the centre of `A5-mltt`.
+
+### Deviations from Part 3, all deliberate and all reversible
+
+1. **Gradual typing moved from `A6-cost` to `A6-monday`.** That slide *is* the
+   incremental ladder, so the point is its frame rather than a twenty-second
+   aside. In the room's own terms, which was Part 3's own instruction.
+2. **The landing line is positive.** *The question was never "should I use
+   dependent types for my CRUD endpoints"* is R1, and v1 had the same shape on
+   `33-horizon`. The positive half loses nothing.
+3. **No incident tally on `A4-ceiling`.** `A3-ceiling` says *two of the four* and
+   Alice's closed silently at Stage 1, so a count would relitigate Act 3's
+   bookkeeping on stage. The collective view stays where it was decided: once, on
+   `A5-payoff`.
+4. **Act 5's header cap corrected 5:30 → 4:45** to match its rows, which is what
+   the act needed once `29-mltt-running` was merged in. **Act 6's rows corrected
+   3:00 → 3:30** to match *its* header and Part 3; they were never updated when
+   `A6-cost` was specified as a new slide. Deck caps 40:15 → 40:45.
+
+### Three pre-existing defects fixed on the way
+
+- **`talk.pdfpc` had been 0 bytes.** `touying compile --format pdfpc` runs its
+  own `typst query` without `--root`, so it fails *access denied* on every slide
+  that `#read()`s above `touying/` — all nine recorded demo frames. `make check`
+  still printed *build OK* because the file existed. The `Makefile` now uses the
+  `typst query --root .` invocation `deck.typ` documented all along. **This is
+  the presenter view pympress reads from on the night.**
+- **`25-stage5`'s pane was not repository code** — `order.id`, `p.id`, `a.id`,
+  `audit =` are all invented; the real fields are `order.orderId.orderIdStr`,
+  `p.challengeId`, `a.reviewer`, `auditTrail`.
+- **Deck hygiene the plan decided and nobody executed** (R12): `scala3-ceiling`,
+  `29-mltt-running` and `33-horizon` are deleted, `31-the-climb` is in the
+  appendix. `budget.tsv` had listed all four as merged or cut for days.
+
+### Demos — all four captured from the real compilers
+
+`tools/capture-terminal.sh` now has a `frame3` for `sbt` and a `frame4` for
+`idris2` beside the two `javac` frames, so every demo has an `-edit` and a
+`-term` frame and every one of them restores its sources.
+
+- **Demo 3.** `PaymentDemo.scala:123`. **Do not remove the ascription on line
+  122** — without it the error moves off the edited line and becomes twenty lines
+  of noise.
+- **Demo 4.** `Main.idr:115`. **Replace `finish done` with `pure ()`; do not
+  comment it out** — it is the last statement of its `do` block, so deleting it
+  yields a syntax complaint instead of the linearity error. Both traps are
+  recorded in `tools/capture-demos.sh`, which is executable and therefore cannot
+  drift.
 
 ### Measured, not estimated
 
 MB read slides 1–12 standing, twice: **13:29**, then **14:15** deliberately
 slower after the title slide came in at 284 wpm. 2577 words → **181 wpm**.
 Planning rate stays **140** — MB: *"we still need a comfortable margin for
-nervosity & interruptions, so don't take my WPM as the target."* Caps have been
-rebalanced against that run by **moving** time between slides, never shaving.
+nervosity & interruptions, so don't take my WPM as the target."*
 
 ### Next, in order
 
-1. **Act 4 — Scala, 5 slides + Demo 3.** The act that has never fit any budget.
-   D-A decided **(c) one thread through the Scala stage**, degrading to (b)
-   problem-led if authoring is slow. D-C was deferred until Act 4 existed, with
-   **(d) capability-led, motivated by residual failure** as the working default —
-   and `A3-ceiling` now ends on exactly that residual failure, so the joint is
-   ready to use.
-2. **Act 5 (3) and Act 6 (3).** `34-close` first: the last minute should be
-   exact and it is currently the worst overrun in the deck.
-3. **Demos 3 and 4** — same four-slide shape as 1 and 2
-   (dark setup → recorded edit → recorded javac → payoff).
-   `tools/capture-terminal.sh` already knows how to record them.
-4. **Wednesday read-through**, then the dress rehearsal.
+1. **MB reads Acts 4, 5 and 6.** They have not been reviewed by anybody.
+2. **Wednesday read-through, whole deck, standing, timed.** The one open budget
+   question is Part 13's: Act 1 is ~1:36 over its caps, and the reserve is the
+   `A1-connectives` + `A1-quantifiers` merge. Decide it against a measured
+   number, not an estimate.
+3. **If the read-through comes in short**, the things worth adding back, in
+   order: the lambda-cube reveals (`diagrams/lambda-cube.typ` needs
+   parameterising, about an hour); the higher-kinded row on `A4-mechanisms`
+   (`interpret[F[_]: Functor, A]`, `payment/Rules.scala`); `summon[Dual[P] =:=
+   …]` as a spoken beat on `A4-sessions`.
+4. **Dress rehearsal**, with the demos run live at least once end to end.
 
 ### Standing decisions that are easy to lose
 
-- **Cube reveals are cut.** `diagrams/lambda-cube.typ` was never parameterised.
-  The full cube is in the appendix for Q&A, and this is the first thing worth
-  adding back if the read-through comes in short.
-- **`a2-values` is cut.** Same-bytes moved to `A3-stage4`, affordability to
-  `A6-cost`.
-- **The nine-row inventory is `a10-invariants`,** appendix only.
-- **`18-stage2`, `21-bridge`, `23-stage4-payoff` are deleted;** merged or spoken.
+- **No stage-opener slides, and the language change is a chip plus a clause.**
+  v1 had a dark `stage-opener-slide` for every stage 0–6; the v2 rework dropped
+  all seven, and MB caught the consequence on 18 Aug — nothing announced the move
+  to Scala, and the word was not spoken at the boundary either. Two openers were
+  built and cut again. Rendered, the v1 template is two-thirds empty at 0:12 of
+  speech and its dominant element is a 320px numeral nobody needs; a dark card
+  two slides before `a4-demo3`'s dark card weakens the one signal that has to
+  work; and it costs 0:30 of the margin that absorbs nerves and questions. The
+  fix is a filled accent **language chip** in the eyebrow slot of `A4-opens` and
+  `A5-mltt` — the only two slides that use it, because they are the only two
+  places the syntax on the wall changes — and the language **named in the first
+  clause** of both scripts. Zero slides, zero seconds. Act 3's eyebrows already
+  say `java` on every stage, so the chip reads as an escalation from them.
+- **Cube reveals are cut, and no axis is ever named out loud.** The deck's only
+  issuance is `A1-above`'s *there is a map of this territory*. Both ceiling
+  slides do the reveal's job in words.
+- **`a2-values` is cut.** Same-bytes moved to `A3-stage4`, affordability to `A6-cost`.
+- **No payoff slide carries a scoreboard.** The collective view happens once, on
+  `A5-payoff`, which is why `31-the-climb` is in the appendix.
 - **Demo fallbacks are recorded terminal frames, not video.**
-- **Java's real ceiling is protocol duality only.** It can do risk-indexed
-  approval properly, and refinements downstream but not on a literal and not
-  composed. Conceding the first two is what makes the third believable.
+- **Java's real ceiling is protocol duality only.** Conceding the first two of
+  the three is what makes the third believable.
+- **Scala 3's real ceiling is two things:** the protocol menu written out in
+  advance, and no way to say *used exactly once*. `dualInvolution` — which Idris
+  does prove, `PaymentSessionTypes.idr:23-34` — is Q&A, not a slide claim.
+- **Idris's remaining gap is honest and is Q&A:** `PaymentChannel.idr` uses
+  `believe_me` casts in the transport, so a wire-format mismatch is still a
+  runtime error.
 
 ### Tooling
 
 `make check` = build + prose lint + timing. The linter reads **slide copy as
 well as spoken script**, enforces Parts 8/9/12/14, fails on any phrase in
-`tools/retired.tsv`, warns when a script header disagrees with `budget.tsv`, and
-skips rhythm rules for cues-only and RUNBOOK notes. `tools/capture-demos.sh`
-records compiler errors; `tools/capture-terminal.sh` records whole sessions as
-deck-renderable frames.
+`tools/retired.tsv`, and there is a PostToolUse hook running it on every script
+write — it caught five register faults this session before they reached a build,
+including one retired phrase I walked straight into.
+
+**Double quotes belong only in VERBATIM.** A quoted sentence in a PREPARATION
+block is scored as speech and lints against the end of the real script. That
+happened three times this session; `»…«` or italics below the rule.
+
+**Every remaining lint ERROR is outside the main deck** except `curry-howard`
+(Act 1, MB-reviewed, `monotone-overall`). The rest are appendix slides and three
+orphan files that `deck.typ` does not include at all
+(`11-convergence2`, `a04-tracking`, `a06-tracking`).
 
 ### (superseded — kept for the record)
 

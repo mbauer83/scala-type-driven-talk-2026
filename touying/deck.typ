@@ -31,8 +31,8 @@
 //
 // New slides added (§1.1, §1.3, §1.4, §2.5):
 //   curry-howard.typ     — between convergence2 and mltt
-//   scala3-ceiling.typ   — between stage5-payoff and stage6-bridge
-//   stage5-mechanisms.typ— between session-types and stage5-payoff
+//   stage5-mechanisms.typ— between session-types and stage5-payoff (A4-mechanisms)
+// scala3-ceiling.typ MERGED into 27-stage5-payoff -> A4-ceiling (18 Aug)
 //   where-to-start.typ   — between horizon and close
 
 #include "slides/01-title.typ"
@@ -58,19 +58,27 @@
 #include "slides/a3-demo2-edit.typ"      // recorded terminal, frame 1
 #include "slides/a3-demo2-out.typ"       // captured output / fallback
 #include "slides/24-java-ceiling.typ"
-#include "slides/25-stage5.typ"
-#include "slides/26-session-types.typ"
-#include "slides/stage5-mechanisms.typ"    // §2.5 — mechanisms reference slide
-#include "slides/27-stage5-payoff.typ"
-#include "slides/scala3-ceiling.typ"       // §1.3 — Scala 3 ceiling slide
-#include "slides/28-stage6-bridge.typ"
-#include "slides/29-mltt-running.typ"
-#include "slides/30-stage6-payoff.typ"
-#include "slides/31-the-climb.typ"
-#include "slides/32-agentic.typ"
-#include "slides/33-horizon.typ"
-#include "slides/where-to-start.typ"       // §1.4 — Where to start tomorrow
-#include "slides/34-close.typ"
+#include "slides/25-stage5.typ"          // A4-opens
+#include "slides/a4-demo3.typ"             // A4-demo3 — live, dark setup card
+#include "slides/a4-demo3-edit.typ"        // recorded terminal, frame 1
+#include "slides/a4-demo3-out.typ"         // captured sbt output / fallback
+#include "slides/26-session-types.typ"     // A4-sessions
+#include "slides/stage5-mechanisms.typ"    // A4-mechanisms
+#include "slides/27-stage5-payoff.typ"     // A4-ceiling — MERGE of v1 payoff + scala3-ceiling
+#include "slides/28-stage6-bridge.typ"     // A5-mltt — MERGE of v1 bridge + 29-mltt-running
+#include "slides/a5-demo4.typ"              // A5-demo4 — live, dark setup card
+#include "slides/a5-demo4-edit.typ"         // recorded terminal, frame 1
+#include "slides/a5-demo4-out.typ"          // captured idris2 output / fallback
+#include "slides/30-stage6-payoff.typ"      // A5-payoff — the dark Unrepresentable slide
+// 31-the-climb moved to the appendix (Part 3): the last four minutes otherwise
+// carry three summaries — the dark Unrepresentable slide, the climb table and
+// the close. The dark slide and the close are the two that work.
+// 33-horizon deleted: three lines on A6-monday, as budget.tsv has said since the
+// cut list was written.
+#include "slides/32-agentic.typ"           // A6-cost
+#include "slides/a6-now.typ"               // A6-now — why the calculation is moving
+#include "slides/where-to-start.typ"       // A6-monday
+#include "slides/34-close.typ"             // A6-close
 
 // ─── Appendix (A1 — A8) ─────────────────────────────────────────────────────
 //
@@ -94,6 +102,7 @@
 #include "slides/a08-singleton.typ"
 #include "slides/a09-singletons.typ"
 #include "slides/a10-invariants.typ"
+#include "slides/31-the-climb.typ"   // the climb table — Q&A, cut from the main deck
 #include "slides/14-lambda-cube.typ"     // full cube — Q&A; the reveals were cut   // the nine-row inventory, out of the main deck
 
 // ─── pdfpc sidecar generation ────────────────────────────────────────────────

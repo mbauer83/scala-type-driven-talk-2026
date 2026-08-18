@@ -1,30 +1,35 @@
 A3-stage3 · cap 1:05 · Act 3 beat 3 of 8
 
 TALKING POINTS
-1. The shape from Boole is now a language feature — Java 17 ships both
-2. The compiler refuses the program until every variant has a branch
+1. You have seen BOTH halves already — the shapes at Boole, the refusal at the
+   colours slide. Here they meet, and on Bob's actual type
+2. What is NEW is the return type
 3. Do not re-tell Bob here. He was named one slide ago and returns in the demo
 4. Same construction in the RETURN type: Result is Ok or Err
 5. A function that can fail says so, and you cannot skip the failure
-6. There is no .get() to reach past it
-7. Scala spells it Either, Rust spells it Result. One construction, three names
-8. Something the code only promised is now something the type states
+6. throws does that too — but it leaves by a different door, jumping somewhere
+   you cannot see from here. Result hands the failure back as a value
+7. Scala calls it Either, Rust calls it Result
+8. THE MOVE: something the code only promised is something the type states
+9. End on the refusal — the next slide opens on the word
 
 VERBATIM
 
-"The shape you saw at Boole is a language feature here. Records give you
-products, sealed interfaces give you sums, Java seventeen ships both — and once
-the risk decision is sealed, the compiler refuses the whole program until every
-variant has a branch of its own.
+"You have already seen both halves of this. The shapes were on the Boole slide,
+as a sealed interface over three records; the compiler refusing a switch with a
+case missing was two slides ago, on the colours. Here they meet, and they meet on
+Bob's actual type — the risk decision his branch got wrong is the sealed one now,
+and the switch will not build without all three.
 
-The same construction turns up again in the return type. Result is a sealed interface
-over Ok and Err, so a function that can fail says so in its signature, and you
-cannot get at the value without handling the failure — there is no dot-get to
-skip past it. Scala spells this Either and Rust spells it Result; it is one
-construction with three names.
+What is new is the return type. `Result` is sealed over `Ok` and `Err`, so a
+function that can fail says so, and you cannot reach the value without dealing
+with it. Java's `throws` puts failure in the signature too, but it leaves by a
+different door — control jumps somewhere you cannot see — where `Result` hands it
+back as a value you have to open.
 
-Which is the move I promised you: something the code only promised has become
-something the type states."
+That is the move this evening makes: something the code only promised is now
+something the type states — backed by a compiler that refuses to build until
+every variant has a branch."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.

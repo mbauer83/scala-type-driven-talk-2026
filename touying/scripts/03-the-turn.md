@@ -74,9 +74,9 @@ this minute. If the cap needs to move to hold it, `A0-turn` is the slide to move
 it for, and the time comes from Act 4 (Part 3's standing rule for overage).
 NOTES ON THE WORDING
 - PART 10, three corrections applied here.
-  1. "every call site" is gone. **Types do not have call sites**, and they are
+  1. »every call site« is gone. **Types do not have call sites**, and they are
      useful well beyond functions and methods — a field, a record component, a
-     type parameter, a variable binding. "Every use" is both correct and wider.
+     type parameter, a variable binding. »Every use« is both correct and wider.
   2. The four fields were joined by arrows on the slide, which reads as a
      progression where each supplants or improves on the last. It is not one.
      They are middots now. A caption spelling that out was tried and cut — a
@@ -91,15 +91,15 @@ NOTES ON THE WORDING
      two slides cannot drift apart again.
 - The opening no longer explains how a test would have caught Alice's. Slide 2
   already showed exactly that (the first two-line order in the test data), so
-  re-deriving it here is redundant — and "would have found it in a day" was wrong
-  anyway: once written, that test fails immediately. "Alice's was, eventually"
+  re-deriving it here is redundant — and »would have found it in a day« was wrong
+  anyway: once written, that test fails immediately. »Alice's was, eventually«
   references the established fact and carries the months in one word.
 - The hedged restatement — because-a-good-part-of-what-everyone-in-this-room-does-
   already-sits-at-the-end-of-it — is deliberately GONE. Slide 1 now makes that
   claim, and harder. What follows here — Gentzen, universal quantification — is the
   evidence for it, and evidence lands better without a restated thesis in front of
   it. Do not put it back without also weakening slide 1.
-- "Stating that you can do something for every type" fuses the claim and the
+- »Stating that you can do something for every type« fuses the claim and the
   capability into one clause instead of offering the audience a disjunction to
   resolve. It is also the proposition/program pairing, four slides before
   Curry-Howard names it.

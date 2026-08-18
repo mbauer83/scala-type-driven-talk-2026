@@ -9,26 +9,30 @@ TALKING POINTS
 6. Exhaustive, safe, rejected — the approximation, in their own language
 7. Right: the same three cases as a switch EXPRESSION. Java 14. It compiles
 8. Identical logic. The difference is which construct the checker reasons about
-9. The boundary moved, in a language you already use
+9. Java 14 moved its own line between safe and accepted
 
 VERBATIM
 
-"Hilbert wanted three things of a formal system. Ask the same three of the
-compiler on your laptop. Consistent:
-no well-typed program can produce a value of an impossible type. Sound: if it
-compiles, the property holds — as far as the escape hatches let it, and null is
-the big one. And complete: every safe program gets accepted — that
-last one we gave up, on purpose.
+"Hilbert wanted three things of a formal system. Ask the same three of your
+compiler.
+
+Consistent: no program it accepts hands you a value of a type that has no values
+— Scala's `Nothing`, say. A logician would say: you cannot derive a falsehood.
+
+Sound: if it compiles, what the types claim is true of the values at runtime — as
+far as the escape hatches allow, and `null` is the big one.
+
+Complete: every safe program gets accepted. That is the one we gave up, on
+purpose.
 
 Here is where you feel it. On the left, a switch statement over three colours,
-every case returning — and javac tells you there is a missing return statement.
-It is exhaustive, it is safe, and it is rejected, because a check that has to
-terminate has to approximate, and it approximates on the side that says no.
+every case returning, and javac says: missing return statement.
+Exhaustive, safe, rejected — because a check that has to terminate has to
+approximate, and it approximates on the side that says no.
 
-On the right is the same three cases as a switch expression, which Java fourteen
-gave exhaustiveness checking of its own. Identical logic, and it compiles. The
-boundary moved, in a language you already use, and moving that boundary is the
-whole business of this talk."
+On the right, the same three cases as a switch expression, which Java fourteen
+gave exhaustiveness checking. Identical logic, and it compiles. Java moved its
+own line between safe and accepted, and every stage after this moves it again."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.

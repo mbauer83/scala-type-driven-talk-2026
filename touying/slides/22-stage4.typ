@@ -58,12 +58,14 @@
         #set par(leading: 0.45em)
         #text(weight: 600)[No type knows what is in your database.]
         #text(fill: pal.fg-dim)[ What it can do is make the gateway unreachable
-        until somebody has asked — once, at the boundary.]
+        until somebody has asked — once, at the boundary. What the asking hands
+        back is #text(fill: pal.fg, weight: 500)[provenance]: where the value has
+        been, carried in its type.]
       ],
       [
         #set text(size: sz(24pt), fill: pal.fg)
         #set par(leading: 0.45em)
-        #text(weight: 600)[Inside your own code it is stronger still.]
+        #text(weight: 600)[Inside your own code there is no check to run.]
         #text(fill: pal.fg-dim)[ `Payment<Initiated>` and `Payment<Authorized>`
         are the same bytes; the parameter carries no data, only which methods
         will accept the value.]

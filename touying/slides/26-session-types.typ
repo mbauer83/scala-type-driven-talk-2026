@@ -1,84 +1,96 @@
-// Clock: 30:00–30:45
+// A4-sessions · cap 1:30 · Act 4 beat 3 of 5 · REWORK of v1 26-session-types
+//
+// This is the fourth of the four things A1-above promised the room it would see
+// running — "a conversation between two services written down as one type" —
+// and the first of the four to be paid off. It is also the third item on
+// A3-ceiling's list, the one Java cannot reach at all, because deriving the
+// other side needs types computed from types.
+//
+// v1 carried four prose bullets plus a callout plus a pane, and the bullets
+// said in words what the two panes say in code (Part 14/R11). Both panes are
+// verbatim: Derivation.scala:38-43 and Dual.scala:7-12.
+//
+// The summon block is on the wall and NOT in the script. It is the honest
+// answer to "how do you know Dual is right" and a good Q&A beat; there is no
+// airtime for it here.
 #import "../theme.typ": *
 #import "../components.typ": *
 #import "../code-pane.typ": *
 
-#let bullet(label, body) = grid(
-  columns: (sz(32pt), 1fr),
-  gutter: sz(14pt),
-  align: (right + top, left + top),
-  text(size: sz(28pt), weight: 600, fill: pal.accent)[•],
-  [
-    #set par(leading: 0.4em)
-    #text(size: sz(26pt), weight: 600)[#label] \
-    #text(size: sz(24pt), fill: pal.fg-dim)[#body]
-  ],
-)
-
 #light-slide(
-  eyebrow: eyebrow([Stage 6 · Session Types]),
-  [Session Types · What They Are],
-  grid(
-    columns: (1fr, 1.1fr),
-    gutter: sz(28pt),
-    align: (left + top, left + top),
-    stack(
-      dir: ttb,
-      spacing: sz(22pt),
-      eyebrow(style: "accent")[→ DEMO 6b in `Derivation.scala`],
-      bullet([Protocol as type],
-             [The full conversation — every send / receive / choice — encoded in the type.]),
-      bullet([Channel = remainder],
-             [Each step consumes one move; the channel's type is _what's left to do_.]),
-      bullet([Complementary endpoints],
-             [Client's send is server's receive. Mismatch is a compile error, not a runtime drift.]),
-      callout(
-        [Duality],
-        [`Channel[Dual[P]]` on the server. `Dual[P]` is _computed_ from the same definition — both ends derived from one source.],
-        style: "accent",
-      ),
-    ),
-    code-pane(filename: "Derivation.scala", language: "scala", code-size: 22pt)[
+  eyebrow: eyebrow([Stage 5 · session types · duality]),
+  body-gap: sz(20pt),
+  [Both ends, out of one definition],
+  stack(
+    dir: ttb,
+    spacing: sz(20pt),
+    grid(
+      columns: (1fr, 1.05fr),
+      column-gutter: sz(38pt),
+      row-gutter: sz(14pt),
+      align: (left + top, left + top),
+
+      code-pane(filename: "Derivation.scala", language: "scala", code-size: 19pt, pad-y: 12pt)[
 ```scala
-// Client's view — steps consumed left to right
 type LowRiskProtocol =
   Send[Order,
     Receive[RiskSnapshot,
       Receive[AuthorizedPayment[LowRisk],
         Receive[CapturedPayment,
-          Choose[Receive[RefundedPayment, End],
-                 End]]]]]
-
-// Dual: Send ↔ Receive, Choose ↔ Offer
-summon[Dual[LowRiskProtocol] =:=
-  Receive[Order,
-    Send[RiskSnapshot,
-      Send[AuthorizedPayment[LowRisk],
-        Send[CapturedPayment,
-          Offer[Send[RefundedPayment, End],
-                End]]]]]]
+          Choose[Receive[RefundedPayment, End], End]]]]]
 ```
-    ],
+      ],
+      code-pane(filename: "Dual.scala", language: "scala", code-size: 19pt, pad-y: 12pt)[
+```scala
+type Dual[P <: Protocol] <: Protocol = P match
+  case End           => End
+  case Send[a, n]    => Receive[a, Dual[n]]
+  case Receive[a, n] => Send[a, Dual[n]]
+  case Choose[l, r]  => Offer[Dual[l], Dual[r]]
+  case Offer[l, r]   => Choose[Dual[l], Dual[r]]
+```
+      ],
+
+      [
+        #set text(size: sz(23pt), fill: pal.fg-dim)
+        #set par(leading: 0.45em)
+        #text(weight: 600, fill: pal.fg)[The whole exchange, in order.] The
+        channel you hold is typed by what is left to do, so every step hands you
+        back a smaller protocol.
+      ],
+      [
+        #set text(size: sz(23pt), fill: pal.fg-dim)
+        #set par(leading: 0.45em)
+        #text(weight: 600, fill: pal.fg)[A `match` on a type, giving back a
+        type,] and calling itself on the rest — run by the compiler, before your
+        program does anything.
+      ],
+    ),
+    line(length: 100%, stroke: 0.5pt + pal.rule),
+    grid(
+      columns: (1.15fr, 1fr),
+      column-gutter: sz(38pt),
+      align: (left + horizon, left + horizon),
+      [
+        #set text(size: sz(25pt), fill: pal.fg)
+        #set par(leading: 0.45em)
+        The client holds `Channel[P]` and the server holds `Channel[Dual[P]]`.
+        #text(fill: pal.fg-dim)[ A server that sends where it should be
+        receiving does not compile.]
+      ],
+      block(width: 100%, fill: pal.good-bg, radius: sz(6pt),
+            inset: (x: sz(20pt), y: sz(14pt)))[
+        #show raw: set text(font: mono-font, size: sz(18pt), fill: pal.fg)
+        #raw(block: true,
+          "summon[Dual[LowRiskProtocol] =:=\n"
+          + "  Receive[Order, Send[RiskSnapshot, ...]]]")
+        #v(sz(6pt))
+        #text(size: sz(20pt), fill: pal.fg-dim)[It compiles, or the build fails.]
+      ],
+    ),
   ),
 )
 
 #speaker-note[
-"A session type describes a whole conversation in the type system — the full sequence of moves, in order, on both sides. The channel's type at any point is the remainder of the protocol: the moves still to be made. Each send or receive consumes one step and gives back a channel typed by what's left to do. The two parties hold complementary session types — one side's send is the other side's receive — so a mismatch at either end is a compile error rather than a runtime drift. The 'complementary' relation is what duality formalises: the server holds `Channel[Dual[P]]` where the client holds `Channel[P]`, and the compiler computes `Dual[P]` from the same definition. Both ends are derived from one source. They cannot drift independently."
-
-→ Session types in code (45 sec):
-Open `Derivation.scala`. Show `LowRiskProtocol`, `MediumRiskProtocol`, `HighRiskProtocol` — the type-level conversation descriptions. Say: "These aren't interfaces. They are types that describe the entire conversation: order of messages, message types, choices. Client gets `Channel[P]`, server gets `Channel[Dual[P]]`."
-
-→ Channel API (30 sec):
-Open `Chan.scala`. Show `send` requiring `CanSend[P]`, `receive` requiring `CanReceive[P]`, `finish` requiring `P =:= End`. Say: "Every operation is constrained by the current protocol position. Wrong order or wrong direction is a compile error."
-
-→ Duality computation (45 sec):
-Return to `Derivation.scala`, `DualityChecks` object. Show one `summon[Dual[MediumRiskProtocol] =:= Receive[Order, Send[RiskSnapshot, ...]]]` assertion. Say: "The server's protocol is computed by the compiler from the client's protocol. They are derived from the same definition. If the server tries to send when it should receive, it doesn't compile. Danielle's incident is now structurally impossible."
-
-→ Honest gap — channel completion (30 sec):
-Say: "One thing Scala 3 doesn't enforce: calling `finish()` at the end. Wrong-order sends and wrong message types are rejected. Calling `finish()` mid-conversation is also rejected — the compiler can't prove the protocol equals `End`. But not calling `finish()` at all — just dropping the channel — is not caught. The mechanism that closes this is linear types: bind the channel at multiplicity 1, and the compiler refuses to accept a program that doesn't consume it. Idris 2 has this via Quantitative Type Theory. We'll see it firing in Stage 6."
-
-→ Run demo (20 sec):
-Run `sbt run` in the terminal (pre-compiled). Show the output of `demo2()` — medium-risk payment with the 3DS challenge and proof visible in the log. Say: "Client and server, running in parallel, protocol enforced at both ends."
-
-→ Return to slides.
+#read("../scripts/22-sessions.md")
 ]

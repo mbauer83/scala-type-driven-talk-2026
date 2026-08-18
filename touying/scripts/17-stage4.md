@@ -8,9 +8,10 @@ TALKING POINTS
 5. So the type does the other thing: it makes the gateway unreachable
 6. execute demands Refund<Approved>. The repository cannot produce one
 7. The only way across is asApproved, which does the check, once
-8. After that the evidence is in the type and travels with the value
-9. Inside your own code it is stronger: Initiated and Authorized are the
-   same bytes, and the parameter only decides which methods accept it
+8. From then on the value carries its provenance — where it has been — in its type
+8b. The boundary check is real and runs. Inside your own code there is none to run
+9. Initiated and Authorized are the same bytes; the parameter only decides
+   which methods accept it
 10. This pattern has a name — phantom typestate
 
 VERBATIM
@@ -20,20 +21,22 @@ shape, and a harder one. He loaded a refund out of the database by its id and
 handed it to the payment gateway. Nothing in those two lines asked whether it had
 been approved, and nothing had to.
 
-Now, no type system on earth knows what is in your database — that row came from
-outside the program. So the type does not try to check it, and does something
-better instead. The gateway demands a refund that is approved, and the repository cannot
-give you one. The only way across is a function that performs the check and hands
-you back the evidence, and from then on the evidence travels with the value.
+Now, no type system on earth knows what is in your database, because that row came
+from outside the program — so the type does not try to check it, and does
+something better instead: the gateway demands a refund that is approved, and the
+repository cannot give you one. The only way across is a function that performs
+the check and hands you back the evidence.
 
-That is one check, at one boundary, with the compiler making sure nobody skips
-it.
+From then on the value carries its provenance — where it has been — in its own
+type, and the compiler is what makes sure nobody skips the step that put it
+there.
 
-Inside your own code it is stronger still, because there is no boundary to cross:
-a payment of Initiated and a payment of Authorized are the same bytes at runtime.
-The parameter carries no data at all. What it carries is which methods will
-accept the value — and this pattern has a name, phantom typestate. Phantom
-because there is nothing there."
+That one check at the boundary is a real one, running at runtime, because the row
+came from outside the program. Inside your own code there is no check to run at
+all: a payment of Initiated and a payment of Authorized are the same bytes, and
+the parameter carries no data — only which methods will accept the value. Which
+is why the pattern is called phantom typestate. Phantom because there is nothing
+there."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.

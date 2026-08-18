@@ -5,7 +5,9 @@ TALKING POINTS
 2. Bob's needed every case. Charlie's needed provenance — evidence of where
    the value had been
 3. Three things you can still write, and each has a different answer:
-3. — wrong approval method: Java CAN fix this. Another phantom parameter, noise
+3. — wrong approval method. Bob's bug IS gone: you have to write the medium case.
+   What is not enforced is putting the right thing in it — a different mistake
+3b.  Java CAN fix this one properly. Another phantom parameter, noise
 4. — no lines, negative quantity: a smart constructor gets the same guarantee
 5.   but not on a literal, and two such predicates will not combine
 6. — protocol disagreement: this one Java CANNOT reach
@@ -16,25 +18,24 @@ TALKING POINTS
 
 VERBATIM
 
-"Charlie's bug is a compile error too, so two of the four are gone — and neither
-of them went to a test. Bob's needed every case handled. Charlie's needed
-provenance: some evidence of where the value had been before it reached the
-gateway.
+"Charlie's bug is a compile error too, so two of the four are gone, and neither went
+to a test. Bob's needed every case handled. Charlie's needed
+provenance — evidence of where the value had been before it reached the gateway.
 
 Here is what still gets past. You can approve a medium-risk order with the
 automatic method, because the risk level is nowhere in the authorization's type.
-Java can fix that one properly, with another phantom parameter — noisy, but it
-works.
+Bob's own bug is gone — you have to write the medium case now — and what nothing
+makes you do is put the right thing inside it. Java can fix that
+one properly too, with another phantom parameter: noisy, but it works.
 
-You can build an order with no lines, or a negative quantity. A smart constructor
-gets you most of the way there. What it cannot do is reject quantity-of-minus-one
-while the minus one is sitting right there in the source; you still pay for a
-runtime check the compiler did not need.
+You can build an order with no lines, or a negative quantity. A smart constructor gets
+most of the way. What it cannot do is reject quantity-of-minus-one with the minus
+one sitting there in the source.
 
 And you can disagree with the service at the other end about the protocol. That
-one Java cannot reach at all. Deriving the other side's protocol from yours means
+one Java cannot reach at all: deriving the other side's protocol from yours means
 computing types from types, and Java has nothing of the kind. That gap is
-Danielle's incident, stated as a language feature.
+Danielle's incident.
 
 You can go a long way in Java, and most teams should. What comes next is a
 language where all three of these are cheap — and you do not have to move to it
@@ -96,6 +97,16 @@ FACTS
   runtime-derived protocol → Stage 6.
 - Danielle's incident is the third one; naming it here is what makes her close
   in Act 4 a payoff rather than a new topic.
+
+BOB IS CLOSED. DO NOT SAY OTHERWISE (MB, 19 Aug)
+An earlier version of this line said *that one is Bob again* and `A4-ceiling`
+called it *the open half of Bob's bug*. Both were wrong. Bob's incident was the
+missing branch — `if (risk != HIGH)` with a Medium tier added later — and a
+sealed type with an exhaustive switch closes it completely: the program that
+falls through cannot be written. What Stage 5 removes is a **different** mistake
+in the same place: writing the branch you were forced to write and putting the
+automatic approval inside it. Convenient, safer, and not Bob's bug. Say *Bob's
+own bug is gone* first, then name the new one.
 
 JOIN
 Backwards: Demo 2, sixty seconds old. Forwards: Act 4 opens on what can still go

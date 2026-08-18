@@ -2,7 +2,7 @@ A3-demo1 · cap 2:10 across four slides · Act 3 beat 4 of 8
 
 RUNBOOK — the four slides, in order, with what you say on each
 
-  SLIDE 15  dark card          »I delete case Medium. Watch what the compiler does.»
+  SLIDE 15  dark card          »Let's delete case Medium and watch what the compiler does.»
             → then STOP TALKING and switch to the IDE.
 
   IDE       Demo.java, line 123.  Narrate only the navigation, never the meaning:
@@ -17,7 +17,7 @@ RUNBOOK — the four slides, in order, with what you say on each
   SLIDE 17  recorded, javac     Read it off the screen, VERBATIM, unhurried:
             »The switch expression does not cover all possible input values.»
             Beat. Then the one connecting sentence, and no more:
-            »That is Gentzen's elimination rule, sixty seconds old, coming out
+            »That is the elimination rule from the Gentzen slide, coming out
              of javac.»
 
   IDE       Undo. Recompile. Let the room see it go green. Say nothing.
@@ -38,18 +38,18 @@ Nothing. Do not apologise, do not debug, do not explain. Advance. Slides 16 and
 only tell would be you announcing it.
 
 TALKING POINTS
-1. I delete case Medium. Watch what the compiler does
+1. Let's delete case Medium and watch what the compiler does
 2. (IDE) narrate the navigation only — file, line, delete, compile
 3. (IDE) silence from compile until the error lands
 4. Advance: there is the line, gone
 5. Advance: read the error VERBATIM off the screen
 6. the switch expression does not cover all possible input values
-7. That is Gentzen's elimination rule, sixty seconds old, out of javac
+7. That is the elimination rule from the Gentzen slide, out of javac
 8. Undo, recompile, let it go green. Say nothing
 
 VERBATIM
 
-"I am going to delete the medium case. Watch what the compiler does."
+"Let's delete the medium case and watch what the compiler does."
 
 ... navigate, delete, compile — narrate the navigation, then silence ...
 
@@ -57,10 +57,8 @@ VERBATIM
 
 The switch expression does not cover all possible input values.
 
-That is Gentzen's elimination rule, sixty seconds old, coming out of javac. You
-may not use a disjunction without covering every side of it — and notice what
-the compiler did not say. It did not say a test failed. It said this is not a
-program."
+That is the elimination rule from the Gentzen slide, coming out of javac: you may
+not use a disjunction without covering every side of it."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.
@@ -69,7 +67,7 @@ PREPARATION — background, checks and citations. Not for the night.
 THE EDIT, EXACTLY
 `03-java-function-types-sealed/Demo.java:123` — delete the whole line:
 
-    case RiskDecision.Medium m -> "medium-risk 3DS path";   // Bob is forced to write this
+    case RiskDecision.Medium m -> »medium-risk 3DS path«;   // Bob is forced to write this
 
 Then recompile. `tools/capture-demos.sh` applies this same edit, runs the real
 compiler, writes `demos/1-exhaustiveness.txt` and restores the source — it is the

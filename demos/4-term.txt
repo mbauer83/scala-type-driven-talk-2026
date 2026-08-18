@@ -1,0 +1,13 @@
+$ idris2 --build payment.ipkg
+5/5: Building Main (src/Main.idr)
+Error: While processing right hand side of settleServer. There are 0 uses of linear name done. 
+
+Main:115:7--115:11
+ 111 |   afterCapture <- sendLogged afterAuth captured
+ 112 |   branch       <- awaitChoice afterCapture
+ 113 |   case branch of
+ 114 |     Left refunding => do
+ 115 |       done <- sendLogged refunding (refund captured)
+             ^^^^
+
+Suggestion: linearly bounded variables must be used exactly once.

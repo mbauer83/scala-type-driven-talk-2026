@@ -194,7 +194,27 @@
 
 // ─── .s-title ───────────────────────────────────────────────────────────────
 
-#let title-slide(eyebrow: none, h1, lede, meta-left, meta-right) = slide-page(
+// A light plate is not decoration: an inverted QR (light modules on a dark
+// ground) is not reliably scannable, so the code sits on white even on a dark
+// slide. Error level Q (25% recovery) so a projector's contrast loss and a
+// phone at the back of the room still resolve it.
+#let qr-plate(caption, fg: pal.fg-dark-dim, size: 236pt) = stack(
+  dir: ttb,
+  spacing: sz(14pt),
+  block(fill: rgb("#ffffff"), radius: sz(8pt), inset: sz(12pt))[
+    // Path is relative to THIS file (touying/), so it resolves the same under
+    // `typst --root .` and under the touying exporter's root=touying/.
+    // Regenerate with tools/make-qr.py; the URL lives there and nowhere else.
+    #image("assets/repo-qr.svg", width: sz(size))
+  ],
+  block(width: sz(260pt))[
+    #set align(center)
+    #set par(leading: 0.4em)
+    #text(font: mono-font, size: sz(19pt), fill: fg)[#caption]
+  ],
+)
+
+#let title-slide(eyebrow: none, qr: none, h1, lede, meta-left, meta-right) = slide-page(
   fill: pal.bg-dark,
   fg: pal.fg-dark,
 )[
@@ -205,18 +225,28 @@
       // Top: optional eyebrow
       if eyebrow != none { eyebrow } else { [] },
       v(1fr),
-      // Middle: h1 + lede — lede gap exceeds intra-h1 line spacing
-      {
-        set text(size: sz(168pt), weight: 300, fill: pal.fg-dark)
-        set par(leading: 0.32em)
-        h1
-      },
-      v(sz(120pt)),
-      {
-        set text(size: sz(44pt), weight: 300, fill: pal.fg-dark-dim)
-        set par(leading: 0.25em)
-        lede
-      },
+      // Middle: h1 + lede on the left, optional QR plate on the right.
+      grid(
+        columns: (1fr, auto),
+        column-gutter: sz(72pt),
+        align: (left + horizon, right + horizon),
+        stack(
+          dir: ttb,
+          spacing: 0pt,
+          {
+            set text(size: sz(168pt), weight: 300, fill: pal.fg-dark)
+            set par(leading: 0.32em)
+            h1
+          },
+          v(sz(120pt)),
+          {
+            set text(size: sz(44pt), weight: 300, fill: pal.fg-dark-dim)
+            set par(leading: 0.25em)
+            lede
+          },
+        ),
+        if qr != none { qr } else { [] },
+      ),
       v(1fr),
       // Bottom: meta-left + meta-right
       {
@@ -443,17 +473,23 @@
 
 // ─── .s-close ───────────────────────────────────────────────────────────────
 
-#let close-slide(big-stmt) = slide-page(
+#let close-slide(qr: none, big-stmt) = slide-page(
   fill: pal.bg,
   fg: pal.fg,
 )[
   #slide-pad[
     #v(1fr)
-    #{
-      set text(size: sz(54pt), weight: 300, fill: pal.fg)
-      set par(leading: 0.4em, justify: false)
-      big-stmt
-    }
+    #grid(
+      columns: (1fr, auto),
+      column-gutter: sz(72pt),
+      align: (left + horizon, right + horizon),
+      {
+        set text(size: sz(54pt), weight: 300, fill: pal.fg)
+        set par(leading: 0.4em, justify: false)
+        big-stmt
+      },
+      if qr != none { qr } else { [] },
+    )
     #v(1fr)
   ]
 ]
@@ -579,7 +615,7 @@
 // just-gone: pal.good-bg tint + strikethrough in pal.good.
 // gone: strikethrough, text faded to pal.fg-faint.
 
-#let test-list(items) = {
+#let test-list(items, closes-width: 140pt, closes-size: 30pt) = {
   let sep = 0.5pt + pal.rule
   let row-sep = 0.5pt + pal.rule
 
@@ -591,7 +627,7 @@
     #text(font: mono-font, size: sz(18pt), weight: 500, fill: pal.fg-dim, tracking: 0.05em)[#upper(label)]
   ]
 
-  let make-cell(body, state: "active", left-sep: false) = {
+  let make-cell(body, state: "active", left-sep: false, size: 30pt) = {
     let bg = if state == "just-gone" { pal.good-bg } else if state == "summary" { pal.good.transparentize(88%) } else { none }
     let text-fill = if state == "gone" { pal.fg-faint } else if state == "summary" { pal.good } else { pal.fg }
     let stk = if left-sep { (bottom: row-sep, left: sep) } else { (bottom: row-sep) }
@@ -610,7 +646,7 @@
       inset: (x: sz(12pt), y: sz(7pt)),
       stroke: stk,
     )[
-      #set text(size: sz(30pt), fill: text-fill)
+      #set text(size: sz(size), fill: text-fill)
       #decorated
     ]
   }
@@ -626,13 +662,13 @@
     (
       make-cell(idx, state: state),
       make-cell(desc, state: state, left-sep: true),
-      make-cell(closes, state: state, left-sep: true),
+      make-cell(closes, state: state, left-sep: true, size: closes-size),
     )
   }).flatten()
 
   block(width: 100%, stroke: sep, radius: 3pt, clip: true)[
     #grid(
-      columns: (44pt, 1fr, 140pt),
+      columns: (44pt, 1fr, closes-width),
       row-gutter: 0pt,
       column-gutter: 0pt,
       ..header-cells,

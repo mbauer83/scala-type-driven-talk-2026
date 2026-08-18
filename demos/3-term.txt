@@ -1,0 +1,9 @@
+$ sbt compile
+[error] -- [E007] Type Mismatch Error: 05-scala3-payment/src/main/scala/demos/PaymentDemo.scala:123:23 
+[error] 123 |      authorize(order, AutoApproved)
+[error]     |                       ^^^^^^^^^^^^
+[error]     |                       Found:    payment.AutoApproved.type
+[error]     |                       Required: payment.Approval[payment.MediumRisk]
+[error]     |
+[error]     | longer explanation available when compiling with `-explain`
+[error] one error found

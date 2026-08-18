@@ -19,8 +19,8 @@
       #v(sz(48pt))
       #set text(size: sz(60pt), weight: 300, fill: pal.fg-dark)
       #set par(leading: 0.72em, justify: false)
-      I delete #text(font: mono-font, fill: pal.accent)[case Medium].\
-      Watch what the compiler does.
+      Let's delete #text(font: mono-font, fill: pal.accent)[case Medium]\
+      and watch what the compiler does.
     ]
     #v(1fr)
     #align(center)[

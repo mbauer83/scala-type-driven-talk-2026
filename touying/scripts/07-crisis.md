@@ -113,7 +113,7 @@ FACTS
   and *sound + complete + consistent* is not a triple Gödel ruled out — plain
   propositional logic has all three, and a logic-literate attendee will say so.
   The theorem needs its hypotheses: **any consistent, effectively axiomatized
-  system strong enough for arithmetic is incomplete.** "Big enough for arithmetic"
+  system strong enough for arithmetic is incomplete.** »Big enough for arithmetic«
   is the spoken form of that, and it is the shortest honest one.
   Note this also puts *mechanical checkability* on the slide, which is what
   Part 6b/D2 (ii) asked `A1-crisis` to carry in the first place.

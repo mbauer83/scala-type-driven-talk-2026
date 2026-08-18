@@ -18,6 +18,35 @@ linter all read the same file you edit. There is no second copy to keep in sync.
 | `09-above.md` | `slides/a1-above.typ` | `A1-above` |
 | `10-scenario.md` | `slides/15-test-spine.typ` | `A2-scenario` |
 | `11-promises.md` | `slides/a2-promises.typ` | `A2-promises` |
+| `12-stage12.md` | `slides/17-stage1.typ` | `A3-stage12` |
+| `13-gentzen.md` | `slides/10-gentzen-or.typ` | `A3-gentzen` |
+| `14-stage3.md` | `slides/19-stage3.typ` | `A3-stage3` |
+| `15-demo1.md` | `slides/a3-demo1.typ` + `-edit` + `-out` | `A3-demo1` |
+| `16-payoff-bob.md` | `slides/20-stage3-payoff.typ` | `A3-payoff-bob` |
+| `17-stage4.md` | `slides/22-stage4.typ` | `A3-stage4` |
+| `18-demo2.md` | `slides/a3-demo2.typ` + `-edit` + `-out` | `A3-demo2` |
+| `19-ceiling.md` | `slides/24-java-ceiling.typ` | `A3-ceiling` |
+| `20-stage5.md` | `slides/25-stage5.typ` | `A4-opens` |
+| `21-demo3.md` | `slides/a4-demo3.typ` + `-edit` + `-out` | `A4-demo3` |
+| `22-sessions.md` | `slides/26-session-types.typ` | `A4-sessions` |
+| `23-mechanisms.md` | `slides/stage5-mechanisms.typ` | `A4-mechanisms` |
+| `24-ceiling.md` | `slides/27-stage5-payoff.typ` | `A4-ceiling` |
+| `25-mltt.md` | `slides/28-stage6-bridge.typ` | `A5-mltt` |
+| `26-demo4.md` | `slides/a5-demo4.typ` + `-edit` + `-out` | `A5-demo4` |
+| `27-payoff.md` | `slides/30-stage6-payoff.typ` | `A5-payoff` |
+| `28-cost.md` | `slides/32-agentic.typ` | `A6-cost` |
+| `29-now.md` | `slides/a6-now.typ` | `A6-now` |
+| `30-monday.md` | `slides/where-to-start.typ` | `A6-monday` |
+| `31-close.md` | `slides/34-close.typ` | `A6-close` |
+
+That is all thirty-one, and the deck is fully scripted.
+
+**Two script numbers are out of deck order and were left that way.** `deck.typ`
+runs `19-stage3` before `10-gentzen-or`, so `14-stage3` should be 13 and
+`13-gentzen` should be 14. Renumbering means editing both files, both `#read()`
+calls and this table, on the day before delivery, to fix a mismatch this table
+already resolves. Do it after Thursday. Everything from `20-` on is consecutive
+and in deck order.
 
 **Script numbers are consecutive and follow the running order in `deck.typ`.**
 They drifted once, on 18 Aug, when `10-values.md` was cut and its replacement
@@ -67,6 +96,13 @@ three places.
 
 One thing that DOES matter: **an odd number of `"` in a file** silently swaps
 which half is treated as speech. The linter now errors on it.
+
+**And a quoted sentence in a PREPARATION block is counted as speech.** The
+counter reads every `"…"` in the note, not just the ones above the rule, so a
+quotation below it inflates the slide's measured length and lints against the end
+of the real script. Ten scripts had this on 19 Aug — Act 1's numbers were up to
+29 words too high, which is 12 seconds on one slide. Use `»…«` or italics below
+the rule; `make timing` is only as honest as this convention.
 
 ## After editing
 

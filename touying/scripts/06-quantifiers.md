@@ -78,7 +78,7 @@ function. Naming `max` fixes it and makes the beat much stronger: **`max` cannot
 be written at all without the bound**, which is the sharpest possible way to show
 that an unbounded `T` buys you almost nothing.
 
-**2. "The first thing we need at the top of the climb" was two errors.** Nobody
+**2. »The first thing we need at the top of the climb« was two errors.** Nobody
 knows what *the climb* is — the word appears in exactly one other spoken line, on
 `A1-curry-howard`, which comes *two slides later*, and the opening never
 announces a Java → Scala → Idris ascent at all. And *the first thing we need* is
@@ -103,8 +103,8 @@ WHAT IS DELIBERATELY NOT HERE
 BEATS
 
 - Frege 1879: a proposition with a **variable** in it, and a way to say what
-  holds for every value that variable could take. **Say "variable", not "a hole
-  in a proposition"** — MB, 18 Aug: the room has the first word already.
+  holds for every value that variable could take. **Say »variable«, not »a hole
+  in a proposition«** — MB, 18 Aug: the room has the first word already.
 - You already write it — every signature is one. `assessRisk` over every `Order`.
   › a function type is a for-all whose body never mentions what it bound
 - The move: a generic quantifies over TYPES.
@@ -123,7 +123,7 @@ BEATS
   › the bound is the `if` — which types the claim covers, and what lets the body
     call `compareTo`
 - Margin, one line only: ∃ exists, Java's wildcards are a weak version, the
-  strong form comes back later. **No ranking, no "the climb"** — see below.
+  strong form comes back later. **No ranking, no »the climb«** — see below.
 
 UNBOUNDED GENERICS ARE BARELY USEFUL, AND THE SLIDE HAS TO ADMIT IT (MB, 18 Aug)
 
@@ -137,7 +137,7 @@ The honest framing, and it costs one clause: **the body's inability to inspect
 every `T`, and it is why with nothing known about `T` you can pass it around and
 do nothing else to it.
 
-**Say `<T extends Comparable<T>>`, not "a bound".** (MB, 18 Aug.) The room is
+**Say `<T extends Comparable<T>>`, not »a bound«.** (MB, 18 Aug.) The room is
 mixed — the term is standard Java and a good part of the audience still will not
 place it, especially arriving mid-sentence alongside quantification, where they
 would have to resolve two unfamiliar things at once. Show the syntax they can
@@ -178,7 +178,7 @@ anyone looks sceptical about where it comes from.
 
 TWO CORRECTIONS FROM THE 18 AUG EXTERNAL REVIEW
 
-**F-03 was a blocker: "Java has no honest way to write ∃" is false.** JLS §4.5.1
+**F-03 was a blocker: »Java has no honest way to write ∃« is false.** JLS §4.5.1
 treats wildcards as a restricted existential — `List<?>` is `∃T. List<T>`, and a
 generics specialist in the room can produce it instantly, at the exact moment the
 talk claims its first expressiveness boundary. The narrower claim is the true one

@@ -70,7 +70,12 @@ a1-above	1:20	prose
 # a2-values and a2-promises are cues + a scripted landing line, so they carry
 # an EST-WORDS declaration rather than a countable script (Part 6b/T).
 15-test-spine	0:40	prose
-a2-promises	1:05	prose
+# a2-promises 1:05 -> 1:16 on 18 Aug. MB: the three Hilbert properties were
+# unintelligible — "an impossible type" was never defined and "the property" had
+# no referent. Defining them costs words. The 0:11 comes from ONE named slide
+# that measured under after its own rework, A6-monday (where-to-start), which
+# lost the gradual-typing frame the same day. Net zero; nothing else is shaved.
+a2-promises	1:16	prose
 #
 # a2-values CUT 18 Aug (MB): "doesn't really make a coherent or important
 # enough point, and doesn't fit in well". Its two load-bearing facts are
@@ -93,26 +98,61 @@ a3-demo1	2:10	demo
 a3-demo2	1:45	demo
 24-java-ceiling	1:30	prose
 
-# ── Act 4 · Scala 3 — 7:20 · has never fit any budget; measured 10:36 in v1 ─
+# ── Act 4 · Scala 3 — 7:20 · AUTHORED 18 Aug; measured 10:36 in v1 ─────────
+# Five beats, and the act is motivated by A3-ceiling's residual failure (D-C
+# option d): that slide names three things Java still accepts, A4-opens takes
+# the first two, Demo 3 fires the first, A4-sessions takes the third.
+# The demo's whole script sits on its setup card, as with Demos 1 and 2, so one
+# cap covers all three of its slides; the frames carry only the line to read.
+# NO STAGE OPENER SLIDES. v1 had one for every stage 0-6 and the v2 rework
+# dropped all seven. MB, 18 Aug, noticed the consequence: nothing announces the
+# move to Scala. Two dark openers were built and then cut again — rendered, the
+# v1 template is two-thirds empty at 0:12 of speech, its dominant element is a
+# numeral nobody needs, and a dark card two slides before a3/a4-demo's dark card
+# weakens the one signal that has to work ("stop reading, look at the IDE").
+# The announcement is a SPOKEN job: A4-opens and A5-mltt now name the language
+# in their first clause, and both slides carry a filled language chip where the
+# grey eyebrow used to be. Zero slides, zero seconds.
 25-stage5	1:20	prose
 a4-demo3	1:55	demo
 26-session-types	1:30	prose
 stage5-mechanisms	1:20	prose
 27-stage5-payoff	1:20	prose
 
-# ── Act 5 · Idris 2 — 5:30 ─────────────────────────────────────────────────
-28-stage6-bridge	1:45	prose
-a5-demo4	2:10	demo
-30-stage6-payoff	0:50	prose
+# ── Act 5 · Idris 2 — 4:45 · AUTHORED 18 Aug ───────────────────────────────
+# Header said 5:30 and the rows summed to 4:45; the rows are what the act
+# needed once written, so the header is corrected DOWN to match them. No cap
+# moved. Part 3's 5:30 predates the merge of 29-mltt-running into A5-mltt.
+# Demo 4's whole script sits on its setup card, as with Demos 1-3, so one cap
+# covers all three of its slides.
+28-stage6-bridge	1:45	prose   # A5-mltt
+a5-demo4	2:10	demo    # A5-demo4
+30-stage6-payoff	0:50	prose   # A5-payoff
 
-# ── Act 6 · Close — 3:30 ───────────────────────────────────────────────────
-32-agentic	1:20	prose
-where-to-start	0:50	prose
-34-close	0:50	prose
+# ── Act 6 · Close — 3:30 · AUTHORED 18 Aug ─────────────────────────────────
+# The three rows used to sum to 3:00 while this header and Part 3 both said
+# 3:30 — they were never updated when Part 3 specified A6-cost as a NEW slide
+# merging the agentic argument into a cost argument that did not exist before.
+# 1:20 was the cap for the agentic slide alone. Rows now match the allocation
+# the header and the plan have carried all along; deck caps go 40:15 -> 40:45,
+# and the slot still has 4:15 spare. This is not time shaved from anywhere.
+# A6-now ADDED 19 Aug (MB): the agentic argument — types as hard constraints,
+# as dense signals of intent, and as a fast feedback loop — was sixty words at
+# the tail of the cost slide, spoken over a table the room was still reading.
+# It gets its own beat, which partly un-merges Part 3's fold of v1 32-agentic
+# into A6-cost. Cost +0:35 across Act 6 (1:45 -> 1:20 here, plus 1:00 for
+# A6-now): caps 40:45 -> 41:20, spare 4:15 -> 3:40. Nothing was shaved for it.
+32-agentic	1:20	prose   # A6-cost
+a6-now	1:10	prose   # A6-now
+where-to-start	0:44	prose   # A6-monday — 0:11 moved to a2-promises, see above
+34-close	0:50	prose   # A6-close
 
 # ── Cut or merged (kept so the reason survives) ────────────────────────────
-# 31-the-climb      cut: three summaries in the last four minutes; the dark
-#                   Unrepresentable slide and the close are the two that work
+# 31-the-climb      cut 18 Aug: three summaries in the last four minutes; the
+#                   dark Unrepresentable slide and the close are the two that
+#                   work. Moved to the appendix, not deleted.
+# 33-horizon        deleted 18 Aug; Lean/Agda/HoTT are the HORIZON row of
+#                   A6-monday, which is what this file has said all along
 # 29-mltt-running   merged into 28-stage6-bridge  -> A5-mltt
 # scala3-ceiling    merged into 27-stage5-payoff  -> A4-ceiling
 # 23-stage4-payoff  merged into 24-java-ceiling   -> A3-ceiling

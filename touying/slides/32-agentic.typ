@@ -1,63 +1,106 @@
-// Clock: 42:00–43:00
+// A6-cost · cap 1:45 · Act 6 beat 1 of 3 · NEW + MERGE of v1 32-agentic
+//
+// The slide `A3-ceiling` set up: its PREPARATION records that "is a language
+// with better types worth moving to" is the wrong question, and that the one
+// the room actually faces is what each of these costs to encode where they are.
+//
+// The price and the reason the price is worth paying now are one conversation,
+// which is why Part 3 merges the agentic argument in here rather than giving it
+// a slide. v1's 32-agentic was that slide, and most of its speaker note was a
+// proof-assistant digression that is now Q&A material in the script.
+//
+// GRADUAL TYPING IS NOT HERE. Part 3 puts it on this slide; it does its work on
+// A6-monday, which IS the incremental ladder. Flagged in the script, reversible.
+//
+// The landing line is rephrased from Part 3's: "the question was never 'should
+// I use dependent types for my CRUD endpoints'" is R1, define-by-exclusion, and
+// v1 had the same shape on 33-horizon. The positive half loses nothing.
+//
+// The erasure claim is about the TYPE-LEVEL MACHINERY only — sealed interfaces
+// and records are ordinary runtime objects, and Iron still runs one predicate
+// check on a runtime value. C2 discipline is in the script's PREPARATION.
 #import "../theme.typ": *
 #import "../components.typ": *
 
+// Stacked, not two columns: at 25pt the stage labels wrap, and a wrapped label
+// beside a top-aligned price column throws every row out of register.
+#let cost(stage, price, verdict) = stack(
+  dir: ttb,
+  spacing: sz(5pt),
+  text(size: sz(25pt), weight: 600, fill: pal.fg)[#stage],
+  block[
+    #set text(size: sz(23pt), fill: pal.fg-dim)
+    #set par(leading: 0.42em)
+    #price #text(fill: pal.fg)[#verdict]
+  ],
+)
+
 #light-slide(
-  eyebrow: eyebrow([Agentic Development]),
-  [Expressive Types in the Age of Agentic Development],
+  eyebrow: eyebrow([What it costs · and why the calculation is moving]),
+  body-gap: sz(24pt),
+  [What each stage costs to encode],
   stack(
     dir: ttb,
-    spacing: sz(40pt),
-    [
-      #set text(size: sz(30pt), weight: 300)
-      #set par(leading: 0.45em)
-      Code is now being generated faster than humans can review it.
-      Agents propose changes; teams ship them.
+    spacing: sz(24pt),
+    grid(
+      columns: (1fr, 1fr),
+      column-gutter: sz(56pt),
+      align: (left + top, left + top),
 
-      When the type system can carry the invariants we care about,
-      every generated line passes the same structural checks every hand-written line does.
-      *The compiler does not care who wrote it.*
-    ],
-    callout(
-      [Unwritable — regardless of author],
-      grid(
-        columns: (1fr, 1fr),
-        gutter: sz(20pt),
-        row-gutter: sz(8pt),
+      stack(
+        dir: ttb,
+        spacing: sz(20pt),
+        cost([Stage 3 · sealed ⊕ records],
+             [Java 17, no dependency, an afternoon. ],
+             [Do it regardless.]),
+        cost([Stage 4 · phantom typestate],
+             [An interface, a private constructor, a conversation in code
+              review, and some generic noise in your signatures. ],
+             [Where there is a lifecycle.]),
+        cost([Stage 5 · Scala 3],
+             [Build tooling, compile times in seconds rather than milliseconds,
+              hiring, a real learning curve. ],
+             [A team decision, when the invariants are expensive enough.]),
+        cost([Stage 6 · Idris 2],
+             [Not a production proposal. ],
+             [It shows where the ceiling is — and the ideas leak downwards.]),
+      ),
+
+      stack(
+        dir: ttb,
+        spacing: sz(24pt),
+        callout(
+          [Free],
+          [None of the type-level machinery survives to runtime. What is left is
+           the one check at the boundary you would have written by hand anyway.],
+          style: "accent",
+        ),
         [
-          #set text(size: sz(26pt), font: mono-font, fill: pal.fg-dim)
-          Incomplete protocol step #h(1fr) → does not compile.\
-          Skipped lifecycle transition #h(1fr) → does not compile.
+          #set text(size: sz(24pt), fill: pal.fg)
+          #set par(leading: 0.45em)
+          #text(weight: 600)[Code now arrives faster than anybody can read it.]
+          #text(fill: pal.fg-dim)[ A type system that carries your invariants
+          holds the same floor whoever wrote the line — and the error names the
+          type it wanted, which is something to act on.]
         ],
-        [
-          #set text(size: sz(26pt), font: mono-font, fill: pal.fg-dim)
-          Empty identifier at the boundary #h(1fr) → does not compile.\
-          Dropped channel without finish #h(1fr) → does not compile.
+        block(width: 100%, fill: pal.bg-warm, radius: sz(6pt),
+              inset: (x: sz(20pt), y: sz(14pt)))[
+          #set text(size: sz(20pt), font: mono-font, fill: pal.fg-dim)
+          Found:    Approval[LowRisk] \
+          Required: Approval[MediumRisk]
         ],
       ),
-      style: "accent",
     ),
-    stack(
-      dir: ttb,
-      spacing: sz(22pt),
-      [
-        #set text(size: sz(28pt), weight: 300)
-        #set par(leading: 0.45em)
-        For agentic workflows specifically: the type error is precise.
-        #text(fill: pal.fg-dim, font: mono-font, size: sz(24pt))["Approval[LowRisk] does not conform to Approval[MediumRisk]"]
-        tells the agent exactly which type is wrong and where — no human needed to interpret
-        the failure. The compiler's type error IS the specification.
-      ],
-      [
-        #set text(size: sz(26pt), fill: pal.fg-dim)
-        #set par(leading: 0.45em)
-        When generation speed exceeds review capacity, an expressive type system raises the
-        share of correctness that is enforced before merge rather than spotted by a reviewer.
-      ],
-    ),
+    line(length: 100%, stroke: 0.5pt + pal.rule),
+    align(center)[
+      #set text(size: sz(28pt), fill: pal.fg)
+      The question is whether this invariant is expensive enough to encode.
+      #text(fill: pal.fg-dim)[ The tools keep getting cheaper, so that set keeps
+      getting bigger.]
+    ],
   ),
 )
 
 #speaker-note[
-"There's another concrete reason this story matters now. AI agents can produce a working PR faster than a human can read it carefully. An expressive type system raises the floor of correctness that holds regardless of the author: incomplete protocol steps, skipped lifecycle transitions, empty identifiers, dropped channels — none of those compile, whether a person or a model wrote them. For agentic workflows specifically: the type error is precise. "Approval[LowRisk] does not conform to Approval[MediumRisk]" tells the agent exactly which type is wrong and where. The agent doesn't need a human to interpret the failure — the compiler's type error IS the specification. This is qualitatively different from a test failure, which says "the output was wrong" without saying what structural change would make it right. Proof assistants like Lean, Rocq, Agda, and Idris itself go further: the proof obligation becomes a first-class part of the type. In contrast to what we've seen — where the type checker automatically verifies structural properties, and you just declare the type — proof assistants let you encode more complex propositions as types, but to use a function you must also supply an explicit proof that the precondition holds. The machine checks that proof term mechanically, and modern tactic libraries automate increasing fractions of the work."
+#read("../scripts/28-cost.md")
 ]

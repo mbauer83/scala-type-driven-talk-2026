@@ -4,7 +4,7 @@
 
 #light-slide(
   eyebrow: eyebrow([The Climb]),
-  [What Was Removed at Each Stage],
+  [Mistakes we can no longer make at each stage],
   stack(
     dir: ttb,
     spacing: sz(14pt),
@@ -68,5 +68,5 @@
 )
 
 #speaker-note[
-"Let me trace what we removed. JavaScript: every invariant is a test. Stage 1: shape confusion and fabricated lifecycle values are type errors. Stage 2: element-type bugs and parametricity failures are type errors. Stage 3: algebraic data types — records as products, sealed interfaces as sums — make forgotten branches and unhandled error paths compile errors, via OR-elimination, the same rule Gentzen formalised in 1935. Stage 4: lifecycle ordering is no longer a runtime check or a naming convention, it is a structural guarantee in the phantom type parameter. Stage 5: the approval method for the assessed risk level, non-empty boundary predicates, protocol drift — all become type errors. In Stage 6, we no longer have a gap between runtime classification and compile-time protocol-shape — `protocolFromSnapshot snapshot` computes it directly — and the channel becomes a linear resource the program is required to consume."
+"Let me trace the mistakes that stopped being possible. JavaScript: every invariant is a test. Stage 1: shape confusion and fabricated lifecycle values are type errors. Stage 2: element-type bugs and parametricity failures are type errors. Stage 3: algebraic data types — records as products, sealed interfaces as sums — make forgotten branches and unhandled error paths compile errors, via OR-elimination, the same rule Gentzen formalised in 1935. Stage 4: lifecycle ordering is no longer a runtime check or a naming convention, it is a structural guarantee in the phantom type parameter. Stage 5: the approval method for the assessed risk level, non-empty boundary predicates, protocol drift — all become type errors. In Stage 6, we no longer have a gap between runtime classification and compile-time protocol-shape — `protocolFromSnapshot snapshot` computes it directly — and the channel becomes a linear resource the program is required to consume."
 ]

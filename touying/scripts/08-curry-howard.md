@@ -142,7 +142,7 @@ PRECISION, IF THIS IS CHALLENGED
 - Java's `try`/`catch` is upward-only and one-shot, so it is modelled by a monad
   (`A + E`) and stays intuitionistic. **Do not claim Java's exceptions are
   classical logic.** The `call/cc` ↔ Peirce's law result is about *first-class*
-  continuations, which Java does not have. "In the limit" carries that.
+  continuations, which Java does not have. »In the limit« carries that.
 - Unrestricted general recursion makes the naive reading inconsistent: `Y` gives
   an inhabitant of every type. That is why the honest word for the proposition
   Java proves is *nearly free* rather than merely *weak*.
@@ -161,8 +161,8 @@ explicitly. Do not paraphrase it on the night.
 FACTS
 - Church and Turing, 1936, independently; simply-typed lambda calculus 1940.
 - Curry noticed the combinatory correspondence from the 1930s-50s; Howard's
-  manuscript circulated 1969, published 1980. "Howard wrote down what Curry had
-  noticed" is the accurate framing.
+  manuscript circulated 1969, published 1980. »Howard wrote down what Curry had
+  noticed« is the accurate framing.
 - Lambek's correspondence with cartesian closed categories is precise for STLC ↔
   intuitionistic propositional logic ↔ CCC. Extending it to dependent types
   (locally cartesian closed categories) is more delicate — fine to popularise on

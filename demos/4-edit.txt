@@ -1,0 +1,11 @@
+$ sed -i '…first finish done → pure ()…' src/Main.idr
+$ git diff -- src/Main.idr
+  @@ -113,7 +113,7 @@
+     case branch of
+       Left refunding => do
+         done <- sendLogged refunding (refund captured)
+  -      finish done
+  +      pure ()
+       Right done => finish done
+   settleServer False authorized session = do
+     afterAuth    <- sendLogged session authorized

@@ -18,7 +18,7 @@
     align(center)[
       #set text(size: sz(28pt), fill: pal.fg)
       #set par(leading: 0.55em)
-      Gentzen's elimination rule, sixty seconds old, coming out of `javac`:
+      The elimination rule from the Gentzen slide, coming out of `javac`:
       you may not use a disjunction without covering every side of it.
     ],
   ),
@@ -31,7 +31,7 @@ Read it off the screen, verbatim and unhurried:
 
 Beat. Then one sentence and no more:
 
-"That is Gentzen's elimination rule, sixty seconds old, coming out of javac."
+"That is the elimination rule from the Gentzen slide, coming out of javac."
 
 Then undo in the IDE, recompile, let the room see it go green. Say nothing.
 ]

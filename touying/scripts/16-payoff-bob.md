@@ -4,7 +4,7 @@ TALKING POINTS
 1. Bob's bug is now a compile error
 2. The switch will not build without case Medium
 3. There is no longer an if to get wrong — the shape is gone
-4. He would have found it the second he typed it
+4. He would have found the bug the second he typed it
 5. Not three weeks later, in a chargeback report
 
 VERBATIM
@@ -13,7 +13,7 @@ VERBATIM
 has a branch, so the shape that let medium-risk orders fall through does not
 exist any more — there is no longer an if to get wrong.
 
-And he would have found that the second he typed it, rather than three weeks
+And he would have found the bug the second he typed it, rather than three weeks
 later in somebody's chargeback report."
 
 ==========================================================================

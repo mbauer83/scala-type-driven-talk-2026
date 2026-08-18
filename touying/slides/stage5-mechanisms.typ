@@ -1,63 +1,111 @@
-// Clock: ~33:30–34:00 (inserted after session-types demo, before stage5-payoff)
-// §2.5: Stage 5 mechanisms reference slide — the six mechanisms the audience
-// just saw in the demo, now named and anchored as vocabulary.
+// A4-mechanisms · cap 1:20 · Act 4 beat 4 of 5 · REWORK of v1 stage5-mechanisms
+//
+// Two halves. The left is the vocabulary for what has just run — names attached
+// to things the room has seen, which is the one shape in which a naming slide
+// earns a cap (Part 12/R8: the audience wants the name so they can go and read
+// about it). The right is Part 3's effects aside, ~40 seconds, and it is the
+// new material: the same move, applied to what a value is allowed to do.
+//
+// v1 had six rows, each read out in a sentence of its own — the demo narrated a
+// second time. The higher-kinded row (interpret[F[_]: Functor, A],
+// payment/Rules.scala) is dropped: real, good, closes no incident, in no demo.
+// It is the cheapest thing to add back if the read-through comes in short.
+//
+// Depth for the right-hand half is appendix a01-tracking.
 #import "../theme.typ": *
 #import "../components.typ": *
 
-#let mech-row(name, detail, sub) = grid(
-  columns: (sz(280pt), sz(280pt), 1fr),
-  gutter: sz(16pt),
-  align: (left + top, left + top, left + top),
-  text(size: sz(26pt), weight: 600, fill: pal.accent)[#name],
-  text(size: sz(24pt), fill: pal.fg-dim, font: mono-font)[#detail],
-  text(size: sz(24pt), fill: pal.fg-dim)[#sub],
+#let mech(name, code, body) = stack(
+  dir: ttb,
+  spacing: sz(6pt),
+  text(size: sz(26pt), weight: 600, fill: pal.fg)[#name],
+  block[
+    #show raw: set text(font: mono-font, size: sz(22pt), fill: pal.accent-deep)
+    #code
+  ],
+  block[
+    #set text(size: sz(23pt), fill: pal.fg-dim)
+    #set par(leading: 0.4em)
+    #body
+  ],
 )
 
 #light-slide(
-  eyebrow: eyebrow([Stage 5 · Mechanisms], style: "accent"),
-  body-gap: sz(28pt),
-  [Six Type-Level Tools at Work],
-  stack(
-    dir: ttb,
-    spacing: sz(22pt),
-    mech-row(
-      [Refined types],
-      `NonEmptyString = String :| MinLength[1]`,
-      [Predicate carried in the type — smart constructor at runtime, macro proof at compile time.],
+  eyebrow: eyebrow([Stage 5 · the mechanisms, and the family next door]),
+  body-gap: sz(24pt),
+  [What else a type can carry],
+  grid(
+    columns: (1fr, 0.95fr),
+    column-gutter: sz(52pt),
+    align: (left + top, left + top),
+
+    stack(
+      dir: ttb,
+      spacing: sz(24pt),
+      mech([Refined types], `String :| MinLength[1]`,
+           [The predicate is part of the type. A macro decides it for a literal;
+            a smart constructor decides it for everything else.]),
+      mech([Opaque types], `opaque type AuthCode = String`,
+           [`AuthCode` and `CaptureId` are both `String` at runtime, and the
+            compiler refuses to swap them.]),
+      mech([Path-dependent types], `def send(using s: CanSend[P])(value: s.Msg)`,
+           [`P` is what is left of the protocol; `CanSend[P]` is a claim about it
+            — that it starts with a send. Ask for the claim as evidence and
+            `s.Msg` is the message type that comes with it.]),
+      mech([Evidence the compiler builds], `def finish()(using ev: P =:= End)`,
+           [Evidence of a different claim — that `P` has reached the end. Mid-protocol
+            there is none to be had, so you cannot hang up in the middle of the call.]),
     ),
-    line(length: 100%, stroke: 0.5pt + pal.rule),
-    mech-row(
-      [Opaque + refined IDs],
-      `OrderId, CustomerId`,
-      [Distinct types at compile time; plain strings at runtime. Zero overhead.],
-    ),
-    line(length: 100%, stroke: 0.5pt + pal.rule),
-    mech-row(
-      [Path-dependent types],
-      `CanSend[P]#Msg`,
-      [Message type derived from the protocol position. Wrong type or wrong step → compile error.],
-    ),
-    line(length: 100%, stroke: 0.5pt + pal.rule),
-    mech-row(
-      [Compiler-derived evidence],
-      `P =:= End`,
-      [`finish()` requires proof that the protocol has reached `End`. The compiler supplies it.],
-    ),
-    line(length: 100%, stroke: 0.5pt + pal.rule),
-    mech-row(
-      [Match types + duality],
-      `Dual[P] computed by compiler`,
-      [Server and client protocol types derived from one definition. Cannot drift.],
-    ),
-    line(length: 100%, stroke: 0.5pt + pal.rule),
-    mech-row(
-      [Higher-kinded types],
-      `interpret[F[_]: Functor, A]`,
-      [Protocol interpreter parameterised over the effect type.],
+
+    stack(
+      dir: ttb,
+      spacing: sz(20pt),
+      [
+        #set text(size: sz(25pt), fill: pal.fg)
+        #set par(leading: 0.45em)
+        Every one of those puts something about a value into the value's type.
+        #text(fill: pal.fg-dim)[ Next door is a family that puts in what a value
+        is allowed to #emph[do].]
+      ],
+      callout(
+        [In production today · ZIO],
+        stack(
+          dir: ttb,
+          spacing: sz(10pt),
+          text(font: mono-font, size: sz(20pt), fill: pal.fg)[
+            def loadUser(id: UserId): ZIO\[Database, DbError, User\]
+          ],
+          [
+            #set text(size: sz(21pt), fill: pal.fg-dim)
+            #set par(leading: 0.4em)
+            Needs a database · can fail this way · produces a user. All three in
+            the signature, where the caller has to deal with them.
+          ],
+        ),
+        style: "accent",
+      ),
+      callout(
+        [Experimental · Scala 3 capture checking],
+        stack(
+          dir: ttb,
+          spacing: sz(10pt),
+          text(font: mono-font, size: sz(20pt), fill: pal.fg)[
+            val loadUser: UserId -\>\{db, canThrow\} User
+          ],
+          [
+            #set text(size: sz(21pt), fill: pal.fg-dim)
+            #set par(leading: 0.4em)
+            All three on the arrow instead of in a wrapper: `db` is the database,
+            `canThrow` is a `CanThrow[DbError]`, and the result is a plain `User`.
+            Ordinary code, ordinary shape.
+          ],
+        ),
+        style: "bad",
+      ),
     ),
   ),
 )
 
 #speaker-note[
-"Those six mechanisms just ran in the demo. Let me name them so the vocabulary is clear. Refined types carry a predicate in the type itself — not a runtime check you might forget, but a constraint the compiler enforces. Opaque types give you distinct compile-time identities that are erased to plain strings at runtime — zero overhead. Path-dependent types give you a message type that depends on the protocol position — the wrong message type at the wrong position is a compile error, not a test. Compiler-derived evidence: `finish()` requires a proof value of type `P =:= End`; when the protocol has consumed all steps, the compiler can summon that proof automatically; if it can't, the program doesn't compile. Match types + duality: the server and client protocol types are derived from one protocol definition by structural induction; they cannot drift because they share one source. Higher-kinded types: the protocol interpreter is parameterised over the effect type, so you can run it in `IO`, in `Future`, or in a test `Id` monad."
+#read("../scripts/23-mechanisms.md")
 ]

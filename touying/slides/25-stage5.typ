@@ -1,58 +1,93 @@
-// Clock: 27:00–27:30
+// A4-opens · cap 1:20 · Act 4 beat 1 of 5 · REWORK of v1 25-stage5
+//
+// D-C option (d): the act is motivated by the residual failure A3-ceiling ends
+// on. That slide names three things Java still accepts; this one takes the
+// first two, Demo 3 fires the first, and A4-sessions takes the third.
+//
+// v1 was a stage-opener showing the BODY of authorize — a match building an
+// audit string — with `order.id`, `p.id`, `a.id` and `audit =`. None of those
+// identifiers exist (Domain.scala has order.orderId.orderIdStr, p.challengeId,
+// a.reviewer, auditTrail), and the body demonstrates nothing anyway: the
+// signature above it is the whole argument, and it is what makes Demo 3's error
+// readable sixty seconds later.
+//
+// Both panes are verbatim from payment/Domain.scala, bodies elided with `...`.
+// MinLength[1] & MaxLength[10] is real in Iron and is NOT in this repository,
+// so composition stays a spoken clause (Part 12/R9).
 #import "../theme.typ": *
 #import "../components.typ": *
 #import "../code-pane.typ": *
 
-#stage-opener-slide(
-  [5],
-  [Scala 3 · What Opens Up],
-  [scala 3 · bounded λω + type families · Iron refinements],
+// The language change gets a filled chip rather than the 21px grey eyebrow every
+// other slide carries. MB, 18 Aug: nothing made it prominent that the talk had
+// moved language. This and A5-mltt are the only two slides that use it, because
+// they are the only two places the syntax on the wall changes — stages 1 to 4
+// are all Java. Two dark stage-opener slides were built for this and cut again;
+// scripts/20-stage5.md records why.
+#let lang-chip(lang, rest) = {
+  box(fill: pal.accent, inset: (x: sz(14pt), y: sz(8pt)), radius: sz(4pt))[
+    #text(font: mono-font, size: sz(26pt), weight: 700, fill: pal.bg, tracking: 0.08em)[#upper(lang)]
+  ]
+  h(sz(18pt))
+  text(font: mono-font, size: sz(26pt), weight: 500, fill: pal.fg-dim, tracking: 0.02em)[#upper(rest)]
+}
+
+#light-slide(
+  eyebrow: lang-chip([scala 3], [stage 5 · indexed evidence ⊕ refinement]),
+  body-gap: sz(22pt),
+  [Which risk it is, and what has been checked],
   stack(
     dir: ttb,
-    spacing: sz(18pt),
-    eyebrow(style: "accent")[→ DEMO 5a in `PaymentDemo.scala`],
-    code-pane(filename: "Domain.scala", language: "scala")[
+    spacing: sz(26pt),
+    grid(
+      columns: (1fr, 1fr),
+      column-gutter: sz(40pt),
+      row-gutter: sz(16pt),
+      align: (left + top, left + top),
+
+      code-pane(filename: "Domain.scala", language: "scala", code-size: 19pt, pad-y: 14pt,
+                highlights: ((7, "hl-good"), (8, "hl-good")))[
 ```scala
-def authorize[R <: Risk](
-    order:    Order,
-    approval: Approval[R],
-): AuthorizedPayment[R] =
-  val note = approval match
-    case AutoApproved        => "auto-approved"
-    case ThreeDSApproved(p)  => s"3ds:${p.id}"
-    case ReviewerApproved(a) => s"reviewer:${a.id}"
-  AuthorizedPayment(
-    order    = order,
-    authCode = AuthCode.of(s"auth-${order.id}"),
-    approval = approval,
-    audit    = List(s"authorized:$note"),
-  )
+sealed trait Approval[+R <: Risk]
+
+case object AutoApproved extends Approval[LowRisk]
+case class ThreeDSApproved(proof: ThreeDSProof)
+     extends Approval[MediumRisk]
+
+def authorize[R <: Risk](order: Order, approval: Approval[R])
+    : AuthorizedPayment[R] = ...
 ```
-    ],
+      ],
+      code-pane(filename: "Domain.scala", language: "scala", code-size: 19pt, pad-y: 14pt,
+                highlights: ((6, "hl-good"),))[
+```scala
+type NonEmptyLines  = List[OrderLine] :| MinLength[1]
+type NonNegativeInt = Int :| GreaterEqual[0]
+
+final case class Order private (
+    lines: NonEmptyLines, ...):
+  def firstLine: OrderLine = lines.head
+```
+      ],
+
+      [
+        #set text(size: sz(24pt), fill: pal.fg-dim)
+        #set par(leading: 0.45em)
+        #text(weight: 600, fill: pal.fg)[An approval is evidence for one level.]
+        The only way to an `Approval[MediumRisk]` is a 3-D Secure proof, and
+        `authorize` carries the level forward into the payment.
+      ],
+      [
+        #set text(size: sz(24pt), fill: pal.fg-dim)
+        #set par(leading: 0.45em)
+        #text(weight: 600, fill: pal.fg)[`firstLine` is total.]
+        No `Optional`, no defensive branch — the emptiness was excluded at the
+        boundary, and nobody downstream establishes it again.
+      ],
+    ),
   ),
 )
 
 #speaker-note[
-// CUES:
-// 1. Open PaymentDemo.scala → serverMediumRisk → change ThreeDSApproved to AutoApproved → error on ch.send line
-// 2. Revert ⌘Z → "Protocol context catches Bob's mistake — not the authorize call itself"
-// 3. Show NonEmptyString in Domain.scala → OrderId.of("") returns Left (safe) vs refineUnsafe[MinLength[1]] (compile-time check)
-// 4. Show CanSend[P]#Msg in Chan.scala → "message type derived from protocol position — send wrong type → compile error"
-// 5. Mention =:= evidence and finish() in session-types segment next
-
-"Scala 3's type system opens up mechanisms that Java simply cannot reach. Let's look at three of them in our code — refined identifiers, path-dependent channels, and match types — those carry most of the structural weight. Four more are in the repository; I'll point at them as we move through the session-types demo, and then show how they combine into something that makes Danielle's protocol-drift incident a compile error."
-
-→ Feature 1 — Phantom indexing with sealed-subtype inference (45 sec):
-Open `05-scala3-payment/src/main/scala/demos/PaymentDemo.scala`, navigate to `serverMediumRisk`. Change the relevant `authorize(order, ThreeDSApproved(proof))` line to `authorize(order, AutoApproved)`. The IDE shows an error on the next `ch.send(authorized)`. Hover: read "Found: `AuthorizedPayment[LowRisk]`, Required: `AuthorizedPayment[MediumRisk]`." Say: "Worth being precise here. `authorize(order, AutoApproved)` itself is well-typed — it just produces an `AuthorizedPayment[LowRisk]`. The compile error happens one line later, when we try to send that value through the channel: the medium-risk protocol requires `AuthorizedPayment[MediumRisk]` at this position, and `LowRisk` doesn't satisfy it. The protocol context is what catches Bob's mistake. Revert." (⌘Z)
-
-→ Feature 2 — Refined types: NonEmptyString-refined identifiers (30 sec):
-Open `Domain.scala`, navigate to `type NonEmptyString = String :| MinLength[1]`. Frame as a domain rule first: "order and customer identifiers must be non-empty — that's a business invariant, not a runtime check to remember at every consumer." Show `OrderId.of("")` → returns `Left(...)` (smart constructor for runtime values). Show `"".refineUnsafe[MinLength[1]]` → DOES NOT COMPILE (macro checks at compile time). Say: "Two paths into the type. The smart constructor handles runtime values safely. The macro path proves the predicate at compile time for literals."
-
-→ Feature 3 — Path-dependent types (30 sec, LIVE):
-Briefly show `CanSend[P]#Msg` in `Chan.scala`. Point at `ch.send(...)` — say: "The message type is derived from the protocol position. Sending the wrong type or sending on a receive step is a compile error. Defensive per-call-site test gone; behavioural tests stay."
-
-→ Additional mechanisms (brief verbal mention, ~10 sec — no live edits):
-"One more mechanism worth naming: opaque types — `AuthCode`, `CaptureId`, `RefundId` are all `String` underneath, but the compiler refuses to mix them. I'll show `=:=` evidence and `finish()` in the session-types segment next."
-
-→ Return to slide briefly.
+#read("../scripts/20-stage5.md")
 ]

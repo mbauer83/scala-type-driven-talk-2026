@@ -1,50 +1,84 @@
-// Clock: 33:45–34:30
+// A4-ceiling · cap 1:20 · Act 4 beat 5 of 5 · MERGE of v1 27-stage5-payoff +
+// scala3-ceiling
+//
+// Same two-part shape as A3-ceiling, deliberately: the claim that closed, then
+// what the language still accepts, so the two ceiling slides rhyme and the room
+// knows what an act ending looks like.
+//
+// BOTH SCOREBOARDS ARE GONE. v1 carried a nine-row test-list with a CLOSES
+// column AND a four-chip story-strip — the furniture P5 removed everywhere else
+// and Part 2 replaced with Device 1. The collective view happens once, on the
+// dark Unrepresentable slide.
+//
+// NO COUNT OF INCIDENTS. A3-ceiling says "two of the four" at the end of Act 3
+// and Alice's closed silently at Stage 1, so any tally stated here relitigates
+// Act 3's bookkeeping on stage. Name what closed instead.
+//
+// NO CUBE REVEAL, and no third axis in words either: the deck has never named
+// an axis out loud. A1-above issues only "there is a map of this territory".
+// v1's script talked about the third axis twice — Part 9/L18.
+//
+// C2 discipline on the two limits, checked one at a time in the script's
+// PREPARATION: the protocol menu is real and is stated as "written out in
+// advance" rather than "impossible"; use-exactly-once is genuinely absent.
+// Dropped from v1: the dual(dual(P)) involution (a proof-assistant point, Q&A)
+// and "open-ended protocol vocabulary" (limit 1 said twice).
 #import "../theme.typ": *
 #import "../components.typ": *
 
+#let limit(head, body) = stack(
+  dir: ttb,
+  spacing: sz(8pt),
+  text(size: sz(25pt), weight: 600, fill: pal.fg)[#head],
+  block[
+    #set text(size: sz(23pt), fill: pal.fg-dim)
+    #set par(leading: 0.45em)
+    #body
+  ],
+)
+
 #light-slide(
-  eyebrow: eyebrow([Stage 5 Payoff · Scala 3]),
-  body-gap: sz(28pt),                            // S29 is the densest payoff — extra tight
-  [Three Stories Closed — Two Gaps Remain],
+  eyebrow: eyebrow([Stage 5 payoff · and the Scala 3 ceiling]),
+  body-gap: sz(24pt),
+  [Danielle's bug is a compile error now],
   stack(
     dir: ttb,
-    spacing: sz(28pt),
-    // Single condensed status line — three closed, two open.
+    spacing: sz(30pt),
+    block(width: 100%, fill: pal.good-bg, inset: (x: sz(26pt), y: sz(18pt)), radius: sz(4pt))[
+      #set text(size: sz(26pt), fill: pal.fg)
+      Two services that were each correct against their own contract now have a
+      #text(weight: 500)[third thing] to be correct against — and so did the
+      demo's mistake, the medium case with an automatic approval inside it,
+      because the approval carries its risk level in its type.
+    ],
+    line(length: 100%, stroke: 0.5pt + pal.rule),
+    [
+      #set text(size: sz(26pt), weight: 500, fill: pal.fg)
+      Two things you can still write, and Scala will still take:
+    ],
     grid(
       columns: (1fr, 1fr),
-      gutter: sz(28pt),
-      [
-        #text(fill: pal.good, weight: 500, size: sz(24pt))[✓ Three stories closed] \
-        #v(sz(4pt))
-        #set text(size: sz(22pt), fill: pal.fg-dim)
-        #set par(leading: 0.4em)
-        Protocol selects medium · `OrderId` is `NonEmptyString`-refined · server/client types from one definition.
-      ],
-      [
-        #text(fill: pal.bad, weight: 500, size: sz(24pt))[⚠ Two gaps → Stage 6] \
-        #v(sz(4pt))
-        #set text(size: sz(22pt), fill: pal.fg-dim)
-        #set par(leading: 0.4em)
-        Protocol from ADT, not runtime `Order`. Dropped channel not caught.
-      ],
+      column-gutter: sz(52pt),
+      limit([The protocol comes off a menu.],
+            [`ProtocolVariant` writes them all out in the source —
+             `LowRefund`, `LowNoRefund`, `MediumRefund`, `HighNoRefund` — and the
+             risk assessment picks one at runtime. Each is checked completely. #text(fill: pal.fg)[What the compiler cannot
+             do] is build the protocol out of the order in front of it — that
+             needs a type that depends on a value.]),
+      limit([Nothing makes you finish the channel.],
+            [`finish` will not let you hang up early — mid-protocol there is no
+             proof of `P =:= End` to summon. #text(fill: pal.fg)[Drop the
+             channel halfway] and walk away, and nothing objects. What is
+             missing is a way to write #emph[used exactly once].]),
     ),
-    test-list((
-      ("",   [4 invariants already closed ✓ — Stages 1–4],                        [],    "summary"),
-      ("5",  [Right authorization method for the assessed risk level],            [S·5], "just-gone"),
-      ("6",  [Boundary constraints — non-empty identifiers],                      [S·5], "just-gone"),
-      ("7",  [Client/server agree on the protocol shape],                         [S·5], "just-gone"),
-      ("8",  [Channel is consumed completely (never dropped mid-protocol)],       [S·6], "active"),
-      ("9",  [Protocol shape matches the runtime risk classification],            [S·6], "active"),
-    )),
-    story-strip((
-      (name: "Alice",    what: [Empty OrderId slips through the boundary],           state: "open", closed: true),
-      (name: "Bob",      what: [Medium-risk branch forgotten — wrong approval path],  state: "open", closed: true),
-      (name: "Charlie",  what: [Capture before authorize — lifecycle violated],       state: "open", closed: true),
-      (name: "Danielle", what: [Client / server protocol drift at deployment],        state: "open", closed: true),
-    )),
+    align(center)[
+      #set text(size: sz(24pt), fill: pal.fg-dim)
+      Both were on that same list of four. One wants a type computed from a
+      value; the other wants the compiler to count.
+    ],
   ),
 )
 
 #speaker-note[
-"Bob's story is done in this combination: once the protocol has selected the medium-risk path, a LowRisk approval cannot satisfy the channel's required MediumRisk evidence. It's the protocol context that catches the mistake. Alice's boundary class is done — an empty `OrderId` cannot exist at runtime, so consumers don't have to defend. Danielle's story is done — server and client hold types derived from the same protocol definition; they cannot drift. Two structural gaps remain: the protocol type is still selected at runtime from a fixed menu rather than computed from the runtime order; and the channel can be dropped without `finish()` being called. Stage 6 closes both."
+#read("../scripts/24-ceiling.md")
 ]

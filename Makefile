@@ -17,8 +17,14 @@ talk.pdf: $(TYPST_SOURCES)
 
 # talk.pdfpc: speaker-note sidecar read by pympress presenter view.
 # Requires the pdfpc.pdfpc-file(here()) call at the end of deck.typ.
+# `touying compile --format pdfpc` runs its own typst query WITHOUT --root, so
+# it fails "access denied" on every slide that #read()s a file above touying/ —
+# which is all six recorded demo frames. It had been failing silently since
+# those landed, leaving talk.pdfpc at 0 bytes: the presenter view MB actually
+# reads from, empty, and `make check` reporting build OK because the file
+# existed. Use the query deck.typ has documented all along; it takes --root.
 talk.pdfpc: $(TYPST_SOURCES)
-	touying compile touying/deck.typ --format pdfpc --output talk.pdfpc
+	typst query --root . touying/deck.typ "<pdfpc-file>" --field value --one > talk.pdfpc
 
 talk-notes: $(TYPST_SOURCES)
 	typst compile --root . touying/deck.typ --input notes=true talk-with-notes.pdf
@@ -31,11 +37,15 @@ talk-png: $(TYPST_SOURCES)
 	mkdir -p slides/png
 	typst compile --root . touying/deck.typ "slides/png/slide-{0p}.png" --format png --ppi 144
 
+# --root . for the same reason talk.pdfpc needs it: nine slides #read() files
+# above touying/ (the recorded demo frames) and the title/close slides read the
+# QR asset. Without it these fail "access denied" — which they had been doing
+# silently since the demo frames landed.
 talk-pptx: $(TYPST_SOURCES)
-	touying compile touying/deck.typ --format pptx --output talk.pptx
+	touying compile --root . touying/deck.typ --format pptx --output talk.pptx
 
 talk-html: $(TYPST_SOURCES)
-	touying compile touying/deck.typ --format html --output talk.html
+	touying compile --root . touying/deck.typ --format html --output talk.html
 
 watch:
 	typst watch --root . touying/deck.typ talk.pdf

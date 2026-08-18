@@ -11,17 +11,17 @@
 #light-slide(
   eyebrow: eyebrow([Appendix · the full inventory]),
   body-gap: sz(28pt),
-  [Nine invariants, and where each one stops being a test],
-    test-list((
-      ("1",  [Shape confusion — passing an Order where an Authorization belongs], [S·1], "active"),
-      ("2",  [Wrong element type in typed collections],                           [S·2], "active"),
-      ("3",  [All risk branches handled exhaustively],                            [S·3], "active"),
-      ("4",  [Lifecycle ordering — capture only after authorize],                 [S·4], "active"),
-      ("5",  [Right authorization method for the assessed risk level],            [S·5], "active"),
-      ("6",  [Boundary constraints — non-empty identifiers],                      [S·5], "active"),
-      ("7",  [Client/server agree on the protocol shape],                         [S·5], "active"),
-      ("8",  [Channel is consumed completely (never dropped mid-protocol)],       [S·6], "active"),
-      ("9",  [Protocol shape matches the runtime risk classification],            [S·6], "active"),
+  [Nine invariants, and what closes each one],
+    test-list(closes-width: 360pt, closes-size: 25pt, (
+      ("1",  [Shape confusion — an Order where an Authorization belongs], [Stage 1 · named types], "active"),
+      ("2",  [Wrong element type in typed collections],                           [Stage 2 · generics], "active"),
+      ("3",  [All risk branches handled exhaustively],                            [Stage 3 · sealed + switch], "active"),
+      ("4",  [Lifecycle ordering — capture only after authorize],                 [Stage 4 · phantom typestate], "active"),
+      ("5",  [Right authorization method for the assessed risk level],            [Stage 5 · Approval\[R\]], "active"),
+      ("6",  [Boundary constraints — non-empty identifiers],                      [Stage 5 · refinements], "active"),
+      ("7",  [Client/server agree on the protocol shape],                         [Stage 5 · session duality], "active"),
+      ("8",  [Channel is consumed completely (never dropped mid-protocol)],       [Stage 6 · use-once], "active"),
+      ("9",  [Protocol shape matches the runtime risk classification],            [Stage 6 · dependent types], "active"),
     )),
 )
 

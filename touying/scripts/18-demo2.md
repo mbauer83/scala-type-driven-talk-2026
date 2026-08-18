@@ -2,7 +2,7 @@ A3-demo2 · cap 1:45 across four slides · Act 3 beat 7 of 8
 
 RUNBOOK — the four slides, in order, with what you say on each
 
-  SLIDE 20  dark card          »I am going to capture a payment that was never
+  SLIDE 20  dark card          »Let's try to capture a payment that was never
                                 authorized.»
             → STOP TALKING, switch to the IDE.
 
@@ -35,7 +35,7 @@ WHAT TO DO IF IT FAILS
 As Demo 1. Advance, say the same words, do not mention it.
 
 TALKING POINTS
-1. I capture a payment that was never authorized
+1. Let's try to capture a payment that was never authorized
 2. (IDE) line 170, uncomment, compile — navigation only, then silence
 3. Advance: the line is back
 4. Advance: read VERBATIM — incompatible types, Initiated cannot be converted
@@ -45,7 +45,7 @@ TALKING POINTS
 
 VERBATIM
 
-"I am going to capture a payment that was never authorized."
+"Let's try to capture a payment that was never authorized."
 
 ... navigate, uncomment, compile — narration then silence ...
 

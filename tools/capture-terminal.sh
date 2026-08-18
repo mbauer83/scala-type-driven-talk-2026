@@ -37,3 +37,54 @@ frame 1 03-java-function-types-sealed Demo.java \
       '/case RiskDecision.Medium m -> "medium-risk 3DS path"/d'
 frame 2 04-java-advanced-generics-typestate Demo.java \
       's|^            // Payment.capture(init);|            Payment.capture(init);|'
+
+# ── Demo 3 — Stage 5, approval indexed by risk (sbt, not javac) ──────────────
+# The `frame` helper above is javac-shaped; Scala needs its own command and a
+# longer error, so demo 3 is written out rather than squeezed through it.
+# The edit is the one capture-demos.sh applies — keep the two in step.
+frame3 () {
+  local dir=05-scala3-payment file=src/main/scala/demos/PaymentDemo.scala
+  local expr='s|      authorize(order, ThreeDSApproved(proof))|      authorize(order, AutoApproved)|'
+  local src="$ROOT/$dir/$file" bak; bak=$(mktemp)
+  cp "$src" "$bak"
+  {
+    echo "\$ sed -i '…ThreeDSApproved(proof) → AutoApproved…' PaymentDemo.scala"
+    echo "\$ git diff -- PaymentDemo.scala"
+  } > "$OUT/3-edit.txt"
+  sed -i "$expr" "$src"
+  diff -u "$bak" "$src" | sed -n '3,$p' | sed 's|^|  |' >> "$OUT/3-edit.txt"
+  {
+    echo "\$ sbt compile"
+    ( cd "$ROOT/$dir" && sbt -batch -warn compile 2>&1 \
+        | grep -v '^\[info\]' | sed "s|$ROOT/||g" | head -8 )
+  } > "$OUT/3-term.txt"
+  cp "$bak" "$src"; rm -f "$bak"
+  echo "captured 3: $(wc -l < "$OUT/3-edit.txt") + $(wc -l < "$OUT/3-term.txt") lines"
+}
+
+frame3
+
+# ── Demo 4 — Stage 6, QTT linearity (idris2) ─────────────────────────────────
+# Same edit capture-demos.sh applies. NOT "comment the line out": `finish done`
+# is the last statement of its do block, so deleting it yields a syntax
+# complaint instead of the linearity error the slide promises.
+frame4 () {
+  local dir=06-idris2-payment file=src/Main.idr
+  local expr='0,/finish done/{s|finish done|pure ()|}'
+  local src="$ROOT/$dir/$file" bak; bak=$(mktemp)
+  cp "$src" "$bak"
+  {
+    echo "\$ sed -i '…first finish done → pure ()…' src/Main.idr"
+    echo "\$ git diff -- src/Main.idr"
+  } > "$OUT/4-edit.txt"
+  sed -i "$expr" "$src"
+  diff -u "$bak" "$src" | sed -n '3,$p' | sed 's|^|  |' >> "$OUT/4-edit.txt"
+  {
+    echo "\$ idris2 --build payment.ipkg"
+    ( cd "$ROOT/$dir" && idris2 --build payment.ipkg 2>&1 | sed "s|$ROOT/||g" | head -12 )
+  } > "$OUT/4-term.txt"
+  cp "$bak" "$src"; rm -f "$bak"
+  echo "captured 4: $(wc -l < "$OUT/4-edit.txt") + $(wc -l < "$OUT/4-term.txt") lines"
+}
+
+frame4

@@ -58,6 +58,6 @@ defensive tests shrink, behavioural tests do not, and saying otherwise is the
 overclaim C2 exists for.
 
 FACTS
-- `"12" + "34" === "1234"` in JavaScript. Alice's incident, `02-incidents.md`.
+- `»12« + »34« === »1234«` in JavaScript. Alice's incident, `02-incidents.md`.
 - The flow diagram is unchanged v1 cetz and is the same shape as the strip on
   `A0-incidents`.

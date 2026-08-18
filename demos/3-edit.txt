@@ -1,0 +1,11 @@
+$ sed -i '…ThreeDSApproved(proof) → AutoApproved…' PaymentDemo.scala
+$ git diff -- PaymentDemo.scala
+  @@ -120,7 +120,7 @@
+       val ch3               = ch2.send(challenge)
+       val (proof, ch4)      = ch3.receive()
+       val authorized: AuthorizedPayment[MediumRisk] =
+  -      authorize(order, ThreeDSApproved(proof))
+  +      authorize(order, AutoApproved)
+       val ch5               = ch4.send(authorized)
+       val captured          = capture(authorized)
+       val ch6               = ch5.send(captured)

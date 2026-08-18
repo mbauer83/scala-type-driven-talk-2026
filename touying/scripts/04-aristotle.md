@@ -69,7 +69,7 @@ validity is structural. Do not reach forward to code — `A1-connectives` does t
 and reaching early is what makes the primer feel like a detour.
 
 FACTS
-- Prior Analytics, roughly 350 BCE, so ~2,375 years. "Two and a half thousand" is
+- Prior Analytics, roughly 350 BCE, so ~2,375 years. »Two and a half thousand« is
   the round figure the talk uses throughout; keep it consistent with `A0-turn`.
 - The example is deliberately the talk's own domain, not Socrates. The audience
   meets the payment spine on `A0-incidents`, so this costs no setup.

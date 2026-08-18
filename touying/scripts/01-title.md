@@ -33,7 +33,7 @@ slide 3 no longer restates it — everything after this is demonstration rather
 than repetition. If the promise does not land here, there is no second attempt
 before slide 8.
 
-"In a precise sense" is not a hedge. It points at where the rigour lives: the
+»In a precise sense« is not a hedge. It points at where the rigour lives: the
 Curry-Howard correspondence is an isomorphism, not an analogy. The caveat it
 promises is discharged on `A1-curry-howard` — see the note there about total pure calculi
 versus Java's null, exceptions and non-termination.

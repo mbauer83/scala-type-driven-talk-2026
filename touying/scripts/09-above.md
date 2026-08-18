@@ -82,8 +82,8 @@ BEATS
   › **let the vector carry it** — three ++ four has type seven, because the
     compiler did the arithmetic. Do not generalise that out loud (see below)
 - Coquand 1988 folds that together with polymorphism. Between Martin-Löf and
-  Coquand you have the kernels of Rocq, Lean, Agda and Idris — **say "between the
-  two of them", not "that kernel"** (see the correction below).
+  Coquand you have the kernels of Rocq, Lean, Agda and Idris — **say »between the
+  two of them«, not »that kernel«** (see the correction below).
 - The notations, uncovered together. Read the glosses, not the syntax, and
   introduce them by what the shift buys rather than by how many there are.
 - The contract: you will walk out knowing what each one buys, having watched all

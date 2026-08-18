@@ -1,4 +1,12 @@
 // Clock: Q&A — Tracking Capabilities
+//
+// Depth for A4-mechanisms, which carries the same pair in 40 seconds. This slide
+// is NOT redundant with it: what it adds is the cost of each (monadic style vs
+// direct), the status of each, the fact that they are not exclusive, and the
+// linearity-vs-capability distinction. Keep it in step with the main slide —
+// the capture-checking example was wrong on both until 19 Aug (MB): it
+// annotated the returned value, `User^{db}`, instead of the arrow, and it
+// dropped ZIO's error channel so the two sides did not correspond.
 #import "../theme.typ": *
 #import "../components.typ": *
 
@@ -37,10 +45,10 @@
         stack(
           dir: ttb,
           spacing: sz(12pt),
-          raw(lang: "scala", "def loadUser(id: UserId): User^{db}"),
+          raw(lang: "scala", "val loadUser: UserId ->{db, canThrow} User"),
           [
             #set text(size: sz(24pt), fill: pal.fg-dim)
-            The `^{db}` says "this value carries the db capability". Use-after-close, capability escape, effect leaks become compile errors. Direct imperative code keeps its shape; no monadic wrappers.
+            The capture set sits on the arrow: `db` is the database capability, `canThrow` is a `CanThrow[DbError]`, and the result is a plain `User` — the same three things ZIO puts in its parameters. `A ->{c} B` is shorthand for `(A -> B)^{c}`; a `throws E` clause desugars to `using CanThrow[E]`, which is why the two experiments compose. Use-after-close, capability escape and effect leaks become compile errors, and the code keeps its ordinary shape.
 
             #v(sz(8pt))
             #text(fill: pal.fg)[Status:] experimental in Scala 3; not yet production.
@@ -57,5 +65,5 @@
 )
 
 #speaker-note[
-"Effect systems and Capture Checking are two answers to the same problem: how do you put 'this function needs a database' or 'this function touches IO' into the type? ZIO and cats-effect — in production now — do it by wrapping the result in a monad whose parameters track the capability, the error channel, and the success type. The cost is that your code becomes monadic; you stay in for-comprehensions. Capture Checking is the Scala 3 experimental direction that tries to do this without the monad — capabilities are tracked as little tags on the type itself, and your code keeps its imperative shape. They are not exclusive: a project can absolutely use ZIO today and migrate piecewise as Capture Checking matures. If the multiplicity-1 mechanism from Stage 6 comes up here, the linearity slide (A2) covers it — it restricts how many times a value may be used, a related but distinct question from which capabilities it carries."
+"Effect systems and Capture Checking are two answers to the same problem: how do you put 'this function needs a database' or 'this function touches IO' into the type? ZIO and cats-effect — in production now — do it by wrapping the result in a monad whose parameters track the capability, the error channel, and the success type. The cost is that your code becomes monadic; you stay in for-comprehensions. Capture Checking is the Scala 3 experimental direction that tries to do this without the monad — the capabilities a function reaches for are tracked on its arrow, and your code keeps its imperative shape. They are not exclusive: a project can absolutely use ZIO today and migrate piecewise as Capture Checking matures. If the multiplicity-1 mechanism from Stage 6 comes up here, the linearity slide (A2) covers it — it restricts how many times a value may be used, a related but distinct question from which capabilities it carries."
 ]

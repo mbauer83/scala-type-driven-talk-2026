@@ -10,7 +10,7 @@
       #v(sz(48pt))
       #set text(size: sz(60pt), weight: 300, fill: pal.fg-dark)
       #set par(leading: 0.72em, justify: false)
-      I capture a payment\
+      Let's try to capture a payment\
       that was never #text(font: mono-font, fill: pal.accent)[authorized].
     ]
     #v(1fr)
