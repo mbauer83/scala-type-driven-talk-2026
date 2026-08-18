@@ -6,9 +6,9 @@ TALKING POINTS
 3. The constructor is private; the only way in is the factory
 4. And the factory takes the previous step as its argument
 5. Stage 2 — generics. You have seen this one already, as for-all
-6. Two real wins, and neither of them touched Bob
-7. The risk level is a type. Nothing forces you to handle all of it
-8. if (risk != HIGH) still compiles — that is the next forty seconds
+6. Two real wins — and Bob's bug survives both
+7. The risk level has a type; still nothing makes you handle every case
+8. That line compiles exactly as it did — which is the next forty seconds
 
 VERBATIM
 
@@ -20,12 +20,12 @@ constructor is private, so you cannot fabricate one — the only way in is that
 factory, and the factory takes the previous step as its argument. You cannot have
 an authorization without having had an order.
 
-Stage two you have already seen, on the Frege slide. Write Validator once, and it
+Stage two you have already seen, on the Frege slide: write Validator once, and it
 holds for every type it is ever used with.
 
-Two real wins. And neither of them has touched Bob: the risk level is a proper
-type, and nothing whatsoever forces you to handle all of it. That line still
-compiles."
+Two real wins — and Bob's bug survives both of them. The risk level has a type of
+its own by now, and still nothing makes you handle every case, so that line
+compiles exactly as it did."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.

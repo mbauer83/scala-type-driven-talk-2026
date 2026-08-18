@@ -79,9 +79,9 @@ static <T> Validator<T> check(Predicate<T> p, String msg)
       [
         #set text(size: sz(25pt), fill: pal.fg)
         #set par(leading: 0.45em)
-        #text(weight: 600)[Neither stage touched Bob.]
-        #text(fill: pal.fg-dim)[ The risk level is a proper type. Nothing forces
-        you to handle all of it.]
+        #text(weight: 600)[Bob's bug survives both stages]
+        #text(fill: pal.fg-dim)[ — the risk level has a type of its own by now,
+        and still nothing makes you handle every case.]
       ],
     ),
   ),

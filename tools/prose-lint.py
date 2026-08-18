@@ -445,6 +445,67 @@ def check_title(src, path):
     return []
 
 
+# ── slide copy ───────────────────────────────────────────────────────────────
+# The linter has only ever read the SPOKEN script. Slide copy — the words in
+# 60pt on the wall — went unchecked, and MB found two register faults in it that
+# no rule could see ("Neither stage touched Bob. The risk level is a proper type.
+# Nothing forces you to handle all of it."). Extraction from Typst markup is
+# necessarily approximate, so everything here is a WARNING, never an error.
+
+def slide_prose(src):
+    """Approximate the words a viewer reads. Speaker notes are excluded (they are
+    linted properly elsewhere) and so is anything that still looks like code."""
+    i = src.find("#speaker-note[")
+    if i > 0:
+        src = src[:i]
+    t = re.sub(r"```.*?```", " ", src, flags=re.S)     # fenced code
+    t = re.sub(r"^\s*//.*$", " ", t, flags=re.M)       # comments
+    t = re.sub(r"[\\`*_$]", " ", t)                    # markup punctuation
+    t = re.sub(r"#[a-zA-Z][\w-]*", " ", t)             # #calls, leaving arg lists
+    out = []
+    for chunk in re.findall(r"\[([^\[\]]{12,400})\]", t):
+        if re.search(r"[{}<>=|]|::|\bsz\b|\bpal\b", chunk):
+            continue
+        if len(re.findall(r"[A-Za-z][A-Za-z'’-]+", chunk)) >= 4:
+            out.append(" ".join(chunk.split()))
+    return " ".join(out)
+
+
+def check_slide_copy(src, path):
+    text = slide_prose(src)
+    if len(words(text)) < 25:
+        return []
+    out = []
+    for fam, rid in ((NEGATIVE_DEFINITION, "negative-definition"),
+                     (APHORISM, "aphorism"),
+                     (ENUMERATION, "enumerate-then-declare")):
+        for pat, name in fam:
+            for m in re.finditer(pat, text.lower(), flags=re.I | re.M):
+                out.append(("warn", "slide-copy", text[m.start():m.end()],
+                            f"On the slide itself: '{name}'."))
+    # A labelled list of four short items is ordinary slide structure, and the
+    # extractor cannot tell a list from a paragraph — so slide copy gets one
+    # more sentence of rope than the spoken script does.
+    SLIDE_RUN = MONOTONE_RUN + 1
+    sents = sentences(text)
+    lo, hi = MONOTONE_BAND
+    run, start = 0, 0
+    for i, sn in enumerate(sents):
+        if lo <= len(words(sn)) <= hi:
+            if run == 0:
+                start = i
+            run += 1
+            if run == SLIDE_RUN:
+                out.append(("warn", "slide-copy", " ".join(sents[start:i + 1]),
+                            f"On the slide itself: {SLIDE_RUN} short "
+                            "declaratives in a row. Slide copy is read, not "
+                            "heard, and reads as machine-written just the same."))
+                run = 0
+        else:
+            run = 0
+    return out
+
+
 def lint_file(path):
     try:
         src = open(path, encoding="utf-8").read()
@@ -454,6 +515,8 @@ def lint_file(path):
     if path.endswith(".typ"):
         findings += [(sev, rid, exc, why, path)
                      for sev, rid, exc, why in check_title(src, path)]
+        findings += [(sev, rid, exc, why, path)
+                     for sev, rid, exc, why in check_slide_copy(src, path)]
     if path.endswith(".md"):
         # Script files are the note body; wrap so one extractor serves both.
         src = "#speaker-note[" + src + "]"

@@ -1,7 +1,7 @@
-A2-scenario · cap 0:25 · Act 2 beat 1 of 2
+A2-scenario · cap 0:40 · Act 2 beat 1 of 2
 
 TALKING POINTS
-1. The floor: Alice's service had no types — "12" + "34" is "1234"
+1. The floor: Alice's service had no types — 12 plus 34 as strings gives 1234
 2. Everything from here is bought back from that
 3. The flow, once: order → assess → authorize → capture (→ refund or invoice)
 4. What encoding a rule buys, four things:
@@ -12,7 +12,7 @@ TALKING POINTS
 
 VERBATIM
 
-"Alice's service had no types at all. Twelve plus thirty-four, as strings, is
+"Alice's service had no types at all: twelve plus thirty-four, as strings, is
 twelve-thirty-four, and nothing anywhere complains. That is the floor, and
 everything from here is bought back from it.
 

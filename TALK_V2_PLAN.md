@@ -2215,6 +2215,33 @@ A → ( B | null ) throws C | never     the one Java can actually keep
 Generalises: a slide that spends a paragraph describing a structure should
 usually be showing the structure. Prose is for the things that are not visual.
 
+### R13 — slide copy is read, and it reads as machine-written too
+
+*"Neither stage touched Bob. The risk level is a proper type. Nothing forces you
+to handle all of it."* — three short declaratives, on the wall, in 25pt. MB found
+it; no rule could, because **the linter had only ever read the spoken script.**
+Slide copy has carried the same faults all along and nothing was looking.
+
+`tools/prose-lint.py` now extracts slide prose from the Typst source and runs the
+claim rules and the monotone rule over it, warning-only because the extraction is
+approximate, and with one extra sentence of rope since a four-item labelled list
+is ordinary slide structure and the extractor cannot tell a list from a
+paragraph. It found four more instances on the first run, all in unauthored
+slides.
+
+The line is now one sentence with subordination: *Bob's bug survives both stages
+— the risk level has a type of its own by now, and still nothing makes you handle
+every case.*
+
+### R14 — no double quotes in TALKING POINTS
+
+`10-scenario` opened with `"12" + "34" is "1234"` in its talking-point list.
+Double quotes delimit **spoken text**, so the word counter scored those three
+fragments as speech and the linter read them as the opening of the script — which
+is how a `monotone` error appeared on a paragraph that did not have one. Talking
+points, cues and prep notes use backticks or plain words. Checked across all
+twelve scripts; that was the only one.
+
 ### R12 — execute the plan's own decisions, or delete them
 
 `15-test-spine` sat in the main deck for eight drafts with the nine-row inventory
