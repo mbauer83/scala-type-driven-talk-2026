@@ -2,40 +2,43 @@ A3-ceiling · cap 1:20 · Act 3 beat 8 of 8
 
 TALKING POINTS
 1. Charlie's bug is a compile error too. Two of four gone, neither by a test
-2. Three things you can still write, and each has a different answer:
+2. Bob's needed every case. Charlie's needed provenance — evidence of where
+   the value had been
+3. Three things you can still write, and each has a different answer:
 3. — wrong approval method: Java CAN fix this. Another phantom parameter, noise
 4. — no lines, negative quantity: a smart constructor gets the same guarantee
 5.   but not on a literal, and two such predicates will not combine
 6. — protocol disagreement: this one Java CANNOT reach
 7.   deriving the other side needs types computed from types
 8. That is Danielle's bug, and it is a real ceiling rather than a rhetorical one
-9. The question is never whether to change language
-10. It is which of these you already pay for, and what each costs to encode
+10. Next is a language where all three are cheap
+11. Seeing them cheap is how you find out what they cost you here
 
 VERBATIM
 
 "Charlie's bug is a compile error too, so two of the four are gone — and neither
-of them went to a test.
+of them went to a test. Bob's needed every case handled. Charlie's needed
+provenance: some evidence of where the value had been before it reached the
+gateway.
 
-Here is what you can still write. You can approve a medium-risk order with the
+Here is what still gets past. You can approve a medium-risk order with the
 automatic method, because the risk level is nowhere in the authorization's type.
-Java can fix that one, properly: another phantom parameter and factory methods
-that only produce the matching approval. It works, and it is noisy.
+Java can fix that one properly, with another phantom parameter — noisy, but it
+works.
 
-You can build an order with no lines in it, or a negative quantity. A smart
-constructor gets you most of the way — make the type unconstructible without the
-check and everything downstream is safe. What you cannot do is have the compiler
-decide that on a literal, or combine two of those constraints.
+You can build an order with no lines, or a negative quantity. A smart constructor
+gets you most of the way there. What it cannot do is reject quantity-of-minus-one
+while the minus one is sitting right there in the source; you still pay for a
+runtime check the compiler did not need.
 
-And you can disagree with the service on the other end of the wire about what the
-protocol is. That one Java cannot reach. Working out the other side's protocol
-from yours means computing types from types, and Java has no such thing. You can
-write both sides by hand, and nothing checks that they correspond — which is
-precisely what happened to Danielle.
+And you can disagree with the service at the other end about the protocol. That
+one Java cannot reach at all. Deriving the other side's protocol from yours means
+computing types from types, and Java has nothing of the kind. That gap is
+Danielle's incident, stated as a language feature.
 
-So the question from here is not whether to change language. Nobody does that for
-types. It is which of these three you are already paying for, and what each one
-costs you to encode where you are."
+You can go a long way in Java, and most teams should. What comes next is a
+language where all three of these are cheap, and seeing them cheap is the only
+way to find out what they are costing you here."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.

@@ -506,12 +506,48 @@ def check_slide_copy(src, path):
     return out
 
 
+RETIRED = os.path.join(ROOT, "tools", "retired.tsv")
+
+
+def retired_phrases():
+    """Wording that was retracted and must not reappear. See tools/retired.tsv."""
+    out = []
+    if not os.path.exists(RETIRED):
+        return out
+    for line in open(RETIRED, encoding="utf-8"):
+        line = line.rstrip("\n")
+        if not line.strip() or line.startswith("#"):
+            continue
+        phrase, _, why = line.partition("\t")
+        out.append((phrase.strip(), why.strip()))
+    return out
+
+
+_RETIRED = retired_phrases()
+
+
+def check_retired(src, path):
+    """Search the whole file EXCEPT the PREPARATION block, which quotes retired
+    wording deliberately in order to record what was wrong with it."""
+    body = src.split("PREPARATION — background")[0]
+    body = body.split("PREPARATION —")[0]
+    low = body.lower()
+    out = []
+    for phrase, why in _RETIRED:
+        i = low.find(phrase.lower())
+        if i >= 0:
+            out.append(("error", "retired-phrase", body[i:i + len(phrase)],
+                        f"Retracted wording, still present. {why}"))
+    return out
+
+
 def lint_file(path):
     try:
         src = open(path, encoding="utf-8").read()
     except OSError:
         return []
-    findings = []
+    findings = [(sev, rid, exc, why, path)
+                for sev, rid, exc, why in check_retired(src, path)]
     if path.endswith(".typ"):
         findings += [(sev, rid, exc, why, path)
                      for sev, rid, exc, why in check_title(src, path)]

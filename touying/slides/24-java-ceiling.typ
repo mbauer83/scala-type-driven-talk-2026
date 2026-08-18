@@ -11,10 +11,11 @@
 // does not reach — is done in words below at no risk. The full cube is wired
 // into the appendix for Q&A. Flagged in the plan, not quietly dropped.
 //
-// C2 discipline on the ceiling claims: Java CAN encode all three of these with
-// enough hand-rolled machinery. The honest limit is what it costs, not what is
-// possible, and the linter has an `overclaim` rule watching for the stronger
-// form.
+// C2 discipline on the ceiling claims, checked one at a time rather than
+// asserted in bulk: risk-indexed approval Java can do properly; refinements it
+// can do downstream but not on a literal and not composed; protocol duality it
+// cannot do at all, because deriving the dual is type-level computation and
+// Java has none. Conceding the first two is what makes the third believable.
 #import "../theme.typ": *
 #import "../components.typ": *
 
@@ -32,14 +33,15 @@
 #light-slide(
   eyebrow: eyebrow([Stage 4 payoff · and the Java ceiling]),
   body-gap: sz(22pt),
-  [Charlie's bug is now a compile error too],
+  [Charlie's bug is now a compile error, too],
   stack(
     dir: ttb,
     spacing: sz(30pt),
     block(width: 100%, fill: pal.good-bg, inset: (x: sz(26pt), y: sz(18pt)), radius: sz(4pt))[
       #set text(size: sz(26pt), fill: pal.fg)
       Two of the four incidents are gone, and neither of them by a test. Bob's
-      needed every case; Charlie's needed the right order.
+      needed every case. Charlie's needed #text(weight: 500)[provenance] — some
+      evidence of where the value had been.
     ],
     line(length: 100%, stroke: 0.5pt + pal.rule),
     [
@@ -54,9 +56,11 @@
              #text(fill: pal.fg)[Java can fix this] — another phantom parameter,
              more noise. #text(fill: pal.accent)[Stage 5 makes it cheap.]]),
       limit([Build an order with no lines, or a negative quantity.],
-            [A smart constructor gets you the same guarantee downstream.
-             #text(fill: pal.fg)[What Java cannot do] is check it on a literal,
-             or combine two such predicates. #text(fill: pal.accent)[Stage 5.]]),
+            [A smart constructor gets the same guarantee downstream.
+             #text(fill: pal.fg)[What Java cannot do] is reject
+             `Quantity.of(-1)` where the compiler can already see the `-1`, or
+             compose two such rules into one type.
+             #text(fill: pal.accent)[Stage 5.]]),
       limit([Disagree with the other service about the protocol.],
             [#text(fill: pal.fg)[This one Java cannot reach.] Deriving the other
              side's protocol needs types computed from types, and Java has no
@@ -64,8 +68,9 @@
     ),
     align(center)[
       #set text(size: sz(24pt), fill: pal.fg-dim)
-      The question is never whether to change language. It is which of these
-      you are paying for already, and what each one costs to encode.
+      You can go a long way in Java. What comes next is a language where all
+      three are cheap — and seeing them cheap is how you learn what they cost
+      you here.
     ],
   ),
 )

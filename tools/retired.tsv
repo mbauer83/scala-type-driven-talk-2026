@@ -1,0 +1,23 @@
+# Phrases that were retracted and must not reappear, anywhere in a slide or in
+# the spoken half of a script. One per line: phrase <TAB> why.
+#
+# This file exists because the same correction was applied to a script, reported
+# as done, and left standing on the slide — three times. A retraction is not
+# finished until the phrase is gone from every file, and grepping for it by hand
+# is exactly the step that kept being skipped.
+#
+# PREPARATION blocks are exempt: they quote retired wording on purpose, to record
+# what was wrong and why.
+any property you could write a program to check	overclaims dependent types; the vector example carries it instead
+the language you write your program in	true of full-spectrum systems only, not of dependent types in general
+Anything you can compute, you can state in a type	needs totality, and stating is not proving
+which T was larger	half the point — without the bound the body can do nothing with a T at all
+you are paying for already	nobody is paying for Scala if they do not use it (MB, 18 Aug)
+whether a language that gives it to you directly is worth the move	nobody changes language for types
+Java can encode all three	false for protocol duality — Java has no type-level computation
+Neither stage touched Bob	Bob does not want touching, and three short declaratives in a row
+the first thing we need at the top of the climb	the talk never issues the climb metaphor, and it is a ranking claim
+Four notations, and I am deliberately not going to teach them	the talk narrating itself
+None of this is `if (a && b)`	defining by exclusion
+every stage from here deletes one of those alternatives	false — only two of six stages touch that disjunction
+max : List<T> → T	partial: the empty list has no maximum

@@ -2242,6 +2242,26 @@ is how a `monotone` error appeared on a paragraph that did not have one. Talking
 points, cues and prep notes use backticks or plain words. Checked across all
 twelve scripts; that was the only one.
 
+### R15 — a retraction is not finished until the phrase is gone from every file
+
+Three times now, a correction was applied to a script, reported as done, and left
+standing on the slide — most recently the closing line of `A3-ceiling`, where the
+script said one thing and the wall said the retracted one. MB caught all three.
+The failure is not carelessness about wording; it is that I verify the file I
+edited instead of searching the deck.
+
+`tools/retired.tsv` now lists every phrase that has been retracted, with the
+reason, and `prose-lint` **fails** if any of them reappears in a slide or in the
+spoken half of a script. PREPARATION blocks are exempt, because they quote
+retired wording on purpose to record what was wrong with it.
+
+It earned its keep on the first run: it found a stale `//` comment on
+`A3-ceiling` still asserting *Java CAN encode all three*, the position that slide
+had just abandoned.
+
+**The habit the tool encodes: after retracting anything, grep the repository for
+it, not the file you were looking at.**
+
 ### R12 — execute the plan's own decisions, or delete them
 
 `15-test-spine` sat in the main deck for eight drafts with the nine-row inventory
