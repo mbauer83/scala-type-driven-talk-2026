@@ -1,79 +1,95 @@
-VERBATIM · cap 1:05 · Act 1 beat 3 of 6 · rail: FREGE lit
+A1-quantifiers · cap 1:05 · Act 1 beat 3 of 6 · rail: FREGE lit
 
-THE PART 10 PROBLEM THIS SLIDE NOW ANSWERS
+THE OBJECTION THIS SLIDE EXISTS TO ANSWER (MB, 18 Aug)
 
-MB, reviewing the built slide: the added value is not clear, because
-*all medium-risk orders need 3DS* on `A1-aristotle` is **already a universal
-quantification**. Presenting ∀ as new is therefore a beat the audience has had.
-The slide had to change, not just the wording.
+> Any function is already a universal quantification over all instances of its
+> input types. Why would generics make a difference?
 
-What Frege actually adds, and what the slide now shows in three parts:
+That is correct, and the two previous versions of this slide had no answer to it.
+`assessRisk(Order order)` **is** `∀ o : Order` — a non-dependent function type is
+Π with the binder unused in the result. Presenting ∀ as the new thing, or a
+generic as "∀ again", tells the people in the room who can follow exactly nothing,
+and they are the ones whose trust the primer needs.
 
-1. **The quantifier becomes a separable part.** Aristotle's *all M are T* has the
-   quantification baked into the sentence form; there are exactly four such forms
-   and no way to take one apart. Frege binds a variable, so the ∀ is a piece you
-   can move, nest inside another quantifier, and put a negation between.
-2. **The domain stops being a category.** *All M* ranges over a term in a fixed
-   scheme; *for all o* ranges over anything at all, including a domain nobody can
-   enumerate.
-3. **There is a second one.** ∃ has no place in the syllogistic forms as a first-
-   class operator. It is named here and deliberately given no Java mirror.
+The real answer, and the spine of the slide: **a generic moves the variable up a
+level.** It ranges over *types*, not values — second-order quantification, which
+is Girard and Reynolds' System F rather than Frege. And the reason that buys
+something is parametricity: the body cannot inspect `T`, so one implementation
+discharges the claim for every `T` at once.
 
-BEATS — delivery aid; the script is below
+WHY IT MATTERS LATER
+This puts two rungs on the board and leaves the third visible:
 
-- Concede first: you have already seen a quantifier. That is Aristotle's *all*.
-- Frege's move is to make the quantifier a part you can get hold of.
-  › propositions with holes in them, then bind the hole
-  › for all o, if o is medium-risk, then o needs 3DS
-- What binding buys, in order:
-  › nest one inside another, negate between them
-  › range over a domain nobody could enumerate
-  › and it has a partner — there exists
-- ∃ is NAMED and left unmirrored. Say only that Java has no honest way to write
-  it and that we come back to it.
-- Their code, and it is the universal only: a generic method claims something
-  about every type it will ever be applied to.
-- Land it: the signature is the claim, the body makes good on it.
+  over values, result fixed     a function type              (here)
+  over types                    a generic                    (here)
+  over values, result computed  Π — the result type may
+                                mention the value            (`A1-above`)
+
+That third line is the whole of dependent types, and `A1-above` can now land it
+as the next step in a sequence the room has already climbed twice, instead of as
+a new notation out of nowhere.
+
+BEATS
+
+- Frege 1879: a hole in a proposition, then a binder to close it.
+- You already write it — every signature is one. `assessRisk` over every `Order`.
+  › a function type is a for-all whose body never mentions what it bound
+- The move: a generic quantifies over TYPES.
+  › the body never gets to ask what `T` is
+  › so one implementation covers every `T`, including ones nobody has written
+- Margin, one line only: ∃ exists, Java cannot write it honestly, it returns.
+
+MUST LAND
+Generics are quantification one level up. If the room takes away *a generic is a
+for-all over types, and the body's inability to look at T is what makes it worth
+anything*, the beat worked.
+
+C13 CHECK (Part 8)
+The SIGNATURE is the quantified proposition; the BODY is the construction that
+proves it. Both halves are said in the last sentence of the second beat. Never
+compress to *generics are ∀* — that is the equivocation, and it drops the half
+that does the work.
+
+WHY THE JAVA IS WHAT IT IS
+`assessRisk` is in the payment domain and is the method Bob's bug lives next to,
+so the first rung costs the room no context. `Validator.check` is not domain
+code, and that is deliberate: the point of the second rung is that `T` is *any*
+type, so a generic over the payment domain would undercut it. It is real code
+from Stage 2 and it is instantiated on the domain three lines later
+(`PaymentService.java:76-84`, `Validator<Integer> positiveQuantity`) — say so if
+anyone looks sceptical about where it comes from.
+
+FACTS — grepped, not remembered (C1)
+- `public static RiskDecision assessRisk(Order order)` —
+  `03-java-function-types-sealed/PaymentService.java:20`
+- `static <T> Validator<T> check(Predicate<T> predicate, String errorMessage)` —
+  `02-java5-generics/Validator.java:21`
+- Frege, *Begriffsschrift*, 1879, introduces quantification proper. Aristotle's
+  four categorical forms quantify, but the quantifier is not an operator you can
+  move, nest or negate.
+- Second-order quantification over types: Girard 1972, Reynolds 1974 (System F).
+  Do not name them on the slide; know them if asked.
+- Do NOT offer `Optional<Proof>` as ∃. `Optional[T]` is `T ∨ 1`, a disjunction.
+  The Curry-Howard reading of ∃ is a dependent pair — Σ on `A1-above`, and the
+  thing Stage 6 shows Java cannot express. This is the one deliberate exception
+  to Act 1's pair-every-concept-with-Java rule (Part 10/E) and it is
+  load-bearing.
 
 VERBATIM
 
-"You have already seen a quantifier. All medium-risk orders need three-D Secure —
-that is Aristotle, and it does say something about every order. What Frege added
-in eighteen seventy-nine is that the quantifier becomes a part of the sentence
-you can get hold of.
+"Frege's move, in eighteen seventy-nine, was to put a hole in a proposition and
+then bind it. For all o of type Order, and then something that holds for every
+one of them.
 
-He writes propositions with holes in them and then binds the hole: for all o, if
-o is medium-risk, then o needs three-D Secure. Because o is a variable, you can
-nest one quantifier inside another, put a negation between them, and range over a
-domain nobody could enumerate. And the universal has a partner — there exists.
-Hold that one; Java has no honest way to write it, and it comes back later.
+You write that already. Every signature you have ever typed is a universal
+quantifier — assessRisk takes an Order and returns a risk decision, for every
+order there will ever be, including the ones placed tonight. A function type is a
+for-all whose body never mentions the thing it bound.
 
-You write the universal already. A generic method is a claim about every type it
-will ever be applied to, including types nobody has written yet. The signature is
-the claim, and the body is what makes good on it — once, for all of them."
+A generic moves that variable up a level. It stops ranging over values and starts
+ranging over types, and the power is in what the body cannot do: it never gets to
+ask what T is, so it cannot treat one T differently from another. One
+implementation covers all of them, including types nobody has written yet.
 
-DELIVERY
-Concede the syllogism in the first breath. If the room is left to notice on its
-own that Aristotle already quantified, the slide reads as repetition and the
-three additions land on an audience that has stopped listening.
-
-*Including types nobody has written yet* is the line that should land. It is also
-true and checkable, which is why it beats the vaguer version.
-
-C13 CHECK (Part 8)
-The generic method's SIGNATURE is the universally quantified proposition; the
-method BODY is the construction that proves it. The last line says it that way
-round on purpose — do not shorten it to *generics are ∀*, because that is the
-equivocation.
-
-FACTS
-- Frege, Begriffsschrift, 1879, introduces quantification proper. Aristotle's
-  four categorical forms quantify, but the quantifier is not an operator in them.
-- Do NOT put `Optional<Proof>` here as ∃. `Optional[T]` is `T ∨ 1`, a
-  disjunction; the Curry-Howard reading of ∃ is a dependent pair, which is
-  exactly what `A1-above` introduces as Σ and what Stage 6 shows Java cannot do.
-  A listener joining this slide to that one would conclude Java has Σ-types.
-  ∃ is named on the slide and left for `A1-above`; it is not given a Java mirror.
-  This is the single deliberate exception to Act 1's pair-every-concept-with-its-
-  Java-mirror rule (Part 10/E), and it is load-bearing.
-- The Java is `Validator.check` from `02-java5-generics/Validator.java`.
+There is a second quantifier, there-exists. Java has no honest way to write that
+one, and it is the first thing we are going to need at the top of the climb."

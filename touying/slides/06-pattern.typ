@@ -25,19 +25,14 @@
       has a history of about #text(fill: pal.fg, weight: 500)[two and a half thousand years.]
     ]
     #v(sz(28pt))
-    // Part 10: the four were arrows. Arrows read as a progression in which each
-    // field supplants or improves on the last, and that is not what happened —
-    // they are four places the same question was taken up, not four refinements
-    // of one activity. Middots, and a caption that says so.
+    // The four were joined by arrows, which read as a progression in which each
+    // field supplants the last. Middots instead. A caption spelling that out
+    // was added and then removed: it was the slide explaining its own
+    // punctuation, and the middots already do the work.
     #align(center)[
       #set text(font: mono-font, size: sz(28pt), fill: pal.fg-faint)
       philosophy #h(sz(18pt)) · #h(sz(18pt)) logic #h(sz(18pt)) · #h(sz(18pt)) mathematics
       #h(sz(18pt)) · #h(sz(18pt)) #text(fill: pal.accent)[your compiler]
-    ]
-    #v(sz(16pt))
-    #align(center)[
-      #set text(size: sz(24pt), fill: pal.fg-faint)
-      one question, taken up in four places — none of them finished with it
     ]
     #v(1fr)
   ]

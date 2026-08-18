@@ -1,90 +1,95 @@
 // A1-quantifiers · cap 1:05 · Act 1 beat 3 of 6
 //
-// Part 10 rebuild. The slide used to present ∀ as new, and MB's review is that
-// it is not: `all medium-risk orders need 3DS` on A1-aristotle already quantifies
-// universally. The slide now concedes that first — Aristotle's form sits on the
-// left, Frege's on the right — and then names the three things binding a
-// variable actually buys.
+// REBUILT 18 Aug. MB's objection, which is the right one and which the previous
+// two versions both failed:
 //
-// ∃ is NAMED but deliberately given no Java mirror: Optional[T] is T ∨ 1, a
-// disjunction, and the Curry-Howard reading of ∃ is a dependent pair — which
-// A1-above introduces as Σ and Stage 6 shows Java cannot express. See the FACTS
-// block in scripts/06-quantifiers.md.
+//   "any function is already a universal quantification over all instances of
+//    its input types. Why would generics make a difference?"
+//
+// Exactly. `assessRisk(Order order)` IS ∀o:Order — a non-dependent function type
+// is Π with the body ignoring the binder. So presenting ∀ as the new thing, or
+// presenting a generic as "∀ again", tells a room that can follow nothing at
+// all, and the sharpest people in it will spot the gap and stop trusting the
+// primer.
+//
+// What generics actually add is that the variable ranges over TYPES rather than
+// values — second-order quantification, System F, one level up from Frege. And
+// because the body never gets to ask what T is, one piece of code discharges the
+// claim for every T at once.
+//
+// The two levels also set up the third: Π on A1-above is ∀ over values again,
+// but with the RESULT TYPE allowed to mention the value. That is the shift that
+// makes dependent types what they are, and it now has somewhere to land.
 #import "../theme.typ": *
 #import "../components.typ": *
 #import "../code-pane.typ": *
 
-#let adds(n, head, body) = grid(
-  columns: (sz(40pt), 1fr),
-  column-gutter: sz(14pt),
-  align: (right + top, left + top),
-  text(font: mono-font, size: sz(22pt), fill: pal.accent)[#n],
-  stack(
-    dir: ttb,
-    spacing: sz(6pt),
-    text(size: sz(25pt), weight: 500, fill: pal.fg)[#head],
-    block[
-      #set text(size: sz(22pt), fill: pal.fg-dim)
-      #set par(leading: 0.45em)
-      #body
-    ],
-  ),
-)
+#let level(tag, formula, gloss, pane) = {
+  grid(
+    columns: (sz(210pt), 1fr),
+    column-gutter: sz(30pt),
+    row-gutter: sz(12pt),
+    align: (right + top, left + top),
+    text(font: mono-font, size: sz(21pt), fill: pal.accent, weight: 500)[#upper(tag)],
+    stack(
+      dir: ttb,
+      spacing: sz(12pt),
+      text(font: mono-font, size: sz(30pt), fill: pal.fg)[#formula],
+      pane,
+      block[
+        #set text(size: sz(23pt), fill: pal.fg-dim)
+        #set par(leading: 0.45em)
+        #gloss
+      ],
+    ),
+  )
+}
 
 #theory-slide(
   eyebrow: eyebrow([Frege · Begriffsschrift · 1879], style: "accent"),
-  [You have already seen a quantifier],
+  [Quantification: over values, then over types],
+  body-gap: sz(30pt),
   [
+    #block(width: 100%)[
+      #set text(size: sz(25pt), fill: pal.fg-dim)
+      Frege's move: put a hole in a proposition, then bind it. One sentence then
+      covers cases nobody will ever write down.
+    ]
     #v(sz(26pt))
-    #grid(
-      columns: (1fr, sz(70pt), 1fr),
-      column-gutter: sz(20pt),
-      align: (center + horizon, center + horizon, center + horizon),
-      stack(
-        dir: ttb,
-        spacing: sz(10pt),
-        text(font: mono-font, size: sz(34pt), fill: pal.fg-dim)[All M are T],
-        text(size: sz(21pt), fill: pal.fg-faint)[Aristotle — the *all* is built into the form],
-      ),
-      text(size: sz(30pt), fill: pal.fg-faint)[→],
-      stack(
-        dir: ttb,
-        spacing: sz(10pt),
-        text(font: mono-font, size: sz(34pt), fill: pal.fg)[∀o. #h(sz(6pt)) medium(o) → needs3DS(o)],
-        text(size: sz(21pt), fill: pal.fg-faint)[Frege — the *all* is a part you can get hold of],
-      ),
-    )
-    #v(sz(44pt))
-    #line(length: 100%, stroke: 0.5pt + pal.rule)
-    #v(sz(34pt))
-    #grid(
-      columns: (1fr, 1fr, 1fr),
-      column-gutter: sz(34pt),
-      adds([1], [It binds a variable],
-           [So you can nest one quantifier inside another, and put a negation between them.]),
-      adds([2], [It ranges over anything],
-           [Not a term in a fixed scheme — every order that will ever exist, including tonight's.]),
-      adds([3], [It has a partner],
-           [#text(font: mono-font)[∃] — _there is one_. Java has no honest way to write that; we come back to it.]),
-    )
-    #v(sz(56pt))
-    #grid(
-      columns: (1fr, sz(780pt)),
-      column-gutter: sz(40pt),
-      align: (left + horizon, left + horizon),
-      [
-        #set text(size: sz(26pt), fill: pal.fg)
-        #set par(leading: 0.45em)
-        You write the universal already — and
-        #text(fill: pal.accent, weight: 500)[the signature is the claim,
-        the body is what makes good on it.]
-      ],
-      code-pane(filename: "Validator.java", language: "java", code-size: 16pt)[
+    #level(
+      [over values],
+      [∀ o : Order.#h(sz(20pt))assessRisk(o) : RiskDecision],
+      [A function type is a universal quantifier whose body ignores the binder.
+       You write one every time you write a signature — one claim, every `Order`,
+       including the ones placed tonight.],
+      code-pane(filename: "PaymentService.java", language: "java", code-size: 16pt, pad-y: 8pt)[
 ```java
-static <T> Validator<T> check(Predicate<T> p, String msg)
+public static RiskDecision assessRisk(Order order)
 ```
       ],
     )
+    #v(sz(28pt))
+    #line(length: 100%, stroke: 0.5pt + pal.rule)
+    #v(sz(22pt))
+    #level(
+      [over types],
+      [∀ T.#h(sz(20pt))Predicate\<T\> × String → Validator\<T\>],
+      [Here the variable ranges over #text(fill: pal.fg, weight: 500)[types], one
+       level above Frege. The body never gets to ask what `T` is, so this one
+       method holds for every `T` — including types nobody has written yet.],
+      code-pane(filename: "Validator.java", language: "java", code-size: 16pt, pad-y: 8pt)[
+```java
+static <T> Validator<T> check(Predicate<T> predicate, String errorMessage)
+```
+      ],
+    )
+    #v(sz(24pt))
+    #align(right)[
+      #text(size: sz(21pt), fill: pal.fg-faint)[
+        #text(font: mono-font)[∃] — the other quantifier. Java has no honest way
+        to write it; it comes back at the top of the climb.
+      ]
+    ]
   ],
   footer: act1-rail(lit: ("Frege",)),
 )

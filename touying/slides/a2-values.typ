@@ -60,11 +60,10 @@
     )[
       #set text(size: sz(28pt), fill: pal.fg)
       #set par(leading: 0.5em)
-      A type is #text(weight: 500)[neither of those]. It is the compiler's reasoning
-      about which values are allowed to flow where — and most of what it buys is
-      already spent before the program runs: while you model the domain, while the
-      checker turns down a bad call, while somebody reads a signature and infers
-      the contract from it.
+      A type is the compiler's #text(weight: 500)[reasoning about which values may
+      flow where]. Most of what it buys is already spent before the program runs:
+      while you model the domain, while the checker turns down a bad call, while
+      somebody reads a signature and infers the contract from it.
       #v(sz(14pt))
       #align(center)[
         #text(font: mono-font, size: sz(26pt), fill: pal.fg-dim)[
@@ -99,8 +98,7 @@
     #v(sz(20pt))
     #align(center)[
       #text(size: sz(21pt), fill: pal.fg-faint)[
-        One deliberate exception, at the top of the climb: in Stage 6 a runtime
-        value flows _into_ a type. Flagged there, not here.
+        Stage 6 runs the other way: there, a runtime value flows _into_ a type.
       ]
     ]
   ],

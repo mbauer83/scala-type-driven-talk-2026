@@ -114,6 +114,43 @@ NOT_X_BUT_Y = [
     (r"\bthat'?s not\b[^.?!]{0,40}[.—–]\s*that'?s\b", "that's-not-X.-that's-Y"),
 ]
 
+# Shapes MB flagged in the 18 Aug review. None of these were catchable by the
+# rules above, and all four were produced by me in one pass, which is the point:
+# the linter encodes faults it has SEEN, so every new fault has to be added the
+# day it is found or it recurs.
+#
+#   "one question, taken up in four places — none of them finished with it"
+#   "None of this is if (a && b) — a boolean is computed while the program runs"
+#   "the signature is the claim, the body is what makes good on it"
+#   "Four notations, and I am deliberately not going to teach them"
+
+NEGATIVE_DEFINITION = [
+    (r"\bnone of (this|that|these|it) (is|are|was|were)\b", "none-of-this-is-X"),
+    (r"\b(is|are|was|were) neither\b", "X-is-neither"),
+    (r"^(that|this|it|these|those)'?s? (is |are )?not\b", "leading 'that is not…'"),
+    (r"\bnothing (here|on this slide|about this) is\b", "nothing-here-is-X"),
+]
+
+# Talking about the talk instead of giving the talk. A slide that announces what
+# it will not do has spent a line saying nothing.
+META_COMMENTARY = [
+    (r"\bi (am|'m)( deliberately| not going| going)\b[^.?!]{0,40}\bnot\b", "I-am-not-going-to"),
+    (r"\b(deliberately|purposely) not (going to |about to )?(teach|explain|cover|show)\b",
+     "announcing what the slide will not do"),
+    (r"\bwhat i want (to do |to show )?here\b", "what-I-want-to-do-here"),
+    (r"\bthat is (the|my) (whole )?(point|map|idea) (of|for|here)\b", "that-is-the-point-of"),
+    (r"\b(the|this) (slide|beat|section) (is|does|exists)\b", "the slide talking about itself"),
+]
+
+# Balanced apposition with no content in either half. Reads like an insight and
+# carries none: "the X is the A, the Y is the B."
+APHORISM = [
+    (r"\bthe \w+ is the \w+,? and the \w+ is\b", "the-X-is-the-Y-and-the-Z-is-the-W"),
+    (r"\bis what makes good on (it|that)\b", "makes-good-on-it"),
+    (r"\bnone of them (finished|ever finished|got there)\b", "trailing summary clause"),
+    (r"\bthat is not a metaphor\b", "that-is-not-a-metaphor"),
+]
+
 KICKERS = [
     (r"\byou just don'?t call it that\b", "stock kicker"),
     (r"\bwhich is exactly\b", "which-is-exactly"),
@@ -237,6 +274,24 @@ def check(text, path, rhythm=True):
         out.append(("error", "rhetorical-qa", text[max(0, m.start() - 40):m.end()],
                     "Rhetorical question followed by its own answer."))
 
+    # 6b. shapes from the 18 Aug review — see the block above the tables
+    for pat, name in NEGATIVE_DEFINITION:
+        for m in re.finditer(pat, low, flags=re.I | re.M):
+            out.append(("error", "negative-definition", text[m.start():m.end()],
+                        f"'{name}'. Say what the thing IS. Defining by exclusion "
+                        "makes the audience hold the wrong idea in mind while you "
+                        "deny it, and it is the shape of a disclaimer, not a claim."))
+    for pat, name in META_COMMENTARY:
+        for m in re.finditer(pat, low, flags=re.I | re.M):
+            out.append(("error", "meta-commentary", text[m.start():m.end()],
+                        f"'{name}'. The talk should not narrate itself. Cut it and "
+                        "the information is unchanged."))
+    for pat, name in APHORISM:
+        for m in re.finditer(pat, low, flags=re.I | re.M):
+            out.append(("error", "aphorism", text[m.start():m.end()],
+                        f"'{name}'. Balanced clauses with no content in either half. "
+                        "Delete it and check what was lost; usually nothing."))
+
     # 7. stock kickers
     for pat, name in KICKERS:
         for s in sents:
@@ -318,11 +373,44 @@ def check(text, path, rhythm=True):
 
 # ── driver ───────────────────────────────────────────────────────────────────
 
+# A headline names a concept. It is a label on a section of the argument, not a
+# line of speech — "You have already seen a quantifier" is something you say, and
+# putting it in 60pt type spends the largest text on the slide on nothing the
+# audience can carry away. Openings that give it away:
+TITLE_OPENERS = re.compile(
+    r"^\s*(you|we|i|let'?s|here'?s|now|so|and|but|it'?s|there'?s|perhaps|"
+    r"why not|remember)\b", re.I)
+
+
+def slide_title(src):
+    """The h2 a slide-class function is called with — the first bracketed
+    argument on its own line after the `eyebrow:` line. Every slide in this
+    deck is written that way; a slide that is not simply returns None."""
+    m = re.search(r"eyebrow:[^\n]*\n\s*\[([^\]\n]{3,90})\],", src)
+    return m.group(1).strip() if m else None
+
+
+def check_title(src, path):
+    title = slide_title(src)
+    if not title:
+        return []
+    if TITLE_OPENERS.match(title):
+        return [("error", "title-is-a-sentence", title,
+                 "A headline names a concept; this one is a line of speech. "
+                 "It is the biggest text on the slide and should be the part "
+                 "an audience could write down.")]
+    return []
+
+
 def lint_file(path):
     try:
         src = open(path, encoding="utf-8").read()
     except OSError:
         return []
+    findings = []
+    if path.endswith(".typ"):
+        findings += [(sev, rid, exc, why, path)
+                     for sev, rid, exc, why in check_title(src, path)]
     if path.endswith(".md"):
         # Script files are the note body; wrap so one extractor serves both.
         src = "#speaker-note[" + src + "]"
@@ -330,9 +418,9 @@ def lint_file(path):
     text = spoken_text(src, path)
     unbalanced = bool(_QUOTE_PARITY and _QUOTE_PARITY[-1])
     if len(words(text)) < 15 and not unbalanced:
-        return []
-    return [(sev, rid, exc, why, path)
-            for sev, rid, exc, why in check(text, path, rhythm=rhythm)]
+        return findings
+    return findings + [(sev, rid, exc, why, path)
+                       for sev, rid, exc, why in check(text, path, rhythm=rhythm)]
 
 
 def report(findings):

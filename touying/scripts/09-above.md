@@ -1,63 +1,59 @@
-VERBATIM · cap 1:05 · Act 1 beat 6 of 6 · rail: MARTIN-LÖF · COQUAND lit, rail complete
+A1-above · cap 1:05 · Act 1 beat 6 of 6 · rail: MARTIN-LÖF (+) lit, rail complete
 
-BEATS — delivery aid; the script is below
+WHAT WAS MISSING, AND IT WAS THE WHOLE POINT (MB, 18 Aug)
 
-- One last step up, quickly, because all of it turns up running later.
-- Martin-Löf 1972: a type may depend on a value, so the result type can be
-  computed from what you passed in.
-- Coquand 1988: that plus polymorphism, in a small kernel — the one Rocq, Lean,
-  Agda and Idris are built on.
-- Four notations, uncovered together, and say you are not going to teach them.
-  › a type indexed by a runtime value
-  › a value paired with a proof about that specific value
-  › a binding that must be used exactly once
-  › a whole conversation between two services, as one type
-- The contract with the room:
-  › you will not walk out fluent, and that is not the point — you will walk out
-    knowing what each one buys
+The previous version listed four notations and never said what dependent types
+*change*. It showed the syntax of the most powerful idea in the section and left
+the room with no reason to care, then covered the gap with
+*four notations, and I am deliberately not going to teach them* — a line that
+announces a refusal and carries no information.
+
+The shift, stated plainly, and it is now the lede on the slide:
+
+> Until now a function's result type was fixed before you called it. Martin-Löf
+> let the result type be **computed from the argument**. That collapses two
+> languages into one — the language the compiler runs to work out a type is the
+> language you write your program in — and it means a type can state **any
+> property you could write a program to check**.
+
+That is the ceiling coming off. Everything below Stage 6 is a way of encoding
+*some* invariants in a type system that was not designed to hold them; above it,
+the question stops being *can my type system express this* and becomes *can I
+write down a proof*.
+
+IT IS ALSO THE THIRD RUNG OF A LADDER THE ROOM HAS ALREADY CLIMBED
+`A1-quantifiers` puts two rungs on the board. This is the third, and saying so
+out loud is what makes the beat land as an arrival rather than as new syntax:
+
+  over values, result fixed      a function type       (A1-quantifiers)
+  over types                     a generic             (A1-quantifiers)
+  over values, result computed   Π                     (here)
+
+BEATS
+
+- One more step, and it changes what a type is able to say.
+- Martin-Löf 1972: the result type may be computed from the argument.
+  › the type language and the program language become the same language
+  › so a type can state any property you could write a program to check
+- Coquand 1988 folds that together with polymorphism into a small kernel — the
+  one Rocq, Lean, Agda and Idris are built on.
+- The four notations, uncovered together. Read the glosses, not the syntax.
+- The contract: you will walk out knowing what each one buys, having watched all
+  four run on the payment flow.
 - Last line is the cube glimpse. One line, no drawing.
-  › there is a map of this territory, and we will fill it in as we go
-
-VERBATIM
-
-"One last step up, quickly, because you will see all of it running later.
-
-Martin-Löf, nineteen seventy-two, allowed a type to depend on a value — so the
-type of what a function gives back can be computed from what you passed in.
-Coquand, in eighty-eight, folded that together with polymorphism into a small
-kernel, and that kernel is what Rocq, Lean, Agda and Idris are built on.
-
-Four notations, and I am deliberately not going to teach them.
-
-A type indexed by a runtime value; a value paired with a proof about that
-specific value; a binding that must be used exactly once; and a whole
-conversation between two services, written down as one type.
-
-You will not walk out fluent in any of that, and it is not the point. You will
-walk out knowing what each one buys, because you will have watched all four run
-on the payment flow we started with. There is a map of this territory, and we
-will fill it in as we go."
-
-NOTE ON THE LINTER
-The four notations are punctuated as one list rather than four sentences. As
-sentences they trip `monotone` — fairly, because four flat beats in a row is
-exactly what that rule is for. A spoken list is one unit and should be written
-as one. Same fix as the syllogism on `A1-aristotle`.
 
 DELIVERY
 Four one-liners on the slide, uncovered together rather than one at a time —
-they are a glimpse, not a lesson, and revealing them separately invites the room
-to try to decode each one.
-
-The last sentence is the lambda-cube glimpse. One line, no explanation, no
-drawing; the cube itself first appears lit at `A3-ceiling`.
+revealing them separately invites the room to decode each one, and they are a
+glimpse rather than a lesson. Do not announce that you are not teaching them;
+just do not teach them, and spend the words on what they buy instead.
 
 C13 CHECK (Part 8)
-"A type indexed by a runtime value" keeps the type/value distinction visible.
-Avoid "types are values" and "values are types" — both are false and both are
-the kind of thing that sounds profound at speed.
+*A type indexed by a runtime value* keeps the type/value distinction visible.
+Avoid *types are values* and *values are types* — both false, both the kind of
+thing that sounds profound at speed.
 
-FACTS — every identifier here is grepped from the code (C1)
+FACTS — every identifier grepped from the code (C1)
 - `data Approval : RiskLevel -> Type`      PaymentDomain.idr:264
 - `assessOrder : Order n c -> (lvl : RiskLevel ** Assessment lvl n c)`
                                             PaymentDomain.idr:255
@@ -67,3 +63,23 @@ FACTS — every identifier here is grepped from the code (C1)
                                             real LowRiskProtocol is five deep
 - Martin-Löf's type theory, 1972; Coquand and Huet, Calculus of Constructions,
   1988, extended to CIC.
+
+VERBATIM
+
+"One more step up, and it changes what a type can say.
+
+Everything so far has had the result type fixed before you called the function.
+Martin-Löf, in nineteen seventy-two, let it be computed from the argument
+instead. That collapses two languages into one: the compiler now works out a type
+by running the same language you write your program in. So a type can state any
+property you could write a program to check. Coquand folded that together with
+polymorphism in eighty-eight, and that kernel is what Rocq, Lean, Agda and Idris
+are built on.
+
+Four notations, all of which you will see running later: a type indexed by a
+runtime value; a value paired with a proof about that value; a binding the
+compiler counts and will not let you drop; and a conversation between two
+services written down as one type.
+
+You will walk out knowing what each one buys, having watched all four run on our
+payment flow. There is a map of this territory, and we fill it in as we go."

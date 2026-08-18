@@ -4,14 +4,14 @@ BEATS — delivery aid; the script is below
 
 - Open on the barber, because it is the same shape and nobody needs set theory
   to feel it.
-  › the village barber shaves everyone who does not shave himself
+  › the barber shaves everyone who does not shave themselves
   › so who shaves the barber?
 - Then the real one. 1901: Russell finds that shape at the foundations, writes to
   Frege, and breaks his life's work with one question.
   › the set of all sets that do not contain themselves — does it contain itself?
 - **Name the damage before offering the repair.** Naive set theory is
-  inconsistent, and set theory was the ground being laid under arithmetic,
-  analysis, and the formal treatment of proof itself.
+  inconsistent, and set theory was the ground under arithmetic, analysis and
+  proof itself.
 - Russell's own repair, and the reason we are here: stratify it. A predicate
   cannot apply to things at its own level.
   › he called the levels types — that is where the word comes from
@@ -26,14 +26,13 @@ BEATS — delivery aid; the script is below
 
 VERBATIM
 
-"The village barber shaves everyone who does not shave himself. So who shaves the
+"The barber shaves everyone who does not shave themselves. So who shaves the
 barber? Russell found that shape in nineteen-oh-one at the foundations of
 mathematics and wrote to Frege, breaking his life's work with one question: the
 set of all sets that do not contain themselves — does it contain itself?
 
 Either answer contradicts, so naive set theory is inconsistent — and set theory
-was the ground being laid under arithmetic, analysis, and the formal treatment of
-proof itself. Russell's own repair is the reason we are all here tonight. He
+was the ground being laid under arithmetic, analysis and proof itself. Russell's own repair is the reason we are all here tonight. He
 stratified it, so that a predicate may not apply to things at its own level and
 the offending sentence cannot be written down. He called the levels types, and
 every sealed interface any of you writes is downstream of a man trying to stop
@@ -86,3 +85,10 @@ FACTS
 - Gödel's first incompleteness theorem, 1931.
 - Do NOT say type-checker conservatism is Gödel — that is Rice's theorem and
   decidability, and it belongs to `A2-promises`. See Part 8/C8.
+
+WORDING (18 Aug)
+The barber shaves everyone who does not shave **themselves**. An earlier pass
+changed that to *himself*; MB had chosen the neutral form deliberately and it
+goes back. The flowery half of the damage line — *the young business of putting
+proof itself on a formal footing* — is cut to *proof itself*, which says the same
+thing at a third of the length and does not sound like it is enjoying itself.

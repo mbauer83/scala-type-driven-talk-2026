@@ -72,11 +72,12 @@
     #v(sz(28pt))
     #callout(
       [The honest caveat — *which calculus*, not whether],
-      [This correspondence is with a *total, pure* calculus, and Java is neither: `null` inhabits
-       every reference type, an exception escapes any signature, a loop that never returns
-       inhabits anything at all. That does not put effects beyond logic — there are calculi for
-       state, exceptions and control, and continuations answer to classical reasoning. It puts
-       Java outside *this* one, and every stage we climb from here moves it closer.],
+      [This correspondence is with a *total, pure* calculus. Java has `null` in every reference
+       type, exceptions that escape any signature, and loops that never return and so inhabit
+       anything at all — so a Java method `A → B` is not yet a proof of `A implies B`. Logic
+       reaches effects perfectly well: there are calculi for state, for exceptions and for
+       control, and adding first-class continuations buys you classical logic. Java simply sits
+       outside *this* calculus, and each stage from here moves it toward one that fits.],
       style: "bad",
     )
   ],

@@ -15,13 +15,13 @@ BEATS — delivery aid; the script is below
     of; the compiler checks the one against the other
   › true whether or not you write the types down — untyped just means unchecked
 - The caveat, as a map and not an apology:
-  › the correspondence is with a total, pure calculus, and Java is neither
+  › the correspondence is with a total, pure calculus
   › null inhabits every reference type, an exception escapes any signature, a
     loop that never returns inhabits anything at all
-  › **and then the correction that matters: effects are not beyond logic.**
-    There are calculi for state, exceptions and control. Java is outside *this*
-    calculus, which is a statement about where Java sits, not about what logic
-    can reach.
+  › **and then the correction that matters: logic reaches effects perfectly
+    well.** There are calculi for state, exceptions and control, and first-class
+    continuations buy you classical logic. The limit is which calculus Java sits
+    in, and each stage moves it toward one that fits.
 - Pivot into the rest of the talk: everything we climb buys a correspondence a
   little closer to exact.
 
@@ -45,16 +45,15 @@ of. The compiler is the machine that checks the one against the other. That hold
 whether or not you write the types down, because in an untyped language the
 proposition is still there and nothing ever checks it.
 
-One honest caveat, and it is the reason this talk has stages. The correspondence
-is with a total, pure calculus, and Java is neither: null inhabits every
-reference type, an exception escapes any signature, and a loop that never returns
-inhabits anything at all. So a Java method from A to B does not yet prove that A
-implies B.
+One honest caveat, and it is the reason this talk has stages. That correspondence
+is with a total, pure calculus. Java has null in every reference type, exceptions
+that escape any signature, and loops that never return and therefore inhabit
+anything at all, so a Java method from A to B does not yet prove that A implies B.
 
-Effects are not beyond the reach of logic, though. There are calculi for state,
-exceptions and control, and continuations answer to classical reasoning — Java is
-simply outside this one. That is the map for the next half hour: everything we
-climb buys a correspondence a little closer to exact."
+Logic reaches effects perfectly well, by the way. There are calculi for state,
+for exceptions, for control, and adding first-class continuations buys you
+classical logic. Java sits outside this particular calculus, and each stage we
+climb from here moves it toward one that fits."
 
 DELIVERY
 Three-line equation table on the left, the C13 block on the right; the caveat

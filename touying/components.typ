@@ -298,14 +298,18 @@
 
 // ─── .s-theory ──────────────────────────────────────────────────────────────
 
-#let theory-slide(eyebrow: none, h2, body, footer: none) = slide-page(
+// `body-gap` — the space between the title block and the body. It was a fixed
+// `gap-title * 1.3` on every theory slide, which is why the same complaint kept
+// coming back: a generous gap under the headline and everything below it
+// cramped. Dense slides pass a smaller value; the default is unchanged.
+#let theory-slide(eyebrow: none, h2, body, footer: none, body-gap: gap-title * 1.3) = slide-page(
   fill: pal.bg,
   fg: pal.fg,
 )[
   #slide-pad[
     #grid(
       columns: 1,
-      rows: (auto, gap-title * 1.3, auto, 1fr, auto),
+      rows: (auto, body-gap, auto, 1fr, auto),
       // ── Row 1: eyebrow (optional) + title block
       {
         if eyebrow != none {

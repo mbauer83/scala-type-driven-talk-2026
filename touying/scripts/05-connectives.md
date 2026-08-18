@@ -1,87 +1,94 @@
-A1-connectives · cap 1:20 · Act 1 beat 2 of 6 · rail: LEIBNIZ · BOOLE · FREGE
+A1-connectives · cap 1:20 · Act 1 beat 2 of 6 · rail: LEIBNIZ · BOOLE
 
 BEATS — delivery aid; the script is below
 
-- Aristotle's shapes were already checkable — you check a shape by looking at it.
-  What nobody had for two thousand years was a way to **calculate** with one.
+- Aristotle's forms were already checkable by eye. What nobody had was a way to
+  *calculate* with one.
 - Leibniz wanted that. A notation for every concept plus a calculus to grind
   through it, so two people who disagreed could sit down and settle it.
   › say it exactly: let us calculate
-  › he never built it — and he invented binary on the way, which buys him some
-    patience from this room
-- Boole, 1847: logic becomes algebra. **Inference becomes arithmetic** — symbols
-  pushed around without asking what they mean.
-- Frege, 1879: the notation that could actually carry mathematics.
-- Then the turn to their code — one connective at a time:
-  › `∨` — a risk decision is exactly one of low, medium, high.
-    **The sealed interface is the proposition.**
-  › the match — the compiler refuses until every case is handled.
-    **That is the proof step.** Both panes are the same `∨`, declared then used.
-  › `∧` — each record, every field present at once. The other connective.
-- Guard against the equivocation before landing it:
-  › none of this is `if (a && b)` — a boolean is worked out while the program
-    runs; these shapes are fixed before it runs at all
-- Land it: sums and products. Most domain modelling you will ever do.
+  › never built it; did invent binary on the way
+- Boole 1847 delivers the first working piece: logic as algebra. **OR becomes a
+  plus sign, AND becomes a times sign.**
+- Left pane — the plus. A risk decision is low or medium or high, nothing else.
+- Right pane — the times. An order line is a sku and a price and a quantity, all
+  of them at once.
+- **The counting, and this is the beat that does the work.** RiskDecision has
+  three values. RefundMechanism, same package, has two. A choice between them:
+  five. Both at once: six. 3 + 2 against 3 × 2. That is where the names come from.
+- Bottom line: nest them. PaymentMethod is a sum whose variants are products.
+- Land it: most domain models are that shape.
 
-MUST LAND — and this is the whole slide
+MUST LAND
+The arithmetic is literal. If the room takes away *sum type and product type are
+named after addition and multiplication, and you can count the values*, the beat
+worked. That is a fact about types they have never been told and cannot confuse
+with anything else they know.
 
-The two halves, named as two different things. Point at the interface, say
-*proposition*. Point at the match, say *proof step*. If the room leaves thinking
-*sum types are nice*, the beat failed. If they leave thinking *the declaration is a
-claim and the match is what discharges it*, it worked.
+HOW THIS SLIDE HANDLES C13 — and why there is no disclaimer on it
+The equivocation to head off is a Java developer hearing *you already write
+logic* and thinking `if (a && b)`. The previous version fought that with a line
+on the slide saying it was not about booleans. That is the wrong instrument:
+naming the wrong idea plants it. This version simply cannot be read that way,
+because counting the inhabitants of a type is not something a boolean expression
+does. Boole's `+` and `×` combine *propositions*; in Java they combine *types*,
+and the result is a shape that exists before anything runs. Say that positively
+if you want it explicit — do not say what it is not.
+
+WHAT IS NOT ON THIS SLIDE, ON PURPOSE
+Introduction and elimination — the exhaustive match as `∨E` — belong to
+`A3-gentzen`, sixty seconds before the compile error they explain. That is the
+whole of P2. This beat is formation: what the connectives *build*. Splitting it
+that way is also what gave `∧` room to have an example of its own, which is the
+thing MB called out as unacceptable in the previous version.
 
 PART 10/F1 — WHAT BOOLE BUYS, AND WHAT HE DOES NOT
-An earlier draft of this script said of Boole: *"that is the moment inference
-becomes something a machine could do."* That is wrong, and it was wrong in a way
-that steals Aristotle's beat. **Mechanical checkability arrives with Aristotle** —
-a form can be checked by inspection, which is exactly the sense that matters for
-a type checker. The arithmetic turn buys something later and different:
-*numerical calculability*, the ability to compute an answer rather than recognise
-a shape. Leibniz belongs on the calculable side, with binary. `A1-aristotle` now
-carries the checkability half explicitly, so the two do not compete.
+An earlier draft said of Boole: *that is the moment inference becomes something a
+machine could do*. Wrong, and it stole Aristotle's beat. **Mechanical
+checkability arrives with Aristotle** — a form can be checked by inspection. The
+algebra buys *calculability*: you can compute an answer rather than recognise a
+shape. Leibniz belongs on the calculable side, with binary.
 
-C13 CHECK (Part 8) — highest-risk slide in the deck for the equivocation
-A Java developer hearing *you already write logic* thinks `if (a && b)`. Nothing
-here is about boolean conditions. The sealed interface *declares* `A ∨ B`; the
-exhaustive match *eliminates* it; a boolean is neither, it is a value computed at
-runtime. The slide now says that in a line of its own — say it out loud too.
-
-LAYOUT NOTE (Part 10)
-Both code panes are a disjunction: its declaration and its use. The left column
-used to stack `∨` above `∧`, which put `∧` level with the lower pane and let the
-layout imply the lower pane was the conjunction. `∧` is now a strip under both
-panes, pointing back up at the records, and the `∨` card says explicitly that
-both panes are the same connective.
-
-FACTS
-- Boole, *The Mathematical Analysis of Logic*, 1847.
-- Frege, *Begriffsschrift*, 1879.
+FACTS — grepped, not remembered (C1)
+- Boole, *The Mathematical Analysis of Logic*, 1847. He wrote conjunction as
+  juxtaposition or `xy`, and disjunction as `x + y` — and his `+` required the
+  classes to be **disjoint**, which is exactly a tagged union. Jevons later
+  relaxed it to inclusive or. The disjointness is a real point in your favour if
+  anyone asks why a sealed interface is a *sum*.
+- `RiskDecision` — 3 variants, `RiskDecision.java:9-13`, verbatim on the slide
+  except that `permits` is wrapped onto its own line to fit the column. Same
+  identifiers, same order, `record Medium()` present.
+- `RefundMechanism` — 2 variants, `RefundMechanism.java`. Used only in the spoken
+  counting, not shown.
+- `OrderLine` — real record, `OrderLine.java:5`. On the slide its three
+  components are one per line; the source has them on one. Whitespace only.
+- `PaymentMethod` — `Card(String token) | Wallet(String token) |
+  Invoice(String reference)`, `PaymentMethod.java:9-12`. The bottom line is that
+  type written as algebra.
 - Leibniz: *characteristica universalis*, *calculus ratiocinator*, *calculemus*.
-  Named in a clause, on the rail, no beat of his own (Part 6b/D2). He is here
-  because he wanted inference *carried out* rather than merely inspected — the
-  ambition Boole's algebra is the first working piece of.
-- Java on the slide is extracted verbatim from
-  `03-java-function-types-sealed/RiskDecision.java:9-13` — all three records,
-  `permits` on one line, records as nested members. See Part 8/C1.
+  Named in a clause, on the rail, no beat of his own (Part 6b/D2).
+- Frege is NOT on this slide any more. 1879 and the quantifier are the next
+  beat, and he was here only because an earlier draft needed a third name.
 
 VERBATIM
 
-"Aristotle gave us shapes, and a shape you can check by looking at it.
-Calculating with one took another two thousand years. Leibniz wanted a notation
-for every concept and a calculus to grind through it, so that two people who
-disagreed could sit down and say, let us calculate. He never built it, though he
-did invent binary on the way.
+"Aristotle's forms you could check by eye. What nobody had was a way to calculate
+with one. Leibniz wanted that: a notation for every concept and a calculus to
+grind through it, so two people who disagreed could sit down and say, let us
+calculate. He never built it, though he did invent binary on the way.
 
-Boole delivered the first working piece in eighteen forty-seven by turning logic
-into algebra, so that inference becomes arithmetic, carried out symbol by symbol.
-Frege, thirty years later, built the notation that could carry mathematics.
+Boole turned logic into algebra in eighteen forty-seven. He wrote OR as a plus
+sign and AND as a times sign, and those are still the names.
 
-You write the result already. Declare that a risk decision is exactly one of low,
-medium or high and you have written a disjunction — the sealed interface is the
-proposition. Match on it, and the compiler refuses until every case is handled,
-which is the proof step — a disjunction cannot be used without covering every
-side of it. A record, every field present at once, is the other connective.
+Here is his plus: a risk decision is low, medium or high, and nothing else. Here
+is his times — an order line is a sku and a price and a quantity, all at once.
 
-None of this is if-a-and-b. A boolean is a value your program works out while it
-runs; these are the shape of the data, fixed before it runs at all. Sums and
-products, and most domain modelling you will ever do is those two."
+Now count them, because the arithmetic is literal. Risk decision has three
+values. Refund mechanism, in the same package, has two. Offer somebody a choice
+between the two types and there are five things they can hand you; ask for both
+at once and there are six. Three plus two against three times two — and that is
+where sum type and product type get their names.
+
+Then you nest them. A payment method is a card or a wallet or an invoice, and
+each of those carries its own field: a sum whose variants are products. Most of
+the data you will ever model has that shape."

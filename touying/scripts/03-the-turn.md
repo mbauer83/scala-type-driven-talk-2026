@@ -12,8 +12,7 @@ something is valid and how we can say what that means
 
 The history of what we are doing when we specify programs and types stretches back
 about two and a half thousand years, across philosophy, logic, mathematics, and
-computer science. None of them finished with it. That is the thread I want to
-follow tonight.
+computer science. That is the thread I want to follow tonight.
 
 When you write a sealed interface and the compiler makes you handle every case, you
 are applying a rule that Gerhard Gentzen wrote down in 1935. When you write a
@@ -31,8 +30,9 @@ NOTES ON THE WORDING
      type parameter, a variable binding. "Every use" is both correct and wider.
   2. The four fields were joined by arrows on the slide, which reads as a
      progression where each supplants or improves on the last. It is not one.
-     They are middots now, with a caption saying what the row means, and the
-     script says it too.
+     They are middots now. A caption spelling that out was tried and cut — a
+     slide should not explain its own punctuation, and the sentence was the
+     kind of balanced nothing Part 12 exists to catch.
   3. The arithmetic/algebraic turn is NOT what makes logic mechanically
      checkable — **Aristotle's insight already does**, because a form can be
      checked by inspection. What the algebra buys is numerical *calculability*,

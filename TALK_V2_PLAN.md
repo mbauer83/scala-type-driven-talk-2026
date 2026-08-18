@@ -4,13 +4,13 @@ Branch `talk-v2-rework`, off `talk-v1` (`93c8d95`).
 **Delivery: Thursday 20 August 2026 — Java Meetup, Inspired Consulting GmbH, Köln.**
 45 min + 15 min Q&A (up to 3 min borrowable).
 
-## Status — 2026-08-18
+## Status — 2026-08-18 (evening: Act 1 rebuilt, Part 12 added)
 
 | | |
 |---|---|
 | **Act 0 (slides 1–3)** | **DONE and signed off**, plus Part 10's layout and wording corrections. Linter-clean |
-| **Act 1 (6 slides)** | **DONE**, plus every Part 10 correction including 10/F. Linter-clean. **Measures 8:43 against a 7:10 cap** |
-| **Act 2 (3 slides)** | `A2-values` and `A2-promises` **built** — cues plus a scripted landing line, both inside their caps. `A2-scenario` is still the v1 `15-test-spine` note, 0:19 over |
+| **Act 1 (6 slides)** | **REBUILT 18 Aug** after MB's review — `A1-connectives` and `A1-quantifiers` from scratch, four other slides corrected. Clean under the Part 12 rules. **Measures 8:47 against a 7:10 cap** |
+| **Act 2 (3 slides)** | `A2-values` and `A2-promises` **built** — cues plus a scripted landing line, both inside their caps and swept for the Part 12 faults. `A2-scenario` is still the v1 `15-test-spine` note, 0:19 over |
 | Acts 3–6 | not authored; v1 notes still in place and failing the linter in ~19 places (almost all `monotone`) |
 | Toolchain | typst 0.15.1, touying 0.7.4, cetz 0.5.2 — verified |
 | Tooling | `make check` = build + prose lint + timing. Prose linter runs as a PostToolUse hook |
@@ -1749,3 +1749,87 @@ The Act 1 progress rail is built and documented. Still outstanding: **Device 1's
 payoff layout**, the **first use of `code-pane(diagnostic:)`** — no slide uses it
 yet, and the four captured fallbacks in `demos/` have nowhere to render — and the
 **cube parameterisation** above.
+
+---
+
+## Part 12 — Register faults the linter could not see (MB review, 18 Aug)
+
+Part 9 came from comparing my Act 0 draft against what MB shipped. This part
+comes from something worse: a review of Act 0/1 *after* Part 10 had been applied,
+in which four separate lines were identified as the worst kind of machine
+phrasing. All four were written by me in one pass, all four passed the linter,
+and one of them was a "fix" for a problem MB had raised the day before.
+
+The four:
+
+| shipped | fault |
+|---|---|
+| *one question, taken up in four places — none of them finished with it* | balanced clauses, no content in either half |
+| *None of this is `if (a && b)` — a boolean is computed while the program runs; these shapes are fixed before it runs at all* | defining by exclusion; a disclaimer standing in for a design |
+| *You write the universal already — and the signature is the claim, the body is what makes good on it* | aphorism; MB: "almost devoid of useful information" |
+| *Four notations, and I am deliberately not going to teach them* | the talk narrating itself |
+
+### The five rules that generate all four
+
+**R1 — Define positively. Never by exclusion.** *None of this is X* makes the
+audience hold X in mind while you deny it, and it is the shape of a disclaimer
+rather than a claim. If the wrong reading is available, the fix is to change the
+slide until it is not, which is what happened to `A1-connectives`.
+
+**R2 — No sentence may exist to explain another element of the same slide.**
+*Both panes are this one connective* was a caption apologising for a layout. A
+slide that needs a sentence to explain its own arrangement has the wrong
+arrangement, and adding the sentence hides the defect instead of fixing it.
+
+**R3 — The talk does not narrate itself.** No announcing what a slide will not
+cover, no *that is the map for the next half hour*, no *the point of this beat
+is*. Delete the sentence and check what information was lost. Usually none.
+
+**R4 — Balanced clauses are suspect on sight.** *The X is the claim, the Y is
+what makes good on it.* The shape of an insight is not an insight. Test: could
+someone act differently having heard it? If not, it is decoration.
+
+**R5 — A headline names a concept.** It is a label on a section of the argument,
+not a line of speech. *You have already seen a quantifier* is something you say;
+in 60pt it spends the biggest text on the slide on nothing anyone can carry away.
+
+### And one that is about structure rather than words
+
+**R6 — Lead with the capability or the problem, then the notation, then the
+code.** `A1-quantifiers` failed because it led with notation, bolted a Java
+mirror on, and never said why any of it mattered — so the first question a
+competent listener asks is *why are you telling me this*. Every Act 1 beat has to
+survive that question asked at its opening line, not at its close.
+
+### What is now mechanical
+
+`tools/prose-lint.py` gained four rule families the day these were found, and
+they catch all four examples above plus two more I had not noticed:
+
+| rule | catches |
+|---|---|
+| `negative-definition` | *none of this is…*, *X is neither…*, leading *that is not…* |
+| `meta-commentary` | *I am not going to…*, *the slide is…*, *that is the point of…* |
+| `aphorism` | *the X is the Y and the Z is the W*, *makes good on it*, trailing summary clauses |
+| `title-is-a-sentence` | a headline opening with You / We / I / Here / Now / So |
+
+**The honest limit: a linter encodes faults it has already seen.** It cannot
+catch the next shape, only this one. R1–R6 above are the part that has to be
+checked by reading, and the reading has to happen before the slide is built, not
+after MB sees it.
+
+### Standing state of the rest of the deck under these rules
+
+Acts 0, 1 and 2 are clean. Everything from `A3-stage12` onward is still v1 prose
+and fails as follows — this is the rework backlog, not a list of bugs:
+
+| rule | count | where |
+|---|---|---|
+| `monotone` / `monotone-overall` | 19 | spread across Acts 3–6 and the appendix |
+| `em-dash-density` | 17 | warnings; dashes used for drama |
+| `long-sentence` | 15 | warnings; delivery risk, not register |
+| `tricolon`, `rhetorical-qa`, `kicker`, `fragment-climax` | 4 | one each |
+| `superlative`, `jargon`, `overclaim`, `ai-diction` | 5 | warnings |
+
+Zero hits for the four new families outside Acts 0–2, which is expected: those
+are *my* faults, and Acts 3–6 are still MB's v1 prose.

@@ -37,7 +37,7 @@ talk."
 
 MUST LAND
 That giving up completeness is a *design decision taken on purpose*, in exchange
-for a checker that always terminates. Everything else on the slide is support.
+for a checker that always terminates. Everything else here is support for it.
 
 WHAT NOT TO SAY
 

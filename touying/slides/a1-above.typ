@@ -16,11 +16,26 @@
 #theory-slide(
   eyebrow: eyebrow([Martin-Löf 1972 · Coquand 1988], style: "accent"),
   [What lies above],
+  body-gap: sz(46pt),
   [
-    #v(sz(18pt))
+    // The shift, stated. Four notations with glosses and no statement of what
+    // changed was the previous version's whole failure: the slide showed the
+    // syntax of dependent types and never said what they buy. This lede is the
+    // third rung of A1-quantifiers' ladder — over values, over types, and now
+    // over values with the RESULT TYPE computed from the value.
+    #block(width: 100%)[
+      #set text(size: sz(25pt), fill: pal.fg-dim)
+      #set par(leading: 0.45em)
+      Until now a function's result type was fixed before you called it.
+      Martin-Löf let it be #text(fill: pal.fg, weight: 500)[computed from the
+      argument] — so the language the compiler runs to work out a type is the
+      language you write your program in. A type can then state any property you
+      could write a program to check.
+    ]
+    #v(sz(40pt))
     #stack(
       dir: ttb,
-      spacing: sz(24pt),
+      spacing: sz(38pt),
       notation([Π], `Approval : RiskLevel -> Type`,
                [a type indexed by a runtime value]),
       notation([Σ], `(lvl : RiskLevel ** Assessment lvl n c)`,
@@ -30,12 +45,11 @@
       notation([⇄], `Send[Order, Receive[RiskSnapshot, ...]]`,
                [a whole conversation, as one type]),
     )
-    #v(sz(34pt))
+    #v(sz(50pt))
     #align(center)[
-      #set text(size: sz(28pt), fill: pal.fg)
-      You will not walk out fluent in these, and that is not the point —\
-      you will walk out knowing #text(fill: pal.accent, weight: 500)[what each one buys],
-      having watched all four run.
+      #set text(size: sz(27pt), fill: pal.fg)
+      You will walk out knowing #text(fill: pal.accent, weight: 500)[what each one buys],
+      having watched all four run on the payment flow.
     ]
   ],
   footer: act1-rail(lit: ("Martin-Löf",)),

@@ -14,9 +14,9 @@ BEATS
 - Java, in one clause: primitives are values, everything else is a reference —
   hence `==` against `.equals`, hence `record`. Do not linger; the room knows
   this and is waiting to hear why it matters.
-- **The turn, and the load-bearing part of the slide.** A type is neither. It is
-  the compiler's reasoning about which values may flow where, and most of what it
-  buys is spent before the program runs at all.
+- **The turn, and the load-bearing part.** A type is the compiler's reasoning
+  about which values may flow where, and most of what it buys is spent before the
+  program runs at all.
   › while you model the domain
   › while the checker turns down a bad call
   › while somebody reads a signature and infers the contract
@@ -30,8 +30,8 @@ BEATS
 
 LANDING LINE — say this one as written
 
-"So the price of everything after this slide is paid at compile time, and the
-part that helps you most has already been collected by the time you hit run."
+"Everything the rest of the talk asks for is paid at compile time, and the part
+that helps you most has already been collected by the time you press run."
 
 MUST LAND
 That types are a design-time and compile-time tool. If the room leaves with

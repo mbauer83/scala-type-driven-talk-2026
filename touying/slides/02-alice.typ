@@ -51,31 +51,41 @@
 // risk tier, refund — and without this strip the audience meets the jargon
 // before it has anywhere to put it. The full domain slide comes later; this is
 // just the shape.
+// Domain frame. The four stories use payment vocabulary — authorize, capture,
+// risk tier, refund — and without this the audience meets the jargon before it
+// has anywhere to put it (C3).
+//
+// It used to carry a sentence of introduction. That sentence was MB's own
+// spoken framing lifted onto the slide, which is not what slide copy is for,
+// and it said "one" three times. The label does the same job in two words and
+// gives the four rows the vertical space they were short of.
 #let domain-strip = block(
   width: 100%,
   fill: pal.bg-warm,
-  inset: (x: sz(28pt), y: sz(14pt)),
+  inset: (x: sz(28pt), y: sz(16pt)),
   radius: sz(4pt),
 )[
-  #set text(size: sz(24pt), fill: pal.fg-dim)
-  One scenario carries the whole talk — one everybody here has used, even if you
-  have never built one:
-  #v(sz(12pt))
-  #align(center)[
-    #set text(font: mono-font, size: sz(26pt), fill: pal.fg)
-    order #h(sz(14pt)) → #h(sz(14pt)) assess risk #h(sz(14pt)) → #h(sz(14pt))
-    authorize #h(sz(14pt)) → #h(sz(14pt)) capture
-    #h(sz(14pt)) #text(fill: pal.fg-faint)[( → refund )]
-  ]
+  #grid(
+    columns: (auto, 1fr),
+    column-gutter: sz(40pt),
+    align: (left + horizon, center + horizon),
+    text(font: mono-font, size: sz(21pt), fill: pal.fg-faint, tracking: 0.06em)[THE FLOW],
+    [
+      #set text(font: mono-font, size: sz(26pt), fill: pal.fg)
+      order #h(sz(14pt)) → #h(sz(14pt)) assess risk #h(sz(14pt)) → #h(sz(14pt))
+      authorize #h(sz(14pt)) → #h(sz(14pt)) capture
+      #h(sz(14pt)) #text(fill: pal.fg-faint)[( → refund )]
+    ],
+  )
 ]
 
 #light-slide(
   eyebrow: eyebrow([Alice · Bob · Charlie · Danielle], style: "bad"),
-  body-gap: sz(8pt),
+  body-gap: sz(-26pt),
   [Four Bugs That Compiled],
   block(width: 100%, height: 100%, stack(
     dir: ttb,
-    spacing: sz(30pt),
+    spacing: sz(46pt),
     domain-strip,
     incident(
       [Alice], [reconciliation · node.js],
@@ -109,7 +119,7 @@
       [checkout hangs on\ high-value orders],
       [3 weeks before anyone hit it],
     ),
-    v(sz(42pt)),
+    v(sz(50pt)),
     align(center)[
       #text(size: sz(40pt), weight: 400, fill: pal.fg)[
         Every one of these #text(weight: 600, fill: pal.accent)[compiled without complaint.]

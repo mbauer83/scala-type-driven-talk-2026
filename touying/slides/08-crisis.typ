@@ -18,12 +18,13 @@
 #theory-slide(
   eyebrow: eyebrow([Russell 1901 · Hilbert · Gödel 1931], style: "accent"),
   [The crisis that gave us the word *type*],
+  body-gap: sz(56pt),
   [
-    #v(sz(8pt))
+    #v(sz(4pt))
     #align(center)[
       #block(fill: pal.bg-warm, inset: (x: sz(34pt), y: sz(20pt)), radius: sz(4pt))[
         #set text(size: sz(27pt), fill: pal.fg-dim)
-        The village barber shaves everyone who does not shave himself.
+        The barber shaves everyone who does not shave themselves.
         #h(sz(10pt)) #text(fill: pal.bad, weight: 500)[Who shaves the barber?]
         #v(sz(14pt))
         #line(length: 100%, stroke: 0.5pt + pal.rule)
@@ -33,14 +34,13 @@
         #h(sz(10pt)) #text(fill: pal.bad, weight: 500)[Does it contain itself?]
       ]
     ]
-    #v(sz(22pt))
+    #v(sz(44pt))
     #align(center)[
       #set text(size: sz(26pt), fill: pal.fg)
-      Either answer contradicts — and set theory was the ground being laid under
-      arithmetic,\ analysis, and the young business of putting proof itself on a
-      formal footing.
+      Either answer contradicts, and set theory was the ground being laid under
+      arithmetic, analysis and proof itself.
     ]
-    #v(sz(30pt))
+    #v(sz(60pt))
     #grid(
       columns: (1fr, 1fr),
       column-gutter: sz(56pt),
