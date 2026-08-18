@@ -8,7 +8,8 @@ TALKING POINTS
 5. Lambek: the same structure again in category theory
 6. Your program is the construction; its type says what you proved
 7. The compiler checks the one against the other — proofs compose, via types
-8. True whether or not you write the types down. Untyped means unchecked
+8. Every value has a type — declared, inferred, or carried at runtime
+9. So the program is a construction either way; what changes is who checks it
 9. A → B is an implication: give me an A, I always give you a B
 10. Null, exceptions, non-termination — so the signature is not always truthful
 11. But Java already has A → B throws C
@@ -30,9 +31,10 @@ thing. That's honestly still one of the most mind-blowing and beautiful facts I 
 
 So: your program is the construction. Its type says what you constructed a proof
 of. The compiler checks the one against the other - and proofs, like programs,
-compose, with the types governing how. That holds whether or not you write the
-types down, because in an untyped language the proposition is still there and
-nothing ever checks it.
+compose, with the types governing how. None of that depends on writing the types
+down. Every value has a type whether you declare it, the compiler infers it, or
+the runtime carries it around, so the program is a construction either way. What
+changes is whether anything checks it before you run.
 
 The caveat is the reason this talk has stages. A function-type from A to B is the logical equivalent 
 to an implication "if A then B". It says: If you can give me an A, I can always give you a B.

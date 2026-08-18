@@ -1,13 +1,22 @@
-// Clock: 11:30–12:00
+// A2-scenario · cap 0:25 · Act 2 beat 1
+//
+// REBUILT 18 Aug. What was here was untouched v1: the headline "Demo Scenario &
+// Potential Bugs", a nine-row inventory with a CLOSES column that spoils every
+// payoff before its suspense exists (P5), and a note re-explaining the payment
+// flow the room already met on slide 2. Part 2 sent that table to the appendix
+// eight drafts ago and it never moved; it lives at `a10-invariants` now.
+//
+// The slide does three jobs instead:
+//   1. restores the untyped floor. Stage 0 was cut to "one line on A2-scenario"
+//      and the line was never written, so by Stage 1 there is nothing left to
+//      contrast against and Alice's incident has gone cold.
+//   2. keeps the flow diagram, which is the spine of every later stage.
+//   3. states what encoding a rule actually buys — the argument Act 2 owes the
+//      room before the ladder starts.
 #import "../theme.typ": *
 #import "../components.typ": *
+#import "../code-pane.typ": *
 #import "@preview/cetz:0.5.2": canvas, draw
-
-// ── ArchiMate-style flow: Order → assess → authorize → capture →⟨×⟩→ refund / invoice
-//
-// Each step is a rounded rectangle with an icon-strip on top-right (process
-// glyph). Flow relations are open arrows; the or-junction is rendered as a
-// small circle with "×" indicating exclusive-or branching.
 
 #let payment-process = align(center)[
   #canvas({
@@ -78,41 +87,61 @@
   })
 ]
 
+
+#let buys(head, body) = grid(
+  columns: (sz(30pt), 1fr),
+  column-gutter: sz(14pt),
+  align: (left + top, left + top),
+  text(size: sz(24pt), fill: pal.accent)[→],
+  block[
+    #set text(size: sz(24pt), fill: pal.fg)
+    #set par(leading: 0.45em)
+    #text(weight: 600)[#head] #h(sz(4pt)) #text(fill: pal.fg-dim)[#body]
+  ],
+)
+
 #light-slide(
-  eyebrow: eyebrow([The Payment Domain]),
-  body-gap: sz(32pt),                          // healthy headline → diagram gap
-  [Demo Scenario & Potential Bugs],
+  eyebrow: eyebrow([The payment domain]),
+  body-gap: sz(20pt),
+  [What encoding a rule buys],
   stack(
     dir: ttb,
-    spacing: sz(40pt),                        // equal gap diagram↔table↔callout
-    payment-process,
-    // Test inventory
-    test-list((
-      ("1",  [Shape confusion — passing an Order where an Authorization belongs], [S·1], "active"),
-      ("2",  [Wrong element type in typed collections],                           [S·2], "active"),
-      ("3",  [All risk branches handled exhaustively],                            [S·3], "active"),
-      ("4",  [Lifecycle ordering — capture only after authorize],                 [S·4], "active"),
-      ("5",  [Right authorization method for the assessed risk level],            [S·5], "active"),
-      ("6",  [Boundary constraints — non-empty identifiers],                      [S·5], "active"),
-      ("7",  [Client/server agree on the protocol shape],                         [S·5], "active"),
-      ("8",  [Channel is consumed completely (never dropped mid-protocol)],       [S·6], "active"),
-      ("9",  [Protocol shape matches the runtime risk classification],            [S·6], "active"),
-    )),
-    // "What 'test deleted' really means" — three-line callout.
-    block(
-      width: 100%,
-      inset: (left: sz(20pt), right: sz(20pt), y: sz(14pt)),
-      stroke: (left: 2pt + pal.accent),
-    )[
-      #set text(size: sz(22pt), fill: pal.fg)
-      #set par(leading: 0.4em)
-      #text(weight: 600)[Defensive tests] — "did the developer remember X" — shrink as invariants move into types.\
-      #text(weight: 600)[Behavioural tests] — "does the system charge the right amount" — stay. You want these anyway.\
-      #text(weight: 600)[Type-definition review] — "does this type actually encode the rule" — replaces the per-call-site test, paid once at the definition.
+    spacing: sz(30pt),
+    // The floor we start from — Alice's language had nothing to check.
+    align(center)[
+      #block(width: 100%, fill: pal.bg-warm, inset: (x: sz(28pt), y: sz(16pt)), radius: sz(4pt))[
+        #grid(
+          columns: (auto, 1fr),
+          column-gutter: sz(36pt),
+          align: (left + horizon, left + horizon),
+          text(font: mono-font, size: sz(21pt), fill: pal.fg-faint, tracking: 0.06em)[THE FLOOR],
+          [
+            #set text(size: sz(24pt), fill: pal.fg-dim)
+            Alice's service had no types at all —
+            #text(font: mono-font, fill: pal.fg)["12" + "34"] is
+            #text(font: mono-font, fill: pal.fg)["1234"], and nothing complains.
+            Everything from here is bought back from that.
+          ],
+        )
+      ]
     ],
+    payment-process,
+    grid(
+      columns: (1fr, 1fr),
+      column-gutter: sz(52pt),
+      row-gutter: sz(18pt),
+      buys([Every use, not every call you remembered.],
+           [The rule is applied where it is used, by the compiler.]),
+      buys([The failure moves to compile time.],
+           [Seconds after you typed it, not hours after you shipped it.]),
+      buys([The signal is a line and a type.],
+           [Not a stack trace, three services away, at 2 a.m.]),
+      buys([The defensive tests go.],
+           [The ones that only ask _did somebody remember_. Behavioural tests stay.]),
+    ),
   ),
 )
 
 #speaker-note[
-"One scenario carries the rest of the talk: an e-commerce payment — assess, authorize, capture, sometimes refund. What changes at each stage is how much of it the type system enforces. Don't try to read all nine items now — they'll reappear on every payoff slide as we tick them off. The bottom section is the honest part: defensive tests — 'did the developer remember X' — shrink in proportion to what we encode. Behavioural tests stay; you want those anyway. Verifying that the type definition correctly encodes the rule replaces per-call-site checks — paid once, in code review, at the definition."
+#read("../scripts/12-scenario.md")
 ]

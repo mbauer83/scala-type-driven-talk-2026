@@ -45,7 +45,6 @@
 #include "slides/curry-howard.typ"
 #include "slides/a1-above.typ"
 #include "slides/15-test-spine.typ"
-#include "slides/a2-values.typ"           // Act 2 — types / values / references
 #include "slides/a2-promises.typ"         // Act 2 — what a checker actually promises
 #include "slides/17-stage1.typ"
 #include "slides/18-stage2.typ"
@@ -90,6 +89,7 @@
 #include "slides/a07-tracking.typ"
 #include "slides/a08-singleton.typ"
 #include "slides/a09-singletons.typ"
+#include "slides/a10-invariants.typ"   // the nine-row inventory, out of the main deck
 
 // ─── pdfpc sidecar generation ────────────────────────────────────────────────
 //

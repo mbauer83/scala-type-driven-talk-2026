@@ -1,7 +1,9 @@
 VERBATIM · cap 1:05 · Act 1 beat 4 of 6 · rail: RUSSELL · HILBERT · GÖDEL lit
 
 TALKING POINTS
-1. The barber shaves everyone who does not shave themselves. Who shaves him?
+1. Bridge from Frege: he spent twenty years building that notation into a
+   foundation — then Russell broke it, with a shape you already know
+2. The barber shaves everyone who does not shave themselves. Who shaves him?
 2. 1901 — Russell finds the same shape at the foundations; writes to Frege
 3. The set of all sets that do not contain themselves — does it contain itself?
 4. Either answer contradicts: naive set theory is inconsistent
@@ -15,7 +17,10 @@ TALKING POINTS
 
 VERBATIM
 
-"The barber shaves everyone who does not shave themselves. So who shaves the
+"Frege spent the next twenty years turning that notation into a foundation for
+the whole of mathematics. Then Russell broke it, with a shape you already know.
+
+The barber shaves everyone who does not shave themselves. So who shaves the
 barber? Russell found that shape at the foundations of mathematics in
 nineteen-oh-one, and broke Frege's life's work with one question: the set of all
 sets that do not contain themselves — does it contain itself?

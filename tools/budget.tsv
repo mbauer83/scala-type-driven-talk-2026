@@ -63,9 +63,15 @@ a1-above	1:05	prose
 # ── Act 2 · Ground floor — 2:20 · all three exist ──────────────────────────
 # a2-values and a2-promises are cues + a scripted landing line, so they carry
 # an EST-WORDS declaration rather than a countable script (Part 6b/T).
-15-test-spine	0:25	prose
-a2-values	0:50	prose
+15-test-spine	0:40	prose
 a2-promises	1:05	prose
+#
+# a2-values CUT 18 Aug (MB): "doesn't really make a coherent or important
+# enough point, and doesn't fit in well". Its two load-bearing facts are
+# relocated rather than lost — Payment<Initiated> and Payment<Authorized> being
+# the same bytes belongs at A3-stage4 where phantom types appear, and the
+# affordability argument belongs at A6-cost, which is the cost slide. Its 0:50
+# goes to A2-scenario (+0:15) and back to the pool.
 
 # ── Act 3 · Java ladder — 13:10 ────────────────────────────────────────────
 17-stage1	1:05	prose

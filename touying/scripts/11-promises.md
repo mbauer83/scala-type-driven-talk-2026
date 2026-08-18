@@ -1,118 +1,93 @@
-A2-promises · cap 1:05 · Act 2 beat 3 of 3 · VERBATIM
+A2-promises · cap 1:05 · Act 2 beat 2 of 2 · VERBATIM
 
 TALKING POINTS
-1. Hilbert's three, asked of the compiler on your laptop
+1. Hilbert's three, asked now of the compiler on your laptop
 2. Consistent — no well-typed program produces a value of an impossible type
-3. Sound — if it compiles, the property holds
-4. Complete — every program that is in fact safe is accepted. Given up on purpose
-5. Given up for DECIDABILITY, and that is Rice, not Gödel
-6. The checker decides its own rules exactly
-7. What is undecidable is the property you wanted — never dereferences null
-8. So it approximates, on the safe side, and turns down some good programs
-9. Soundness holds as far as the hatches let it — null, casts, believe_me
-10. Java's arrays are different: the static rule is unsound, the JVM pays
-11. Every store into a reference array, checked, for ever
-12. You feel the missing completeness when you encode a STRONGER invariant
+3. Sound — if it compiles the property holds, as far as the hatches let it
+4. Complete — every safe program accepted. Given up, on purpose
+5. Here is where you feel it: three colours, a switch, every case returns
+6. javac says missing return statement. Exhaustive, safe, rejected
+7. A check that has to terminate has to approximate — and it says no
+8. Same thing as a switch expression: Java 14 accepts it
+9. The boundary moved, in a language you already use
 
 VERBATIM
 
-"Hilbert's three, asked of the compiler on your laptop. No well-typed program can
-produce a value of an impossible type. If it compiles, the property holds. And
-every program that is in fact safe gets accepted — that last one we gave up, on
-purpose.
+"Hilbert's three questions, asked now of the compiler on your laptop. Consistent:
+no well-typed program can produce a value of an impossible type. Sound: if it
+compiles, the property holds — as far as the escape hatches let it, and null is
+the big one. And complete: every safe program gets accepted — that
+last one we gave up, on purpose.
 
-We gave it up for decidability, and the theorem there is Rice's, not Gödel's. The
-checker decides its own rules exactly. What is undecidable is the property you
-actually wanted — this never dereferences null — so a check that always
-terminates has to approximate it, on the safe side, turning down some programs
-that would have been fine.
+Here is where you feel it. A switch over three colours, every case returning, and
+javac tells you there is a missing return statement. It is exhaustive, it is
+safe, and it is rejected, because a check that has to terminate has to
+approximate, and it approximates on the side that says no.
 
-Soundness then holds as far as the escape hatches let it. Java's arrays are the
-interesting case: the static rule permits this assignment, and the JVM pays for
-it instead, checking every store into a reference array, for ever.
-
-When the compiler says no it is usually right, so you feel the missing
-completeness only when you try to encode a stronger invariant — and what that
-costs is the last question of the talk."
+Now write the same thing as a switch expression. Java fourteen accepts it. The
+boundary moved, in a language you already use, and moving that boundary is the
+whole business of this talk."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.
 ==========================================================================
 
-TREATMENT
-Cues, not a verbatim script (Part 6b/T). The landing line at the bottom should
-be exact, because it is the hand-off to `A6-cost`.
+WHAT WAS HERE BEFORE, AND WHY IT WENT (MB, 18 Aug)
+The slide argued that completeness goes for decidability, that the theorem is
+Rice's rather than Gödel's, and that Java's covariant arrays are the evidence.
+MB: *convoluted, and shows the revision history in terms of reading like the
+result of an argument*; on the Rice line, *are you serious? That is horrific*;
+on arrays, *barely coherent and doesn't seem to fit*. All three land.
 
-BEATS
+The Rice/Gödel correction was addressed to a heckler who does not exist. Nobody
+in that room cares which theorem bounds the checker. They care that it says no to
+code they know is fine — which was MB's actual question: **where, in Java, is
+completeness noticeably given up?**
 
-- Call back to Russell's slide in one clause: the same three questions, asked of
-  the compiler on your laptop.
-- Walk the table left to right, one row at a time. Do not read the logic column
-  aloud twice — say the checker column and let the logic column sit there.
-  › consistent — no well-typed program can produce a value of an impossible type
-  › sound — if it compiles, the property holds
-  › complete — every program that is in fact safe is accepted, and this one goes
-- **The correction, and say it plainly because someone in the room may know it.**
-  Completeness goes for *decidability*, and the theorem is Rice's, not Gödel's.
-  › the checker decides its own rules exactly — that part is not the problem
-  › what is undecidable is the property you wanted, like *never dereferences null*
-  › so a check that always terminates approximates it, on the safe side
-- Then soundness, which is the one people actually trip over: it holds only as
-  far as the escape hatches let it.
-  › null, unchecked casts, asInstanceOf, believe_me — each one a place you told
-    the checker to stop looking
-- **Then arrays, and frame them correctly.** This is NOT another escape hatch and
-  it is NOT Java failing. The static rule permits the assignment; Java makes up
-  for it with a mandatory check on every store into a reference array. Read the
-  two lines, then say who pays.
-- Land on the hand-off.
+THE ANSWER, AND IT IS BETTER THAN THE THEOREM
+An exhaustive `switch` statement over an enum, every case returning, is rejected
+with *missing return statement*. Every Java developer in the room has hit it and
+sworn at it. It is exhaustive, it is safe, and javac says no — the approximation,
+in one screen, in their own language.
 
-LANDING LINE — now the closing paragraph of the VERBATIM above.
-It was a separate quoted block here, which double-counted it in `make timing`.
+And the second half is the better half: written as a `switch` **expression**, the
+same program compiles, because Java 14 gave switch expressions exhaustiveness
+checking over enums and sealed types. **The boundary moved inside their careers.**
+That is the talk's thesis demonstrated by javac rather than asserted by me, and
+it hands straight to `A6-cost`'s *the tools keep getting cheaper*.
 
-MUST LAND
-That giving up completeness is a *design decision taken on purpose*, in exchange
-for a checker that always terminates. Everything else here is support for it.
+VERIFIED (C1) — javac 21.0.11, actually compiled, not remembered:
 
-WHAT NOT TO SAY
+    int f(Colour c) { switch (c) { case RED: return 1; case GREEN: return 2;
+                                   case BLUE: return 3; } }
+    → error: missing return statement
 
-- **Not Gödel.** Type-checker conservatism is Rice's theorem and decidability.
-  Gödel is the Act 1 beat about what a formal system can promise at all; this is
-  a different result and conflating them is a real error (Part 8/C8).
-- **Do not say the checker is undecidable.** It is not: type checking decides the
-  language's own typing judgment, exactly and always. The undecidable thing is
-  the *property you wanted* — no null dereference, no stuck state — and the
-  typing judgment is a decidable approximation of it. Saying *type checking is
-  undecidable so it approximates* collapses the two, which is the same
-  program/type/checker equivocation the primer exists to prevent (C13).
-- **Array covariance is not an escape hatch and Java is not failing here.** The
-  static subtyping rule for arrays is unsound; Java's answer was a mandatory
-  runtime store check (JLS §10.5) rather than a fix to the rule. Presenting the
-  ArrayStoreException as evidence that Java is broken gets it backwards — the
-  exception is the enforcement. The honest and more interesting reading is the
-  cost: every store into a reference array is checked, in all your code, for
-  ever, because one static rule was left unsound. That is the talk's thesis in
-  miniature, which is why it earns its place.
-- **Do not claim the audience feels incompleteness daily.** MB's experience is
-  that they mostly do not, because when the compiler refuses it is usually
-  correct to refuse. The moment it bites is when you reach for a stronger
-  invariant, which is exactly the cost this talk asks them to weigh — so the
-  claim is not just softer, it is the one that sets up `A6-cost`.
+    int g(Colour c) { return switch (c) { case RED -> 1; case GREEN -> 2;
+                                          case BLUE -> 3; }; }
+    → compiles
 
-C13 CHECK (Part 8)
-The whole slide is about the *checker*. Say what the checker promises about
-programs and types; do not slide into talking about what a type *knows*.
+FOR Q&A ONLY — none of this is spoken
+- **Why the checker approximates at all.** Type checking decides the language's
+  own typing judgment, exactly and always; what is undecidable is the property
+  you actually wanted — no null dereference, no stuck state — and the judgment is
+  a decidable approximation of it. Rice's theorem (1953) is the general statement:
+  every non-trivial semantic property of programs is undecidable. Say this only if
+  asked, and never as a correction of something nobody said.
+- **Other Java incompleteness, if someone wants more.** Definite assignment
+  (`int x; for (...) { x = 1; } use(x);` → *might not have been initialized*);
+  generic invariance, where a read-only `List<String>` is not a `List<Object>`
+  without a wildcard; and erasure blocking overloads on `List<String>` versus
+  `List<Integer>`.
+- **Array covariance.** `Object[] a = new String[1]; a[0] = 42;` compiles and
+  throws `ArrayStoreException` (JLS §10.5). It is a genuinely interesting story —
+  the static rule is unsound, so the JVM pays for it on every reference-array
+  store — but it is about *soundness*, and putting it on a slide about
+  *completeness* is what made this one incoherent. It belongs in Q&A, or on
+  `A6-cost` as a cost anecdote.
 
-FACTS
-- Rice's theorem, 1953: every non-trivial semantic property of the language a
-  Turing machine recognises is undecidable.
-- The array-store example is real Java and compiles:
-      Object[] arr = new String[1];
-      arr[0] = 42;
-  Java's covariant arrays are unsound by design, and the check was moved to
-  runtime — ArrayStoreException. Generics are invariant precisely because of it.
-- Hilbert's programme wanted consistency, completeness and decidability of
-  formal systems; the three-word framing on `A1-crisis` compresses that. If
-  pressed, the honest statement is that Gödel killed the completeness of
-  sufficiently strong systems, and Church and Turing killed the general
-  decidability.
+DO NOT SAY
+- **Not Gödel, and not Rice either** — not unprompted. The example does the work.
+- **Do not claim the audience feels incompleteness constantly.** They feel this
+  one, mildly, and they have learned to write the redundant `default`. The hard
+  version arrives when they try to encode a stronger invariant, which is what
+  `A6-cost` is for.

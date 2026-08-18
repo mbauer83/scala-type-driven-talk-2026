@@ -59,14 +59,10 @@
       column-gutter: sz(48pt),
       align: (left + top, left + top),
       [
-        #text(font: mono-font, size: sz(28pt), fill: pal.fg)[
-          ∀ T. #h(sz(10pt)) comparable(T) #h(sz(6pt)) →
+        #text(font: mono-font, size: sz(27pt), fill: pal.fg)[
+          ∀ T. #h(sz(10pt)) comparable(T) #h(sz(8pt)) → #h(sz(8pt)) max : List\<T\> → T
         ]
-        #v(sz(6pt))
-        #text(font: mono-font, size: sz(28pt), fill: pal.fg)[
-          #h(sz(48pt)) ( max : List\<T\> → T )
-        ]
-        #v(sz(20pt))
+        #v(sz(22pt))
         #set text(size: sz(23pt), fill: pal.fg-dim)
         #set par(leading: 0.45em)
         #set text(size: sz(23pt), fill: pal.fg-dim)
@@ -82,11 +78,9 @@
         block[
           #set text(size: sz(23pt), fill: pal.fg-dim)
           #set par(leading: 0.45em)
-          The bound is the #text(fill: pal.fg, weight: 500)[if]. It says which
-          types the claim covers — everything at or below `Comparable<T>` — and it
-          is what lets the body call `compareTo`. Without it nothing could tell
-          which `T` is larger, so `max` could not be written at all. A language
-          without subtyping does the same job with a typeclass constraint.
+          The bound is the #text(fill: pal.fg, weight: 500)[if]. Without it
+          nothing could tell which `T` is larger, so `max` could not be
+          written at all.
         ],
       ),
     )

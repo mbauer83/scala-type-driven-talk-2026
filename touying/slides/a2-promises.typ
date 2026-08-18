@@ -1,21 +1,22 @@
-// A2-promises · cap 1:05 · Act 2 beat 3 of 3 · NEW
+// A2-promises · cap 1:05 · Act 2 beat 2 of 2
 //
-// Cashes out A1-crisis for practitioners: Hilbert's three requirements, said
-// once in Act 1 as a list, now read off against the thing in the room. This
-// slide was agreed in review, the budget was raised to make space for it, and
-// then it was never added — see Part 3.
+// REBUILT 18 Aug. MB: "convoluted, and shows the revision history in terms of
+// reading like the result of an argument"; "'and that's Rice, not Gödel' — are
+// you serious? That is horrific"; the array-covariance passage "barely coherent
+// and doesn't seem to fit". All three land.
 //
-// Two things must land, and one correction must not be lost:
-//   1. Completeness is given up for DECIDABILITY, and that is Rice's theorem,
-//      not Gödel. Conflating the two is a real error and someone in the room
-//      may know it (Part 8/C8).
-//   2. Soundness is bounded by the escape hatches you use. Java's array-store
-//      hole is the honest evidence, and it is Java's own.
+// The Rice/Gödel line was a correction addressed to a heckler who does not
+// exist. Nobody in the room cares which theorem bounds the checker; they care
+// that it says no to code they know is fine. So the slide answers MB's actual
+// question — WHERE, in Java, is completeness noticeably given up — with a
+// program every one of them has written and had rejected.
 //
-// Do NOT claim the audience feels incompleteness daily — MB's experience is
-// that they do not, because when the compiler says no it is usually right. You
-// feel it when you try to encode a STRONGER invariant, which is the cost this
-// talk asks them to weigh. That hands off to A6-cost.
+// Verified against javac 21.0.11: `f` fails with "missing return statement",
+// `g` compiles. Exhaustive, safe, rejected — and then accepted, four Java
+// versions later, which is the boundary moving in front of them.
+//
+// Rice, decidability and array covariance are all in the script's PREPARATION
+// block for Q&A. None of it is spoken.
 #import "../theme.typ": *
 #import "../components.typ": *
 #import "../code-pane.typ": *
@@ -30,79 +31,57 @@
 #theory-slide(
   eyebrow: eyebrow([The same questions, for your compiler], style: "normal"),
   [What a type checker actually promises],
+  body-gap: sz(30pt),
   [
-    #v(sz(10pt))
     #grid(
-      columns: (sz(230pt), sz(500pt), 1fr),
+      columns: (sz(230pt), sz(470pt), 1fr),
       column-gutter: sz(36pt),
-      row-gutter: sz(18pt),
+      row-gutter: sz(16pt),
       align: (left + top, left + top, left + top),
       stroke: (x, y) => if y == 0 { (bottom: 0.5pt + pal.rule-strong) } else { none },
-      inset: (bottom: sz(10pt)),
+      inset: (bottom: sz(9pt)),
 
       text(size: sz(20pt), fill: pal.fg-faint)[],
       text(font: mono-font, size: sz(20pt), fill: pal.fg-faint)[IN LOGIC],
       text(font: mono-font, size: sz(20pt), fill: pal.fg-faint)[IN YOUR TYPE CHECKER],
 
-      ..promise-row([consistent],
-        [never derives a contradiction],
-        [no well-typed program can produce a value of an impossible type]),
-      ..promise-row([sound],
-        [provable ⟹ true],
-        [if it compiles, the property holds]),
-      ..promise-row([complete],
-        [true ⟹ provable],
-        [every program that is *in fact* safe is accepted #h(sz(12pt))
-         #text(fill: pal.bad, weight: 500)[— given up on purpose]], dim: true),
+      ..promise-row([consistent], [never derives a contradiction],
+        [no well-typed program produces a value of an impossible type]),
+      ..promise-row([sound], [provable ⟹ true],
+        [if it compiles, the property holds — as far as the escape hatches let it]),
+      ..promise-row([complete], [true ⟹ provable],
+        [every safe program is accepted #h(sz(10pt))
+         #text(fill: pal.bad, weight: 500)[— given up, on purpose]], dim: true),
     )
-    #v(sz(30pt))
+    #v(sz(34pt))
     #grid(
-      columns: (1fr, sz(760pt)),
-      column-gutter: sz(44pt),
+      columns: (sz(700pt), 1fr),
+      column-gutter: sz(48pt),
       align: (left + top, left + top),
-      [
-        #text(size: sz(24pt), weight: 600, fill: pal.fg)[Given up for decidability — and that is Rice, not Gödel]
-        #v(sz(10pt))
-        #set text(size: sz(23pt), fill: pal.fg-dim)
-        #set par(leading: 0.45em)
-        The checker decides its own rules exactly. What is undecidable is the
-        property you actually wanted — *this never dereferences null* — so a check
-        that always terminates has to approximate it, on the safe side, rejecting
-        some programs that would have been fine.
-        #v(sz(14pt))
-        #text(size: sz(24pt), weight: 600, fill: pal.fg)[Soundness is bounded by the hatches you use]
-        #v(sz(10pt))
-        #set text(size: sz(23pt), fill: pal.fg-dim)
-        #set par(leading: 0.45em)
-        `null`, unchecked casts, Scala's `asInstanceOf`, Idris's `believe_me` —
-        each one a place you told the checker to stop looking.
-        #v(sz(10pt))
-        Java's arrays are a different shape, and a better one to know:
-      ],
-      stack(
-        dir: ttb,
-        spacing: sz(14pt),
-        // Held down so the pane sits level with "Soundness is bounded…", which
-        // is the sentence it is evidence for.
-        v(sz(76pt)),
-        code-pane(filename: "ArrayStore.java", language: "java", code-size: 23pt, pad-y: 12pt)[
+      code-pane(filename: "Colour.java", language: "java", code-size: 20pt, pad-y: 12pt)[
 ```java
-Object[] arr = new String[1];
-arr[0] = 42;      // static rule says yes
+int f(Colour c) {
+    switch (c) {
+        case RED:   return 1;
+        case GREEN: return 2;
+        case BLUE:  return 3;
+    }
+}   // error: missing return statement
 ```
-        ],
-        block[
-          #set text(size: sz(23pt), fill: pal.fg-dim)
-          #set par(leading: 0.45em)
-          The static rule is unsound, so the JVM pays for it instead — it checks
-          every store into a reference array, for ever, in all your code.
-          #v(sz(10pt))
-          You will not feel the missing completeness on a normal Tuesday; when the
-          compiler says no, it is usually right. You feel it the moment you try to
-          encode a #text(fill: pal.fg, weight: 500)[stronger] invariant, and what
-          that costs is the last question of the talk.
-        ],
-      ),
+      ],
+      [
+        #text(size: sz(26pt), weight: 600, fill: pal.fg)[This is where you feel it.]
+        #v(sz(12pt))
+        #set text(size: sz(24pt), fill: pal.fg-dim)
+        #set par(leading: 0.5em)
+        Exhaustive. Safe. Rejected — because a check that always terminates has to
+        approximate, and it approximates on the side that says no.
+        #v(sz(16pt))
+        #set text(size: sz(24pt), fill: pal.fg)
+        Write it as a `switch` #emph[expression] and Java 14 accepts it.
+        #text(fill: pal.fg-dim)[The boundary moves. That is the whole business
+        this talk is about.]
+      ],
     )
   ],
 )
