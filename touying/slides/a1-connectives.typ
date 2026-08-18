@@ -29,13 +29,13 @@
 
 #let connective(sym, alg, name, gloss) = stack(
   dir: ttb,
-  spacing: sz(8pt),
+  spacing: sz(18pt),
   grid(
     columns: (auto, auto, auto, 1fr),
     column-gutter: sz(16pt),
-    align: bottom,
-    text(font: mono-font, size: sz(44pt), fill: pal.accent)[#sym],
-    text(size: sz(30pt), fill: pal.fg-faint)[≡],
+    align: horizon,
+    text(font: mono-font, size: sz(42pt), fill: pal.accent)[#sym],
+    text(size: sz(32pt), fill: pal.fg-faint)[≡],
     text(font: mono-font, size: sz(40pt), fill: pal.accent)[#alg],
     text(size: sz(30pt), weight: 500, fill: pal.fg)[#h(sz(10pt)) #name],
   ),
@@ -56,17 +56,17 @@
       for that. You know both already, as `||` and `&&` over booleans. Here they
       are over #text(fill: pal.fg, weight: 500)[types].
     ]
-    #v(sz(20pt))
+    #v(sz(14pt))
     #grid(
       columns: (1.32fr, 1fr),
       column-gutter: sz(36pt),
-      row-gutter: sz(12pt),
+      row-gutter: sz(22pt),
       align: (left + top, left + top),
 
       connective([∨], [+], [a sum], [one of the variants, and the compiler knows which]),
       connective([∧], [×], [a product], [every field, at once]),
 
-      code-pane(filename: "RiskDecision.java", language: "java", code-size: 21pt, pad-y: 10pt)[
+      code-pane(filename: "RiskDecision.java", language: "java", code-size: 19pt, pad-y: 10pt)[
 ```java
 public sealed interface RiskDecision
     permits RiskDecision.Low,
@@ -103,7 +103,8 @@ public sealed interface RiskDecision
           #raw(block: true,
             "record RefundRule(\n"
             + "    RiskDecision    risk,   // 3\n"
-            + "    RefundMechanism how)    // 2")
+            + "    RefundMechanism how    // 2\n"
+            + ")")
         ],
         // Where the 2 comes from — RiskDecision's 3 is visible on the left, and
         // this is the only other number the arithmetic needs.
@@ -123,9 +124,9 @@ public sealed interface RiskDecision
         #text(font: mono-font, fill: pal.accent)[6] values: #text(font: mono-font)[3 × 2]
       ],
     )
-    #v(sz(16pt))
+    #v(sz(18pt))
     #line(length: 100%, stroke: 0.5pt + pal.rule)
-    #v(sz(14pt))
+    #v(sz(16pt))
     #grid(
       columns: (auto, 1fr),
       column-gutter: sz(40pt),
@@ -133,15 +134,14 @@ public sealed interface RiskDecision
       block[
         #set text(font: mono-font, size: sz(25pt), fill: pal.fg)
         PaymentMethod #h(sz(8pt)) = #h(sz(8pt))
-        Card(String) #h(sz(6pt)) #text(fill: pal.accent)[+] #h(sz(6pt))
-        Wallet(String) #h(sz(6pt)) #text(fill: pal.accent)[+] #h(sz(6pt))
-        Invoice(String)
+        Card(String, …) #h(sz(6pt)) #text(fill: pal.accent)[+] #h(sz(6pt))
+        Wallet(String, …) #h(sz(6pt)) #text(fill: pal.accent)[+] #h(sz(6pt))
+        Invoice(String, …)
       ],
       block[
         #set text(size: sz(24pt), fill: pal.fg-dim)
         #set par(leading: 0.45em)
-        A sum whose variants are products — one sealed interface over three
-        records. Most domain models are this shape.
+        A sum whose variants are products. Most domain models are this shape.
       ],
     )
   ],

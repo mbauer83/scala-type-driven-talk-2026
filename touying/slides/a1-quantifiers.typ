@@ -60,14 +60,15 @@
       align: (left + top, left + top),
       [
         #text(font: mono-font, size: sz(27pt), fill: pal.fg)[
-          ∀ T. #h(sz(10pt)) comparable(T) #h(sz(8pt)) → #h(sz(8pt)) max : T × T → T
+          max : #h(sz(8pt)) ∀ T. #h(sz(8pt)) comparable(T) #h(sz(8pt)) ⇒ #h(sz(8pt)) T × T → T
         ]
         #v(sz(22pt))
         #set text(size: sz(23pt), fill: pal.fg-dim)
         #set par(leading: 0.45em)
         #set text(size: sz(23pt), fill: pal.fg-dim)
-        The same shape as _all medium-risk orders need 3DS_ two slides ago:
-        a for-all with an #text(font: mono-font)[if] inside it.
+        Read it left to right: #emph[max has this type — for every T, provided T
+        can be compared]. The double arrow is the #text(font: mono-font)[if], the
+        same shape as _all medium-risk orders need 3DS_ two slides ago.
       ],
       stack(
         dir: ttb,

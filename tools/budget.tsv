@@ -46,9 +46,12 @@
 # the same direction every time (Part 8/C10, C12).
 
 # ── Act 0 · Open — 4:40 · AUTHORED, SIGNED OFF ─────────────────────────────
+# Caps rebalanced 18 Aug against MB's measured standing run. Time is moved,
+# not shaved (C10): the four slides that came in well under cap give it to the
+# three that came in over. Net zero.
 01-title	0:50	prose
-02-alice	2:15	prose
-06-pattern	1:35	prose
+02-alice	2:00	prose
+06-pattern	1:25	prose
 
 # ── Act 1 · Primer — 7:10 · AUTHORED (Part 10 corrections applied) ─────────
 # These were `stub` rows until the act was written, and stayed `stub` after it
@@ -56,12 +59,12 @@
 # are `prose` now: the act measures long against its caps and the tool has to
 # say so, which is the whole point of C10. Cut #5 (merge connectives and
 # quantifiers) is the reserve if the read-through confirms it.
-07-toolkit	1:05	prose
+07-toolkit	0:55	prose
 a1-connectives	1:20	prose
 a1-quantifiers	1:05	prose
-08-crisis	1:05	prose
-curry-howard	1:30	prose
-a1-above	1:05	prose
+08-crisis	1:35	prose
+curry-howard	1:45	prose
+a1-above	1:20	prose
 
 # ── Act 2 · Ground floor — 2:20 · all three exist ──────────────────────────
 # a2-values and a2-promises are cues + a scripted landing line, so they carry
@@ -77,7 +80,7 @@ a2-promises	1:05	prose
 # goes to A2-scenario (+0:15) and back to the pool.
 
 # ── Act 3 · Java ladder — 13:10 ────────────────────────────────────────────
-17-stage1	1:15	prose
+17-stage1	1:00	prose
 10-gentzen-or	1:15	prose
 19-stage3	1:45	prose
 a3-demo1	2:10	demo

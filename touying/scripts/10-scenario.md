@@ -2,23 +2,27 @@ A2-scenario · cap 0:40 · Act 2 beat 1 of 2
 
 TALKING POINTS
 1. The floor: Alice's service had no types — 12 plus 34 as strings gives 1234
-2. Everything from here is bought back from that
+2. That is where we start
 3. The flow, once: order → assess → authorize → capture (→ refund or invoice)
 4. What encoding a rule buys, four things:
 5. — applied at every use, by the compiler, not every call you remembered
 6. — the failure moves to compile time
 7. — the signal is a line and a type, not a 2 a.m. stack trace
 8. — the defensive tests go; the behavioural ones stay
+9. Hand off: so what is the compiler actually promising when it says yes?
 
 VERBATIM
 
 "Alice's service had no types at all: twelve plus thirty-four, as strings, is
-twelve-thirty-four, and nothing anywhere complains. That is the floor, and
-everything from here is bought back from it.
+twelve-thirty-four, and nothing anywhere complains. That is where we start.
 
 One flow carries the rest of the talk, and you have seen it already. What changes
-at each stage is how much of it the compiler enforces — and every time we move a
-rule into a type, we get the same four things back."
+at each stage is how much of it the compiler enforces — and each time we move a
+rule into a type we get the same four things back: it holds at every use, the
+failure moves to compile time, the signal is a line and a type, and the
+defensive tests go.
+
+So before any of that: what is the compiler actually promising when it says yes?"
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.

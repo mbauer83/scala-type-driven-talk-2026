@@ -9,7 +9,7 @@ TALKING POINTS
 4. Either answer contradicts: naive set theory is inconsistent
 5. And set theory was the ground under arithmetic, analysis and proof itself
 6. Russell's repair: every statement gets a level, one above what it mentions
-7. The bad sentence would sit one level above itself — nowhere to write it
+7. The set of all sets would sit one level above itself — no legal way to write it
 8. He called the levels TYPES
 9. Hilbert wanted three: consistent, complete, mechanically checkable
 10. Gödel 1931 — big enough for arithmetic means giving up complete
@@ -18,7 +18,7 @@ TALKING POINTS
 VERBATIM
 
 "Frege spent the next twenty years turning that notation into a foundation for
-the whole of mathematics. Then Russell broke it, with a shape you already know.
+the whole of mathematics. Then Russell broke it, with a shape you probably know.
 
 The barber shaves everyone who does not shave themselves. So who shaves the
 barber? Russell found that shape at the foundations of mathematics in
@@ -28,8 +28,9 @@ sets that do not contain themselves — does it contain itself?
 Either answer contradicts, so naive set theory is inconsistent — and set theory
 was the ground being laid under arithmetic, analysis and proof itself. Russell's own repair is the reason we are all here tonight. He
 gave every statement a level, defined by what it talks about: always one above
-whatever it mentions. Russell's sentence would have to sit one level above
-itself, so there is nowhere left to write it down. He called the levels types, and
+whatever it mentions. The set of all sets that do not contain themselves would
+have to sit one level above itself, so it has no level at all — there is no legal
+way to write that statement. He called the levels types, and
 every sealed interface any of you writes is downstream of a man trying to stop
 logic and mathematics from eating themselves.
 

@@ -2,7 +2,7 @@ A1-quantifiers · cap 1:05 · Act 1 beat 3 of 6 · rail: FREGE lit
 
 TALKING POINTS
 1. Frege 1879 — a proposition with a VARIABLE in it
-2. You already write it: every signature quantifies over its argument values
+2. Every METHOD signature quantifies over the values of its arguments
 3. A generic moves the variable ONE LEVEL UP — over types
 4. max: for all T, IF T can be compared, you can pick the larger of two
 5. The comparing is why the bound is there — without it max cannot be written
@@ -12,9 +12,9 @@ TALKING POINTS
 VERBATIM
 
 "Frege's move, in eighteen seventy-nine: let a proposition contain a variable,
-then say what holds for every value it could take. You already write that — every
-signature does it over the values of its arguments, and assessRisk holds for
-every order there will ever be.
+then say what holds for every value it could take. You already write that — every method signature
+you have ever typed quantifies over the values of its arguments. Assess-risk,
+there on the slide, takes an Order and holds for every order there will ever be.
 
 A generic moves the variable one level up, from values to types. Take max. For
 all T, if T can be compared, then you can pick the larger of two — and the

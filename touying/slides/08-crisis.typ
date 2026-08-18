@@ -51,8 +51,8 @@
         #set text(size: sz(25pt), fill: pal.fg-dim)
         #set par(leading: 0.45em)
         Give every statement a level, defined by what it talks about: always one
-        above whatever it mentions. The sentence that breaks everything would
-        have to sit one level above itself — so there is nowhere to write it.
+        above whatever it mentions. The set of all sets would have to sit one
+        level above itself — so there is no legal way to write it.
         #v(sz(12pt))
         #text(size: sz(27pt), fill: pal.fg)[He called the levels #text(fill: pal.accent, weight: 600)[types].]
       ],

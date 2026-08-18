@@ -29,7 +29,7 @@
 )
 
 #theory-slide(
-  eyebrow: eyebrow([The same questions, for your compiler], style: "normal"),
+  eyebrow: eyebrow([Hilbert's three, about your compiler], style: "normal"),
   [What a type checker actually promises],
   body-gap: sz(30pt),
   [
@@ -53,12 +53,21 @@
         [every safe program is accepted #h(sz(10pt))
          #text(fill: pal.bad, weight: 500)[— given up, on purpose]], dim: true),
     )
-    #v(sz(34pt))
+    #v(sz(30pt))
     #grid(
-      columns: (sz(700pt), 1fr),
-      column-gutter: sz(48pt),
+      columns: (1fr, 1fr),
+      column-gutter: sz(40pt),
+      row-gutter: sz(12pt),
       align: (left + top, left + top),
-      code-pane(filename: "Colour.java", language: "java", code-size: 20pt, pad-y: 12pt)[
+
+      text(size: sz(23pt), fill: pal.fg-dim)[
+        a switch #text(weight: 600, fill: pal.bad)[statement] — exhaustive, safe, rejected
+      ],
+      text(size: sz(23pt), fill: pal.fg-dim)[
+        the same three cases as a switch #text(weight: 600, fill: pal.good)[expression]
+      ],
+
+      code-pane(filename: "Colour.java", language: "java", code-size: 18pt, pad-y: 10pt)[
 ```java
 int f(Colour c) {
     switch (c) {
@@ -69,20 +78,24 @@ int f(Colour c) {
 }   // error: missing return statement
 ```
       ],
-      [
-        #text(size: sz(26pt), weight: 600, fill: pal.fg)[This is where you feel it.]
-        #v(sz(12pt))
-        #set text(size: sz(24pt), fill: pal.fg-dim)
-        #set par(leading: 0.5em)
-        Exhaustive. Safe. Rejected — because a check that always terminates has to
-        approximate, and it approximates on the side that says no.
-        #v(sz(16pt))
-        #set text(size: sz(24pt), fill: pal.fg)
-        Write it as a `switch` #emph[expression] and Java 14 accepts it.
-        #text(fill: pal.fg-dim)[The boundary moves. That is the whole business
-        this talk is about.]
+      code-pane(filename: "Colour.java", language: "java", code-size: 18pt, pad-y: 10pt)[
+```java
+int g(Colour c) {
+    return switch (c) {
+        case RED   -> 1;
+        case GREEN -> 2;
+        case BLUE  -> 3;
+    };
+}   // compiles — Java 14
+```
       ],
     )
+    #v(sz(22pt))
+    #align(center)[
+      #set text(size: sz(25pt), fill: pal.fg)
+      Identical logic. A check that has to terminate has to approximate — and in
+      2014 Java moved where the approximation falls.
+    ]
   ],
 )
 

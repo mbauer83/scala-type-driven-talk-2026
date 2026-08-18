@@ -1,30 +1,32 @@
 A2-promises · cap 1:05 · Act 2 beat 2 of 2 · VERBATIM
 
 TALKING POINTS
-1. Hilbert's three, asked now of the compiler on your laptop
+1. Russell's slide left us Hilbert's three — here they are, about your compiler
 2. Consistent — no well-typed program produces a value of an impossible type
 3. Sound — if it compiles the property holds, as far as the hatches let it
 4. Complete — every safe program accepted. Given up, on purpose
-5. Here is where you feel it: three colours, a switch, every case returns
-6. javac says missing return statement. Exhaustive, safe, rejected
-7. A check that has to terminate has to approximate — and it says no
-8. Same thing as a switch expression: Java 14 accepts it
+5. Left: a switch STATEMENT, every case returns. javac: missing return statement
+6. Exhaustive, safe, rejected — the approximation, in their own language
+7. Right: the same three cases as a switch EXPRESSION. Java 14. It compiles
+8. Identical logic. The difference is which construct the checker reasons about
 9. The boundary moved, in a language you already use
 
 VERBATIM
 
-"Hilbert's three questions, asked now of the compiler on your laptop. Consistent:
+"Russell's slide left us Hilbert's three. Here they are, about the compiler on
+your laptop. Consistent:
 no well-typed program can produce a value of an impossible type. Sound: if it
 compiles, the property holds — as far as the escape hatches let it, and null is
 the big one. And complete: every safe program gets accepted — that
 last one we gave up, on purpose.
 
-Here is where you feel it. A switch over three colours, every case returning, and
-javac tells you there is a missing return statement. It is exhaustive, it is
-safe, and it is rejected, because a check that has to terminate has to
-approximate, and it approximates on the side that says no.
+Here is where you feel it. On the left, a switch statement over three colours,
+every case returning — and javac tells you there is a missing return statement.
+It is exhaustive, it is safe, and it is rejected, because a check that has to
+terminate has to approximate, and it approximates on the side that says no.
 
-Now write the same thing as a switch expression. Java fourteen accepts it. The
+On the right is the same three cases as a switch expression, which Java fourteen
+gave exhaustiveness checking of its own. Identical logic, and it compiles. The
 boundary moved, in a language you already use, and moving that boundary is the
 whole business of this talk."
 

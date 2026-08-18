@@ -32,7 +32,18 @@
       language you write your program in. A type can then state any property you
       could write a program to check.
     ]
-    #v(sz(40pt))
+    #v(sz(24pt))
+    #align(center)[
+      #block(fill: pal.bg-warm, inset: (x: sz(30pt), y: sz(16pt)), radius: sz(4pt))[
+        #set text(font: mono-font, size: sz(24pt), fill: pal.fg)
+        (++) : Vect m a → Vect n a → Vect #text(fill: pal.accent)[(m + n)] a
+        #h(sz(30pt))
+        #text(size: sz(21pt), fill: pal.fg-dim, font: body-font)[
+          three ++ four has type seven, because the compiler did the arithmetic
+        ]
+      ]
+    ]
+    #v(sz(30pt))
     #stack(
       dir: ttb,
       spacing: sz(38pt),

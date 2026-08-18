@@ -32,8 +32,7 @@ thing. That's honestly still one of the most mind-blowing and beautiful facts I 
 So: your program is the construction. Its type says what you constructed a proof
 of. The compiler checks the one against the other - and proofs, like programs,
 compose, with the types governing how. None of that depends on writing the types
-down. Every value has a type whether you declare it, the compiler infers it, or
-the runtime carries it around, so the program is a construction either way. What
+down: declared, inferred, or carried at runtime, every value has one. What
 changes is whether anything checks it before you run.
 
 The caveat is the reason this talk has stages. A function type from A to B is an
