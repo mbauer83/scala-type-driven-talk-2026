@@ -37,7 +37,8 @@ BEATS
   › so a type can state any property you could write a program to check
 - Coquand 1988 folds that together with polymorphism into a small kernel — the
   one Rocq, Lean, Agda and Idris are built on.
-- The four notations, uncovered together. Read the glosses, not the syntax.
+- The notations, uncovered together. Read the glosses, not the syntax, and
+  introduce them by what the shift buys rather than by how many there are.
 - The contract: you will walk out knowing what each one buys, having watched all
   four run on the payment flow.
 - Last line is the cube glimpse. One line, no drawing.
@@ -76,10 +77,10 @@ property you could write a program to check. Coquand folded that together with
 polymorphism in eighty-eight, and that kernel is what Rocq, Lean, Agda and Idris
 are built on.
 
-Four notations, all of which you will see running later: a type indexed by a
-runtime value; a value paired with a proof about that value; a binding the
-compiler counts and will not let you drop; and a conversation between two
-services written down as one type.
+What that buys, in the places you will see it run: a type indexed by a runtime
+value; a value paired with a proof about that value; a binding the compiler
+counts and will not let you drop; and a conversation between two services
+written down as one type.
 
 You will walk out knowing what each one buys, having watched all four run on our
 payment flow. There is a map of this territory, and we fill it in as we go."

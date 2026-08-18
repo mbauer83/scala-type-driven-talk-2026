@@ -75,8 +75,9 @@ public static RiskDecision assessRisk(Order order)
       [over types],
       [∀ T.#h(sz(20pt))Predicate\<T\> × String → Validator\<T\>],
       [Here the variable ranges over #text(fill: pal.fg, weight: 500)[types], one
-       level above Frege. The body never gets to ask what `T` is, so this one
-       method holds for every `T` — including types nobody has written yet.],
+       level above Frege. The body never gets to ask what `T` is, so one method
+       covers every `T`. That same silence is why an unbounded `T` can only be
+       carried around; a bound is where you buy back the ability to act on it.],
       code-pane(filename: "Validator.java", language: "java", code-size: 16pt, pad-y: 8pt)[
 ```java
 static <T> Validator<T> check(Predicate<T> predicate, String errorMessage)

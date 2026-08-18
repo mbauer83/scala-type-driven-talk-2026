@@ -1789,13 +1789,20 @@ is*. Delete the sentence and check what information was lost. Usually none.
 what makes good on it.* The shape of an insight is not an insight. Test: could
 someone act differently having heard it? If not, it is decoration.
 
-**R5 — A headline names a concept.** It is a label on a section of the argument,
+**R5 — Enumerate-then-declare is a tell.** *[n] X — [declaration]* or *[n] X,
+[declaration]*: **Four notations, all of which you will see running later** ·
+**One honest caveat, and it is the reason this talk has stages** · **Two more
+pieces and this closes**. The sentence announces a count and then comments on the
+count, which is airtime spent on bookkeeping. Say what the things are, or lead
+with what they buy. The audience can count.
+
+**R6 — A headline names a concept.** It is a label on a section of the argument,
 not a line of speech. *You have already seen a quantifier* is something you say;
 in 60pt it spends the biggest text on the slide on nothing anyone can carry away.
 
 ### And one that is about structure rather than words
 
-**R6 — Lead with the capability or the problem, then the notation, then the
+**R7 — Lead with the capability or the problem, then the notation, then the
 code.** `A1-quantifiers` failed because it led with notation, bolted a Java
 mirror on, and never said why any of it mattered — so the first question a
 competent listener asks is *why are you telling me this*. Every Act 1 beat has to
@@ -1812,6 +1819,21 @@ they catch all four examples above plus two more I had not noticed:
 | `meta-commentary` | *I am not going to…*, *the slide is…*, *that is the point of…* |
 | `aphorism` | *the X is the Y and the Z is the W*, *makes good on it*, trailing summary clauses |
 | `title-is-a-sentence` | a headline opening with You / We / I / Here / Now / So |
+| `enumerate-then-declare` | *[n] X, [remark about the count]* — caught all three instances in the deck, no false positives across Acts 3–6 |
+
+### One claim that had to be weakened at the same time
+
+**Unbounded generics are barely useful, and `A1-quantifiers` has to admit it**
+(MB, 18 Aug). `∀T. T → T` has one inhabitant; `∀T` in general lets you carry a
+`T` around and do nothing else to it. Saying a generic *proves something for
+every type* without that qualification is a C2 overclaim, and the people most
+likely to catch it are the ones the primer needs. The honest framing costs one
+clause and is now on the slide: **the body's inability to inspect `T` is both the
+payoff and the limit** — it is what makes one implementation cover every `T`, and
+it is why an unbounded `T` can only be carried around. A bound is where you buy
+back the ability to act on it, and a bound is the quantifier's domain written in
+Java. Depth (parametricity, System F-sub, the line to Act 4's refinements) is in
+the script's Q&A block and gets **no airtime**.
 
 **The honest limit: a linter encodes faults it has already seen.** It cannot
 catch the next shape, only this one. R1–R6 above are the part that has to be

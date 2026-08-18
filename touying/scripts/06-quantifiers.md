@@ -37,7 +37,33 @@ BEATS
 - The move: a generic quantifies over TYPES.
   › the body never gets to ask what `T` is
   › so one implementation covers every `T`, including ones nobody has written
+  › one clause only on the flip side: an unbounded `T` is barely useful, hence
+    bounds. Do not develop it here — see the note below.
 - Margin, one line only: ∃ exists, Java cannot write it honestly, it returns.
+
+UNBOUNDED GENERICS ARE BARELY USEFUL, AND THE SLIDE HAS TO ADMIT IT (MB, 18 Aug)
+
+`∀T. T → T` has exactly one inhabitant, and `∀T` in general lets you move a `T`
+around and do nothing else to it. Claiming that a generic *proves something for
+every type* without that qualification is a C2 overclaim, and the people most
+likely to notice are the ones the primer needs.
+
+The honest framing, and it costs one clause: **the body's inability to inspect
+`T` is both the payoff and the limit.** It is what makes one implementation cover
+every `T`, and it is why an unbounded `T` can only be carried around. A bound —
+`<T extends Comparable<T>>` — is where you buy back the ability to act on it, and
+a bound is the quantifier's domain written in Java.
+
+**Budget discipline: one clause spoken, one sentence on the slide, no more.**
+The full version belongs in Q&A, not in a 45-minute talk. What follows is for
+Q&A only:
+- Parametricity (Reynolds 1983, Wadler's *Theorems for Free*) turns the limit
+  into a guarantee: from `∀T. List<T> -> List<T>` alone you can derive that the
+  result is a permutation of a sublist of the input. Java weakens this with
+  `null`, reflection and unchecked casts, so say *nearly* if you say it at all.
+- Bounded quantification is `∀T <: X` — System F-sub, Cardelli and Wegner 1985.
+  It is also the honest ancestor of Scala's refinements in Act 4, so if this
+  question comes up early, it is a gift: the answer is *Act 4*.
 
 MUST LAND
 Generics are quantification one level up. If the room takes away *a generic is a
@@ -77,9 +103,8 @@ FACTS — grepped, not remembered (C1)
 
 VERBATIM
 
-"Frege's move, in eighteen seventy-nine, was to put a hole in a proposition and
-then bind it. For all o of type Order, and then something that holds for every
-one of them.
+"Frege's move, in eighteen seventy-nine: put a hole in a proposition, then bind
+it. For all o of type Order, and then something true of every one of them.
 
 You write that already. Every signature you have ever typed is a universal
 quantifier — assessRisk takes an Order and returns a risk decision, for every
@@ -89,7 +114,9 @@ for-all whose body never mentions the thing it bound.
 A generic moves that variable up a level. It stops ranging over values and starts
 ranging over types, and the power is in what the body cannot do: it never gets to
 ask what T is, so it cannot treat one T differently from another. One
-implementation covers all of them, including types nobody has written yet.
+implementation covers all of them, including types nobody has written yet — and
+by the same token an unbounded T is not much use, which is why yours nearly all
+carry a bound.
 
 There is a second quantifier, there-exists. Java has no honest way to write that
-one, and it is the first thing we are going to need at the top of the climb."
+one, and it is the first thing we need at the top of the climb."

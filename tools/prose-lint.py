@@ -151,6 +151,22 @@ APHORISM = [
     (r"\bthat is not a metaphor\b", "that-is-not-a-metaphor"),
 ]
 
+# Enumerate-then-declare. MB, 18 Aug: the pattern is "[n] X — [declaration]" or
+# "[n] X, [declaration]", with or without the dash. It announces a count and then
+# comments on the count, which is a sentence spent on bookkeeping:
+#     "Four notations, all of which you will see running later"
+#     "One honest caveat, and it is the reason this talk has stages"
+#     "Two more pieces and this closes"
+# The repair is always the same — say what the things ARE, or introduce them by
+# what they buy. The audience can count.
+ENUMERATION = [
+    (r"(?:^|(?<=[.!?] )|(?<=[.!?]\" ))"
+     r"(one|two|three|four|five|six|seven|eight|nine|ten|\d+)\s+"
+     r"(?:more\s+|other\s+|further\s+|honest\s+|last\s+)?[a-z]+s?\s*"
+     r"(?:[,—–]\s*(?:and\s+|all\s+of\s+which|none\s+of|both\s+of)?|\s+and\s+)[a-z]",
+     "count + noun, then a remark about the count"),
+]
+
 KICKERS = [
     (r"\byou just don'?t call it that\b", "stock kicker"),
     (r"\bwhich is exactly\b", "which-is-exactly"),
@@ -291,6 +307,14 @@ def check(text, path, rhythm=True):
             out.append(("error", "aphorism", text[m.start():m.end()],
                         f"'{name}'. Balanced clauses with no content in either half. "
                         "Delete it and check what was lost; usually nothing."))
+
+    for pat, name in ENUMERATION:
+        for m in re.finditer(pat, low, flags=re.I | re.M):
+            out.append(("error", "enumerate-then-declare", text[m.start():m.end()],
+                        f"'{name}'. Announcing how many there are and then "
+                        "commenting on the number spends a sentence on "
+                        "bookkeeping. Say what they are, or lead with what they "
+                        "buy — the audience can count."))
 
     # 7. stock kickers
     for pat, name in KICKERS:

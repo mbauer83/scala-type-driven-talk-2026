@@ -2,7 +2,7 @@ VERBATIM · cap 1:30 · Act 1 beat 5 of 6 · rail: CHURCH · CURRY-HOWARD lit
 
 BEATS — delivery aid; the script is below
 
-- Two more pieces and this closes.
+- Join from the crisis: why a compiler can take that deal at all.
 - Church and Turing, 1936, make computation formal. Church's typed lambda
   calculus is the direct ancestor of the Function you wrote in Java 8.
 - 1969: Howard writes down what Curry had noticed. The three equations, left
@@ -27,7 +27,7 @@ BEATS — delivery aid; the script is below
 
 VERBATIM
 
-"Two more pieces and this closes.
+"Why a compiler can take that deal at all is the last piece.
 
 Church and Turing, both in nineteen thirty-six, made computation formal, and
 Church's typed lambda calculus is the direct ancestor of the
@@ -45,7 +45,7 @@ of. The compiler is the machine that checks the one against the other. That hold
 whether or not you write the types down, because in an untyped language the
 proposition is still there and nothing ever checks it.
 
-One honest caveat, and it is the reason this talk has stages. That correspondence
+The caveat is the reason this talk has stages. That correspondence
 is with a total, pure calculus. Java has null in every reference type, exceptions
 that escape any signature, and loops that never return and therefore inhabit
 anything at all, so a Java method from A to B does not yet prove that A implies B.
