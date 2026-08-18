@@ -5,8 +5,7 @@ TALKING POINTS
 2. So far the result type was fixed before you called the function
 3. Martin-Löf 1972 — compute it from the argument VALUES
 4. A vector carrying its length: three ++ four has type seven
-5. In these languages, type language and program language are the SAME one
-6. Anything you can compute you can state in a type — then you must prove it
+5. Let the vector do the work — do not generalise it out loud
 7. Coquand 1988 — kernels of Rocq, Lean, Agda, Idris
 8. Glimpse of what is coming: Π · Σ · use-exactly-once · a conversation as a type
 9. You will have watched all four run on our payment flow
@@ -20,10 +19,7 @@ Everything so far has had the result type completely fixed before you called the
 Martin-Löf, in nineteen seventy-two, let it be computed from argument values
 instead. Picture a vector that carries its own length in its type: concatenate a
 vector of three with a vector of four, and the type of the result says seven,
-because the compiler did the arithmetic. In these languages the type language and the program
-language are the same one, so the compiler runs your code while it is
-type-checking. Anything you can compute, you can state in a type — and then you
-have to prove it. Coquand added polymorphism in
+because the compiler did the arithmetic. Coquand added polymorphism in
 eighty-eight, and between the two of them you have the kernels of proof assistants and programming languages like Rocq, Lean,
 Agda and Idris.
 
@@ -53,6 +49,11 @@ The shift, stated plainly, and it is now the lede on the slide:
 > evaluates your code while it type-checks — and anything you can compute, you
 > can state in a type.
 
+**NONE OF THIS IS SPOKEN, and the slide does not say it either.** It was on both
+and MB retracted it twice before I removed it from the second place. The vector
+example is the claim, in concrete form, and it is enough for a 1:05 glimpse. What
+follows is Q&A material only.
+
 **Do not overreach on either half.** It is not a property of dependent types in
 general: refinement systems (Liquid Haskell, Dependent ML) restrict what may
 appear in a type to a decidable fragment and hand it to a solver, and their
@@ -78,8 +79,8 @@ BEATS
 
 - One more step, and it changes what a type is able to say.
 - Martin-Löf 1972: the result type may be computed from the argument.
-  › the type language and the program language become the same language
-  › so a type can state any property you could write a program to check
+  › **let the vector carry it** — three ++ four has type seven, because the
+    compiler did the arithmetic. Do not generalise that out loud (see below)
 - Coquand 1988 folds that together with polymorphism. Between Martin-Löf and
   Coquand you have the kernels of Rocq, Lean, Agda and Idris — **say "between the
   two of them", not "that kernel"** (see the correction below).

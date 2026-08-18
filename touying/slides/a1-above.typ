@@ -28,9 +28,7 @@
       #set par(leading: 0.45em)
       Until now a function's result type was fixed before you called it.
       Martin-Löf let it be #text(fill: pal.fg, weight: 500)[computed from the
-      argument] — so the language the compiler runs to work out a type is the
-      language you write your program in. A type can then state any property you
-      could write a program to check.
+      argument] — which is the step that changes what a type is able to say.
     ]
     #v(sz(24pt))
     #align(center)[

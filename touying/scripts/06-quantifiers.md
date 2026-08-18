@@ -5,7 +5,7 @@ TALKING POINTS
 2. Every METHOD signature quantifies over the values of its arguments
 3. A generic moves the variable ONE LEVEL UP — over types
 4. max: for all T, IF T can be compared, you can pick the larger of two
-5. The comparing is why the bound is there — without it max cannot be written
+5. Strip the bound and the body can do nothing with a T at all — no max
 6. Same shape as all medium-risk orders need 3DS: a for-all with an if in it
 7. ∃ — wildcards are a weak version. We come back to it
 
@@ -18,8 +18,9 @@ there on the slide, takes an Order and holds for every order there will ever be.
 
 A generic moves the variable one level up, from values to types. Take max. For
 all T, if T can be compared, then you can pick the larger of two — and the
-comparing is exactly why that bound is there. Without it, nothing in the body
-could tell which T was larger, and max could not be written at all.
+comparing is exactly why that bound is there. Strip it off and there is nothing
+the body can do with a T at all — it cannot compare two of them, so max cannot be
+written.
 
 That is a for-all with an if inside it, the same form we started with two slides
 ago. The bound is the if: it says which types the claim covers.
@@ -115,7 +116,9 @@ BEATS
     `List<T> → Optional<T>`, a non-empty list, or a nullable return. Two
     arguments dodges all of that, needs no `Optional` to explain, and `T × T → T`
     reuses the `×` from `A1-connectives` two beats back
-  › the comparing is why the bound is there — without it `max` cannot be written
+  › the bound is why the body can do anything to a `T` at all. Strip it and
+    there is no comparing, so no `max` — that is the whole of what an unbounded
+    `T` costs you, stated in one example
   › call back to Aristotle: a for-all with an `if` inside it
   › the bound is the `if` — which types the claim covers, and what lets the body
     call `compareTo`

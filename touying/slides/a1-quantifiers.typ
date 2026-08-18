@@ -47,11 +47,15 @@
       #set text(size: sz(25pt), fill: pal.fg-dim)
       #set par(leading: 0.5em)
       Frege's move: let a proposition contain a #text(fill: pal.fg, weight: 500)[variable],
-      then say what holds for every value it could take. Every signature you write
-      already does that —
-      #text(font: mono-font, size: sz(23pt), fill: pal.fg)[∀ o : Order. assessRisk(o) : RiskDecision].
-      A generic moves the variable #text(fill: pal.fg, weight: 500)[one level up],
-      so it ranges over types.
+      then say what holds for every value it could take. Every method signature
+      you write already does that, and a generic moves the variable
+      #text(fill: pal.fg, weight: 500)[one level up], so it ranges over types.
+      #v(sz(14pt))
+      #align(center)[
+        #text(font: mono-font, size: sz(26pt), fill: pal.fg)[
+          ∀ o : Order. #h(sz(10pt)) assessRisk(o) : RiskDecision
+        ]
+      ]
     ]
     #v(sz(58pt))
     #grid(
@@ -79,9 +83,9 @@
         block[
           #set text(size: sz(23pt), fill: pal.fg-dim)
           #set par(leading: 0.45em)
-          The bound is the #text(fill: pal.fg, weight: 500)[if]. Without it
-          nothing could tell which `T` is larger, so `max` could not be
-          written at all.
+          The bound is the #text(fill: pal.fg, weight: 500)[if]. Strip it off and
+          there is nothing the body can do with a `T` at all — no comparing, and
+          so no `max`.
         ],
       ),
     )
