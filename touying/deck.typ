@@ -46,8 +46,8 @@
 #include "slides/a1-above.typ"
 #include "slides/15-test-spine.typ"
 #include "slides/a2-promises.typ"         // Act 2 — what a checker actually promises
-#include "slides/17-stage1.typ"
-#include "slides/18-stage2.typ"
+#include "slides/17-stage1.typ"          // A3-stage12 — Stages 1+2 merged
+#include "slides/10-gentzen-or.typ"      // A3-gentzen — moved here from Act 1 (P2)
 #include "slides/19-stage3.typ"
 #include "slides/20-stage3-payoff.typ"
 #include "slides/21-bridge.typ"

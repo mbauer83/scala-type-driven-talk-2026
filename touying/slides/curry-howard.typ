@@ -92,7 +92,8 @@
         )
         #v(sz(16pt))
         #text(size: sz(25pt), fill: pal.fg)[
-          Every stage from here deletes one of those alternatives.
+          From here the talk repeats one move: something the code only
+          #emph[promises] becomes something the type #emph[states].
         ]
       ],
       style: "bad",

@@ -2155,3 +2155,69 @@ example earns its place more strongly than it did as "a hole".
 2. **Act 1 is 1:36 over.** Recover it from the `A1-connectives` +
    `A1-quantifiers` merge held in reserve, or from per-slide trims at the
    read-through? Unchanged from Part 11/B — decide against measured numbers.
+
+---
+
+## Part 14 — Lessons from the 18 Aug review of Acts 1–2
+
+Part 12 holds the register rules; these are about claims, examples and slide
+construction. Each is a defect MB found in work I had called finished.
+
+### L26 — a claimed common thread must be checked against every instance
+
+The caveat on `A1-curry-howard` closed with *"Every stage from here deletes one of
+those alternatives"* — the alternatives being `null`, `throws C` and `never`. MB:
+*"is that even true? Don't we do much more in the breadth of type-level features
+we talk about?"*
+
+It is not true. Checked against the ladder:
+
+| stage | what it moves into the type | deletes null / throws / never? |
+|---|---|---|
+| 1 · simple types, smart constructors | which values can exist at all | no |
+| 2 · generics | one claim over many types | no |
+| 3 · sealed + records | a closed set of alternatives; `Result` makes failure explicit | partly — `Result` replaces two of them |
+| 4 · phantom typestate | which operation is legal in which state | no |
+| 5 · refinements, session types | a predicate; a protocol; types computed from types | no |
+| 6 · dependent types, QTT, totality | a type that depends on a value; use-exactly-once; termination | `never`, via the totality checker |
+
+Two of six touch that disjunction. **The real common thread is MB's own, from his
+`08` rewrite: each stage takes something the code only *promises* and makes the
+type *state* it** — a rule that lived in a comment, a test, a code review or
+nobody's head moves to where the compiler enforces it. That covers all six, and
+it is continuous with `A0-turn`'s *a test is a case somebody has to think of and
+keep correct*.
+
+**The rule: before writing "every stage does X", write the stages out and check.**
+A through-line is the most load-bearing sentence in a talk and the easiest to
+assert without testing.
+
+### R10 — a slide arguing for precision cannot carry an imprecise example
+
+`A1-quantifiers` had `max : List<T> → T`. The empty list has no maximum, so the
+signature is false; the honest forms are `List<T> → Optional<T>`, a non-empty
+list, or a nullable return. On the slide whose whole subject is what a type
+promises, that is the worst possible place for it. Replaced with `max : T × T →
+T`, which is total, needs no `Optional` to explain, keeps the bound load-bearing,
+and reuses the `×` from two beats earlier. **Compiled before it went on.**
+
+### R11 — if the content is a comparison, show the comparison
+
+The caveat block was eighty-five words of prose *describing* the gap between what
+a signature claims and what Java delivers. MB: put the two side by side. It is
+now two lines and one sentence:
+
+```
+A → B                                 the proposition your signature claims
+A → ( B | null ) throws C | never     the one Java can actually keep
+```
+
+Generalises: a slide that spends a paragraph describing a structure should
+usually be showing the structure. Prose is for the things that are not visual.
+
+### R12 — execute the plan's own decisions, or delete them
+
+`15-test-spine` sat in the main deck for eight drafts with the nine-row inventory
+and its `CLOSES` column, which Part 2 had removed and P5 had diagnosed by name.
+Nobody was checking the deck against the plan. `make timing` reports slides that
+are over budget; nothing reported slides the plan says should not be there.

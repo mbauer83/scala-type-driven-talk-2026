@@ -13,7 +13,7 @@ TALKING POINTS
 9. A → B is an implication: give me an A, I always give you a B
 10. Null, exceptions, non-termination — so the signature is not always truthful
 11. But Java already has A → B throws C
-12. The climb from here: make implicit things explicit until signatures tell all
+12. One move, repeated: what the code only promises, the type states
 
 VERBATIM
 
@@ -42,7 +42,8 @@ quite truthful, because of nullability, exceptions, and loops that never return 
 so what you can actually get is the second line. And notice that Java already
 gives you one way to close part of that gap: A arrow B throws C.
 
-A good part of our climb from here is that one move, repeated — making implicit things explicit until our signatures tell the whole story."
+And a good part of our climb from here is that one move, repeated: something the
+code only promises becomes something the type states."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.
