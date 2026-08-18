@@ -216,6 +216,18 @@ JARGON = [
     "kyc", "psd2", "sca", "liability shift", "catamorphism", "involution",
     "ι-reduction", "iota-reduction", "definitional equality", "hylomorphism",
     "anamorphism", "profunctor", "bifunctor", "existential quantification",
+    # Added 18 Aug. MB: the room is MIXED — a term that is standard for part of
+    # the audience is still jargon, and worse when it arrives beside an
+    # unfamiliar idea, because two things have to be resolved at once. These
+    # leaked into spoken text or slide copy and were replaced by showing the
+    # code and saying what it does:
+    #   "a bound" / "unbounded T"  ->  write `<T extends Comparable<T>>`
+    #   "inhabit an impossible type"  ->  "produce a value of"
+    #   "phantom parameters"  ->  "a type parameter like `<Initiated>`"
+    #   "multiplicities"  ->  "use-once markers"
+    "unbounded", "bounded quantification", "inhabit", "inhabitant",
+    "inhabits", "phantom type", "phantom parameter", "multiplicity",
+    "multiplicities", "parametricity", "stratify",
 ]
 
 

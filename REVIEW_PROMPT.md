@@ -93,9 +93,15 @@ particular:
    cost. A fix that adds 40 words is usually not a fix.
 8. **Joins.** Read the last spoken sentence of each slide against the first of
    the next. Beats can each be right while the sequence is unreadable.
-9. **Audience fit.** Jargon this room does not share, examples outside the
-   payment domain the talk establishes, anything that positions the audience as
-   pupils rather than practitioners.
+9. **Audience fit, and the room is MIXED.** A term that is standard for part of
+   the audience is still jargon — treat "a good half of a meetup crowd would not
+   place this noun" as a finding, not a quibble. Watch especially for a term
+   arriving next to an unfamiliar *idea*, where a listener has to resolve two
+   things at once. The house fix is always the same: show the code they can
+   read, say what it does, leave the name out. Also flag examples outside the
+   payment domain the talk establishes, terms used before the talk introduces
+   them, and anything that positions the audience as pupils rather than
+   practitioners.
 
 ## Output format — follow this exactly
 

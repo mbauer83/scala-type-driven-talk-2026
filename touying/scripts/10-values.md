@@ -22,8 +22,11 @@ BEATS
   › while somebody reads a signature and infers the contract
 - Point at the two `Payment` types: same bytes.
 - Then the cheap/costly pair, fast:
-  › phantom parameters carry no data, opaque types are plain Strings,
-    multiplicities are erased — you pay in compile-time expressiveness
+  › a type parameter like `<Initiated>` carries no data, opaque types are plain
+    Strings, the use-once markers are gone before the program starts — you pay
+    in compile-time expressiveness
+  › **do not say "phantom" here.** Stage 4 introduces it two acts later; using
+    the name before the thing is C3, and half the room will not have it
   › and what you erase you cannot ask about later, which is why
     `x instanceof List<String>` does not compile
 - Name the exception and move on. Stage 6 runs the other way.

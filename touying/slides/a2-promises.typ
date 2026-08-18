@@ -46,7 +46,7 @@
 
       ..promise-row([consistent],
         [never derives a contradiction],
-        [no well-typed program can inhabit an impossible type]),
+        [no well-typed program can produce a value of an impossible type]),
       ..promise-row([sound],
         [provable ⟹ true],
         [if it compiles, the property holds]),

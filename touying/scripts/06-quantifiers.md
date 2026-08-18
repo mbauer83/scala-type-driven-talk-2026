@@ -37,8 +37,10 @@ BEATS
 - The move: a generic quantifies over TYPES.
   › the body never gets to ask what `T` is
   › so one implementation covers every `T`, including ones nobody has written
-  › one clause only on the flip side: an unbounded `T` is barely useful, hence
-    bounds. Do not develop it here — see the note below.
+  › one clause only on the flip side: with nothing known about `T` you can pass
+    it around and nothing else, which is why real generics say
+    `T extends something`. **Show the syntax, do not say "a bound"** — see the
+    note below.
 - Margin, one line only: ∃ exists, Java cannot write it honestly, it returns.
 
 UNBOUNDED GENERICS ARE BARELY USEFUL, AND THE SLIDE HAS TO ADMIT IT (MB, 18 Aug)
@@ -50,9 +52,16 @@ likely to notice are the ones the primer needs.
 
 The honest framing, and it costs one clause: **the body's inability to inspect
 `T` is both the payoff and the limit.** It is what makes one implementation cover
-every `T`, and it is why an unbounded `T` can only be carried around. A bound —
-`<T extends Comparable<T>>` — is where you buy back the ability to act on it, and
-a bound is the quantifier's domain written in Java.
+every `T`, and it is why with nothing known about `T` you can pass it around and
+do nothing else to it.
+
+**Say `<T extends Comparable<T>>`, not "a bound".** (MB, 18 Aug.) The room is
+mixed — the term is standard Java and a good part of the audience still will not
+place it, especially arriving mid-sentence alongside quantification, where they
+would have to resolve two unfamiliar things at once. Show the syntax they can
+read and say what it does. The name is optional and costs more than it earns.
+For your own reference: a bound is the quantifier's domain, restricting `∀T` to
+`∀T <: X`.
 
 **Budget discipline: one clause spoken, one sentence on the slide, no more.**
 The full version belongs in Q&A, not in a 45-minute talk. What follows is for
@@ -106,17 +115,17 @@ VERBATIM
 "Frege's move, in eighteen seventy-nine: put a hole in a proposition, then bind
 it. For all o of type Order, and then something true of every one of them.
 
-You write that already. Every signature you have ever typed is a universal
-quantifier — assessRisk takes an Order and returns a risk decision, for every
-order there will ever be, including the ones placed tonight. A function type is a
+You write that already. Every signature you write is a universal quantifier —
+assessRisk takes an Order and returns a risk decision, for every order there will
+ever be, including the ones placed tonight. A function type is a
 for-all whose body never mentions the thing it bound.
 
 A generic moves that variable up a level. It stops ranging over values and starts
 ranging over types, and the power is in what the body cannot do: it never gets to
-ask what T is, so it cannot treat one T differently from another. One
-implementation covers all of them, including types nobody has written yet — and
-by the same token an unbounded T is not much use, which is why yours nearly all
-carry a bound.
+ask what T is. One
+implementation covers all of them, including types nobody has written yet. For
+the same reason it can only pass a T around and never call anything on it, which
+is why in practice you nearly always write T extends something.
 
 There is a second quantifier, there-exists. Java has no honest way to write that
 one, and it is the first thing we need at the top of the climb."

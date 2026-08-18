@@ -73,8 +73,8 @@
     #callout(
       [The honest caveat — *which calculus*, not whether],
       [This correspondence is with a *total, pure* calculus. Java has `null` in every reference
-       type, exceptions that escape any signature, and loops that never return and so inhabit
-       anything at all — so a Java method `A → B` is not yet a proof of `A implies B`. Logic
+       type, exceptions that escape any signature, and loops that never return, which type-check
+       as anything you like — so a Java method `A → B` is not yet a proof of `A implies B`. Logic
        reaches effects perfectly well: there are calculi for state, for exceptions and for
        control, and adding first-class continuations buys you classical logic. Java simply sits
        outside *this* calculus, and each stage from here moves it toward one that fits.],

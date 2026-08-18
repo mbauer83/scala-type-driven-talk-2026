@@ -50,8 +50,8 @@
         #v(sz(10pt))
         #set text(size: sz(25pt), fill: pal.fg-dim)
         #set par(leading: 0.45em)
-        Stratify everything. A predicate may not apply to things at its own level,
-        so the sentence that breaks it cannot be written down.
+        Put everything on a level, and forbid anything from talking about things
+        on its own level — so the sentence that breaks it cannot be written down.
         #v(sz(12pt))
         #text(size: sz(27pt), fill: pal.fg)[He called the levels #text(fill: pal.accent, weight: 600)[types].]
       ],

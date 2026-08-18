@@ -1800,6 +1800,28 @@ with what they buy. The audience can count.
 not a line of speech. *You have already seen a quantifier* is something you say;
 in 60pt it spends the biggest text on the slide on nothing anyone can carry away.
 
+**R8 — The room is mixed, so a term standard for *part* of it is still jargon.**
+(MB, 18 Aug, on *a bound*.) C5 said "do not add jargon the room does not share";
+the sharper version is that sharing is not binary. `<T extends Comparable<T>>` is
+ordinary Java and a good part of a meetup audience still will not place the noun
+*a bound* — least of all arriving mid-sentence next to *universal quantification*,
+where they would have to resolve two unfamiliar things at once. **Show the code
+they can read, say what it does, and leave the name out.** The name costs airtime
+and buys nothing; if it matters, it belongs in the Q&A block of the script.
+
+Four instances of this were in Acts 0–2 and all four are now gone:
+
+| was | now |
+|---|---|
+| *an unbounded `T`* · *a bound* | *it can only pass a `T` around and never call anything on it — which is why in practice you write `<T extends Comparable<T>>`* |
+| *no well-typed program can inhabit an impossible type* | *…can produce a value of an impossible type* |
+| *loops that never return and so inhabit anything at all* | *loops that never return, which type-check as anything you like* |
+| *phantom parameters carry no data* (two acts before Stage 4 names them) | *a type parameter like the `<Initiated>` above carries no data at all* |
+
+Plus *multiplicities* → *use-once markers* (the phrase `A1-above` already used),
+and Russell's *a predicate may not apply to things at its own level* → *nothing
+may talk about things on its own level*.
+
 ### And one that is about structure rather than words
 
 **R7 — Lead with the capability or the problem, then the notation, then the
@@ -1820,6 +1842,7 @@ they catch all four examples above plus two more I had not noticed:
 | `aphorism` | *the X is the Y and the Z is the W*, *makes good on it*, trailing summary clauses |
 | `title-is-a-sentence` | a headline opening with You / We / I / Here / Now / So |
 | `enumerate-then-declare` | *[n] X, [remark about the count]* — caught all three instances in the deck, no false positives across Acts 3–6 |
+| `jargon` (extended) | `unbounded`, `inhabit`, `phantom type`, `multiplicity`, `parametricity`, `stratify` added to the existing list. Acts 0–2 are clean; the remaining hits are all in Acts 3–6, which do throw these at the room and are now on the backlog for it |
 
 ### One claim that had to be weakened at the same time
 

@@ -12,8 +12,8 @@ BEATS — delivery aid; the script is below
 - **Name the damage before offering the repair.** Naive set theory is
   inconsistent, and set theory was the ground under arithmetic, analysis and
   proof itself.
-- Russell's own repair, and the reason we are here: stratify it. A predicate
-  cannot apply to things at its own level.
+- Russell's own repair, and the reason we are here: everything sits on a level,
+  and nothing may talk about things on its own level.
   › he called the levels types — that is where the word comes from
 - Every sealed interface in this room is downstream of a man trying to stop
   mathematics from eating itself.
@@ -33,8 +33,8 @@ set of all sets that do not contain themselves — does it contain itself?
 
 Either answer contradicts, so naive set theory is inconsistent — and set theory
 was the ground being laid under arithmetic, analysis and proof itself. Russell's own repair is the reason we are all here tonight. He
-stratified it, so that a predicate may not apply to things at its own level and
-the offending sentence cannot be written down. He called the levels types, and
+put everything on a level and forbade anything from talking about things on its
+own level, so the offending sentence cannot be written down at all. He called the levels types, and
 every sealed interface any of you writes is downstream of a man trying to stop
 mathematics from eating itself.
 

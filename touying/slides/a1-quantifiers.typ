@@ -76,8 +76,9 @@ public static RiskDecision assessRisk(Order order)
       [∀ T.#h(sz(20pt))Predicate\<T\> × String → Validator\<T\>],
       [Here the variable ranges over #text(fill: pal.fg, weight: 500)[types], one
        level above Frege. The body never gets to ask what `T` is, so one method
-       covers every `T`. That same silence is why an unbounded `T` can only be
-       carried around; a bound is where you buy back the ability to act on it.],
+       covers every `T`. For the same reason it can only pass a `T` around and
+       never call anything on it — which is why in practice you write
+       `<T extends Comparable<T>>`, and get `compareTo` back.],
       code-pane(filename: "Validator.java", language: "java", code-size: 16pt, pad-y: 8pt)[
 ```java
 static <T> Validator<T> check(Predicate<T> predicate, String errorMessage)

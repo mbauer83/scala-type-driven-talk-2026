@@ -82,8 +82,9 @@
         #v(sz(8pt))
         #set text(size: sz(24pt), fill: pal.fg-dim)
         #set par(leading: 0.45em)
-        Phantom parameters carry no data. Scala's opaque types are plain `String`s
-        at runtime, and Idris's multiplicities are erased. You pay in
+        A type parameter like the `<Initiated>` above carries no data at all.
+        Scala's opaque types are plain `String`s at runtime, and Idris's
+        use-once markers are gone before the program starts. You pay in
         compile-time expressiveness.
       ],
       [

@@ -12,7 +12,7 @@ BEATS
   here they are against the compiler on your laptop.
 - Walk the table left to right, one row at a time. Do not read the logic column
   aloud twice — say the checker column and let the logic column sit there.
-  › consistent — no well-typed program can inhabit an impossible type
+  › consistent — no well-typed program can produce a value of an impossible type
   › sound — if it compiles, the property holds
   › complete — every safe program is accepted, and this one is given up
 - **The correction, and say it plainly because someone in the room may know it.**
