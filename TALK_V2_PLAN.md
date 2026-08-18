@@ -1875,6 +1875,27 @@ catch the next shape, only this one. R1–R6 above are the part that has to be
 checked by reading, and the reading has to happen before the slide is built, not
 after MB sees it.
 
+### R9 — an example that cannot be counted cannot demonstrate counting
+
+`A1-connectives` showed the real `OrderLine(String sku, int unitPriceCents, int
+quantity)` as its product. Verbatim from the repo, and useless: `String` is
+unbounded, so the caption could only say *as many as sku × price × quantity* —
+asserting the arithmetic rather than performing it, on the one slide whose whole
+job is that you can count the values. MB: *"it really obscures something."*
+
+The replacement is `record RefundRule(RiskDecision risk, RefundMechanism how)` —
+3 × 2 = 6, both field types real, both numbers verifiable on screen (RiskDecision's
+three variants are in the pane beside it; RefundMechanism's two are named
+underneath). Only the wrapper is illustrative, and it is rendered as a plain
+card — **no filename tab, no line numbers, no syntax colour** — so nothing on the
+slide claims it is a file.
+
+**The general rule: verbatim-from-source is a means, not the end.** Part 6b's
+trap is presenting invented identifiers *as repository code*; it is not a ban on
+ever drawing a shape. When a real example cannot carry the point, the honest move
+is an illustrative one that is visibly illustrative — not a real one that
+quietly fails.
+
 ### Standing state of the rest of the deck under these rules
 
 Acts 0, 1 and 2 are clean. Everything from `A3-stage12` onward is still v1 prose

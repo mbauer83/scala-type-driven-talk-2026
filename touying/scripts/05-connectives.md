@@ -11,11 +11,11 @@ BEATS — delivery aid; the script is below
 - Boole 1847 delivers the first working piece: logic as algebra. **OR becomes a
   plus sign, AND becomes a times sign.**
 - Left pane — the plus. A risk decision is low or medium or high, nothing else.
-- Right pane — the times. An order line is a sku and a price and a quantity, all
-  of them at once.
-- **The counting, and this is the beat that does the work.** RiskDecision has
-  three values. RefundMechanism, same package, has two. A choice between them:
-  five. Both at once: six. 3 + 2 against 3 × 2. That is where the names come from.
+- Right card — the times. A risk decision paired with a refund mechanism, both at
+  once. Point at the two comment numbers, 3 and 2.
+- **The counting, and this is the beat that does the work.** Three values and two
+  values. A choice between them: five. Both at once: six. 3 + 2 against 3 × 2.
+  That is where the names come from.
 - Bottom line: nest them. PaymentMethod is a sum whose variants are products.
 - Land it: most domain models are that shape.
 
@@ -58,10 +58,26 @@ FACTS — grepped, not remembered (C1)
 - `RiskDecision` — 3 variants, `RiskDecision.java:9-13`, verbatim on the slide
   except that `permits` is wrapped onto its own line to fit the column. Same
   identifiers, same order, `record Medium()` present.
-- `RefundMechanism` — 2 variants, `RefundMechanism.java`. Used only in the spoken
-  counting, not shown.
-- `OrderLine` — real record, `OrderLine.java:5`. On the slide its three
-  components are one per line; the source has them on one. Whitespace only.
+- `RefundMechanism` — 2 real variants, `InstantReversal` and
+  `CreditNoteRequired`, `RefundMechanism.java:14-16`. Named in the gloss under
+  the card so the audience can verify where the 2 comes from.
+- **`RefundRule` is illustrative and is the one thing on this slide that is not
+  in the repository.** Both of its field types are real and both numbers are
+  checkable on screen; only the wrapper is invented. It is deliberately NOT
+  rendered as a `code-pane`: no filename tab, no line numbers, no syntax colour,
+  so nothing on the slide claims it is a file. If asked, say so plainly — it is a
+  shape, and the two types in it are real.
+
+WHY THE PRODUCT EXAMPLE CHANGED (MB, 18 Aug)
+It used to be the real `OrderLine(String sku, int unitPriceCents, int quantity)`.
+Verbatim from the repo, and useless here: the number of strings is unbounded, so
+the caption could only say *as many as sku × price × quantity*, which asserts the
+arithmetic instead of doing it. **The one thing this slide has to earn is that
+you can count the values**, and a `String` field makes that impossible. Two small
+real sealed types multiply to six, which a room can check in their heads while
+you say it. The trade — one invented wrapper name against a demonstration that
+actually demonstrates — is worth taking, and the mitigation above keeps it
+honest.
 - `PaymentMethod` — `Card(String token) | Wallet(String token) |
   Invoice(String reference)`, `PaymentMethod.java:9-12`. The bottom line is that
   type written as algebra.
@@ -81,13 +97,13 @@ Boole turned logic into algebra in eighteen forty-seven. He wrote OR as a plus
 sign and AND as a times sign, and those are still the names.
 
 Here is his plus: a risk decision is low, medium or high, and nothing else. Here
-is his times — an order line is a sku and a price and a quantity, all at once.
+is his times — pair a risk decision with a refund mechanism in one record, and
+you have both of them at once.
 
-Now count them, because the arithmetic is literal. Risk decision has three
-values. Refund mechanism, in the same package, has two. Offer somebody a choice
-between the two types and there are five things they can hand you; ask for both
-at once and there are six. Three plus two against three times two — and that is
-where sum type and product type get their names.
+Now count, because the arithmetic is literal: a risk decision has three values
+and a refund mechanism has two. A choice between the two types is five things
+somebody could hand you. Both at once, in that record, is six. Three plus two against
+three times two — and that is where sum type and product type get their names.
 
 Then you nest them. A payment method is a card or a wallet or an invoice, and
 each of those carries its own field: a sum whose variants are products. Most of

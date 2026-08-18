@@ -77,20 +77,48 @@ public sealed interface RiskDecision
 }
 ```
       ],
-      code-pane(filename: "OrderLine.java", language: "java", code-size: 21pt, pad-y: 10pt)[
-```java
-public record OrderLine(
-        String sku,
-        int    unitPriceCents,
-        int    quantity) { }
-```
-      ],
+      // NOT a code-pane: no filename tab, no gutter, no syntax colour. This is a
+      // shape, not a file. `RiskDecision` and `RefundMechanism` are both real
+      // (RiskDecision.java, RefundMechanism.java); `RefundRule` is the
+      // illustrative wrapper that makes the arithmetic visible.
+      //
+      // The previous example was the real `OrderLine(String, int, int)`. It was
+      // verbatim and it was useless here: |String| is unbounded, so "count the
+      // values" — the only thing this slide is doing — could not be carried out.
+      // Two small real sealed types multiply to six, which can.
+      stack(
+        dir: ttb,
+        spacing: sz(18pt),
+        block(
+          width: 100%,
+          fill: pal.bg-dark-2,
+          stroke: 0.5pt + pal.rule-dark-strong,
+          radius: sz(6pt),
+          inset: (x: sz(26pt), y: sz(22pt)),
+        )[
+          #show raw: set text(font: mono-font, size: sz(21pt), fill: pal.fg-dark)
+          #set par(leading: 0.62em)
+          #raw(block: true,
+            "record RefundRule(\n"
+            + "    RiskDecision    risk,   // 3\n"
+            + "    RefundMechanism how)    // 2")
+        ],
+        // Where the 2 comes from — RiskDecision's 3 is visible on the left, and
+        // this is the only other number the arithmetic needs.
+        block[
+          #set text(size: sz(20pt), fill: pal.fg-faint)
+          #set par(leading: 0.45em)
+          #text(font: mono-font)[RefundMechanism] is the other sealed one in that
+          package: #text(font: mono-font)[InstantReversal] or
+          #text(font: mono-font)[CreditNoteRequired].
+        ],
+      ),
 
       text(size: sz(23pt), fill: pal.fg-faint)[
         #text(font: mono-font, fill: pal.accent)[3] values: #text(font: mono-font)[1 + 1 + 1]
       ],
       text(size: sz(23pt), fill: pal.fg-faint)[
-        as many as #text(font: mono-font)[sku × price × quantity]
+        #text(font: mono-font, fill: pal.accent)[6] values: #text(font: mono-font)[3 × 2]
       ],
     )
     #v(sz(16pt))
