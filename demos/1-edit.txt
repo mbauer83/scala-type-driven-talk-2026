@@ -1,0 +1,10 @@
+$ sed -i '/case RiskDecision.Medium m -> "medium-risk 3DS path"/d' Demo.java
+$ git diff --stat -- Demo.java
+  @@ -120,7 +120,6 @@
+           RiskDecision decision = new RiskDecision.Medium();
+           String label = switch (decision) {
+               case RiskDecision.Low    l -> "low-risk fast path";
+  -            case RiskDecision.Medium m -> "medium-risk 3DS path";   // Bob is forced to write this
+               case RiskDecision.High   h -> "high-risk review path";
+           };
+           note("RiskDecision switch on Medium → " + label);

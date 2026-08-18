@@ -50,10 +50,12 @@
 #include "slides/10-gentzen-or.typ"      // A3-gentzen — moved here from Act 1 (P2)
 #include "slides/19-stage3.typ"
 #include "slides/a3-demo1.typ"           // A3-demo1 — live, dark setup card
+#include "slides/a3-demo1-edit.typ"      // recorded terminal, frame 1
 #include "slides/a3-demo1-out.typ"       // captured output / fallback
 #include "slides/20-stage3-payoff.typ"
 #include "slides/22-stage4.typ"
 #include "slides/a3-demo2.typ"           // A3-demo2 — live, dark setup card
+#include "slides/a3-demo2-edit.typ"      // recorded terminal, frame 1
 #include "slides/a3-demo2-out.typ"       // captured output / fallback
 #include "slides/24-java-ceiling.typ"
 #include "slides/25-stage5.typ"

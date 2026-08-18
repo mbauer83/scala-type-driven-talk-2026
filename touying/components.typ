@@ -685,6 +685,52 @@
   )
 }
 
+// ─── terminal-pane ──────────────────────────────────────────────────────────
+//
+// A recorded terminal session, rendered as a still. The deck steps through a
+// few of these so a failed live demo costs one keypress rather than a scramble
+// — no video, no codec, no player, which is what makes it survive an unknown
+// laptop and an unknown projector.
+//
+// `body` is the transcript, verbatim from `demos/*.txt` via `#read()`. Lines
+// beginning `$` are the prompt, lines containing `error:` are red, everything
+// else is plain output.
+
+#let terminal-pane(body, title: "bash", size: 20pt) = block(
+  width: 100%,
+  fill: pal.bg-dark,
+  stroke: 0.5pt + pal.rule-dark-strong,
+  radius: sz(6pt),
+  clip: true,
+)[
+  #block(width: 100%, fill: pal.bg-dark-2, inset: (x: sz(22pt), y: sz(12pt)))[
+    #grid(
+      columns: (auto, 1fr),
+      column-gutter: sz(14pt),
+      align: (left + horizon, left + horizon),
+      text(size: sz(16pt), fill: pal.bad)[● #text(fill: pal.accent)[●] #text(fill: pal.good)[●]],
+      text(font: mono-font, size: sz(18pt), fill: pal.fg-dark-faint)[#title],
+    )
+  ]
+  #block(width: 100%, inset: (x: sz(26pt), y: sz(22pt)))[
+    #set par(leading: 0.55em)
+    #set text(font: mono-font, size: sz(size), fill: pal.fg-dark)
+    #for line in body.split("\n") {
+      if line.starts-with("$") {
+        text(fill: pal.accent)[#line] + linebreak()
+      } else if line.contains("error:") {
+        text(fill: pal.bad)[#line] + linebreak()
+      } else if line.trim().starts-with("-") {
+        text(fill: pal.bad)[#line] + linebreak()
+      } else if line.trim() == "" {
+        linebreak()
+      } else {
+        text[#line] + linebreak()
+      }
+    }
+  ]
+]
+
 // ─── Act 1 progress rail ─────────────────────────────────────────────────────
 //
 // A thin strip along the bottom of every Act 1 slide, carrying the eight names

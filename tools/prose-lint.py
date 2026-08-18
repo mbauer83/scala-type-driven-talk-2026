@@ -520,7 +520,13 @@ def lint_file(path):
     if path.endswith(".md"):
         # Script files are the note body; wrap so one extractor serves both.
         src = "#speaker-note[" + src + "]"
-    rhythm = "EST-WORDS:" not in src or "WORKED VERBATIM" in src
+    # Rhythm rules need continuous prose. Two kinds of note are not that: a
+    # cues-only note declaring EST-WORDS, and a demo RUNBOOK, whose spoken lines
+    # are four separate utterances with an IDE edit and a compile between them.
+    # "Four short sentences in a row" is meaningless across two minutes of
+    # typing and silence. The claim rules still apply to both.
+    rhythm = ("EST-WORDS:" not in src or "WORKED VERBATIM" in src) \
+             and "\nRUNBOOK" not in src
     text = spoken_text(src, path)
     unbalanced = bool(_QUOTE_PARITY and _QUOTE_PARITY[-1])
     if len(words(text)) < 15 and not unbalanced:

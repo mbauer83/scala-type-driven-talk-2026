@@ -1,21 +1,61 @@
-A3-demo1 · cap 2:10 across both slides · Act 3 beat 4 of 8
+A3-demo1 · cap 2:10 across four slides · Act 3 beat 4 of 8
+
+RUNBOOK — the four slides, in order, with what you say on each
+
+  SLIDE 15  dark card          »I delete case Medium. Watch what the compiler does.»
+            → then STOP TALKING and switch to the IDE.
+
+  IDE       Demo.java, line 123.  Narrate only the navigation, never the meaning:
+            »Demo dot java … line one two three … that is the medium case …»
+            delete the line
+            »… and compile.»
+            → SILENCE from here until the error appears. Do not fill it.
+
+  SLIDE 16  recorded, the edit  Advance. One second. »There is the line, gone.»
+            (If the IDE never got there, this slide IS the edit. Same sentence.)
+
+  SLIDE 17  recorded, javac     Read it off the screen, VERBATIM, unhurried:
+            »The switch expression does not cover all possible input values.»
+            Beat. Then the one connecting sentence, and no more:
+            »That is Gentzen's elimination rule, sixty seconds old, coming out
+             of javac.»
+
+  IDE       Undo. Recompile. Let the room see it go green. Say nothing.
+
+  SLIDE 18  payoff              Bob's bug is now a compile error.
+
+WHY THE NARRATION RULE IS SPLIT
+D-D says »silence during», and that is right about the *result* and wrong about
+the *navigation*. Thirty seconds of a stranger typing in silence is a long time
+in a room, and the audience does not know whether something has gone wrong.
+Narrating where you are — file, line, what you are about to delete — costs them
+nothing to process and keeps them with you. The silence that matters is between
+pressing compile and the error appearing. Do not talk over that.
+
+WHAT TO DO IF IT FAILS
+Nothing. Do not apologise, do not debug, do not explain. Advance. Slides 16 and
+17 are the same session, recorded, and the room cannot tell the difference. The
+only tell would be you announcing it.
 
 TALKING POINTS
-1. One sentence, then stop talking: I delete case Medium, watch the compiler
-2. Switch to the IDE. Delete line 123. Say nothing while you type
-3. Compile. Let the error land before you speak
-4. Advance. Read the error aloud, verbatim, from the slide
-5. the switch expression does not cover all possible input values
-6. That is ∨E — you may not use a disjunction without covering every side
-7. Undo, visibly, and recompile so the room sees it green again
+1. I delete case Medium. Watch what the compiler does
+2. (IDE) narrate the navigation only — file, line, delete, compile
+3. (IDE) silence from compile until the error lands
+4. Advance: there is the line, gone
+5. Advance: read the error VERBATIM off the screen
+6. the switch expression does not cover all possible input values
+7. That is Gentzen's elimination rule, sixty seconds old, out of javac
+8. Undo, recompile, let it go green. Say nothing
 
 VERBATIM
 
 "I am going to delete the medium case. Watch what the compiler does."
 
-... edit, compile, silence ...
+... navigate, delete, compile — narrate the navigation, then silence ...
 
-"The switch expression does not cover all possible input values.
+"There is the line, gone.
+
+The switch expression does not cover all possible input values.
 
 That is Gentzen's elimination rule, sixty seconds old, coming out of javac. You
 may not use a disjunction without covering every side of it — and notice what

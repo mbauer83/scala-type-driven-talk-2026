@@ -1,0 +1,11 @@
+$ sed -i 's|^            // Payment.capture(init);|            Payment.capture(init);|' Demo.java
+$ git diff --stat -- Demo.java
+  @@ -167,7 +167,7 @@
+               // The expected error message is shown above each.
+   
+               // error: capture(Payment<Authorized>) — cannot be applied to (Payment<Initiated>)
+  -            // Payment.capture(init);                                    // ← UNCOMMENT
+  +            Payment.capture(init);                                    // ← UNCOMMENT
+   
+               // error: refund(Payment<Captured>) — cannot be applied to (Payment<Authorized>)
+               // Payment.refund(authorized, RefundMechanism.InstantReversal);  // ← UNCOMMENT

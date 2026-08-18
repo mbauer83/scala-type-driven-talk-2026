@@ -8,33 +8,30 @@
 #import "../code-pane.typ": *
 
 #light-slide(
-  eyebrow: eyebrow([Demo 1 · javac], style: "bad"),
-  body-gap: sz(26pt),
+  eyebrow: eyebrow([Demo 1 · recorded · 2 of 2], style: "bad"),
+  body-gap: sz(30pt),
   [∨E, in the compiler's own words],
   stack(
     dir: ttb,
-    spacing: sz(30pt),
-    code-pane(
-      filename: "Demo.java", language: "java", code-size: 20pt, pad-y: 12pt,
-      diagnostic: ("bad",
-        "Demo.java:121: error",
-        [the switch expression does not cover all possible input values]),
-    )[
-```java
-String label = switch (decision) {
-    case RiskDecision.Low    l -> "low-risk fast path";
-    case RiskDecision.High   h -> "high-risk review path";
-};
-```
-    ],
+    spacing: sz(34pt),
+    terminal-pane(read("../../demos/1-term.txt").trim(), title: "bash", size: 19pt),
     align(center)[
       #set text(size: sz(28pt), fill: pal.fg)
-      Gentzen's elimination rule, sixty seconds old, enforced by `javac`:
+      #set par(leading: 0.55em)
+      Gentzen's elimination rule, sixty seconds old, coming out of `javac`:
       you may not use a disjunction without covering every side of it.
     ],
   ),
 )
 
 #speaker-note[
-#read("../scripts/15-demo1.md")
+Read it off the screen, verbatim and unhurried:
+
+"The switch expression does not cover all possible input values."
+
+Beat. Then one sentence and no more:
+
+"That is Gentzen's elimination rule, sixty seconds old, coming out of javac."
+
+Then undo in the IDE, recompile, let the room see it go green. Say nothing.
 ]
