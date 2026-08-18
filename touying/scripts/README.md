@@ -16,13 +16,31 @@ linter all read the same file you edit. There is no second copy to keep in sync.
 | `07-crisis.md` | `slides/08-crisis.typ` | `A1-crisis` |
 | `08-curry-howard.md` | `slides/curry-howard.typ` | `A1-curry-howard` |
 | `09-above.md` | `slides/a1-above.typ` | `A1-above` |
-| `10-values.md` | `slides/a2-values.typ` | `A2-values` |
+| `10-scenario.md` | `slides/15-test-spine.typ` | `A2-scenario` |
 | `11-promises.md` | `slides/a2-promises.typ` | `A2-promises` |
 
-The file stems and the slide stems do not match, and that is history rather
-than design: several v2 slides reuse a v1 file. **The id column is the name to
-use in conversation and in the plan** (Part 8/C12) — file names are an
-implementation detail that has already drifted twice.
+**Script numbers are consecutive and follow the running order in `deck.typ`.**
+They drifted once, on 18 Aug, when `10-values.md` was cut and its replacement
+was written as `12-scenario.md`; renumbering is cheap and a gap in the sequence
+is the kind of thing that costs a minute to resolve on the night. If a script is
+added or removed, renumber the rest and fix the `#read()` calls.
+
+## The shape of a script
+
+Three sections, always in this order:
+
+- **TALKING POINTS** — the whole slide as a short numbered list, no rationale in
+  it. This is what the presenter view opens on and what you glance at mid-beat.
+- **VERBATIM** — the script, in double quotes. The word counter and the prose
+  linter read this and nothing else.
+- **PREPARATION** — below a rule, marked *not for the night*: why the slide is
+  shaped this way, corrections already applied, grepped citations, and Q&A
+  material. Never read on stage.
+
+The script stems and the *slide* stems still do not match — several v2 slides
+reuse a v1 file. **The id column is the name to use in conversation and in the
+plan** (Part 8/C12); slide file names are an implementation detail that has
+already drifted twice.
 
 ## The one formatting rule
 

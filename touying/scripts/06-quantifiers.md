@@ -4,7 +4,7 @@ TALKING POINTS
 1. Frege 1879 — a proposition with a VARIABLE in it
 2. You already write it: every signature quantifies over its argument values
 3. A generic moves the variable ONE LEVEL UP — over types
-4. max: for all T, IF T can be compared, you can pick the largest of a List<T>
+4. max: for all T, IF T can be compared, you can pick the larger of two
 5. The comparing is why the bound is there — without it max cannot be written
 6. Same shape as all medium-risk orders need 3DS: a for-all with an if in it
 7. ∃ — wildcards are a weak version. We come back to it
@@ -17,9 +17,9 @@ signature does it over the values of its arguments, and assessRisk holds for
 every order there will ever be.
 
 A generic moves the variable one level up, from values to types. Take max. For
-all T, if T can be compared, then you can pick the largest out of a list of T —
-and the comparing is exactly why that bound is there. Without it, nothing in the
-body could tell which T was larger, and max could not be written at all.
+all T, if T can be compared, then you can pick the larger of two — and the
+comparing is exactly why that bound is there. Without it, nothing in the body
+could tell which T was larger, and max could not be written at all.
 
 That is a for-all with an if inside it, the same form we started with two slides
 ago. The bound is the if: it says which types the claim covers.
@@ -108,8 +108,13 @@ BEATS
   › a function type is a for-all whose body never mentions what it bound
 - The move: a generic quantifies over TYPES.
   › **name the function.** For all T, if T can be compared, you can pick the
-    largest out of a list of T. Saying only *a list of T gives you back a T*
-    makes it sound as though comparability is what produces the element
+    larger of two. Saying only *a list of T gives you back a T* makes it sound
+    as though comparability is what produces the element
+  › **and keep it total.** `max : List<T> → T` was on this slide and is FALSE —
+    the empty list has no maximum, so the honest signatures are
+    `List<T> → Optional<T>`, a non-empty list, or a nullable return. Two
+    arguments dodges all of that, needs no `Optional` to explain, and `T × T → T`
+    reuses the `×` from `A1-connectives` two beats back
   › the comparing is why the bound is there — without it `max` cannot be written
   › call back to Aristotle: a for-all with an `if` inside it
   › the bound is the `if` — which types the claim covers, and what lets the body

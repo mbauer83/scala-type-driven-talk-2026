@@ -70,15 +70,31 @@
       ],
     )
     #v(sz(28pt))
+    // MB, 18 Aug: the caveat was 85 words of prose in a callout. It is a
+    // comparison, so show the comparison — the claim the signature makes, and
+    // the one Java can actually keep. The monad / continuations point that used
+    // to be here is in the script's PREPARATION block; it is Q&A material.
     #callout(
       [The honest caveat — *which proposition*, not whether],
-      [Java proves something weaker than its arrows suggest. With `null` in every reference type,
-       exceptions that escape any signature, and loops that never return, a method `A → B` really
-       proves *given an A: a B, or null, or a thrown exception, or nothing at all, ever* — true,
-       and nearly free. What a pure language needs in order to say the same thing — a monad, and
-       in the limit first-class continuations, which are classical logic — is the measure of what
-       Java is doing silently. Everything from here cuts that disjunction down until the arrow
-       means what it says.],
+      [
+        #grid(
+          columns: (auto, 1fr),
+          column-gutter: sz(54pt),
+          row-gutter: sz(14pt),
+          align: (left + horizon, left + horizon),
+          text(font: mono-font, size: sz(30pt), fill: pal.fg)[A → B],
+          text(size: sz(24pt), fill: pal.fg-dim)[the proposition your signature claims],
+          text(font: mono-font, size: sz(30pt), fill: pal.fg)[
+            A → ( B #text(fill: pal.bad)[| null] ) #text(fill: pal.bad)[throws C]
+            #text(fill: pal.bad)[| never]
+          ],
+          text(size: sz(24pt), fill: pal.fg-dim)[the one Java can actually keep],
+        )
+        #v(sz(16pt))
+        #text(size: sz(25pt), fill: pal.fg)[
+          Every stage from here deletes one of those alternatives.
+        ]
+      ],
       style: "bad",
     )
   ],

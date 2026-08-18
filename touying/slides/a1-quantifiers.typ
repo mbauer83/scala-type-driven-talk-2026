@@ -60,7 +60,7 @@
       align: (left + top, left + top),
       [
         #text(font: mono-font, size: sz(27pt), fill: pal.fg)[
-          ∀ T. #h(sz(10pt)) comparable(T) #h(sz(8pt)) → #h(sz(8pt)) max : List\<T\> → T
+          ∀ T. #h(sz(10pt)) comparable(T) #h(sz(8pt)) → #h(sz(8pt)) max : T × T → T
         ]
         #v(sz(22pt))
         #set text(size: sz(23pt), fill: pal.fg-dim)
@@ -73,7 +73,7 @@
         dir: ttb,
         spacing: sz(18pt),
         shape-card[
-          #raw(block: true, "static <T extends Comparable<T>> T max(List<T> xs)")
+          #raw(block: true, "static <T extends Comparable<T>> T max(T a, T b)")
         ],
         block[
           #set text(size: sz(23pt), fill: pal.fg-dim)

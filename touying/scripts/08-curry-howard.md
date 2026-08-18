@@ -36,11 +36,11 @@ down. Every value has a type whether you declare it, the compiler infers it, or
 the runtime carries it around, so the program is a construction either way. What
 changes is whether anything checks it before you run.
 
-The caveat is the reason this talk has stages. A function-type from A to B is the logical equivalent 
-to an implication "if A then B". It says: If you can give me an A, I can always give you a B.
-But in most languages, Java included, we have nullability, and exceptions, and loops that may never return, 
-so a signature "A arrow B" isn't necessarily truthful. You could get back a B - or a null, or a thrown exception, or it could loop forever.
-But in Java, you can also write "A arrow B throws C".
+The caveat is the reason this talk has stages. A function type from A to B is an
+implication: give me an A and I will always give you a B. In Java that is not
+quite truthful, because of nullability, exceptions, and loops that never return —
+so what you can actually get is the second line. And notice that Java already
+gives you one way to close part of that gap: A arrow B throws C.
 
 A good part of our climb from here is that one move, repeated — making implicit things explicit until our signatures tell the whole story."
 

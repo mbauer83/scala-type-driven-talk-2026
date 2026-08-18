@@ -143,5 +143,5 @@
 )
 
 #speaker-note[
-#read("../scripts/12-scenario.md")
+#read("../scripts/10-scenario.md")
 ]
