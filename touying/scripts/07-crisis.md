@@ -1,5 +1,44 @@
 VERBATIM · cap 1:05 · Act 1 beat 4 of 6 · rail: RUSSELL · HILBERT · GÖDEL lit
 
+TALKING POINTS
+1. The barber shaves everyone who does not shave themselves. Who shaves him?
+2. 1901 — Russell finds the same shape at the foundations; writes to Frege
+3. The set of all sets that do not contain themselves — does it contain itself?
+4. Either answer contradicts: naive set theory is inconsistent
+5. And set theory was the ground under arithmetic, analysis and proof itself
+6. Russell's repair: every statement gets a level, one above what it mentions
+7. The bad sentence would sit one level above itself — nowhere to write it
+8. He called the levels TYPES
+9. Hilbert wanted three: consistent, complete, mechanically checkable
+10. Gödel 1931 — big enough for arithmetic means giving up complete
+11. The programme narrowed into proof theory. That is your compiler's deal
+
+VERBATIM
+
+"The barber shaves everyone who does not shave themselves. So who shaves the
+barber? Russell found that shape at the foundations of mathematics in
+nineteen-oh-one, and broke Frege's life's work with one question: the set of all
+sets that do not contain themselves — does it contain itself?
+
+Either answer contradicts, so naive set theory is inconsistent — and set theory
+was the ground being laid under arithmetic, analysis and proof itself. Russell's own repair is the reason we are all here tonight. He
+gave every statement a level, defined by what it talks about: always one above
+whatever it mentions. Russell's sentence would have to sit one level above
+itself, so there is nowhere left to write it down. He called the levels types, and
+every sealed interface any of you writes is downstream of a man trying to stop
+logic and mathematics from eating themselves.
+
+If the ground can crack like that, what is a formal system still good for?
+Hilbert wanted three things at once: no contradictions, everything true provable,
+and mechanically checkable. Gödel showed in nineteen thirty-one that any consistent
+system big enough for arithmetic gives up the middle one. That did not kill the
+programme; it narrowed it into proof theory, and giving up completeness is the
+deal your compiler takes every morning."
+
+==========================================================================
+PREPARATION — background, checks and citations. Not for the night.
+==========================================================================
+
 BEATS — delivery aid; the script is below
 
 - Open on the barber, because it is the same shape and nobody needs set theory
@@ -23,27 +62,6 @@ BEATS — delivery aid; the script is below
 - Gödel 1931: a consistent system big enough for arithmetic gives up complete.
 - Hand off: that is the deal your compiler takes every morning. (A2-promises
   cashes it out; do not do that work here.)
-
-VERBATIM
-
-"The barber shaves everyone who does not shave themselves. So who shaves the
-barber? Russell found that shape at the foundations of mathematics in
-nineteen-oh-one, and broke Frege's life's work with one question: the set of all
-sets that do not contain themselves — does it contain itself?
-
-Either answer contradicts, so naive set theory is inconsistent — and set theory
-was the ground being laid under arithmetic, analysis and proof itself. Russell's own repair is the reason we are all here tonight. He
-put everything on a level and forbade anything from talking about things on its
-own level, so the sentence cannot be written down. He called the levels types, and
-every sealed interface any of you writes is downstream of a man trying to stop
-mathematics from eating itself.
-
-If the ground can crack like that, what is a formal system still good for?
-Hilbert wanted three things at once: no contradictions, everything true provable,
-and mechanically checkable. Gödel showed in nineteen thirty-one that any consistent
-system big enough for arithmetic gives up the middle one. That did not kill the
-programme; it narrowed it into proof theory, and giving up completeness is the
-deal your compiler takes every morning."
 
 DELIVERY
 The barber earns its place by costing eight seconds and removing the need for

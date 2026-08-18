@@ -1,5 +1,15 @@
 VERBATIM · cap 0:50 · word count is computed by `make timing`, not stated here.
 
+TALKING POINTS
+1. Who I am — architect, a dozen years
+2. Tonight starts with four bugs
+3. Everyone makes them; I have made them
+4. Better tools keep arriving — follow that thread back
+5. The promise: type-checking IS constructing a proof, and you already do it
+6. Thanks to the organisers
+
+VERBATIM
+
 "Good evening. My name is Michael Bauer, and I've spent the last dozen or so years working
 as a software and solution architect. Tonight I would like to start with four bugs.
 Programmers have made these kinds of mistakes for as long as there has been software, and
@@ -8,6 +18,10 @@ I've certainly been one of them. We have also been given steadily better tools t
 I think you'll see that writing a program that type-checks is, in a precise sense, the same
 thing as constructing a proof in formal logic, and that you've been doing it all along.
 Thanks to the organisers for having me."
+
+==========================================================================
+PREPARATION — background, checks and citations. Not for the night.
+==========================================================================
 
 The framing deliberately promises the size of the real talk. An earlier draft
 opened on a-specific-kind-of-bug, which sets up something much smaller than what

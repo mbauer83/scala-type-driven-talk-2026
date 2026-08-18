@@ -1,5 +1,15 @@
 VERBATIM · cap 2:15 · word count is computed by `make timing`, not stated here. Checked facts follow the script.
 
+TALKING POINTS
+1. The flow: order → assess risk → authorize → capture (→ refund)
+2. Alice — CSV strings summed with +; single-line fixtures hid it
+3. Bob — third risk tier; if (risk != HIGH) was right for two
+4. Charlie — refund executed without checking its state
+5. Danielle — payment side adds a step, checkout never updated
+6. All four compiled without complaint
+
+VERBATIM
+
 "Everything tonight will be framed in terms of one scenario, and it is one every 
 person here has used, even if you haven't built it: order processing with payment. 
 An order is placed, its risk is assessed, the payment is authorized, and later captured 
@@ -30,6 +40,10 @@ its own contract. The tests covered the common path, and the new branch only fir
 above the threshold, so it ran for three weeks before anyone hit it.
 
 Every one of those compiled without complaint."
+
+==========================================================================
+PREPARATION — background, checks and citations. Not for the night.
+==========================================================================
 
 Checked facts and the traps, in case you want to rework any of it:
 

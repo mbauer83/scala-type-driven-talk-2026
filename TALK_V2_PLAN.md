@@ -1451,6 +1451,58 @@ programmers). **When editing for one property, diff for changes to the others. A
 is an edit too, and needs its neighbourhood re-checked.**
 
 
+### L20–L24 — from MB's rewrite of `07`, `08` and `09` (18 Aug)
+
+**L20 — a concrete instance beats an abstract capability.** *"The result type is
+computed from the argument"* is a capability and it is abstract. MB added: *a
+vector that carries its own length in its type — concatenate three with four and
+the type says seven*. The canonical dependent-types example, and the room has it
+instantly. I had stated the power without ever letting anyone see it.
+
+**L21 — take evidence from the audience's own language.** *"But in Java, you can
+also write `A → B throws C`."* Checked exceptions are already a partial move
+toward honest signatures — the thesis demonstrated from inside Java, before the
+ladder starts. I had framed Java only as the deficient case, which is both less
+true and less persuasive.
+
+**L22 — when you name the repeated move of a talk, check it against every
+stage.** Mine: *cutting the disjunction down*. That covers nullability,
+exceptions and non-termination and nothing else. MB's: **making implicit things
+explicit until our signatures tell the whole story** — which also covers
+typestate, refinements, session types and linearity. The generalisation is the
+difference between a slogan that fits one slide and one that fits the ladder.
+
+**L23 — define, do not forbid.** Russell's repair was *forbid anything from
+talking about things at its own level* — a prohibition the room takes on trust.
+MB: define the level instead. **Every statement gets a level, one above whatever
+it mentions; the bad sentence would have to sit one level above itself, so there
+is nowhere to write it.** The impossibility is now something the audience derives
+rather than accepts, and *nowhere to write it* prefigures `A5-payoff`'s
+*Unrepresentable*.
+
+**L24 — a speaker note is a delivery instrument, not a design document.** MB:
+*"none of the slides have the kind of bullet point list of talking points I need
+to fluently get through the talk … it's heaps of prose and lists of instructions
+instead of talking points."* Correct, and `06-quantifiers` was the proof: its
+script sat at line 172 of 188, behind rationale, corrections and citations.
+
+Every script is now **TALKING POINTS → VERBATIM → PREPARATION**, in that order,
+with the third under a rule and explicitly marked *not for the night*. Talking
+points are short unquoted lines carrying no rationale, so `make timing` and the
+linter ignore them and the presenter view opens on the thing to be delivered.
+
+### L25 — a silent no-op is worse than an error *(process, not prose)*
+
+I reported the `max` fix on `06-quantifiers` as applied. It was not. A
+`str.replace` had missed on a line-break difference, returned the string
+unchanged, and written it back; the word count moved for unrelated reasons, so
+nothing looked wrong. **MB was told a correction had landed when the stale text
+was still there, and would have found it on stage.**
+
+The rule: **assert the match before writing, and grep the result after.** Any
+edit reported as done must be verifiable by a command whose output is in the
+transcript. This is now how every script edit in this project is made.
+
 ### L18 — no metaphor the talk has not issued
 
 *"…the first thing we need at the top of the climb."* Two faults in nine words.

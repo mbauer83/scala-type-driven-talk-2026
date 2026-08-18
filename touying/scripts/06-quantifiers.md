@@ -1,5 +1,37 @@
 A1-quantifiers · cap 1:05 · Act 1 beat 3 of 6 · rail: FREGE lit
 
+TALKING POINTS
+1. Frege 1879 — a proposition with a VARIABLE in it
+2. You already write it: every signature quantifies over its argument values
+3. A generic moves the variable ONE LEVEL UP — over types
+4. max: for all T, IF T can be compared, you can pick the largest of a List<T>
+5. The comparing is why the bound is there — without it max cannot be written
+6. Same shape as all medium-risk orders need 3DS: a for-all with an if in it
+7. ∃ — wildcards are a weak version. We come back to it
+
+VERBATIM
+
+"Frege's move, in eighteen seventy-nine: let a proposition contain a variable,
+then say what holds for every value it could take. You already write that — every
+signature does it over the values of its arguments, and assessRisk holds for
+every order there will ever be.
+
+A generic moves the variable one level up, from values to types. Take max. For
+all T, if T can be compared, then you can pick the largest out of a list of T —
+and the comparing is exactly why that bound is there. Without it, nothing in the
+body could tell which T was larger, and max could not be written at all.
+
+That is a for-all with an if inside it, the same form we started with two slides
+ago. The bound is the if: it says which types the claim covers.
+
+There is a second quantifier, there-exists. Java's wildcards are a weak version
+of it; the strong one hands you a value together with evidence about that value,
+and we come back to it."
+
+==========================================================================
+PREPARATION — background, checks and citations. Not for the night.
+==========================================================================
+
 THIRD BUILD (MB, 18 Aug). Three changes, and the reasons matter more than the
 wording:
 
@@ -168,21 +200,3 @@ FACTS — grepped, not remembered (C1)
   thing Stage 6 shows Java cannot express. This is the one deliberate exception
   to Act 1's pair-every-concept-with-Java rule (Part 10/E) and it is
   load-bearing.
-
-VERBATIM
-
-"Frege's move, in eighteen seventy-nine: let a proposition contain a variable,
-then say what holds for every value it could take. You already write that — every
-signature does it over the values of its arguments, and assessRisk holds for
-every order there will ever be.
-
-A generic moves the variable one level up, from values to types. And look at the
-shape it takes: for all T, if T can be compared, then a list of T gives you back
-a T. That is a for-all with an if inside it — the same form we started with two
-slides ago. The bound is the if. It says which types the claim covers —
-here, everything at or below Comparable — and it is what hands compareTo back to
-the body, because otherwise there is very little you can do to a T at all.
-
-There is a second quantifier, there-exists. Java's wildcards are a weak version;
-the strong one — a value handed to you with evidence about it — is the first
-thing we need at the top of the climb."

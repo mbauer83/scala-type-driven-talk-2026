@@ -1,5 +1,51 @@
 VERBATIM · cap 1:30 · Act 1 beat 5 of 6 · rail: CHURCH · CURRY-HOWARD lit
 
+TALKING POINTS
+1. Why a compiler can take that deal at all is the last piece
+2. Church and Turing 1936 — the ancestor of the Function you wrote in Java 8
+3. 1969 — Howard writes down what Curry noticed
+4. Proposition = type · proof = program · running = simplifying the proof
+5. Lambek: the same structure again in category theory
+6. Your program is the construction; its type says what you proved
+7. The compiler checks the one against the other — proofs compose, via types
+8. True whether or not you write the types down. Untyped means unchecked
+9. A → B is an implication: give me an A, I always give you a B
+10. Null, exceptions, non-termination — so the signature is not always truthful
+11. But Java already has A → B throws C
+12. The climb from here: make implicit things explicit until signatures tell all
+
+VERBATIM
+
+"Why a compiler can take that deal at all is the last piece.
+
+Church and Turing made computation formal in nineteen thirty-six, and Church's
+typed lambda calculus is the direct ancestor of the Function you wrote in Java 8.
+
+In nineteen sixty-nine Howard wrote down what Curry had noticed twenty years
+earlier, and it is what I promised you at the start. A proposition corresponds to
+a type; a proof of it corresponds to a program of that type; and running the
+program is simplifying the proof. Lambek later found the same structure in
+category theory — proofs, programs and mathematical structures as three descriptions of one
+thing. That's honestly still one of the most mind-blowing and beautiful facts I know.
+
+So: your program is the construction. Its type says what you constructed a proof
+of. The compiler checks the one against the other - and proofs, like programs,
+compose, with the types governing how. That holds whether or not you write the
+types down, because in an untyped language the proposition is still there and
+nothing ever checks it.
+
+The caveat is the reason this talk has stages. A function-type from A to B is the logical equivalent 
+to an implication "if A then B". It says: If you can give me an A, I can always give you a B.
+But in most languages, Java included, we have nullability, and exceptions, and loops that may never return, 
+so a signature "A arrow B" isn't necessarily truthful. You could get back a B - or a null, or a thrown exception, or it could loop forever.
+But in Java, you can also write "A arrow B throws C".
+
+A good part of our climb from here is that one move, repeated — making implicit things explicit until our signatures tell the whole story."
+
+==========================================================================
+PREPARATION — background, checks and citations. Not for the night.
+==========================================================================
+
 BEATS — delivery aid; the script is below
 
 - Join from the crisis: why a compiler can take that deal at all.
@@ -24,34 +70,31 @@ BEATS — delivery aid; the script is below
 - Pivot into the rest of the talk: everything we climb buys a correspondence a
   little closer to exact.
 
-VERBATIM
+TWO THINGS TO CHECK IN MB'S 18 AUG REWRITE (not changed — flagged)
 
-"Why a compiler can take that deal at all is the last piece.
+**1. The C13 triple had lost its third member in speech — MERGED, flagged (C11).**
+The line *the compiler is the machine that checks the one against the other* had
+been replaced by *proofs — and programs — compose via types and how they relate*.
+The composition point is new and good and earns its place beside Lambek, but the
+slide's block still shows three rows, and the C13 note below says this is the one
+place in the talk where the equivocation is closed **out loud**: mouth naming two,
+screen naming three. Both now survive in one sentence, for eight words:
 
-Church and Turing made computation formal in nineteen thirty-six, and Church's
-typed lambda calculus is the direct ancestor of the Function you wrote in Java 8.
+    The compiler checks the one against the other — and proofs, like programs,
+    compose, with the types governing how.
 
-In nineteen sixty-nine Howard wrote down what Curry had noticed twenty years
-earlier, and it is what I promised you at the start. A proposition corresponds to
-a type; a proof of it corresponds to a program of that type; and running the
-program is simplifying the proof. Lambek later found the same structure in
-category theory — logic, computation and algebra as three descriptions of one
-thing, which I still find the most beautiful fact I know.
+This also cleared a `monotone` error: the compose sentence was the fourth short
+declarative in a row. Revert freely — but if the compiler clause goes again, the
+C13 check at the bottom of this file needs revising to match.
 
-So: your program is the construction. Its type says what you constructed a proof
-of. The compiler is the machine that checks the one against the other. That holds
-whether or not you write the types down, because in an untyped language the
-proposition is still there and nothing ever checks it.
-
-The caveat is the reason this talk has stages, and it is not that Java proves
-nothing. It is that Java proves something weaker than its arrows suggest. With
-null in every reference type, exceptions that escape any signature, and loops
-that never return, a method from A to B really proves this: give it an A, and you
-get back a B, or null, or a thrown exception, or nothing at all, ever. That is
-perfectly true. It is also nearly free.
-
-Everything we climb from here is that one move, repeated — cutting the
-disjunction down until the arrow means what it says."
+**2. The caveat's framing moved, and `A0-title` should be checked against it.**
+It now says a signature `A → B` *is not necessarily truthful*. The earlier
+framing was that Java *proves a weaker proposition* — `A ⇒ (B ∨ null ∨ throw ∨
+⊥)` — which is what Part 13/A used to reconcile the caveat with slide 1's claim
+that a program which type-checks *is* a proof. Both are defensible and MB's is
+crisper for the room. Worth one deliberate decision: under *not truthful*, slide
+1's promise is discharged by the ladder rather than by the caveat, so the caveat
+no longer does that job on its own.
 
 DELIVERY
 Three-line equation table on the left, the C13 block on the right; the caveat

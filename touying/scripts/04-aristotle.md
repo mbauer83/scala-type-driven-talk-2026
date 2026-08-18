@@ -1,20 +1,12 @@
 VERBATIM · cap 1:05 · Act 1 beat 1 of 6 · rail: ARISTOTLE lit
 
-BEATS — delivery aid; the script is below
-
-- Give the argument in the domain first, in full. Medium-risk needs 3DS; this
-  order is medium-risk; so it needs 3DS.
-- Aristotle's move: throw away everything it is about, and it still stands or
-  falls. Walk the left column, then point at the right.
-  › All M are T; x is M; therefore x is T
-- The beat that matters, and pause after it:
-  › validity comes from the shape — true premises, true conclusion
-- Therefore it was never about payments.
-- And a shape can be checked by looking at it, for every M, T and x, without
-  knowing what any of them are. **That is where mechanical checking starts** —
-  not with Boole, who buys something else (Part 10/F1).
-- Close: the next forty minutes are people finding better ways to write shapes
-  down, and better ways to check them.
+TALKING POINTS
+1. The argument, in the domain: medium-risk needs 3DS; this is medium-risk; so…
+2. Aristotle: throw away what it is about, and you can still judge it
+3. All M are T; x is M; therefore x is T
+4. Validity comes from the shape — true premises, true conclusion
+5. A shape can be checked MECHANICALLY, without knowing what it means
+6. The next forty minutes: better ways to write shapes down, and to check them
 
 VERBATIM
 
@@ -32,6 +24,26 @@ whatever M and T and x turn out to be. A shape is something you can check
 Hold on to that, because it is the whole trick. Everything for the next forty
 minutes is people finding better ways to write shapes
 down, and then better ways to check them."
+
+==========================================================================
+PREPARATION — background, checks and citations. Not for the night.
+==========================================================================
+
+BEATS — delivery aid; the script is below
+
+- Give the argument in the domain first, in full. Medium-risk needs 3DS; this
+  order is medium-risk; so it needs 3DS.
+- Aristotle's move: throw away everything it is about, and it still stands or
+  falls. Walk the left column, then point at the right.
+  › All M are T; x is M; therefore x is T
+- The beat that matters, and pause after it:
+  › validity comes from the shape — true premises, true conclusion
+- Therefore it was never about payments.
+- And a shape can be checked by looking at it, for every M, T and x, without
+  knowing what any of them are. **That is where mechanical checking starts** —
+  not with Boole, who buys something else (Part 10/F1).
+- Close: the next forty minutes are people finding better ways to write shapes
+  down, and better ways to check them.
 
 NOTE ON THE LINTER
 The syllogism is written with semicolons rather than full stops. As three

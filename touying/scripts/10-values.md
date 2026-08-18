@@ -1,10 +1,42 @@
-A2-values · cap 0:50 · Act 2 beat 2 of 3 · CUES + one scripted landing line
+A2-values · cap 0:50 · Act 2 beat 2 of 3 · VERBATIM
 
-EST-WORDS: 118
+TALKING POINTS
+1. Two words the rest of the talk leans on
+2. A value is a bit pattern plus an agreement about how to read it
+3. A reference is a value that denotes a location
+4. Java, precisely: == is value for primitives, identity otherwise
+5. .equals is whatever the class defined; a record generates a component-wise one
+6. A type does a different job — it classifies; the checker reasons with it
+7. Most of what it buys is spent before the program runs
+8. Payment<Initiated> and Payment<Authorized> are the same bytes
+9. So it is cheap — and what you erase you cannot ask about later
+10. Stage 6 is the one place we spend at runtime on purpose
 
-TREATMENT
-Cues, not a verbatim script (Part 6b/T). The one sentence in quotes below is the
-landing line and should be exact; everything else is spoken from the slide.
+VERBATIM
+
+"A value is a bit pattern plus an agreement about how to read it. A reference is
+a value that denotes a location — and in Java, double-equals compares primitives
+by value and everything else by identity; equals means whatever the class chose
+to define.
+
+A type does a different job: it classifies values, and the checker uses that
+classification to decide which values may flow where. Most of what the pair buys
+you is spent before the program runs — while you model the domain, while the
+checker turns down a bad call, while somebody reads a signature.
+
+Payment-of-Initiated and Payment-of-Authorized are the same bytes. Nearly
+everything this talk asks for is paid at compile time, and Stage 6 is the one
+place we spend at runtime on purpose."
+
+==========================================================================
+PREPARATION — background, checks and citations. Not for the night.
+==========================================================================
+
+TREATMENT — CHANGED 18 Aug
+Part 6b/T had Act 2 as cues plus one scripted landing line, so this file carried
+an EST-WORDS declaration and no script. MB: the verbatim sections were simply
+missing. Both Act 2 slides are now fully scripted like Act 0 and Act 1, the
+EST-WORDS estimate is gone, and `make timing` counts the real thing.
 
 BEATS
 
@@ -30,16 +62,14 @@ BEATS
   › a type parameter like `<Initiated>` carries no data, opaque types are plain
     Strings, the use-once markers are gone before the program starts — you pay
     in compile-time expressiveness
-  › **do not say "phantom" here.** Stage 4 introduces it two acts later; using
+  › **do not say *phantom* here.** Stage 4 introduces it two acts later; using
     the name before the thing is C3, and half the room will not have it
   › and what you erase you cannot ask about later, which is why
     `x instanceof List<String>` does not compile
 - Name the exception and move on. Stage 6 runs the other way.
 
-LANDING LINE — say this one as written
-
-"Nearly all of that is paid at compile time. Stage 6 is the one place we spend at
-runtime on purpose, and you will see exactly why when we get there."
+LANDING LINE — now the closing paragraph of the VERBATIM above.
+It was a separate quoted block here, which double-counted it in `make timing`.
 
 MUST LAND
 That types are a design-time and compile-time tool. If the room leaves with
@@ -90,7 +120,7 @@ false. Records were also described as giving *value semantics*, which they do no
 reference type. Say the precise version; it is barely longer and it is the slide
 where credibility is cheapest to lose.
 
-**F-10 — "a type is the compiler's reasoning" merged the type with the checker**,
+**F-10 — *a type is the compiler's reasoning* merged the type with the checker**,
 three slides after `A1-curry-howard` separated them by name. The type classifies;
 the checker reasons. The plan's own Part 3 wording had the same slip and it was
 copied straight onto the slide.

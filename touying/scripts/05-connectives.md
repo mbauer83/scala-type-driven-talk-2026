@@ -1,5 +1,47 @@
 A1-connectives · cap 1:20 · Act 1 beat 2 of 6 · rail: LEIBNIZ · BOOLE
 
+TALKING POINTS
+1. Aristotle's forms you could check by hand — nobody could calculate with them
+2. Leibniz: a notation for every concept, and a calculus — let us calculate
+3. He never built it; the programme is still running. Binary along the way
+4. Boole 1847: logic becomes algebra. OR = +, AND = ×, and there is a reason
+5. You know both already as || and && — here they are over types
+6. ∨ — RiskDecision: low, medium or high. Three values, 1+1+1
+7. ∧ — pair a risk decision with a refund mechanism. 3 × 2 = 6
+8. Nest them: PaymentMethod is a sum whose variants are products
+9. That shape is what makes pattern matching work
+
+VERBATIM
+
+"Aristotle's forms you could check by hand. What nobody had was a way to remove 
+the quotation marks from <<mechanically checkable>> and actually calculate with
+these logical shapes. Leibniz, in the 17th century, was perhaps the first to truly
+devote himself to researching this in detail: a notation for every concept,
+and a calculus to grind through it, so two people who disagreed could sit down and say, 
+<<let us calculate>>. 
+He never built it himself - but our current proof calculi and recent developments in 
+categorical logic for example are definitely part of the same endeavor... 
+and he invented binary encoding along the way.
+
+Boole turned logic into algebra in eighteen forty-seven. He wrote OR as a plus
+sign and AND as a times sign, and there's a mathematical reason for that. You
+know both of these already from boolean expressions — here they are over types
+instead.
+
+Here is his plus: a risk decision is low, medium or high, and nothing else - 
+a sum of three parts with one inhabitant each. Here is his times — pair a risk decision 
+with a refund mechanism in one record, and you have both of them at once. 
+Two options in one field, three in the other - 6 combinations overall.
+
+Then you nest them. A payment method is a card or a wallet or an invoice, and
+each of those carries its own field: a sum whose variants are products. Most of
+the data you will ever model has that shape - and that shape is what permits 
+effective pattern matching."
+
+==========================================================================
+PREPARATION — background, checks and citations. Not for the night.
+==========================================================================
+
 BEATS — delivery aid; the script is below
 
 - Aristotle's forms were already checkable by eye. What nobody had was a way to
@@ -108,30 +150,3 @@ honest.
   Named in a clause, on the rail, no beat of his own (Part 6b/D2).
 - Frege is NOT on this slide any more. 1879 and the quantifier are the next
   beat, and he was here only because an earlier draft needed a third name.
-
-VERBATIM
-
-"Aristotle's forms you could check by hand. What nobody had was a way to remove 
-the quotation marks from <<mechanically checkable>> and actually calculate with
-these logical shapes. Leibniz, in the 17th century, was perhaps the first to truly
-devote himself to researching this in detail: a notation for every concept,
-and a calculus to grind through it, so two people who disagreed could sit down and say, 
-<<let us calculate>>. 
-He never built it himself - but our current proof calculi and recent developments in 
-categorical logic for example are definitely part of the same endeavor... 
-and he invented binary encoding along the way.
-
-Boole turned logic into algebra in eighteen forty-seven. He wrote OR as a plus
-sign and AND as a times sign, and there's a mathematical reason for that. You
-know both of these already from boolean expressions — here they are over types
-instead.
-
-Here is his plus: a risk decision is low, medium or high, and nothing else - 
-a sum of three parts with one inhabitant each. Here is his times — pair a risk decision 
-with a refund mechanism in one record, and you have both of them at once. 
-Two options in one field, three in the other - 6 combinations overall.
-
-Then you nest them. A payment method is a card or a wallet or an invoice, and
-each of those carries its own field: a sum whose variants are products. Most of
-the data you will ever model has that shape - and that shape is what permits 
-effective pattern matching."

@@ -1,6 +1,17 @@
 VERBATIM · cap 1:35 · word count is computed by `make timing`, not stated here. This minute turns four war stories into the
 thesis, and it is the second place you are most likely to stumble. Over-rehearse it.
 
+TALKING POINTS
+1. Concede it: a test could have caught every one — Alice's did, eventually
+2. But a test is a case someone must think of and keep correct
+3. A type is applied at every use, by the compiler, for free
+4. You have been writing logic all along — every if, every guard
+5. A type is that same job ONE LEVEL UP: about the program itself
+6. You write that kind too — sealed interface = Gentzen 1935; generic = ∀
+7. That question is 2,500 years old — philosophy, logic, maths, your compiler
+
+VERBATIM
+
 "A test could have caught every one of those - Alice's was, eventually. Each of those
 tests, though, is a case somebody has to think of, write down, and keep correct,
 everywhere the rule applies.
@@ -26,6 +37,10 @@ quantified statement.
 Once you can see the structure and the mechanisms, you can encode a great deal more 
 of what your system actually requires, and have it checked for you 
 — and for the agents now writing code next to you."
+
+==========================================================================
+PREPARATION — background, checks and citations. Not for the night.
+==========================================================================
 
 EDIT TO MB'S PROSE, FLAGGED (C11) — 18 Aug
 The fourth paragraph was: *When you write a sealed interface … That is a
@@ -57,7 +72,6 @@ slide almost verbatim), which is where most of the new airtime came from.
 Revert freely if the wording is not yours; the claim has to stay somewhere in
 this minute. If the cap needs to move to hold it, `A0-turn` is the slide to move
 it for, and the time comes from Act 4 (Part 3's standing rule for overage).
-
 NOTES ON THE WORDING
 - PART 10, three corrections applied here.
   1. "every call site" is gone. **Types do not have call sites**, and they are
