@@ -1,53 +1,70 @@
-// Clock: 21:00–21:30
+// A3-stage4 · cap 1:45 · Act 3 beat 6 of 8 · REWORK of v1 22-stage4
+//
+// v1 was a stage-opener with the three-line happy path and a signature card.
+// The happy path is not the point: nothing on it can go wrong, so it shows the
+// mechanism and hides the argument. Charlie's incident is the argument, and
+// Part 3 puts his actual code here, next to the family of signatures that makes
+// it unwriteable.
+//
+// The bridge from Bob is two spoken sentences (Part 4 deleted 21-bridge): Bob's
+// bug was a missing CASE; Charlie's is a wrong ORDER, which no sum type catches.
 #import "../theme.typ": *
 #import "../components.typ": *
 #import "../code-pane.typ": *
 
-#stage-opener-slide(
-  [4],
-  [Phantom Typestate · The State IS the Type],
-  [java (advanced) · System Fω · phantom generics],
+#light-slide(
+  eyebrow: eyebrow([Stage 4 · java · a type parameter that carries no data]),
+  body-gap: sz(18pt),
+  [The state is in the type],
   stack(
     dir: ttb,
-    spacing: sz(18pt),
-    eyebrow(style: "accent")[→ DEMO 4 in `Demo.java`],
-    code-pane(
-      filename: "Demo.java",
-      language: "java",
-      highlights: ((4, "err"), (5, "err")),
-    )[
-```java
-Payment<Initiated>  init       = Payment.initiate(order);
-Payment<Authorized> authorized = Payment.authorizeAuto(init);
-Payment<Captured>   captured   = Payment.capture(authorized);
+    spacing: sz(24pt),
+    grid(
+      columns: (1fr, 1.2fr),
+      column-gutter: sz(44pt),
+      row-gutter: sz(12pt),
+      align: (left + top, left + top),
 
-// Payment.capture(init);                  // ← UNCOMMENT → won't compile
-// Payment.refund(authorized, instant);    // ← UNCOMMENT → won't compile
-```
-    ],
-    signature-card[
-      `authorizeAuto(`*`Payment<Initiated>`*`)` → `Payment<Authorized>`\
-      `authorize3DS(`*`Payment<Initiated>`*`, ThreeDSProof)` → `Payment<Authorized>`\
-      `capture(`*`Payment<Authorized>`*`)` → `Payment<Captured>`\
-      `refund(`*`Payment<Captured>`*`, RefundMechanism)` → `Result<Payment<Refunded>>`
-    ],
+      text(size: sz(24pt), fill: pal.fg-dim)[
+        #text(weight: 600, fill: pal.bad)[Charlie's shortcut.] Fetch it, run it.
+        Nothing asks what state it was in.
+      ],
+      text(size: sz(24pt), fill: pal.fg-dim)[
+        #text(weight: 600, fill: pal.good)[Each transition demands its input state]
+        and hands back the next one.
+      ],
+
+      block(width: 100%, fill: pal.bad-bg, radius: sz(6pt),
+            inset: (x: sz(24pt), y: sz(20pt)))[
+        #show raw: set text(font: mono-font, size: sz(19pt), fill: pal.fg)
+        #raw(block: true,
+          "var refund = repo.find(id);\ngateway.execute(refund);")
+      ],
+      signature-card[
+        `initiate(Order)` → *`Payment<Initiated>`*\
+        `authorizeAuto(`*`Payment<Initiated>`*`)` → *`Payment<Authorized>`*\
+        `capture(`*`Payment<Authorized>`*`)` → *`Payment<Captured>`*
+      ],
+    ),
+    line(length: 100%, stroke: 0.5pt + pal.rule),
+    grid(
+      columns: (auto, 1fr),
+      column-gutter: sz(40pt),
+      align: (left + horizon, left + horizon),
+      text(font: mono-font, size: sz(24pt), fill: pal.fg)[
+        Payment\<Initiated\> #h(sz(12pt)) ≠ #h(sz(12pt)) Payment\<Authorized\>
+      ],
+      [
+        #set text(size: sz(24pt), fill: pal.fg-dim)
+        #set par(leading: 0.45em)
+        Same bytes at runtime — the parameter carries no data at all. What it
+        carries is which methods will accept the value, and there is no way to
+        reach `Captured` without passing through `Authorized` first.
+      ],
+    ),
   ),
 )
 
 #speaker-note[
-// CUES:
-// 1. Open Payment.java → class declaration + private constructor → "phantom: no data, just a type constraint"
-// 2. Show authorizeAuto / authorize3DS / capture signatures → "signature family IS the state machine"
-// 3. Navigate to demo4_TypestateCompileErrors() in Demo.java
-// 4. Uncomment "Payment.capture(init);" → read error aloud: "Payment<Initiated> cannot be converted to Payment<Authorized>"
-// 5. Re-comment ⌘Z → "That type constraint IS the lifecycle ordering"
-// 6. Show buggyDemo_WrongApprovalMethodStillPossible() → still compiles → "Risk level not in the type — Stage 5 closes this"
-
-"Charlie's incident in the opening was a refund approval workflow with an illegal state transition. The demo here uses the same failure shape on payment capture instead — same structural problem, a little more compact to demonstrate. The parameter is a phantom — it carries no runtime data. What it does is restrict which factory methods can accept which payments. You cannot pass a `Payment<Initiated>` to `capture` — the types don't match. There is no expressible program here that holds a `Payment<Captured>` without having passed through `Payment<Authorized>` first."
-
-→ Step 1 (30 sec): Open `04-java-advanced-generics-typestate/Payment.java`. Show the class declaration: `public final class Payment<S extends PaymentState>` with private constructor. Navigate to `initiate()` — public static, the only entry point.
-→ Step 2 (30 sec): Show the `authorizeAuto`, `authorize3DS`, and `capture` signatures side by side. Say: "The method signature family IS the state machine. Each transition is a function that requires the right phantom type on input and produces the next phantom type on output."
-→ Step 3 — LIVE UNCOMMENT MOMENT (60 sec): Navigate to `demo4_TypestateCompileErrors()` in `Demo.java`. Show the body: an order is built, `init`/`authorized`/`captured` go through the lifecycle, and three commented-out lines sit below — each marked `← UNCOMMENT`. Uncomment the `Payment.capture(init);` line. The compiler reports: "Payment<Initiated> cannot be converted to Payment<Authorized>". Read it aloud: "The capture function requires Payment<Authorized>. We're passing Payment<Initiated>. The lifecycle ordering is now a type constraint, not a convention." Re-comment with the `// ← UNCOMMENT` line restored.
-→ Step 4 (60 sec): Navigate to `buggyDemo_WrongApprovalMethodStillPossible()`. Show a medium-risk order being authorized via `authorizeAuto`. Say: "This compiles. The type of `Payment<Initiated>` does not know which risk level it represents. The risk assessment is a runtime value. Java's phantom generics can carry the lifecycle state — but not the runtime risk classification. That gap is what Scala 3 closes."
-→ Return to slides.
+#read("../scripts/17-stage4.md")
 ]

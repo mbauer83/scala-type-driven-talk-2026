@@ -1,67 +1,72 @@
-// Clock: 25:00–26:00
+// A3-ceiling · cap 1:20 · Act 3 beat 8 of 8 · MERGE of v1 23-stage4-payoff + 24-java-ceiling
+//
+// Charlie's payoff is one line here rather than a slide of its own — v1's
+// payoff carried the nine-row table and the four-chip strip, both of which P5
+// removed and Part 2 replaced with Device 1.
+//
+// NO CUBE REVEAL. Part 2/Device 2 wants `lambda-cube-canvas(reveal: 1)` here,
+// and the diagram is still the fixed unparameterised value it always was
+// (diagrams/lambda-cube.typ:29). Parameterising it well is an hour I do not
+// have before Thursday, and the reveal's whole job — name the two axes Java
+// does not reach — is done in words below at no risk. The full cube is wired
+// into the appendix for Q&A. Flagged in the plan, not quietly dropped.
+//
+// C2 discipline on the ceiling claims: Java CAN encode all three of these with
+// enough hand-rolled machinery. The honest limit is what it costs, not what is
+// possible, and the linter has an `overclaim` rule watching for the stronger
+// form.
 #import "../theme.typ": *
 #import "../components.typ": *
 
-#let ceiling-col(header, mark-color, mark, items) = stack(
+#let limit(head, body) = stack(
   dir: ttb,
-  spacing: sz(16pt),
-  text(size: sz(24pt), weight: 500, font: mono-font, fill: pal.fg-dim, tracking: 0.05em)[#header],
-  line(length: 100%, stroke: 0.5pt + pal.rule-strong),
-  stack(
-    dir: ttb,
-    spacing: sz(16pt),
-    ..items.map(s => grid(
-      columns: (sz(36pt), 1fr),
-      gutter: sz(12pt),
-      align: (center + horizon, left + horizon),
-      text(size: sz(28pt), weight: 600, fill: mark-color)[#mark],
-      text(size: sz(28pt))[#s],
-    )),
-  ),
+  spacing: sz(8pt),
+  text(size: sz(25pt), weight: 600, fill: pal.fg)[#head],
+  block[
+    #set text(size: sz(23pt), fill: pal.fg-dim)
+    #set par(leading: 0.45em)
+    #body
+  ],
 )
 
 #light-slide(
-  eyebrow: eyebrow([Threshold]),
-  [The Java Ceiling],
+  eyebrow: eyebrow([Stage 4 payoff · and the Java ceiling]),
+  body-gap: sz(22pt),
+  [Charlie's bug is now a compile error too],
   stack(
     dir: ttb,
-    spacing: sz(56pt),  // generous vertical break between table and ceiling callout
+    spacing: sz(30pt),
+    block(width: 100%, fill: pal.good-bg, inset: (x: sz(26pt), y: sz(18pt)), radius: sz(4pt))[
+      #set text(size: sz(26pt), fill: pal.fg)
+      Two of the four incidents are gone, and neither of them by a test. Bob's
+      needed every case; Charlie's needed the right order.
+    ],
+    line(length: 100%, stroke: 0.5pt + pal.rule),
+    [
+      #set text(size: sz(26pt), weight: 500, fill: pal.fg)
+      Three things you can still write, and Java will still accept:
+    ],
     grid(
-      columns: (1fr, 1fr),
-      gutter: sz(72pt),
-      ceiling-col(
-        [WHAT JAVA CAN ENCODE], pal.good, [✓],
-        ("Nominal types", "Parametric polymorphism", "Sum types + exhaustive match", "Phantom lifecycle state"),
-      ),
-      ceiling-col(
-        [WHAT JAVA CANNOT REACH], pal.bad, [✗],
-        ("Type index derived from a *runtime* value", "Predicate carried in the type", "Types computed from types", "Path-dependent message types"),
-      ),
+      columns: (1fr, 1fr, 1fr),
+      column-gutter: sz(40pt),
+      limit([Approve a medium-risk order the automatic way.],
+            [The risk level is not in the authorization's type, so the wrong
+             approval method type-checks. #text(fill: pal.accent)[Stage 5.]]),
+      limit([Build an order with no lines, or a negative quantity.],
+            [Nothing in the type says non-empty, or at least zero — the check is
+             a constructor at the boundary. #text(fill: pal.accent)[Stage 5.]]),
+      limit([Disagree with the other service about the protocol.],
+            [Each side is correct against its own contract; nothing relates them.
+             #text(fill: pal.accent)[Stage 5 and 6.]]),
     ),
-    callout(
-      [Ceiling],
-      [Java can encode more than it looks like — phantom generics and witness encodings go a long way. What it has no mechanism for is deriving a type from a value the program only learns at runtime.],
-      style: "bad",
-    ),
-    // ── Concrete counter-example: risk level not carried in type ──────────
-    callout(
-      [Still compiles after Stage 4],
-      raw(lang: "java",
-        "RiskDecision risk   = assessRisk(mediumOrder);    // MEDIUM at runtime
-" +
-        "Payment<Initiated>  init = Payment.initiate(mediumOrder);
-" +
-        "Payment<Authorized> auth = Payment.authorizeAuto(init); // ← wrong method
-" +
-        "// The type of init does not carry MEDIUM.
-" +
-        "// Java has no mechanism to express that constraint."
-      ),
-      style: "bad",
-    ),
+    align(center)[
+      #set text(size: sz(24pt), fill: pal.fg-dim)
+      Java can encode all three with enough hand-rolled machinery. The question
+      from here is what it costs.
+    ],
   ),
 )
 
 #speaker-note[
-"By Stage 4 we've used most of what modern Java's type system offers in this domain: sealed types, records, phantom generics, explicit lifecycles. These are all real, all worth using in production. But there is a ceiling. Be careful how I put this, because Java can encode more than people expect — you can index approvals by a phantom risk parameter, and with a witness encoding you can even connect a sealed type to its own index. What Java has no mechanism for is taking a value the program only learns at runtime and deriving a type from it. Take one example: the risk level. It's a runtime value — the output of `assessRisk(order)`. Java's type system has no mechanism to carry that runtime information into the shape of the next method call's signature. Once we classify an order as medium-risk, the developer can still call `authorizeAuto`; the connection between the risk classification and the required authorization method lives in convention and documentation, not in the type-checker. Same story for refined types — a predicate like 'this string is non-empty' is a runtime check in Java, not part of the type. Same story for types computed from other types. So the honest ceiling is narrower than 'Java can't do this', and it still holds: no type index from a runtime value, no predicate inside the type, no computing types from types. Let's see what a system with those looks like."
+#read("../scripts/19-ceiling.md")
 ]

@@ -83,12 +83,14 @@ a2-promises	1:05	prose
 17-stage1	1:00	prose
 10-gentzen-or	1:15	prose
 19-stage3	1:45	prose
-a3-demo1	2:10	demo
+a3-demo1	1:00	demo
+a3-demo1-out	1:10	demo
 20-stage3-payoff	0:35	prose
 # 21-bridge deleted 18 Aug — Part 4 makes it two spoken sentences between
 # A3-payoff-bob and A3-stage4; it never earned 1:30 of its own.
 22-stage4	1:45	prose
-a3-demo2	1:45	demo
+a3-demo2	0:45	demo
+a3-demo2-out	1:00	demo
 24-java-ceiling	1:20	prose
 
 # ── Act 4 · Scala 3 — 7:20 · has never fit any budget; measured 10:36 in v1 ─

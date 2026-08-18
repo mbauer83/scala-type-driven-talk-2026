@@ -49,9 +49,12 @@
 #include "slides/17-stage1.typ"          // A3-stage12 — Stages 1+2 merged
 #include "slides/10-gentzen-or.typ"      // A3-gentzen — moved here from Act 1 (P2)
 #include "slides/19-stage3.typ"
+#include "slides/a3-demo1.typ"           // A3-demo1 — live, dark setup card
+#include "slides/a3-demo1-out.typ"       // captured output / fallback
 #include "slides/20-stage3-payoff.typ"
 #include "slides/22-stage4.typ"
-#include "slides/23-stage4-payoff.typ"
+#include "slides/a3-demo2.typ"           // A3-demo2 — live, dark setup card
+#include "slides/a3-demo2-out.typ"       // captured output / fallback
 #include "slides/24-java-ceiling.typ"
 #include "slides/25-stage5.typ"
 #include "slides/26-session-types.typ"
@@ -88,7 +91,8 @@
 #include "slides/a07-tracking.typ"
 #include "slides/a08-singleton.typ"
 #include "slides/a09-singletons.typ"
-#include "slides/a10-invariants.typ"   // the nine-row inventory, out of the main deck
+#include "slides/a10-invariants.typ"
+#include "slides/14-lambda-cube.typ"     // full cube — Q&A; the reveals were cut   // the nine-row inventory, out of the main deck
 
 // ─── pdfpc sidecar generation ────────────────────────────────────────────────
 //
