@@ -47,9 +47,10 @@
     #block(width: 100%, inset: (left: sz(268pt)))[
       #set text(size: sz(23pt), fill: pal.fg-faint)
       #set par(leading: 0.45em)
-      In Java the primitives are values and everything else is a reference, which
-      is why `==` compares the reference and `.equals` compares the value — and why
-      `record` exists, to give you value semantics over one.
+      In Java, `==` compares primitives by value and everything else by identity.
+      `.equals` means whatever the class chose to define, and defaults to identity
+      too; a `record` is where the compiler writes one that compares the
+      components for you — still a reference type underneath.
     ]
     #v(sz(26pt))
     #block(
@@ -60,10 +61,11 @@
     )[
       #set text(size: sz(28pt), fill: pal.fg)
       #set par(leading: 0.5em)
-      A type is the compiler's #text(weight: 500)[reasoning about which values may
-      flow where]. Most of what it buys is already spent before the program runs:
-      while you model the domain, while the checker turns down a bad call, while
-      somebody reads a signature and infers the contract from it.
+      A type #text(weight: 500)[classifies values]; the checker is what uses that
+      classification to decide which values may flow where. Most of what the pair
+      buys is already spent before the program runs: while you model the domain,
+      while the checker turns down a bad call, while somebody reads a signature
+      and infers the contract from it.
       #v(sz(14pt))
       #align(center)[
         #text(font: mono-font, size: sz(26pt), fill: pal.fg-dim)[

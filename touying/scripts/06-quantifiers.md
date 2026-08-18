@@ -41,7 +41,8 @@ BEATS
     it around and nothing else, which is why real generics say
     `T extends something`. **Show the syntax, do not say "a bound"** — see the
     note below.
-- Margin, one line only: ∃ exists, Java cannot write it honestly, it returns.
+- Margin, one line only: ∃ exists, Java's wildcards are a weak version of it,
+  the strong form returns at the top.
 
 UNBOUNDED GENERICS ARE BARELY USEFUL, AND THE SLIDE HAS TO ADMIT IT (MB, 18 Aug)
 
@@ -94,6 +95,23 @@ from Stage 2 and it is instantiated on the domain three lines later
 (`PaymentService.java:76-84`, `Validator<Integer> positiveQuantity`) — say so if
 anyone looks sceptical about where it comes from.
 
+TWO CORRECTIONS FROM THE 18 AUG EXTERNAL REVIEW
+
+**F-03 was a blocker: "Java has no honest way to write ∃" is false.** JLS §4.5.1
+treats wildcards as a restricted existential — `List<?>` is `∃T. List<T>`, and a
+generics specialist in the room can produce it instantly, at the exact moment the
+talk claims its first expressiveness boundary. The narrower claim is the true one
+and is also the one Stage 6 actually pays off: Java cannot express a **dependent
+pair**, a value handed to you together with evidence *about that value*. Say
+wildcards out loud, concede them, then name what is missing.
+
+**F-04: an unbounded `T` is not opaque — it has `Object`'s methods.** `t.equals`,
+`t.hashCode`, `t.toString` and `t.getClass` are all available, and `getClass`
+hands you the argument's runtime class. So *it never gets to ask what T is* is
+too strong: the method gets no runtime handle on `T` itself, which is erased, but
+it can still branch on what it was handed. Say *little it can do beyond what
+Object offers* — true, checkable, and it keeps the point intact.
+
 FACTS — grepped, not remembered (C1)
 - `public static RiskDecision assessRisk(Order order)` —
   `03-java-function-types-sealed/PaymentService.java:20`
@@ -117,15 +135,15 @@ it. For all o of type Order, and then something true of every one of them.
 
 You write that already. Every signature you write is a universal quantifier —
 assessRisk takes an Order and returns a risk decision, for every order there will
-ever be, including the ones placed tonight. A function type is a
-for-all whose body never mentions the thing it bound.
+ever be, including the ones placed tonight. A function type is a for-all whose
+body never mentions the thing it bound.
 
-A generic moves that variable up a level. It stops ranging over values and starts
-ranging over types, and the power is in what the body cannot do: it never gets to
-ask what T is. One
-implementation covers all of them, including types nobody has written yet. For
-the same reason it can only pass a T around and never call anything on it, which
+A generic moves that variable up a level, from values to types, and the power is
+in what the body cannot do: it gets no runtime handle on T at all. One
+implementation covers every T, including types nobody has written yet. For the
+same reason there is little it can do to a T beyond what Object gives you, which
 is why in practice you nearly always write T extends something.
 
-There is a second quantifier, there-exists. Java has no honest way to write that
-one, and it is the first thing we need at the top of the climb."
+There is a second quantifier, there-exists. Java's wildcards are a weak version;
+the strong one — a value handed to you with evidence about it — is the first
+thing we need at the top of the climb."

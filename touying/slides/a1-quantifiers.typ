@@ -62,7 +62,7 @@
       [A function type is a universal quantifier whose body ignores the binder.
        You write one every time you write a signature — one claim, every `Order`,
        including the ones placed tonight.],
-      code-pane(filename: "PaymentService.java", language: "java", code-size: 16pt, pad-y: 8pt)[
+      code-pane(filename: "PaymentService.java", language: "java", code-size: 21pt, pad-y: 8pt)[
 ```java
 public static RiskDecision assessRisk(Order order)
 ```
@@ -75,11 +75,11 @@ public static RiskDecision assessRisk(Order order)
       [over types],
       [∀ T.#h(sz(20pt))Predicate\<T\> × String → Validator\<T\>],
       [Here the variable ranges over #text(fill: pal.fg, weight: 500)[types], one
-       level above Frege. The body never gets to ask what `T` is, so one method
-       covers every `T`. For the same reason it can only pass a `T` around and
-       never call anything on it — which is why in practice you write
+       level above Frege. The body gets no runtime handle on `T`, so one method
+       covers every `T`. For the same reason there is little it can do to a `T`
+       beyond what `Object` offers — which is why in practice you write
        `<T extends Comparable<T>>`, and get `compareTo` back.],
-      code-pane(filename: "Validator.java", language: "java", code-size: 16pt, pad-y: 8pt)[
+      code-pane(filename: "Validator.java", language: "java", code-size: 21pt, pad-y: 8pt)[
 ```java
 static <T> Validator<T> check(Predicate<T> predicate, String errorMessage)
 ```
@@ -88,8 +88,9 @@ static <T> Validator<T> check(Predicate<T> predicate, String errorMessage)
     #v(sz(24pt))
     #align(right)[
       #text(size: sz(21pt), fill: pal.fg-faint)[
-        #text(font: mono-font)[∃] — the other quantifier. Java has no honest way
-        to write it; it comes back at the top of the climb.
+        #text(font: mono-font)[∃] — the other quantifier. Java's wildcards
+        (`List<?>`) are a restricted form of it; the strong version, a value
+        handed to you together with evidence about it, comes back at the top.
       ]
     ]
   ],

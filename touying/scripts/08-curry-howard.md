@@ -29,32 +29,30 @@ VERBATIM
 
 "Why a compiler can take that deal at all is the last piece.
 
-Church and Turing, both in nineteen thirty-six, made computation formal, and
-Church's typed lambda calculus is the direct ancestor of the
-Function-of-String-to-Integer you wrote in Java 8.
+Church and Turing made computation formal in nineteen thirty-six, and Church's
+typed lambda calculus is the direct ancestor of the Function you wrote in Java 8.
 
 In nineteen sixty-nine Howard wrote down what Curry had noticed twenty years
 earlier, and it is what I promised you at the start. A proposition corresponds to
 a type; a proof of it corresponds to a program of that type; and running the
-program is simplifying the proof. Lambek found the same structure a third time in
-category theory. Logic, computation and algebra as three descriptions of one
-thing — I still find that the most beautiful fact I know.
+program is simplifying the proof. Lambek later found the same structure in
+category theory — logic, computation and algebra as three descriptions of one
+thing, which I still find the most beautiful fact I know.
 
 So: your program is the construction. Its type says what you constructed a proof
 of. The compiler is the machine that checks the one against the other. That holds
 whether or not you write the types down, because in an untyped language the
 proposition is still there and nothing ever checks it.
 
-The caveat is the reason this talk has stages. That correspondence
-is with a total, pure calculus. Java has null in every reference type, exceptions
-that escape any signature, and loops that never return and will type-check as
-anything you like, so a Java method from A to B does not yet prove that A
-implies B.
+The caveat is the reason this talk has stages. That correspondence is with a
+total, pure calculus, and Java has null in every reference type, exceptions that
+escape any signature, and loops that never return and type-check as anything you
+like — so a Java method from A to B does not yet prove that A implies B.
 
-Logic reaches effects perfectly well, by the way. There are calculi for state,
-for exceptions, for control, and adding first-class continuations buys you
-classical logic. Java sits outside this particular calculus, and each stage we
-climb from here moves it toward one that fits."
+Logic reaches effects perfectly well, by the way: there are calculi for state and
+exceptions and control, and first-class continuations buy you classical logic.
+Java sits outside this particular calculus, and each stage we climb moves it
+toward one that fits."
 
 DELIVERY
 Three-line equation table on the left, the C13 block on the right; the caveat

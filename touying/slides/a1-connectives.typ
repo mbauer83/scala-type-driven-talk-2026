@@ -48,26 +48,28 @@
   body-gap: sz(34pt),
   [
     #block(width: 100%)[
-      #set text(size: sz(25pt), fill: pal.fg-dim)
-      Aristotle's forms you could already check by eye. Boole made them something
-      you could #text(fill: pal.fg, weight: 500)[compute] with: he wrote OR as
-      #text(font: mono-font, fill: pal.fg)[+] and AND as
+      #set text(size: sz(24pt), fill: pal.fg-dim)
+      Boole made Aristotle's forms something you could
+      #text(fill: pal.fg, weight: 500)[compute] with: OR became
+      #text(font: mono-font, fill: pal.fg)[+], AND became
       #text(font: mono-font, fill: pal.fg)[×], and those are still the names.
     ]
-    #v(sz(26pt))
+    #v(sz(20pt))
     #grid(
       columns: (1.32fr, 1fr),
-      column-gutter: sz(40pt),
-      row-gutter: sz(14pt),
+      column-gutter: sz(36pt),
+      row-gutter: sz(12pt),
       align: (left + top, left + top),
 
       connective([∨], [+], [a sum], [one of the variants, and the compiler knows which]),
       connective([∧], [×], [a product], [every field, at once]),
 
-      code-pane(filename: "RiskDecision.java", language: "java", code-size: 15pt, pad-y: 10pt)[
+      code-pane(filename: "RiskDecision.java", language: "java", code-size: 21pt, pad-y: 10pt)[
 ```java
 public sealed interface RiskDecision
-    permits RiskDecision.Low, RiskDecision.Medium, RiskDecision.High {
+    permits RiskDecision.Low,
+            RiskDecision.Medium,
+            RiskDecision.High {
 
     record Low()    implements RiskDecision {}
     record Medium() implements RiskDecision {}
@@ -75,7 +77,7 @@ public sealed interface RiskDecision
 }
 ```
       ],
-      code-pane(filename: "OrderLine.java", language: "java", code-size: 15pt, pad-y: 10pt)[
+      code-pane(filename: "OrderLine.java", language: "java", code-size: 21pt, pad-y: 10pt)[
 ```java
 public record OrderLine(
         String sku,
@@ -91,9 +93,9 @@ public record OrderLine(
         as many as #text(font: mono-font)[sku × price × quantity]
       ],
     )
-    #v(sz(30pt))
+    #v(sz(16pt))
     #line(length: 100%, stroke: 0.5pt + pal.rule)
-    #v(sz(22pt))
+    #v(sz(14pt))
     #grid(
       columns: (auto, 1fr),
       column-gutter: sz(40pt),

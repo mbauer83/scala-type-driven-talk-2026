@@ -61,11 +61,12 @@
         #set text(size: sz(25pt), fill: pal.fg-dim)
         #set par(leading: 0.5em)
         #text(font: mono-font, fill: pal.fg)[consistent] — never derives a contradiction\
-        #text(font: mono-font, fill: pal.fg)[sound] — anything it proves is true\
-        #text(font: mono-font, fill: pal.fg-faint)[complete] — anything true can be proved
+        #text(font: mono-font, fill: pal.fg-faint)[complete] — anything true can be proved\
+        #text(font: mono-font, fill: pal.fg)[checkable] — a machine can settle whether it is a proof
         #v(sz(12pt))
         #text(size: sz(25pt), fill: pal.fg)[
-          Gödel, 1931: you cannot have all three.
+          Gödel, 1931: any consistent system big enough
+          for arithmetic gives up #text(weight: 600)[complete].
         ]
       ],
     )

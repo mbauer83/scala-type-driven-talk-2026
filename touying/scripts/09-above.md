@@ -35,8 +35,9 @@ BEATS
 - Martin-Löf 1972: the result type may be computed from the argument.
   › the type language and the program language become the same language
   › so a type can state any property you could write a program to check
-- Coquand 1988 folds that together with polymorphism into a small kernel — the
-  one Rocq, Lean, Agda and Idris are built on.
+- Coquand 1988 folds that together with polymorphism. Between Martin-Löf and
+  Coquand you have the kernels of Rocq, Lean, Agda and Idris — **say "between the
+  two of them", not "that kernel"** (see the correction below).
 - The notations, uncovered together. Read the glosses, not the syntax, and
   introduce them by what the shift buys rather than by how many there are.
 - The contract: you will walk out knowing what each one buys, having watched all
@@ -64,6 +65,12 @@ FACTS — every identifier grepped from the code (C1)
                                             real LowRiskProtocol is five deep
 - Martin-Löf's type theory, 1972; Coquand and Huet, Calculus of Constructions,
   1988, extended to CIC.
+- **F-07, 18 Aug review: the four systems do not share one kernel.** Rocq and
+  Lean descend from the Calculus of Constructions; **Agda is an extension of
+  Martin-Löf type theory** and **Idris 2's core is quantitative type theory**,
+  Atkey's QTT over an MLTT base. Saying *that kernel is what all four are built
+  on* is precise enough to be checked and wrong for half of them. *Between the
+  two of them* is accurate, three words shorter, and still credits both names.
 
 VERBATIM
 
@@ -73,9 +80,9 @@ Everything so far has had the result type fixed before you called the function.
 Martin-Löf, in nineteen seventy-two, let it be computed from the argument
 instead. That collapses two languages into one: the compiler now works out a type
 by running the same language you write your program in. So a type can state any
-property you could write a program to check. Coquand folded that together with
-polymorphism in eighty-eight, and that kernel is what Rocq, Lean, Agda and Idris
-are built on.
+property you could write a program to check. Coquand added polymorphism in
+eighty-eight, and between the two of them you have the kernels of Rocq, Lean,
+Agda and Idris.
 
 What that buys, in the places you will see it run: a type indexed by a runtime
 value; a value paired with a proof about that value; a binding the compiler

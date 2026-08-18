@@ -133,6 +133,36 @@ def spoken_words(stem):
     return len(note.split())
 
 
+SCRIPTS = os.path.join(ROOT, "touying", "scripts")
+
+# A script header carries `cap m:ss` so the speaker can see it while rehearsing.
+# budget.tsv is the single source of truth, so the two can disagree — and on
+# 18 Aug they did, by 45 seconds across Act 0, which is a third of the whole
+# talk's slack licensed by a stale comment. Cheap to check, so check it.
+def header_cap_drift(caps, main_slides):
+    out = []
+    for stem in main_slides:
+        path = os.path.join(SLIDES, stem + ".typ")
+        if not os.path.exists(path):
+            continue
+        m = re.search(r'#read\(\s*"\.\./scripts/([^"]+)"\s*\)',
+                      open(path, encoding="utf-8").read())
+        if not m:
+            continue
+        script = os.path.join(SCRIPTS, m.group(1))
+        if not os.path.exists(script):
+            continue
+        head = open(script, encoding="utf-8").readline()
+        hm = re.search(r"\bcap\s+(\d+):(\d{2})", head)
+        if not hm or stem not in caps:
+            continue
+        declared = int(hm.group(1)) * 60 + int(hm.group(2))
+        real = caps[stem][0]
+        if declared != real:
+            out.append((m.group(1), declared, real))
+    return out
+
+
 def budget():
     """stem -> (cap_seconds, kind). Missing file just disables comparison."""
     caps = {}
@@ -168,6 +198,8 @@ def main():
 
     caps = budget()
     main_slides, appendix = deck_order()
+
+    drift = header_cap_drift(caps, main_slides)
 
     print(f"{'slide':<26}{'words':>6}{'spoken':>9}{'cap':>8}  ")
     print("-" * 55)
@@ -225,6 +257,14 @@ def main():
         cap_slack = args.slot * 60 - total_cap
         print(f"PLANNED total (caps)  : {fmt(total_cap)}  -> "
               f"{fmt(abs(cap_slack))} {'spare' if cap_slack >= 0 else 'OVER SLOT'}")
+
+    if drift:
+        print()
+        print("script headers disagreeing with budget.tsv "
+              "(budget.tsv is the source of truth):")
+        for name, declared, real in drift:
+            print(f"  scripts/{name:<24} header says {fmt(declared)}, "
+                  f"cap is {fmt(real)}")
 
     if over:
         print()

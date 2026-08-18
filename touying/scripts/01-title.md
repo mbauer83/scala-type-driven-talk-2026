@@ -1,4 +1,4 @@
-VERBATIM · cap 1:00 · word count is computed by `make timing`, not stated here.
+VERBATIM · cap 0:50 · word count is computed by `make timing`, not stated here.
 
 "Good evening. My name is Michael Bauer, and I've spent the last dozen or so years working
 as a software and solution architect. Tonight I would like to start with four bugs.

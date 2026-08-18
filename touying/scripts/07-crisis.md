@@ -19,8 +19,8 @@ BEATS — delivery aid; the script is below
   mathematics from eating itself.
 - **Motivate Hilbert, then list.** If the ground can crack like that, the
   question is what a formal system is still good for.
-  › consistency, soundness, completeness
-- Gödel 1931: you cannot have all three. Everyone gave up completeness.
+  › consistent · complete · checkable by machine
+- Gödel 1931: a consistent system big enough for arithmetic gives up complete.
 - Hand off: that is the deal your compiler takes every morning. (A2-promises
   cashes it out; do not do that work here.)
 
@@ -39,11 +39,10 @@ every sealed interface any of you writes is downstream of a man trying to stop
 mathematics from eating itself.
 
 If the ground can crack like that, what is a formal system still good for?
-Hilbert's answer was three things. Consistency, so it never derives
-a contradiction; soundness, so anything it proves is true; completeness, so
-anything true can be proved. Gödel showed in nineteen thirty-one that you cannot
-have all three, and the one everybody gave up was completeness — which is the deal
-your compiler takes every morning."
+Hilbert wanted three things at once: no contradictions, everything true provable,
+and a machine able to settle whether a given thing is a proof. Gödel showed in
+nineteen thirty-one that any consistent system big enough for arithmetic gives up
+the middle one — and completeness is the deal your compiler takes every morning."
 
 DELIVERY
 The barber earns its place by costing eight seconds and removing the need for
@@ -82,6 +81,17 @@ FACTS
   the set version breaks the theory that permits the set. If challenged, concede
   it: the barber is the intuition, the set is the problem.
 - Type theory as the repair: Russell's ramified theory, 1908.
+- **Hilbert's third was decidability / mechanical checkability, NOT soundness.**
+  An earlier version of this slide listed consistent / sound / complete and said
+  Gödel showed you cannot have all three. Both halves were wrong. Hilbert's
+  programme wanted consistency, completeness and an effective decision procedure;
+  and *sound + complete + consistent* is not a triple Gödel ruled out — plain
+  propositional logic has all three, and a logic-literate attendee will say so.
+  The theorem needs its hypotheses: **any consistent, effectively axiomatized
+  system strong enough for arithmetic is incomplete.** "Big enough for arithmetic"
+  is the spoken form of that, and it is the shortest honest one.
+  Note this also puts *mechanical checkability* on the slide, which is what
+  Part 6b/D2 (ii) asked `A1-crisis` to carry in the first place.
 - Gödel's first incompleteness theorem, 1931.
 - Do NOT say type-checker conservatism is Gödel — that is Rice's theorem and
   decidability, and it belongs to `A2-promises`. See Part 8/C8.

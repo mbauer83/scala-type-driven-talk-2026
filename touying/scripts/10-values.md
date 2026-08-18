@@ -8,15 +8,20 @@ landing line and should be exact; everything else is spoken from the slide.
 
 BEATS
 
-- Two words, because the rest of the talk leans on them.
+- Bridge from the scenario first, in one clause — the room has just been looking
+  at a payment flow and is owed a reason for the detour: encoding a rule once, at
+  the definition, rests on two words.
+- Then the two words themselves.
   › a value is a bit pattern plus an agreement about how to read it
   › a reference is a value that denotes a location
-- Java, in one clause: primitives are values, everything else is a reference —
-  hence `==` against `.equals`, hence `record`. Do not linger; the room knows
-  this and is waiting to hear why it matters.
-- **The turn, and the load-bearing part.** A type is the compiler's reasoning
-  about which values may flow where, and most of what it buys is spent before the
-  program runs at all.
+- Java, and say it precisely because this room can check you: `==` compares
+  primitives by value and everything else by identity; `.equals` is whatever the
+  class defined and defaults to identity; a `record` is where the compiler writes
+  a component-wise one for you. Do not linger — they know this and are waiting to
+  hear why it matters.
+- **The turn, and the load-bearing part.** A type classifies values; the checker
+  uses that classification to decide which values may flow where. Most of what
+  the pair buys is spent before the program runs at all.
   › while you model the domain
   › while the checker turns down a bad call
   › while somebody reads a signature and infers the contract
@@ -33,8 +38,8 @@ BEATS
 
 LANDING LINE — say this one as written
 
-"Everything the rest of the talk asks for is paid at compile time, and the part
-that helps you most has already been collected by the time you press run."
+"Nearly all of that is paid at compile time. Stage 6 is the one place we spend at
+runtime on purpose, and you will see exactly why when we get there."
 
 MUST LAND
 That types are a design-time and compile-time tool. If the room leaves with
@@ -73,3 +78,24 @@ FACTS
   instanceof. `List<?>` compiles. Worth knowing precisely if challenged.
 - Scala 3 opaque types erase to their underlying representation; Idris 2
   quantities (0, 1, ω) are erased and are a compile-time discipline.
+
+CORRECTIONS FROM THE 18 AUG EXTERNAL REVIEW (F-09, F-10, F-11)
+
+**F-09 was a blocker and it was on the one slide a Java room can fact-check in
+their heads.** The old line said `==` compares the reference and `.equals`
+compares the value. Both halves are wrong: `==` compares primitives by value, and
+`Object.equals` defaults to identity, so `new Object().equals(new Object())` is
+false. Records were also described as giving *value semantics*, which they do not
+— JLS 8.10.3 generates a component-wise `equals`, and the record stays a
+reference type. Say the precise version; it is barely longer and it is the slide
+where credibility is cheapest to lose.
+
+**F-10 — "a type is the compiler's reasoning" merged the type with the checker**,
+three slides after `A1-curry-howard` separated them by name. The type classifies;
+the checker reasons. The plan's own Part 3 wording had the same slip and it was
+copied straight onto the slide.
+
+**F-11 — the landing line erased the exception the slide had just made.** Saying
+everything is paid at compile time, one line under a footnote about Stage 6
+sending a runtime value into a type, sets up exactly the *types are free* reading
+this slide exists to prevent. It now concedes Stage 6 by name.

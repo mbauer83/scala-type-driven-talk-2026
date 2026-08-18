@@ -28,7 +28,7 @@
 )
 
 #theory-slide(
-  eyebrow: eyebrow([Hilbert's three, cashed out], style: "normal"),
+  eyebrow: eyebrow([The same questions, for your compiler], style: "normal"),
   [What a type checker actually promises],
   [
     #v(sz(10pt))
@@ -52,8 +52,8 @@
         [if it compiles, the property holds]),
       ..promise-row([complete],
         [true ⟹ provable],
-        [every safe program is accepted #h(sz(12pt))
-         #text(fill: pal.bad, weight: 500)[— deliberately given up]], dim: true),
+        [every program that is *in fact* safe is accepted #h(sz(12pt))
+         #text(fill: pal.bad, weight: 500)[— given up on purpose]], dim: true),
     )
     #v(sz(30pt))
     #grid(
@@ -65,33 +65,39 @@
         #v(sz(10pt))
         #set text(size: sz(23pt), fill: pal.fg-dim)
         #set par(leading: 0.45em)
-        Every non-trivial semantic property of programs is undecidable, so a
-        checker that always terminates has to approximate — and it approximates on
-        the safe side, rejecting some programs that would in fact have been fine.
+        The checker decides its own rules exactly. What is undecidable is the
+        property you actually wanted — *this never dereferences null* — so a check
+        that always terminates has to approximate it, on the safe side, rejecting
+        some programs that would have been fine.
         #v(sz(14pt))
         #text(size: sz(24pt), weight: 600, fill: pal.fg)[Soundness is bounded by the hatches you use]
         #v(sz(10pt))
         #set text(size: sz(23pt), fill: pal.fg-dim)
         #set par(leading: 0.45em)
         `null`, unchecked casts, Scala's `asInstanceOf`, Idris's `believe_me` —
-        and one hole that is Java's own:
+        each one a place you told the checker to stop looking.
+        #v(sz(10pt))
+        Java's arrays are a different shape, and a better one to know:
       ],
       stack(
         dir: ttb,
         spacing: sz(14pt),
         // Held down so the pane sits level with "Soundness is bounded…", which
         // is the sentence it is evidence for.
-        v(sz(158pt)),
-        code-pane(filename: "ArrayStore.java", language: "java", code-size: 17pt, pad-y: 12pt)[
+        v(sz(76pt)),
+        code-pane(filename: "ArrayStore.java", language: "java", code-size: 23pt, pad-y: 12pt)[
 ```java
 Object[] arr = new String[1];
-arr[0] = 42;      // compiles → ArrayStoreException
+arr[0] = 42;      // static rule says yes
 ```
         ],
         block[
           #set text(size: sz(23pt), fill: pal.fg-dim)
           #set par(leading: 0.45em)
-          You will not feel the missing completeness on a normal Tuesday — when the
+          The static rule is unsound, so the JVM pays for it instead — it checks
+          every store into a reference array, for ever, in all your code.
+          #v(sz(10pt))
+          You will not feel the missing completeness on a normal Tuesday; when the
           compiler says no, it is usually right. You feel it the moment you try to
           encode a #text(fill: pal.fg, weight: 500)[stronger] invariant, and what
           that costs is the last question of the talk.

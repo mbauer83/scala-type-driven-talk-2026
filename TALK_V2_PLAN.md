@@ -1890,3 +1890,72 @@ and fails as follows — this is the rework backlog, not a list of bugs:
 
 Zero hits for the four new families outside Acts 0–2, which is expected: those
 are *my* faults, and Acts 3–6 are still MB's v1 prose.
+
+---
+
+## Part 13 — External adversarial review, 18 Aug: disposition
+
+Fifteen findings against Acts 0–2, in `ADVERSARIAL_REVIEW_ACTS_0_2.md`. **Eleven
+accepted, two accepted with a different fix than proposed, one deferred, one
+escalated to MB.** Every factual claim in the review was re-verified against
+source before being acted on; all of them held.
+
+| ID | Sev | Verdict | What was done |
+|---|---|---|---|
+| F-01 | MAJOR | **escalated** | Real tension between `A0-title` and the caveat. The proposed fix weakens MB's own opening — see below |
+| F-02 | MAJOR | accepted, own fix | Code was 15 px on a 1080-px slide. Now **21 px** |
+| F-03 | BLOCKER | accepted | Java wildcards *are* restricted existentials |
+| F-04 | MAJOR | accepted | An unbounded `T` still has `Object`'s methods |
+| F-05 | BLOCKER | accepted | Hilbert's third was decidability, not soundness; Gödel needs his hypotheses |
+| F-06 | MAJOR | accepted, own fix | Trimmed by tightening, not by the proposed cuts — see below |
+| F-07 | MAJOR | accepted | Agda is MLTT-based, Idris 2 is QTT-based; they do not share CoC |
+| F-08 | MAJOR | **deferred** | The join is real; its fix couples to v1 text that `A2-scenario`'s rework deletes |
+| F-09 | BLOCKER | accepted | `==`/`.equals`/`record` were all three wrong |
+| F-10 | MAJOR | accepted | "The compiler's reasoning" merged type and checker — C13, on a C13 slide |
+| F-11 | MAJOR | accepted | The landing line erased the Stage 6 exception the same slide had just made |
+| F-12 | BLOCKER | accepted, narrowed | Precision fix, not the proposed table rewrite — see below |
+| F-13 | BLOCKER | accepted, reframed | Array covariance is an unsound *rule*, and the exception is the enforcement |
+| F-14 | MAJOR | accepted | 17 px → **23 px** |
+| F-15 | MINOR | accepted + guarded | Headers synced, and `make timing` now fails loudly on the next drift |
+
+### The three where the diagnosis was right and the proposed fix was not
+
+**F-01 — escalated, not applied.** The tension is real: `A0-title` claims that a
+program which type-checks *is*, in a precise sense, a proof, and
+`A1-curry-howard` then says a Java method `A → B` does not prove `A implies B`.
+But the proposed repair — *"can be, in a precise sense … and how close Java
+gets"* — is exactly the under-promising Part 9/L1 records MB correcting, on the
+sentence MB wrote himself. Part 8/C11 says his voice does not get rewritten
+without asking. **This is a question for MB, and it is on the list below.**
+
+**F-06 — the time problem is real; the proposed cuts are not available.** The
+review wanted 84 words gone: Church/Turing, Lambek, and the effects paragraph.
+Lambek is named in Part 1 as the central fascination and MB has already ruled on
+him once (smaller, not gone). The effects paragraph *is* Part 10/F2, which MB
+required two days ago. Church is lit on the rail. Trimmed by tightening instead;
+the slide is still +0:28 and that is a read-through decision, not a silent cut.
+
+**F-12 — accepted the precision point, rejected the table rewrite.** The review
+is right that "complete" never said *complete with respect to what*, and that the
+Rice paragraph slid from the typing judgment to all semantic safety. Both fixed
+in place: the checker decides its own rules exactly, and the undecidable thing is
+the property you wanted. The proposed replacement table (typing judgment /
+encoded guarantee / semantic safety) would lose the Hilbert callback, which is
+the only reason this slide exists.
+
+**F-13 — accepted and reframed into a better beat.** The review is right that
+Java is not failing here: the store check is the enforcement. But the static
+subtyping rule *is* unsound, and the interesting fact is who pays — the JVM
+checks every store into a reference array, in all your code, for ever, because
+one rule was left unsound. That is the talk's whole thesis in miniature, so the
+example earns its place more strongly than it did as "a hole".
+
+### Open questions carried to MB
+
+1. **F-01.** Keep the strong opening and let `A1-curry-howard`'s caveat carry the
+   reconciliation, or weaken slide 1? Recommendation: **keep it.** The caveat
+   already says each stage moves Java toward a calculus that fits, and Part 9/L1
+   is explicit that the strong version is also the honest one.
+2. **Act 1 is 1:36 over.** Recover it from the `A1-connectives` +
+   `A1-quantifiers` merge held in reserve, or from per-slide trims at the
+   read-through? Unchanged from Part 11/B — decide against measured numbers.
