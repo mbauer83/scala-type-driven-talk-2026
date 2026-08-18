@@ -60,6 +60,18 @@ talk-html: $(TYPST_SOURCES)
 watch:
 	typst watch --root . touying/deck.typ talk.pdf
 
+# serve: the HTML presenter MUST be served over http, not opened as a file.
+# touying's html export is impress.js, whose presenter drives two <iframe>s via
+# contentDocument and has no postMessage fallback. Over file:// both Firefox
+# (privacy.file_unique_origin, default since 68) and Chromium treat every file
+# as a unique opaque origin, so contentDocument is null: the frames go grey and
+# the preview sticks on slide 1. Served from one origin it works.
+#   make serve   ->  http://localhost:8000/talk.html   (press P for presenter)
+.PHONY: serve
+serve: talk.html
+	@echo "http://localhost:8000/talk.html   — press P for the presenter console"
+	@python3 -m http.server 8000 --bind 127.0.0.1
+
 clean:
 	rm -f talk.pdf talk-with-notes.pdf talk.pdfpc talk.pptx talk-nonotes.pptx talk.html
 	rm -f slides/svg/*.svg slides/png/*.png
