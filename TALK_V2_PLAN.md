@@ -1451,6 +1451,46 @@ programmers). **When editing for one property, diff for changes to the others. A
 is an edit too, and needs its neighbourhood re-checked.**
 
 
+### L12–L16 — from MB's rewrite of `04-aristotle` and `05-connectives` (18 Aug)
+
+He rewrote two scripts I had called finished. Both came out better; one came out
+shorter. The patterns are worth more than the sentences.
+
+**L12 — Set up a payoff; do not assert it.** Mine: *"OR became + and AND became
+×, and those are still the names."* His: *"…and there's a mathematical reason for
+that"* — then the counting delivers it thirty seconds later. I close loops in the
+same sentence I open them, which leaves the audience nothing to do.
+
+**L13 — Carry one concrete word through the act as a spine.** He took
+*mechanically* from Aristotle's beat and made Boole's beat about *removing the
+quotation marks from "mechanically checkable" and actually calculating*. I had two
+separate correct statements; he had one word doing work twice. The spine now runs
+Aristotle (checkable by hand) → Boole (calculable) → Hilbert (mechanically
+checkable) → your compiler, and `A1-crisis` was edited to repeat the word rather
+than paraphrase it. **Carry the word; do not announce that you are carrying it** —
+an earlier version of that edit said *"that word again"*, which is R3.
+
+**L14 — Do not leave a figure as a failure if the programme is alive.** Mine:
+*"He never built it."* His: *"He never built it himself — but our current proof
+calculi and recent developments in categorical logic are part of the same
+endeavour."* This is not generosity, it is the talk's argument: the thesis is that
+this lineage reaches the compiler in the room, and a dead end contradicts it. The
+same fix was owed to Hilbert and has been applied — *that did not kill the
+programme; it narrowed it into proof theory*.
+
+**L15 — End a beat on what it buys later, not on a transition.** He appended
+*"and that shape is what permits effective pattern matching"* to the
+sum-of-products landing. Mine stopped at *most domain models are this shape*.
+
+**L16 — Hedge primacy claims.** *"perhaps the first to truly devote himself"*. I
+would have written *the first*. C2, in its historical form.
+
+Cost of his two rewrites: `04-aristotle` **162 → 154** words (now at cap),
+`05-connectives` **224 → 246**. The overage buys the *mechanically-checkable*
+spine and the Leibniz-programme-is-alive point, which are the two best things in
+the act. Two typos fixed on the way: *vbalidity*, and *better ways to down
+shapes*.
+
 ---
 
 ## Part 10 — MB review of Act 0/1 as built (17 Aug) — **ALL APPLIED**

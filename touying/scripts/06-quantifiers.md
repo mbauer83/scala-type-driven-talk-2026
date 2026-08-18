@@ -1,33 +1,50 @@
 A1-quantifiers · cap 1:05 · Act 1 beat 3 of 6 · rail: FREGE lit
 
-THE OBJECTION THIS SLIDE EXISTS TO ANSWER (MB, 18 Aug)
+THIRD BUILD (MB, 18 Aug). Three changes, and the reasons matter more than the
+wording:
 
-> Any function is already a universal quantification over all instances of its
-> input types. Why would generics make a difference?
+**1. This slide no longer teaches two things.** The program-level / type-level
+distinction has moved to `A1-connectives`, where Java first appears, and is made
+once for the whole act — *these land one level above the booleans a program works
+out while it runs*. Repeating it here as a second teaching job was what made the
+slide feel like two slides.
 
-That is correct, and the two previous versions of this slide had no answer to it.
-`assessRisk(Order order)` **is** `∀ o : Order` — a non-dependent function type is
-Π with the binder unused in the result. Presenting ∀ as the new thing, or a
-generic as "∀ again", tells the people in the room who can follow exactly nothing,
-and they are the ones whose trust the primer needs.
+**2. The values rung is a concession, not a rung.** MB's objection stands and has
+to be answered — `assessRisk(Order order)` **is** `∀o:Order`, so presenting ∀ as
+the new thing tells the room nothing. But answering it costs one clause in the
+lede, not half the slide and a code pane of its own.
 
-The real answer, and the spine of the slide: **a generic moves the variable up a
-level.** It ranges over *types*, not values — second-order quantification, which
-is Girard and Reynolds' System F rather than Frege. And the reason that buys
-something is parametricity: the body cannot inspect `T`, so one implementation
-discharges the claim for every `T` at once.
+**3. Generics arrive bounded.** An unbounded `T` is barely useful: with nothing
+known about `T` you can pass it around and little else. Showing `<T>` bare and
+then adding bounds as a caveat teaches the wrong default, so the first generic
+the room sees here is `<T extends Comparable<T>>`.
 
-WHY IT MATTERS LATER
-This puts two rungs on the board and leaves the third visible:
+HOW TO EXPLAIN A BOUND IN ONE BREATH
+Do not say *bounded quantification*, and do not draw a lattice. Use the shape the
+room already has from `A1-aristotle`:
 
-  over values, result fixed     a function type              (here)
-  over types                    a generic                    (here)
-  over values, result computed  Π — the result type may
-                                mention the value            (`A1-above`)
+    ∀ T.  comparable(T) →  ( List<T> → T )
 
-That third line is the whole of dependent types, and `A1-above` can now land it
-as the next step in a sequence the room has already climbed twice, instead of as
-a new notation out of nowhere.
+That is a for-all with an **if** inside it — the same form as *all medium-risk
+orders need 3DS*. The bound is the *if*: it names which types the claim covers.
+Two glosses, one clause each, and then move on:
+
+- **In Java** it is a region of the hierarchy: everything at or below
+  `Comparable<T>`. That is the interval reading, said without the word.
+- **Without subtyping** the same job is done by a typeclass constraint —
+  Haskell's `Ord a =>`, Rust's `T: Ord`, Scala's `using`. Name it, do not teach
+  it. It is also the honest ancestor of Act 4's refinements, so if the question
+  comes early the answer is *Act 4*.
+
+WHAT IS DELIBERATELY NOT HERE
+- **Composition over inheritance.** There is a real connection — a sealed
+  interface is the alternative to subtype polymorphism for closed variation — but
+  it is a design-principle argument, orthogonal to the logical content, and it
+  invites a debate a Java room has strong opinions about. It costs minutes and
+  buys nothing the ladder needs. Keep it for Q&A; if pressed, the one-liner is
+  *sums close the variation, subtyping leaves it open, and the compiler can only
+  check the closed one*.
+- **Parametricity by name**, and the System F citation. Q&A only.
 
 BEATS
 
@@ -35,12 +52,10 @@ BEATS
 - You already write it — every signature is one. `assessRisk` over every `Order`.
   › a function type is a for-all whose body never mentions what it bound
 - The move: a generic quantifies over TYPES.
-  › the body never gets to ask what `T` is
-  › so one implementation covers every `T`, including ones nobody has written
-  › one clause only on the flip side: with nothing known about `T` you can pass
-    it around and nothing else, which is why real generics say
-    `T extends something`. **Show the syntax, do not say "a bound"** — see the
-    note below.
+  › read the formula aloud — for all T, IF T can be compared, THEN…
+  › call back to Aristotle: a for-all with an `if` inside it
+  › the bound is the `if` — which types the claim covers, and what hands
+    `compareTo` back
 - Margin, one line only: ∃ exists, Java's wildcards are a weak version of it,
   the strong form returns at the top.
 
@@ -131,18 +146,16 @@ FACTS — grepped, not remembered (C1)
 VERBATIM
 
 "Frege's move, in eighteen seventy-nine: put a hole in a proposition, then bind
-it. For all o of type Order, and then something true of every one of them.
+it. You already write that — every signature quantifies over the values of its
+arguments, and assessRisk holds for every order there will ever be, including the
+ones placed tonight.
 
-You write that already. Every signature you write is a universal quantifier —
-assessRisk takes an Order and returns a risk decision, for every order there will
-ever be, including the ones placed tonight. A function type is a for-all whose
-body never mentions the thing it bound.
-
-A generic moves that variable up a level, from values to types, and the power is
-in what the body cannot do: it gets no runtime handle on T at all. One
-implementation covers every T, including types nobody has written yet. For the
-same reason there is little it can do to a T beyond what Object gives you, which
-is why in practice you nearly always write T extends something.
+A generic moves the variable up a level, from values to types. And look at the
+shape it takes: for all T, if T can be compared, then a list of T gives you back
+a T. That is a for-all with an if inside it — the same form we started with two
+slides ago. The bound is the if. It says which types the claim covers —
+here, everything at or below Comparable — and it is what hands compareTo back to
+the body, because otherwise there is very little you can do to a T at all.
 
 There is a second quantifier, there-exists. Java's wildcards are a weak version;
 the strong one — a value handed to you with evidence about it — is the first

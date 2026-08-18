@@ -1,91 +1,96 @@
 // A1-quantifiers · cap 1:05 · Act 1 beat 3 of 6
 //
-// REBUILT 18 Aug. MB's objection, which is the right one and which the previous
-// two versions both failed:
+// THIRD BUILD, 18 Aug. MB: still unhappy with the second. Three changes:
 //
-//   "any function is already a universal quantification over all instances of
-//    its input types. Why would generics make a difference?"
+//  1. The program-level / type-level distinction has moved to `A1-connectives`,
+//     where Java first appears, and is made once for the whole act. This slide
+//     no longer teaches two things at once.
+//  2. The values rung loses its code pane and becomes a one-line concession.
+//     MB's objection stands and must be answered — `assessRisk(Order order)` IS
+//     ∀o:Order, so presenting ∀ as new tells the room nothing — but answering it
+//     costs a clause, not half a slide.
+//  3. **Generics arrive bounded.** An unbounded `T` is barely useful, so showing
+//     one bare and adding bounds as an afterthought teaches the wrong default.
 //
-// Exactly. `assessRisk(Order order)` IS ∀o:Order — a non-dependent function type
-// is Π with the body ignoring the binder. So presenting ∀ as the new thing, or
-// presenting a generic as "∀ again", tells a room that can follow nothing at
-// all, and the sharpest people in it will spot the gap and stop trusting the
-// primer.
+// The bound is explained by the shape the room already has: `∀ T. comparable(T)
+// → …` is a universally quantified conditional, exactly like Aristotle's "all
+// medium-risk orders need 3DS" on the slide two beats back. A bound is the *if*.
 //
-// What generics actually add is that the variable ranges over TYPES rather than
-// values — second-order quantification, System F, one level up from Frege. And
-// because the body never gets to ask what T is, one piece of code discharges the
-// claim for every T at once.
-//
-// The two levels also set up the third: Π on A1-above is ∀ over values again,
-// but with the RESULT TYPE allowed to mention the value. That is the shift that
-// makes dependent types what they are, and it now has somewhere to land.
+// The Java is illustrative and rendered as a card, not a file — same treatment,
+// and for the same reason, as `RefundRule` on `A1-connectives` (Part 12/R9).
+// The repo's real bounded generic is `Payment<S extends PaymentState>`
+// (04-…-typestate/Payment.java:20), deliberately not spent here: A3-stage4 needs
+// it, and `Comparable` shows you getting an operation back, which a marker
+// interface cannot.
 #import "../theme.typ": *
 #import "../components.typ": *
 #import "../code-pane.typ": *
 
-#let level(tag, formula, gloss, pane) = {
-  grid(
-    columns: (sz(210pt), 1fr),
-    column-gutter: sz(30pt),
-    row-gutter: sz(12pt),
-    align: (right + top, left + top),
-    text(font: mono-font, size: sz(21pt), fill: pal.accent, weight: 500)[#upper(tag)],
-    stack(
-      dir: ttb,
-      spacing: sz(12pt),
-      text(font: mono-font, size: sz(30pt), fill: pal.fg)[#formula],
-      pane,
-      block[
-        #set text(size: sz(23pt), fill: pal.fg-dim)
-        #set par(leading: 0.45em)
-        #gloss
-      ],
-    ),
-  )
-}
+#let shape-card(body) = block(
+  width: 100%,
+  fill: pal.bg-dark-2,
+  stroke: 0.5pt + pal.rule-dark-strong,
+  radius: sz(6pt),
+  inset: (x: sz(26pt), y: sz(20pt)),
+)[
+  #show raw: set text(font: mono-font, size: sz(21pt), fill: pal.fg-dark)
+  #set par(leading: 0.62em)
+  #body
+]
 
 #theory-slide(
   eyebrow: eyebrow([Frege · Begriffsschrift · 1879], style: "accent"),
-  [Quantification: over values, then over types],
-  body-gap: sz(30pt),
+  [Quantifiers, and what they range over],
+  body-gap: sz(34pt),
   [
     #block(width: 100%)[
       #set text(size: sz(25pt), fill: pal.fg-dim)
-      Frege's move: put a hole in a proposition, then bind it. One sentence then
-      covers cases nobody will ever write down.
+      #set par(leading: 0.5em)
+      Frege's move: put a hole in a proposition, then bind it. Every signature you
+      write already does that over the #text(fill: pal.fg, weight: 500)[values] of
+      its arguments — #text(font: mono-font, size: sz(23pt), fill: pal.fg)[∀ o : Order. assessRisk(o) : RiskDecision].
+      A generic does it one level up.
     ]
-    #v(sz(26pt))
-    #level(
-      [over values],
-      [∀ o : Order.#h(sz(20pt))assessRisk(o) : RiskDecision],
-      [A function type is a universal quantifier whose body ignores the binder.
-       You write one every time you write a signature — one claim, every `Order`,
-       including the ones placed tonight.],
-      code-pane(filename: "PaymentService.java", language: "java", code-size: 21pt, pad-y: 8pt)[
-```java
-public static RiskDecision assessRisk(Order order)
-```
+    #v(sz(58pt))
+    #grid(
+      columns: (1fr, sz(760pt)),
+      column-gutter: sz(48pt),
+      align: (left + top, left + top),
+      [
+        #text(font: mono-font, size: sz(28pt), fill: pal.fg)[
+          ∀ T. #h(sz(10pt)) comparable(T) #h(sz(6pt)) →
+        ]
+        #v(sz(6pt))
+        #text(font: mono-font, size: sz(28pt), fill: pal.fg)[
+          #h(sz(48pt)) ( List\<T\> → T )
+        ]
+        #v(sz(20pt))
+        #set text(size: sz(23pt), fill: pal.fg-dim)
+        #set par(leading: 0.45em)
+        The variable ranges over
+        #text(fill: pal.accent, weight: 500)[types], not values.
+        #v(sz(16pt))
+        #set text(size: sz(22pt), fill: pal.fg-faint)
+        The same shape as _all medium-risk orders need 3DS_ two slides ago:
+        a for-all with an #text(font: mono-font)[if] inside it.
       ],
+      stack(
+        dir: ttb,
+        spacing: sz(18pt),
+        shape-card[
+          #raw(block: true, "static <T extends Comparable<T>> T max(List<T> xs)")
+        ],
+        block[
+          #set text(size: sz(23pt), fill: pal.fg-dim)
+          #set par(leading: 0.45em)
+          The bound is the #text(fill: pal.fg, weight: 500)[if]. It says which
+          types the claim covers — everything at or below `Comparable<T>` — and it
+          is what hands `compareTo` back to the body. A language without
+          subtyping does the same job with a typeclass constraint.
+        ],
+      ),
     )
-    #v(sz(28pt))
-    #line(length: 100%, stroke: 0.5pt + pal.rule)
-    #v(sz(22pt))
-    #level(
-      [over types],
-      [∀ T.#h(sz(20pt))Predicate\<T\> × String → Validator\<T\>],
-      [Here the variable ranges over #text(fill: pal.fg, weight: 500)[types], one
-       level above Frege. The body gets no runtime handle on `T`, so one method
-       covers every `T`. For the same reason there is little it can do to a `T`
-       beyond what `Object` offers — which is why in practice you write
-       `<T extends Comparable<T>>`, and get `compareTo` back.],
-      code-pane(filename: "Validator.java", language: "java", code-size: 21pt, pad-y: 8pt)[
-```java
-static <T> Validator<T> check(Predicate<T> predicate, String errorMessage)
-```
-      ],
-    )
-    #v(sz(24pt))
+    #v(sz(64pt))
     #align(right)[
       #text(size: sz(21pt), fill: pal.fg-faint)[
         #text(font: mono-font)[∃] — the other quantifier. Java's wildcards

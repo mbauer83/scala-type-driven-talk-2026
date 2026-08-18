@@ -25,6 +25,20 @@ named after addition and multiplication, and you can count the values*, the beat
 worked. That is a fact about types they have never been told and cannot confuse
 with anything else they know.
 
+THIS SLIDE NOW CARRIES THE LEVEL DISTINCTION FOR THE WHOLE ACT (MB, 18 Aug)
+The program-level / type-level point used to be defended slide by slide, as a
+disclaimer wherever it was at risk. It is made once here instead, positively, on
+the first slide where Java appears: **these land one level above the booleans a
+program works out while it runs.** That single word — *level* — then does work
+three more times without further explanation:
+
+  `A1-quantifiers`  a generic quantifies one level up again, over types
+  `A1-above`        Π lets a type depend on a value, and the levels collapse
+  `A2-values`       a type classifies; the checker reasons with it
+
+Making it general and early is what lets `A1-quantifiers` stop teaching two
+things at once.
+
 HOW THIS SLIDE HANDLES C13 — and why there is no disclaimer on it
 The equivocation to head off is a Java developer hearing *you already write
 logic* and thinking `if (a && b)`. The previous version fought that with a line
@@ -88,23 +102,27 @@ honest.
 
 VERBATIM
 
-"Aristotle's forms you could check by eye. What nobody had was a way to calculate
-with one. Leibniz wanted that: a notation for every concept and a calculus to
-grind through it, so two people who disagreed could sit down and say, let us
-calculate. He never built it, though he did invent binary on the way.
+"Aristotle's forms you could check by hand. What nobody had was a way to remove 
+the quotation marks from <<mechanically checkable>> and actually calculate with
+these logical shapes. Leibniz, in the 17th century, was perhaps the first to truly
+devote himself to researching this in detail: a notation for every concept,
+and a calculus to grind through it, so two people who disagreed could sit down and say, 
+<<let us calculate>>. 
+He never built it himself - but our current proof calculi and recent developments in 
+categorical logic for example are definitely part of the same endeavor... 
+and he invented binary encoding along the way.
 
 Boole turned logic into algebra in eighteen forty-seven. He wrote OR as a plus
-sign and AND as a times sign, and those are still the names.
+sign and AND as a times sign, and there's a mathematical reason for that. Watch
+which level they land on in Java: one above the booleans you compute while the
+program runs, in the shape of the data itself.
 
-Here is his plus: a risk decision is low, medium or high, and nothing else. Here
-is his times — pair a risk decision with a refund mechanism in one record, and
-you have both of them at once.
-
-Now count, because the arithmetic is literal: a risk decision has three values
-and a refund mechanism has two. A choice between the two types is five things
-somebody could hand you. Both at once, in that record, is six. Three plus two against
-three times two — and that is where sum type and product type get their names.
+Here is his plus: a risk decision is low, medium or high, and nothing else - 
+a sum of three parts with one inhabitant each. Here is his times — pair a risk decision 
+with a refund mechanism in one record, and you have both of them at once. 
+Two options in one field, three in the other - 6 combinations overall.
 
 Then you nest them. A payment method is a card or a wallet or an invoice, and
 each of those carries its own field: a sum whose variants are products. Most of
-the data you will ever model has that shape."
+the data you will ever model has that shape - and that shape is what permits 
+effective pattern matching."

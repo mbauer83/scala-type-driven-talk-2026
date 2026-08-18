@@ -19,20 +19,19 @@ BEATS — delivery aid; the script is below
 VERBATIM
 
 "Here is an argument. All medium-risk orders need three-D Secure; this order is
-medium-risk; so this order needs three-D Secure. Nobody disputes that. What
+medium-risk; so this order needs three-D Secure. Pretty straight-forward. What
 Aristotle noticed, two and a half thousand years ago, is that you can throw away
-everything the argument is about and it still stands or falls. All M are T; x is M;
-therefore x is T.
+everything the argument is actually about and still tell whether it holds or doesn't. 
+All M are T; x is M; therefore x is T.
 
-Strip the content out and the argument is still standing, which tells you it was
-never about payments. Validity comes from the shape: if the premises are true the
-conclusion is true, and that holds whatever M and T and x turn out to be. A shape
-is also something you can check by looking at it, without knowing what any of it
-means.
+Strip the content out, and you can still judge validity, because validity comes 
+from the shape: if the premises are true - the conclusion is true, and that holds 
+whatever M and T and x turn out to be. A shape is something you can check 
+<<mechanically>>, without knowing what any of it means.
 
 Hold on to that, because it is the whole trick. Everything for the next forty
-minutes is people finding better ways to write shapes down, and then better ways
-to check them."
+minutes is people finding better ways to write shapes
+down, and then better ways to check them."
 
 NOTE ON THE LINTER
 The syllogism is written with semicolons rather than full stops. As three

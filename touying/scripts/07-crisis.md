@@ -27,22 +27,23 @@ BEATS — delivery aid; the script is below
 VERBATIM
 
 "The barber shaves everyone who does not shave themselves. So who shaves the
-barber? Russell found that shape in nineteen-oh-one at the foundations of
-mathematics and wrote to Frege, breaking his life's work with one question: the
-set of all sets that do not contain themselves — does it contain itself?
+barber? Russell found that shape at the foundations of mathematics in
+nineteen-oh-one, and broke Frege's life's work with one question: the set of all
+sets that do not contain themselves — does it contain itself?
 
 Either answer contradicts, so naive set theory is inconsistent — and set theory
 was the ground being laid under arithmetic, analysis and proof itself. Russell's own repair is the reason we are all here tonight. He
 put everything on a level and forbade anything from talking about things on its
-own level, so the offending sentence cannot be written down at all. He called the levels types, and
+own level, so the sentence cannot be written down. He called the levels types, and
 every sealed interface any of you writes is downstream of a man trying to stop
 mathematics from eating itself.
 
 If the ground can crack like that, what is a formal system still good for?
 Hilbert wanted three things at once: no contradictions, everything true provable,
-and a machine able to settle whether a given thing is a proof. Gödel showed in
-nineteen thirty-one that any consistent system big enough for arithmetic gives up
-the middle one — and completeness is the deal your compiler takes every morning."
+and mechanically checkable. Gödel showed in nineteen thirty-one that any consistent
+system big enough for arithmetic gives up the middle one. That did not kill the
+programme; it narrowed it into proof theory, and giving up completeness is the
+deal your compiler takes every morning."
 
 DELIVERY
 The barber earns its place by costing eight seconds and removing the need for
