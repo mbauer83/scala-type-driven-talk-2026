@@ -40,8 +40,6 @@
   #v(sz(28pt))
   #text(weight: 500)[Thank you.]
 
-  #v(sz(26pt))
-  #text(size: sz(24pt), font: mono-font, fill: pal.fg-faint)[github.com/mbauer83/type-driven-programming-talk-2026]
   ],
 )
 
