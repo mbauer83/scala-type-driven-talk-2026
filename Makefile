@@ -8,7 +8,7 @@ TYPST_SOURCES := $(shell find touying \( -name '*.typ' -o -name '*.md' \))
 # touying compile — HTML and PPTX exports, and pdfpc sidecar generation.
 #                   Output path uses --output (named flag), not a positional arg.
 
-.PHONY: all talk-notes talk-svg talk-png watch clean
+.PHONY: all talk-notes talk-svg talk-png talk-pptx talk-pptx-touying talk-html watch clean
 
 all: talk.pdf talk.pdfpc
 
@@ -41,8 +41,18 @@ talk-png: $(TYPST_SOURCES)
 # above touying/ (the recorded demo frames) and the title/close slides read the
 # QR asset. Without it these fail "access denied" — which they had been doing
 # silently since the demo frames landed.
-talk-pptx: $(TYPST_SOURCES)
-	touying compile --root . touying/deck.typ --format pptx --output talk.pptx
+
+# talk-pptx: PowerPoint with the speaker notes as REAL TEXT in the notes pane,
+# which is what Windows presenter view needs. touying's own pptx export carries
+# slide images and NO notes, so its presenter view has nothing to show — see
+# tools/make-pptx.py for why the slides are images either way.
+# Needs talk.pdfpc, so it depends on it.
+talk-pptx: talk.pdfpc
+	python3 tools/make-pptx.py
+
+# The images-only export touying produces, kept for comparison. Not for use.
+talk-pptx-touying: $(TYPST_SOURCES)
+	touying compile --root . touying/deck.typ --format pptx --output talk-nonotes.pptx
 
 talk-html: $(TYPST_SOURCES)
 	touying compile --root . touying/deck.typ --format html --output talk.html
@@ -51,7 +61,7 @@ watch:
 	typst watch --root . touying/deck.typ talk.pdf
 
 clean:
-	rm -f talk.pdf talk-with-notes.pdf talk.pdfpc
+	rm -f talk.pdf talk-with-notes.pdf talk.pdfpc talk.pptx talk-nonotes.pptx talk.html
 	rm -f slides/svg/*.svg slides/png/*.png
 
 # talk-timing: measure speaker notes as speaking time against tools/budget.tsv.

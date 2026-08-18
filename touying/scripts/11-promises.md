@@ -1,4 +1,4 @@
-A2-promises · cap 1:05 · Act 2 beat 2 of 2 · VERBATIM
+A2-promises · cap 1:16 · Act 2 beat 2 of 2 · VERBATIM
 
 TALKING POINTS
 1. Hilbert wanted three things — ask the same three of your compiler

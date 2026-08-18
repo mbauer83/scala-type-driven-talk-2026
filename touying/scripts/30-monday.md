@@ -1,4 +1,4 @@
-A6-monday · cap 0:55 · Act 6 beat 2 of 3 · MERGE of v1 where-to-start + 33-horizon
+A6-monday · cap 0:44 · Act 6 beat 3 of 4 · MERGE of v1 where-to-start + 33-horizon
 
 TALKING POINTS
 1. Monday. Each of these is a change one team makes in one service

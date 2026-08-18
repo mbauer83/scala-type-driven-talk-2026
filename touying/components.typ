@@ -198,7 +198,7 @@
 // ground) is not reliably scannable, so the code sits on white even on a dark
 // slide. Error level Q (25% recovery) so a projector's contrast loss and a
 // phone at the back of the room still resolve it.
-#let qr-plate(caption, fg: pal.fg-dark-dim, size: 236pt) = stack(
+#let qr-plate(caption, fg: pal.fg-dark-dim, size: 236pt, caption-width: 260pt) = stack(
   dir: ttb,
   spacing: sz(14pt),
   block(fill: rgb("#ffffff"), radius: sz(8pt), inset: sz(12pt))[
@@ -207,7 +207,7 @@
     // Regenerate with tools/make-qr.py; the URL lives there and nowhere else.
     #image("assets/repo-qr.svg", width: sz(size))
   ],
-  block(width: sz(260pt))[
+  block(width: sz(caption-width))[
     #set align(center)
     #set par(leading: 0.4em)
     #text(font: mono-font, size: sz(19pt), fill: fg)[#caption]
@@ -496,7 +496,9 @@
 
 // ─── .s-qa ──────────────────────────────────────────────────────────────────
 
-#let qa-slide() = slide-page(
+// The QR belongs here more than anywhere: this card is on the wall for the whole
+// Q&A, which is exactly when people decide to take the link.
+#let qa-slide(qr: none) = slide-page(
   fill: pal.bg-dark,
   fg: pal.fg-dark,
 )[
@@ -504,14 +506,18 @@
     #v(1fr)
     #align(center)[
       #{
-        set text(size: sz(280pt), weight: 200, fill: pal.accent)
+        set text(size: sz(220pt), weight: 200, fill: pal.accent)
         set par(leading: 0em)
         [Q&A]
       }
-      #v(16pt)
+      #v(sz(20pt))
       #{
         set text(size: sz(36pt), weight: 300, fill: pal.fg-dark-dim)
         [Questions, comments, war stories — let's hear them.]
+      }
+      #if qr != none {
+        v(sz(52pt))
+        qr
       }
     ]
     #v(1fr)

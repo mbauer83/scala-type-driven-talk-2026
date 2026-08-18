@@ -1,4 +1,4 @@
-A6-close · cap 0:50 · Act 6 beat 3 of 3 · REWORK of v1 34-close
+A6-close · cap 0:50 · Act 6 beat 4 of 4 · REWORK of v1 34-close
 
 TALKING POINTS
 1. At the start: a program that type-checks is, in a precise sense, a proof

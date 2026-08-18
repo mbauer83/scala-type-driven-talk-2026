@@ -1,4 +1,4 @@
-A6-cost · cap 1:45 · Act 6 beat 1 of 3
+A6-cost · cap 1:20 · Act 6 beat 1 of 4
 
 TALKING POINTS
 1. What each of these costs to encode, where you actually are
