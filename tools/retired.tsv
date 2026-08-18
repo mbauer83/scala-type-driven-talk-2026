@@ -21,3 +21,5 @@ Four notations, and I am deliberately not going to teach them	the talk narrating
 None of this is `if (a && b)`	defining by exclusion
 every stage from here deletes one of those alternatives	false — only two of six stages touch that disjunction
 max : List<T> → T	partial: the empty list has no maximum
+seeing them cheap	laid on thick, and the cheap/costing inversion is too clever (MB, 18 Aug)
+the only way to find out	overclaim — "the only way" is never true

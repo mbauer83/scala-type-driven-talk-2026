@@ -1,4 +1,4 @@
-A3-ceiling · cap 1:20 · Act 3 beat 8 of 8
+A3-ceiling · cap 1:30 · Act 3 beat 8 of 8
 
 TALKING POINTS
 1. Charlie's bug is a compile error too. Two of four gone, neither by a test
@@ -12,7 +12,7 @@ TALKING POINTS
 7.   deriving the other side needs types computed from types
 8. That is Danielle's bug, and it is a real ceiling rather than a rhetorical one
 10. Next is a language where all three are cheap
-11. Seeing them cheap is how you find out what they cost you here
+11. You do not have to move to it to learn something from that
 
 VERBATIM
 
@@ -37,8 +37,8 @@ computing types from types, and Java has nothing of the kind. That gap is
 Danielle's incident, stated as a language feature.
 
 You can go a long way in Java, and most teams should. What comes next is a
-language where all three of these are cheap, and seeing them cheap is the only
-way to find out what they are costing you here."
+language where all three of these are cheap — and you do not have to move to it
+to learn something from that."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.

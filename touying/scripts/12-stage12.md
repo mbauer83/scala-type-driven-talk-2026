@@ -1,4 +1,4 @@
-A3-stage12 · cap 1:15 · Act 3 beat 1 of 8 · MERGE of v1 Stage 1 + Stage 2
+A3-stage12 · cap 1:00 · Act 3 beat 1 of 8 · MERGE of v1 Stage 1 + Stage 2
 
 TALKING POINTS
 1. Start buying guarantees back from the floor we just saw

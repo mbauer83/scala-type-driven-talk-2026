@@ -1,4 +1,4 @@
-VERBATIM · cap 1:30 · Act 1 beat 5 of 6 · rail: CHURCH · CURRY-HOWARD lit
+VERBATIM · cap 1:45 · Act 1 beat 5 of 6 · rail: CHURCH · CURRY-HOWARD lit
 
 TALKING POINTS
 1. Why a compiler can take that deal at all is the last piece

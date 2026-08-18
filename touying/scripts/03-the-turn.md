@@ -1,4 +1,4 @@
-VERBATIM · cap 1:35 · word count is computed by `make timing`, not stated here. This minute turns four war stories into the
+VERBATIM · cap 1:25 · word count is computed by `make timing`, not stated here. This minute turns four war stories into the
 thesis, and it is the second place you are most likely to stumble. Over-rehearse it.
 
 TALKING POINTS

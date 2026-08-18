@@ -2272,9 +2272,79 @@ are over budget; nothing reported slides the plan says should not be there.
 
 ---
 
-## Part 15 — STATE OF PLAY, 18 Aug late · read this first after any break
+## Part 15 — STATE OF PLAY · 18 Aug, end of session · READ FIRST
 
-### Where the deck stands
+**Delivery: Thursday 20 August. One working day left.**
+
+### Deck
+
+**19 of 31 main slides carry a finished three-part script**; the deck has 45
+includes in total (main + appendix + demo frames). Acts 0, 1, 2 and 3 are
+written and lint-clean. Acts 4, 5 and 6 are untouched v1 prose.
+
+| act | beats | state |
+|---|---|---|
+| 0 — Open | 3 | done · reviewed and amended by MB · **measured** |
+| 1 — Primer | 6 | done · reviewed twice · **measured** |
+| 2 — Ground floor | 2 | done (`a2-values` cut) · **measured** |
+| 3 — Java ladder | 8 beats / 12 files | **done** |
+| 4 — Scala 3 | 5 | **v1 — next** |
+| 5 — Idris 2 | 3 | v1 |
+| 6 — Close | 3 | v1 · `34-close` is +1:24, the worst slide in the deck |
+
+`make timing`: **44:11 of prose against 45:00**, 0:49 of slack, plus 4:05 of
+caps for slides that do not exist. Every script header now agrees with
+`budget.tsv`.
+
+### Measured, not estimated
+
+MB read slides 1–12 standing, twice: **13:29**, then **14:15** deliberately
+slower after the title slide came in at 284 wpm. 2577 words → **181 wpm**.
+Planning rate stays **140** — MB: *"we still need a comfortable margin for
+nervosity & interruptions, so don't take my WPM as the target."* Caps have been
+rebalanced against that run by **moving** time between slides, never shaving.
+
+### Next, in order
+
+1. **Act 4 — Scala, 5 slides + Demo 3.** The act that has never fit any budget.
+   D-A decided **(c) one thread through the Scala stage**, degrading to (b)
+   problem-led if authoring is slow. D-C was deferred until Act 4 existed, with
+   **(d) capability-led, motivated by residual failure** as the working default —
+   and `A3-ceiling` now ends on exactly that residual failure, so the joint is
+   ready to use.
+2. **Act 5 (3) and Act 6 (3).** `34-close` first: the last minute should be
+   exact and it is currently the worst overrun in the deck.
+3. **Demos 3 and 4** — same four-slide shape as 1 and 2
+   (dark setup → recorded edit → recorded javac → payoff).
+   `tools/capture-terminal.sh` already knows how to record them.
+4. **Wednesday read-through**, then the dress rehearsal.
+
+### Standing decisions that are easy to lose
+
+- **Cube reveals are cut.** `diagrams/lambda-cube.typ` was never parameterised.
+  The full cube is in the appendix for Q&A, and this is the first thing worth
+  adding back if the read-through comes in short.
+- **`a2-values` is cut.** Same-bytes moved to `A3-stage4`, affordability to
+  `A6-cost`.
+- **The nine-row inventory is `a10-invariants`,** appendix only.
+- **`18-stage2`, `21-bridge`, `23-stage4-payoff` are deleted;** merged or spoken.
+- **Demo fallbacks are recorded terminal frames, not video.**
+- **Java's real ceiling is protocol duality only.** It can do risk-indexed
+  approval properly, and refinements downstream but not on a literal and not
+  composed. Conceding the first two is what makes the third believable.
+
+### Tooling
+
+`make check` = build + prose lint + timing. The linter reads **slide copy as
+well as spoken script**, enforces Parts 8/9/12/14, fails on any phrase in
+`tools/retired.tsv`, warns when a script header disagrees with `budget.tsv`, and
+skips rhythm rules for cues-only and RUNBOOK notes. `tools/capture-demos.sh`
+records compiler errors; `tools/capture-terminal.sh` records whole sessions as
+deck-renderable frames.
+
+### (superseded — kept for the record)
+
+### Where the deck stood earlier on 18 Aug
 
 **Authored: 26 of 31 main slides.** Acts 0, 1, 2 and 3 are written to the
 three-part script standard (TALKING POINTS / VERBATIM / PREPARATION) and are
@@ -2328,10 +2398,4 @@ between slides, never shaved.
 - **Demo fallbacks are recorded terminal frames**, not video —
   `tools/capture-terminal.sh`, rendered by `terminal-pane`.
 
-### Tooling that now exists and should be used
 
-`make check` = build + lint + timing. The linter reads **slide copy as well as
-spoken script**, knows the register faults in Part 12, warns on script headers
-that disagree with `budget.tsv`, and skips rhythm rules for cues-only and
-RUNBOOK notes. `tools/capture-demos.sh` records compiler errors;
-`tools/capture-terminal.sh` records whole sessions as deck-renderable frames.

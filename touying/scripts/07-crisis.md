@@ -1,4 +1,4 @@
-VERBATIM · cap 1:05 · Act 1 beat 4 of 6 · rail: RUSSELL · HILBERT · GÖDEL lit
+VERBATIM · cap 1:35 · Act 1 beat 4 of 6 · rail: RUSSELL · HILBERT · GÖDEL lit
 
 TALKING POINTS
 1. Bridge from Frege: he spent twenty years building that notation into a

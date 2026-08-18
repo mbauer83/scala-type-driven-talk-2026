@@ -1,4 +1,4 @@
-VERBATIM · cap 1:05 · Act 1 beat 1 of 6 · rail: ARISTOTLE lit
+VERBATIM · cap 0:55 · Act 1 beat 1 of 6 · rail: ARISTOTLE lit
 
 TALKING POINTS
 1. The argument, in the domain: medium-risk needs 3DS; this is medium-risk; so…

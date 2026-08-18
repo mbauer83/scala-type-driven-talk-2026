@@ -1,4 +1,4 @@
-A3-stage3 · cap 1:45 · Act 3 beat 3 of 8
+A3-stage3 · cap 1:05 · Act 3 beat 3 of 8
 
 TALKING POINTS
 1. The shape from Boole is now a language feature — Java 17 ships both
