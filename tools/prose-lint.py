@@ -525,8 +525,14 @@ def lint_file(path):
     # are four separate utterances with an IDE edit and a compile between them.
     # "Four short sentences in a row" is meaningless across two minutes of
     # typing and silence. The claim rules still apply to both.
-    rhythm = ("EST-WORDS:" not in src or "WORKED VERBATIM" in src) \
-             and "\nRUNBOOK" not in src
+    #
+    # These markers live in the SCRIPT, and a slide only holds a `#read()` of
+    # it — so the flag has to be tested against the resolved note, not the raw
+    # slide source. Testing it against `src` meant neither marker ever fired on
+    # a .typ file, which is how a demo runbook came to be linted as prose.
+    resolved = _resolve_reads(src, path)
+    rhythm = ("EST-WORDS:" not in resolved or "WORKED VERBATIM" in resolved) \
+             and "\nRUNBOOK" not in resolved
     text = spoken_text(src, path)
     unbalanced = bool(_QUOTE_PARITY and _QUOTE_PARITY[-1])
     if len(words(text)) < 15 and not unbalanced:
