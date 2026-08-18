@@ -60,13 +60,21 @@ talk-html: $(TYPST_SOURCES)
 watch:
 	typst watch --root . touying/deck.typ talk.pdf
 
-# serve: the HTML presenter MUST be served over http, not opened as a file.
-# touying's html export is impress.js, whose presenter drives two <iframe>s via
-# contentDocument and has no postMessage fallback. Over file:// both Firefox
-# (privacy.file_unique_origin, default since 68) and Chromium treat every file
-# as a unique opaque origin, so contentDocument is null: the frames go grey and
-# the preview sticks on slide 1. Served from one origin it works.
-#   make serve   ->  http://localhost:8000/talk.html   (press P for presenter)
+# serve: view the HTML deck over http rather than as a file.
+#
+# It does NOT fix the presenter console. An earlier version of this comment
+# blamed file:// opaque origins; that was wrong, and the failure was reproduced
+# over http in headless Chromium on 19 Aug: at step 13 both console frames paint
+# grey while the DOM underneath is correct (right step, SVG present) and the
+# notes pane still updates. So it is a compositing failure, not a scripting one.
+#
+# The cause is the export meeting this deck. touying's html is impress.js: one
+# 10.3 MB document with 49 inline SVGs, and the presenter holds THREE live
+# copies (main + slideView + preView) on 3D-transformed containers — ~31 MB of
+# composited DOM. Past ~a dozen steps the compositor drops the layers.
+#
+# Not fixable from here. Use talk.pptx in LibreOffice Impress or PowerPoint.
+#   make serve   ->  http://localhost:8000/talk.html   (slides only; P is broken)
 .PHONY: serve
 serve: talk.html
 	@echo "http://localhost:8000/talk.html   — press P for the presenter console"
