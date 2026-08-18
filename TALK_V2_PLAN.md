@@ -1451,6 +1451,36 @@ programmers). **When editing for one property, diff for changes to the others. A
 is an edit too, and needs its neighbourhood re-checked.**
 
 
+### L18 — no metaphor the talk has not issued
+
+*"…the first thing we need at the top of the climb."* Two faults in nine words.
+**The climb** appears in exactly one other spoken line, on `A1-curry-howard`,
+which comes *two slides later*, and the opening announces no ascent at all —
+`01-title` names Java and nothing else, so there is no Scala, no Idris and no
+summit in the room's head at beat 3. And *the first thing we need* is a ranking
+claim with nothing behind it: Stage 6 is led by Π, not Σ.
+
+The forward reference only ever had one job (Part 10/E) — stop a listener
+concluding Java has Σ-types — and *we come back to it* does that with no unearned
+vocabulary at all.
+
+**The rule: the climb, the top, the summit, the ladder, the stack — every one is
+invisible until the deck has spent a sentence issuing it, and none of them has.**
+Check any forward reference against what the audience has actually been told by
+that slide, not against what the plan calls things.
+
+### L19 — a formula is not explained until the function is named
+
+*"For all T, if T can be compared, then a list of T gives you back a T."* MB:
+this makes comparability sound like the thing that gets an element out of the
+list. It is not wrong so much as meaningless — the sentence never says what the
+function **does**.
+
+Naming `max` fixes it and makes the beat much stronger, because the bound stops
+being a technicality: **`max` cannot be written at all without it.** That is the
+sharpest available demonstration that an unbounded `T` buys almost nothing, and
+it was sitting one word away the whole time.
+
 ### L17 — a claim about the whole talk goes where the thesis is formed, not where an example turns up
 
 MB asked for one thing to land early: **all programming already does logic —

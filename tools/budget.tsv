@@ -2,13 +2,29 @@
 #
 # slide-stem<TAB>m:ss<TAB>kind        kind ∈ prose | demo | stub
 #
-# Rate calibrated 2026-08-17. Three measurements of Act 0:
-#     seated read 1         177 wpm
-#     seated read 2         185 wpm
-#     STANDING, PROJECTING  187 wpm   <- standing costs nothing
-# All three runs were SOLO — there is no seated-vs-standing comparison; an
-# earlier note claimed one from assumed conditions. Planning rate is 140: ~180
-# minus 22% for nerves, recovery, questions from the floor and audience pauses.
+# Rate calibrated 2026-08-17, re-measured 2026-08-18. Four measurements:
+#     Act 0, read 1                     177 wpm
+#     Act 0, read 2                     185 wpm
+#     Act 0, standing, projecting       187 wpm
+#     SLIDES 1-5 STANDING, 18 Aug       191 wpm   <- 1140 words in 5:58
+# The fourth is the best evidence yet: it is the current text, standing, across
+# the Act 0/Act 1 boundary, including the two densest slides in the primer.
+# Per-slide it ran 190 / 201 / 197 / 181 wpm — steady, and brisk.
+#
+# All four runs were SOLO. **The planning rate stays 140** (MB, 18 Aug: "we
+# still need a comfortable margin for nervosity & interruptions of any kind, so
+# don't take my WPM as the target"). 191 minus 22% is 149, so 140 is about six
+# per cent more conservative than the measurement supports — which is the right
+# direction to be wrong in.
+#
+# WHAT THE MEASUREMENT VALIDATES, rather than loosens: slides 1-5 hold 1140
+# words against 7:05 of caps. At 140 that is 8:09, i.e. +1:04 — exactly what
+# `make timing` has been reporting. The tool is right and the overruns are real
+# under live conditions.
+#
+# WHAT IT ALSO SAYS, and this is the part worth acting on: 191 wpm is fast for
+# dense material delivered in a second language. The headroom a solo run creates
+# is best spent slowing down, not on more words.
 #
 # A cap is the AIRTIME a slide gets on the night. It is a pacing decision and
 # does NOT move when the planning rate moves — the rate only decides how many

@@ -64,7 +64,7 @@
         ]
         #v(sz(6pt))
         #text(font: mono-font, size: sz(28pt), fill: pal.fg)[
-          #h(sz(48pt)) ( List\<T\> → T )
+          #h(sz(48pt)) ( max : List\<T\> → T )
         ]
         #v(sz(20pt))
         #set text(size: sz(23pt), fill: pal.fg-dim)
@@ -84,8 +84,9 @@
           #set par(leading: 0.45em)
           The bound is the #text(fill: pal.fg, weight: 500)[if]. It says which
           types the claim covers — everything at or below `Comparable<T>` — and it
-          is what hands `compareTo` back to the body. A language without
-          subtyping does the same job with a typeclass constraint.
+          is what lets the body call `compareTo`. Without it nothing could tell
+          which `T` is larger, so `max` could not be written at all. A language
+          without subtyping does the same job with a typeclass constraint.
         ],
       ),
     )
@@ -93,8 +94,8 @@
     #align(right)[
       #text(size: sz(21pt), fill: pal.fg-faint)[
         #text(font: mono-font)[∃] — the other quantifier. Java's wildcards
-        (`List<?>`) are a restricted form of it; the strong version, a value
-        handed to you together with evidence about it, comes back at the top.
+        (`List<?>`) are a restricted form of it; the strong version — a value
+        handed to you together with evidence about it — we come back to.
       ]
     ]
   ],

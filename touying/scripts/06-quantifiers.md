@@ -36,6 +36,27 @@ Two glosses, one clause each, and then move on:
   it. It is also the honest ancestor of Act 4's refinements, so if the question
   comes early the answer is *Act 4*.
 
+TWO THINGS THAT WERE WRONG HERE (MB, 18 Aug)
+
+**1. The bound looked like it was doing the wrong job.** The line was *for all T,
+if T can be compared, then a list of T gives you back a T* — which reads as
+though comparability is what gets an element out of the list. It never named the
+function. Naming `max` fixes it and makes the beat much stronger: **`max` cannot
+be written at all without the bound**, which is the sharpest possible way to show
+that an unbounded `T` buys you almost nothing.
+
+**2. "The first thing we need at the top of the climb" was two errors.** Nobody
+knows what *the climb* is — the word appears in exactly one other spoken line, on
+`A1-curry-howard`, which comes *two slides later*, and the opening never
+announces a Java → Scala → Idris ascent at all. And *the first thing we need* is
+a ranking claim with nothing behind it: Stage 6's payoff is led by Π, not Σ. Now
+it is just *we come back to it* — which is all the forward reference has to do,
+since its only job (Part 10/E) is to stop a listener concluding Java has Σ-types.
+
+**Standing rule from this: no metaphor the talk has not issued.** *The climb*,
+*the top*, *the summit*, *the ladder* — every one of them is invisible to the
+room until the deck has spent a sentence establishing it, and none of them has.
+
 WHAT IS DELIBERATELY NOT HERE
 - **Composition over inheritance.** There is a real connection — a sealed
   interface is the alternative to subtype polymorphism for closed variation — but
@@ -54,12 +75,15 @@ BEATS
 - You already write it — every signature is one. `assessRisk` over every `Order`.
   › a function type is a for-all whose body never mentions what it bound
 - The move: a generic quantifies over TYPES.
-  › read the formula aloud — for all T, IF T can be compared, THEN…
+  › **name the function.** For all T, if T can be compared, you can pick the
+    largest out of a list of T. Saying only *a list of T gives you back a T*
+    makes it sound as though comparability is what produces the element
+  › the comparing is why the bound is there — without it `max` cannot be written
   › call back to Aristotle: a for-all with an `if` inside it
-  › the bound is the `if` — which types the claim covers, and what hands
-    `compareTo` back
-- Margin, one line only: ∃ exists, Java's wildcards are a weak version of it,
-  the strong form returns at the top.
+  › the bound is the `if` — which types the claim covers, and what lets the body
+    call `compareTo`
+- Margin, one line only: ∃ exists, Java's wildcards are a weak version, the
+  strong form comes back later. **No ranking, no "the climb"** — see below.
 
 UNBOUNDED GENERICS ARE BARELY USEFUL, AND THE SLIDE HAS TO ADMIT IT (MB, 18 Aug)
 
