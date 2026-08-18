@@ -50,7 +50,6 @@
 #include "slides/10-gentzen-or.typ"      // A3-gentzen — moved here from Act 1 (P2)
 #include "slides/19-stage3.typ"
 #include "slides/20-stage3-payoff.typ"
-#include "slides/21-bridge.typ"
 #include "slides/22-stage4.typ"
 #include "slides/23-stage4-payoff.typ"
 #include "slides/24-java-ceiling.typ"
