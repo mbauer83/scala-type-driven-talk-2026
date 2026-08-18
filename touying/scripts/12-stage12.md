@@ -1,7 +1,7 @@
 A3-stage12 · cap 1:15 · Act 3 beat 1 of 8 · MERGE of v1 Stage 1 + Stage 2
 
 TALKING POINTS
-1. Back to the floor: Alice's service had no types. Everything here is bought back
+1. Start buying guarantees back from the floor we just saw
 2. Stage 1 — a name is a constraint. An Order is not an Authorization
 3. The constructor is private; the only way in is the factory
 4. And the factory takes the previous step as its argument
@@ -12,9 +12,8 @@ TALKING POINTS
 
 VERBATIM
 
-"Alice's service had no types at all, so let us buy some back.
-
-Stage one is the oldest idea in the room: give a thing a name, and the name is a
+"So let us start buying guarantees back, and stage one is the oldest idea in the
+room: give a thing a name, and the name is a
 constraint. An Order is not an Authorization, and now the compiler knows it. The
 constructor is private, so you cannot fabricate one — the only way in is that
 factory, and the factory takes the previous step as its argument. You cannot have

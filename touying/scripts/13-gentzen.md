@@ -1,7 +1,8 @@
 A3-gentzen · cap 1:15 · Act 3 beat 2 of 8 · sixty seconds before Demo 1
 
 TALKING POINTS
-1. Gentzen, 1935: a connective is defined by two rules
+1. Segue: that refusal has a name and a date
+2. Gentzen, 1935: a connective is defined by two rules
 2. How you build one, and how you take one apart
 3. Building an OR: you must supply an actual A, or an actual B
 4. In Java that is new RiskDecision.Medium() — you picked a side
@@ -12,8 +13,9 @@ TALKING POINTS
 
 VERBATIM
 
-"Gerhard Gentzen, nineteen thirty-five. His idea was that you define a logical
-connective by exactly two things: how you build one, and how you take one apart.
+"That refusal has a name, and a date. Gerhard Gentzen, nineteen thirty-five: you
+define a logical connective by exactly two things — how you build one, and how
+you take one apart.
 
 Building an or is the easy half. To assert A or B you have to supply an actual A,
 or an actual B — you cannot simply claim that one of them holds. In Java that is
@@ -55,6 +57,8 @@ FACTS
 - The diagram is `diagrams/gentzen-or.typ`, unchanged.
 
 JOIN
-Backwards: `A3-stage12` ends on Bob's line still compiling. Forwards: Demo 1
-deletes `case Medium` and lets javac state the elimination rule in its own words.
-Do not explain the demo here — the last line is the entire handover.
+Backwards: `A3-stage3` ends on *the compiler refuses the program until every
+variant has a branch*, and this slide names that refusal. Forwards: Demo 1 is the
+very next slide, so *hold on to that for about sixty seconds* is now literally
+true — it was not when Gentzen sat two slides earlier, which is why the order
+changed (P2 always wanted the rule adjacent to the error it explains).

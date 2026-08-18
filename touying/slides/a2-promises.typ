@@ -94,7 +94,7 @@ int g(Colour c) {
     #align(center)[
       #set text(size: sz(25pt), fill: pal.fg)
       Identical logic. A check that has to terminate has to approximate — and in
-      2014 Java moved where the approximation falls.
+      2014 Java made the approximation a good deal less conservative.
     ]
   ],
 )

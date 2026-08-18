@@ -1,7 +1,7 @@
 A2-promises · cap 1:05 · Act 2 beat 2 of 2 · VERBATIM
 
 TALKING POINTS
-1. Russell's slide left us Hilbert's three — here they are, about your compiler
+1. Hilbert wanted three things — ask the same three of your compiler
 2. Consistent — no well-typed program produces a value of an impossible type
 3. Sound — if it compiles the property holds, as far as the hatches let it
 4. Complete — every safe program accepted. Given up, on purpose
@@ -13,8 +13,8 @@ TALKING POINTS
 
 VERBATIM
 
-"Russell's slide left us Hilbert's three. Here they are, about the compiler on
-your laptop. Consistent:
+"Hilbert wanted three things of a formal system. Ask the same three of the
+compiler on your laptop. Consistent:
 no well-typed program can produce a value of an impossible type. Sound: if it
 compiles, the property holds — as far as the escape hatches let it, and null is
 the big one. And complete: every safe program gets accepted — that

@@ -27,8 +27,8 @@
       #set text(size: sz(30pt), weight: 300, fill: pal.fg)
       #set par(leading: 0.62em, justify: false)
       #block(width: sz(1240pt))[
-        You have been writing logic all along — every `if`, every guard.
-        A type is that same job #text(fill: pal.accent)[one level up]: about what
+        You have been writing logic all along — every `if`, every guard.\
+        A type does that same job #text(fill: pal.accent)[one level up]: about what
         the program may do at all, settled before it runs.
       ]
     ]

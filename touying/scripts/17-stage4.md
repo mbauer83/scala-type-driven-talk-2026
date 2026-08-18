@@ -1,31 +1,39 @@
-A3-stage4 · cap 1:45 · Act 3 beat 6 of 8
+A3-stage4 · cap 2:00 · Act 3 beat 6 of 8
 
 TALKING POINTS
-1. Bridge from Bob in two sentences: his was a missing CASE
-2. Charlie's is a wrong ORDER, and no sum type catches that
-3. Charlie's shortcut: fetch the refund by id, execute it. Nothing asks the state
-4. The fix: put the state in the type as a parameter that carries no data
-5. Every transition demands its input state and returns the next one
-6. Payment<Initiated> and Payment<Authorized> are the same bytes
-7. What the parameter carries is which methods will accept the value
-8. There is no way to reach Captured without going through Authorized
+1. Bob's was a missing case. Charlie's is different, and harder
+2. He loaded a refund out of the database and executed it
+3. Nothing in those two lines asked whether it had been approved
+4. And no type can know that — the row came from outside the program
+5. So the type does the other thing: it makes the gateway unreachable
+6. execute demands Refund<Approved>. The repository cannot produce one
+7. The only way across is asApproved, which does the check, once
+8. After that the evidence is in the type and travels with the value
+9. Inside your own code it is stronger: Initiated and Authorized are the
+   same bytes, and the parameter only decides which methods accept it
+10. This pattern has a name — phantom typestate
 
 VERBATIM
 
 "Bob's bug was a missing case, and a sum type closed it. Charlie's is a different
-shape: everything he called existed, and he called it in the wrong order. No sum
-type in the world catches that.
+shape, and a harder one. He loaded a refund out of the database by its id and
+handed it to the payment gateway. Nothing in those two lines asked whether it had
+been approved, and nothing had to.
 
-Here is his shortcut. Fetch the refund by its id, hand it to the gateway. Nothing
-in those two lines asks what state the refund was in, and nothing had to.
+Now, no type system on earth knows what is in your database — that row came from
+outside the program. So the type does not try to check it, and does something
+better instead. The gateway demands a refund that is approved, and the repository cannot
+give you one. The only way across is a function that performs the check and hands
+you back the evidence, and from then on the evidence travels with the value.
 
-So we put the state into the type. Payment takes a type parameter — Initiated,
-Authorized, Captured — and that parameter carries no data whatsoever. At runtime
-these are the same bytes. What it carries is which methods will accept the value:
-capture demands a Payment of Authorized and gives you back a Payment of Captured,
-so there is no path to Captured that does not go through Authorized first.
+That is one check, at one boundary, with the compiler making sure nobody skips
+it.
 
-The lifecycle stopped being a diagram on a wiki. It is the set of signatures."
+Inside your own code it is stronger still, because there is no boundary to cross:
+a payment of Initiated and a payment of Authorized are the same bytes at runtime.
+The parameter carries no data at all. What it carries is which methods will
+accept the value — and this pattern has a name, phantom typestate. Phantom
+because there is nothing there."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.

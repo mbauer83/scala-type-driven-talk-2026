@@ -48,10 +48,18 @@ announces a refusal and carries no information.
 The shift, stated plainly, and it is now the lede on the slide:
 
 > Until now a function's result type was fixed before you called it. Martin-Löf
-> let the result type be **computed from the argument**. That collapses two
-> languages into one — the language the compiler runs to work out a type is the
-> language you write your program in — and it means a type can state **any
-> property you could write a program to check**.
+> let the result type be **computed from the argument**. In Idris, Agda and Lean
+> the type language and the term language are the same one, so the compiler
+> evaluates your code while it type-checks — and anything you can compute, you
+> can state in a type.
+
+**Do not overreach on either half.** It is not a property of dependent types in
+general: refinement systems (Liquid Haskell, Dependent ML) restrict what may
+appear in a type to a decidable fragment and hand it to a solver, and their
+compilers run no such thing. And *anything you can compute* needs the function to
+be total, and stating a property is not proving it — the proof burden is the
+cost, and it is what `A6-cost` is for. One sentence on the slide, this much in
+reserve, nothing more spoken.
 
 That is the ceiling coming off. Everything below Stage 6 is a way of encoding
 *some* invariants in a type system that was not designed to hold them; above it,

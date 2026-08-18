@@ -25,8 +25,8 @@ That history stretches back about two and a half thousand years, across
 philosophy, logic, mathematics and computer science. It is the thread I want to
 follow tonight.
 
-You have been writing logic all along - every if, every guard. A type does the
-same job one level up, about the program itself.
+You have been writing logic all along - every if, every guard. A type does the same
+job one level up, about the program itself.
 
 You write that kind too: when you write a sealed interface and the compiler makes
 you handle every case, you are applying a rule that Gerhard Gentzen wrote down in

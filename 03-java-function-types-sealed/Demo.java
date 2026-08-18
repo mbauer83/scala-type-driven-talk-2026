@@ -109,7 +109,7 @@ public class Demo {
             note("Audit: " + log);
             return cap;
         });
-        outcome("Invoice refund rejected by exhaustive switch — no default to forget.");
+        outcome("Invoice refund rejected by exhaustive switch — no default to forget.");    
     }
 
     static void demo4() {

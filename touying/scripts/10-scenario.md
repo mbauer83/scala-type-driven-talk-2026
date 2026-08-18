@@ -7,7 +7,7 @@ TALKING POINTS
 4. What encoding a rule buys, four things:
 5. — applied at every use, by the compiler, not every call you remembered
 6. — the failure moves to compile time
-7. — the signal is a line and a type, not a 2 a.m. stack trace
+7. — the signal is clear and small, and arrives where the rule is defined
 8. — the defensive tests go; the behavioural ones stay
 9. Hand off: so what is the compiler actually promising when it says yes?
 
@@ -19,8 +19,8 @@ twelve-thirty-four, and nothing anywhere complains. That is where we start.
 One flow carries the rest of the talk, and you have seen it already. What changes
 at each stage is how much of it the compiler enforces — and each time we move a
 rule into a type we get the same four things back: it holds at every use, the
-failure moves to compile time, the signal is a line and a type, and the
-defensive tests go.
+failure moves to compile time, the signal is small and arrives at the
+definition, and the defensive tests go.
 
 So before any of that: what is the compiler actually promising when it says yes?"
 

@@ -75,7 +75,7 @@
     // the one Java can actually keep. The monad / continuations point that used
     // to be here is in the script's PREPARATION block; it is Q&A material.
     #callout(
-      [The honest caveat — *which proposition*, not whether],
+      [What the arrow actually promises],
       [
         #grid(
           columns: (auto, 1fr),

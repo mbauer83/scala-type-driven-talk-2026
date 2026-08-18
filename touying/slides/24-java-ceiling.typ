@@ -50,19 +50,22 @@
       columns: (1fr, 1fr, 1fr),
       column-gutter: sz(40pt),
       limit([Approve a medium-risk order the automatic way.],
-            [The risk level is not in the authorization's type, so the wrong
-             approval method type-checks. #text(fill: pal.accent)[Stage 5.]]),
+            [The risk level is not in the authorization's type.
+             #text(fill: pal.fg)[Java can fix this] — another phantom parameter,
+             more noise. #text(fill: pal.accent)[Stage 5 makes it cheap.]]),
       limit([Build an order with no lines, or a negative quantity.],
-            [Nothing in the type says non-empty, or at least zero — the check is
-             a constructor at the boundary. #text(fill: pal.accent)[Stage 5.]]),
+            [A smart constructor gets you the same guarantee downstream.
+             #text(fill: pal.fg)[What Java cannot do] is check it on a literal,
+             or combine two such predicates. #text(fill: pal.accent)[Stage 5.]]),
       limit([Disagree with the other service about the protocol.],
-            [Each side is correct against its own contract; nothing relates them.
-             #text(fill: pal.accent)[Stage 5 and 6.]]),
+            [#text(fill: pal.fg)[This one Java cannot reach.] Deriving the other
+             side's protocol needs types computed from types, and Java has no
+             such thing. #text(fill: pal.accent)[Stage 5, and 6.]]),
     ),
     align(center)[
       #set text(size: sz(24pt), fill: pal.fg-dim)
-      Java can encode all three with enough hand-rolled machinery. The question
-      from here is what it costs.
+      The question is never whether to change language. It is which of these
+      you are paying for already, and what each one costs to encode.
     ],
   ),
 )

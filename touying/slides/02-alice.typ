@@ -20,7 +20,7 @@
   // floated the label away from its name and into the next row.
   stack(
     dir: ttb,
-    spacing: sz(12pt),
+    spacing: sz(20pt),
     text(size: sz(44pt), weight: 400, fill: pal.fg)[#name],
     text(font: mono-font, size: sz(19pt), fill: pal.fg-faint)[#system],
   ),
@@ -85,7 +85,7 @@
   [Four Bugs That Compiled],
   block(width: 100%, height: 100%, stack(
     dir: ttb,
-    spacing: sz(46pt),
+    spacing: sz(34pt),
     domain-strip,
     incident(
       [Alice], [reconciliation · node.js],
@@ -119,7 +119,7 @@
       [checkout hangs on\ high-value orders],
       [3 weeks before anyone hit it],
     ),
-    v(sz(50pt)),
+    v(sz(40pt)),
     align(center)[
       #text(size: sz(40pt), weight: 400, fill: pal.fg)[
         Every one of these #text(weight: 600, fill: pal.accent)[compiled without complaint.]

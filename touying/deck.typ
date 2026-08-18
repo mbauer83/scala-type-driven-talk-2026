@@ -47,8 +47,8 @@
 #include "slides/15-test-spine.typ"
 #include "slides/a2-promises.typ"         // Act 2 — what a checker actually promises
 #include "slides/17-stage1.typ"          // A3-stage12 — Stages 1+2 merged
-#include "slides/10-gentzen-or.typ"      // A3-gentzen — moved here from Act 1 (P2)
 #include "slides/19-stage3.typ"
+#include "slides/10-gentzen-or.typ"      // A3-gentzen — sits sixty seconds before the error (P2)
 #include "slides/a3-demo1.typ"           // A3-demo1 — live, dark setup card
 #include "slides/a3-demo1-edit.typ"      // recorded terminal, frame 1
 #include "slides/a3-demo1-out.typ"       // captured output / fallback

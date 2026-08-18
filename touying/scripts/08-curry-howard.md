@@ -35,7 +35,7 @@ compose, with the types governing how. None of that depends on writing the types
 down: declared, inferred, or carried at runtime, every value has one. What
 changes is whether anything checks it before you run.
 
-The caveat is the reason this talk has stages. A function type from A to B is an
+There is a caveat, and it is the reason this talk has stages. A function type from A to B is an
 implication: give me an A and I will always give you a B. In Java that is not
 quite truthful, because of nullability, exceptions, and loops that never return —
 so what you can actually get is the second line. And notice that Java already

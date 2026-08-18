@@ -2248,3 +2248,70 @@ twelve scripts; that was the only one.
 and its `CLOSES` column, which Part 2 had removed and P5 had diagnosed by name.
 Nobody was checking the deck against the plan. `make timing` reports slides that
 are over budget; nothing reported slides the plan says should not be there.
+
+
+---
+
+## Part 15 — STATE OF PLAY, 18 Aug late · read this first after any break
+
+### Where the deck stands
+
+**Authored: 26 of 31 main slides.** Acts 0, 1, 2 and 3 are written to the
+three-part script standard (TALKING POINTS / VERBATIM / PREPARATION) and are
+lint-clean. Acts 4, 5 and 6 are untouched v1 prose.
+
+| act | slides | state |
+|---|---|---|
+| 0 — Open | 3 | done · MB reviewed and amended · **measured** |
+| 1 — Primer | 6 | done · MB reviewed twice · **measured** |
+| 2 — Ground floor | 2 | done (`a2-values` cut) · **measured** |
+| 3 — Java ladder | 12 files / 8 beats | **done, this session** |
+| 4 — Scala 3 | 5 | **v1 — next** |
+| 5 — Idris 2 | 3 | v1 |
+| 6 — Close | 3 | v1 |
+
+Act 3's twelve files: `17-stage1` (Stages 1+2 merged) · `19-stage3` ·
+`10-gentzen-or` · `a3-demo1` + `-edit` + `-out` · `20-stage3-payoff` ·
+`22-stage4` · `a3-demo2` + `-edit` + `-out` · `24-java-ceiling`.
+
+### Measured, not estimated
+
+MB read slides 1–12 standing, twice: **13:29**, then **14:15** deliberately
+slower after the title slide came in at 284 wpm. 2577 words → **181 wpm**.
+Planning rate stays **140** (MB: "we still need a comfortable margin for
+nervosity & interruptions"). Caps were rebalanced against that run — time moved
+between slides, never shaved.
+
+### The next three things, in order
+
+1. **Act 4 — Scala, five slides plus Demo 3.** The act that has never fit any
+   budget. D-A decided **(c) one thread through the Scala stage**, falling back
+   to (b) problem-led. D-C is still open and was deliberately deferred until Act
+   4 exists, with **(d) capability-led, motivated by residual failure** as the
+   working default — and `A3-ceiling` now ends on exactly that residual failure,
+   so the joint is ready.
+2. **Act 5 (3 slides) and Act 6 (3).** `34-close` is +1:24 and is the single
+   worst slide in the deck; the last minute should be exact.
+3. **Demo 3 and Demo 4** — same four-slide shape as Demos 1 and 2, and
+   `tools/capture-terminal.sh` already knows how to record them.
+
+### Standing decisions that are easy to lose
+
+- **Cube reveals are cut.** `diagrams/lambda-cube.typ` was never parameterised;
+  the full cube is in the appendix for Q&A. First thing worth adding back if
+  Wednesday's read-through comes in short.
+- **`a2-values` is cut.** Same-bytes moved to `A3-stage4`, affordability to
+  `A6-cost`.
+- **The nine-row inventory is `a10-invariants`**, appendix only.
+- **`21-bridge`, `18-stage2`, `23-stage4-payoff` are deleted**; their content is
+  merged or spoken.
+- **Demo fallbacks are recorded terminal frames**, not video —
+  `tools/capture-terminal.sh`, rendered by `terminal-pane`.
+
+### Tooling that now exists and should be used
+
+`make check` = build + lint + timing. The linter reads **slide copy as well as
+spoken script**, knows the register faults in Part 12, warns on script headers
+that disagree with `budget.tsv`, and skips rhythm rules for cues-only and
+RUNBOOK notes. `tools/capture-demos.sh` records compiler errors;
+`tools/capture-terminal.sh` records whole sessions as deck-renderable frames.

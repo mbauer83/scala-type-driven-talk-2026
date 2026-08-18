@@ -134,8 +134,9 @@
            [The rule is applied where it is used, by the compiler.]),
       buys([The failure moves to compile time.],
            [Seconds after you typed it, not hours after you shipped it.]),
-      buys([The signal is a line and a type.],
-           [Not a stack trace, three services away, at 2 a.m.]),
+      buys([The signal arrives at the definition.],
+           [Clear, small, and where the rule lives — not a stack trace three
+            services away at 2 a.m.]),
       buys([The defensive tests go.],
            [The ones that only ask _did somebody remember_. Behavioural tests stay.]),
     ),
