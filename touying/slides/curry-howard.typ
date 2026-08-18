@@ -71,13 +71,14 @@
     )
     #v(sz(28pt))
     #callout(
-      [The honest caveat — *which calculus*, not whether],
-      [This correspondence is with a *total, pure* calculus. Java has `null` in every reference
-       type, exceptions that escape any signature, and loops that never return, which type-check
-       as anything you like — so a Java method `A → B` is not yet a proof of `A implies B`. Logic
-       reaches effects perfectly well: there are calculi for state, for exceptions and for
-       control, and adding first-class continuations buys you classical logic. Java simply sits
-       outside *this* calculus, and each stage from here moves it toward one that fits.],
+      [The honest caveat — *which proposition*, not whether],
+      [Java proves something weaker than its arrows suggest. With `null` in every reference type,
+       exceptions that escape any signature, and loops that never return, a method `A → B` really
+       proves *given an A: a B, or null, or a thrown exception, or nothing at all, ever* — true,
+       and nearly free. What a pure language needs in order to say the same thing — a monad, and
+       in the limit first-class continuations, which are classical logic — is the measure of what
+       Java is doing silently. Everything from here cuts that disjunction down until the arrow
+       means what it says.],
       style: "bad",
     )
   ],

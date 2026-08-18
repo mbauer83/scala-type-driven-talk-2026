@@ -14,14 +14,13 @@ BEATS — delivery aid; the script is below
   › your program is the construction; its type says what you constructed a proof
     of; the compiler checks the one against the other
   › true whether or not you write the types down — untyped just means unchecked
-- The caveat, as a map and not an apology:
-  › the correspondence is with a total, pure calculus
-  › null sits in every reference type, an exception escapes any signature, a
-    loop that never returns type-checks as anything you like
-  › **and then the correction that matters: logic reaches effects perfectly
-    well.** There are calculi for state, exceptions and control, and first-class
-    continuations buy you classical logic. The limit is which calculus Java sits
-    in, and each stage moves it toward one that fits.
+- The caveat, as a map and not an apology. **Java does construct a proof** — of a
+  weaker proposition than its arrows suggest:
+  › null in every reference type, exceptions that escape any signature, loops
+    that never return
+  › so `A → B` really proves: given an A, a B **or** null **or** a throw **or**
+    nothing, ever. True, and nearly free
+  › the slide also carries the machinery point — say it only if you have room
 - Pivot into the rest of the talk: everything we climb buys a correspondence a
   little closer to exact.
 
@@ -44,15 +43,15 @@ of. The compiler is the machine that checks the one against the other. That hold
 whether or not you write the types down, because in an untyped language the
 proposition is still there and nothing ever checks it.
 
-The caveat is the reason this talk has stages. That correspondence is with a
-total, pure calculus, and Java has null in every reference type, exceptions that
-escape any signature, and loops that never return and type-check as anything you
-like — so a Java method from A to B does not yet prove that A implies B.
+The caveat is the reason this talk has stages, and it is not that Java proves
+nothing. It is that Java proves something weaker than its arrows suggest. With
+null in every reference type, exceptions that escape any signature, and loops
+that never return, a method from A to B really proves this: give it an A, and you
+get back a B, or null, or a thrown exception, or nothing at all, ever. That is
+perfectly true. It is also nearly free.
 
-Logic reaches effects perfectly well, by the way: there are calculi for state and
-exceptions and control, and first-class continuations buy you classical logic.
-Java sits outside this particular calculus, and each stage we climb moves it
-toward one that fits."
+Everything we climb from here is that one move, repeated — cutting the
+disjunction down until the arrow means what it says."
 
 DELIVERY
 Three-line equation table on the left, the C13 block on the right; the caveat
@@ -62,14 +61,51 @@ The caveat paragraph is the one to rehearse. Delivered as an apology it makes th
 thesis look naive; delivered as a map it is the spine of the talk. The last line
 is the pivot into Act 2 — do not drop it.
 
-PART 10/F2 — THE CAVEAT USED TO OVERCLAIM
-The earlier wording implied that logic cannot capture imperative, impure
-programs. It can. Continuations, monadic translation and effect calculi do
-exactly that, and the continuation/classical-logic correspondence is the sharpest
-example. The honest limit is **which calculus you are standing in**, not whether
-one exists — and stated that way the caveat is a better setup for the ladder,
-because each stage is a move toward a calculus that fits. Left as it was, this
-was a Part 8/C2 overclaim sitting on the slide that carries the thesis.
+THE CAVEAT, AND WHY IT IS NOW A POSITIVE CLAIM (MB, 18 Aug — supersedes F2)
+
+Two earlier versions of this caveat were wrong in the same direction. The first
+implied that logic cannot capture imperative programs (Part 10/F2). The second
+said *a Java method from A to B does not prove that A implies B*, which sounds
+like no proof happens at all — and that contradicts the promise on `A0-title`.
+
+The correct statement, and it is stronger than either:
+
+> **Java does construct a proof. It proves a weaker proposition than its arrows
+> suggest.** Under the standard monadic reading of an impure language, a method
+> written `A → B` really has type `A → T(B)`, where `T` carries nullability,
+> thrown exceptions and non-termination. So what it proves is
+> `A ⇒ (B ∨ null ∨ throw ∨ ⊥)` — a genuine proposition, genuinely constructed,
+> and nearly free, because the diverging term already inhabits it.
+
+Everything the ladder does is cut that disjunction down. Stage 3 removes a case
+from a different disjunction; Stage 4 removes wrong-order transitions; Stage 5
+adds the predicate; Stage 6's totality checker is what finally lets you delete
+`⊥` and make the arrow mean what it says. **Read this way, the caveat is the
+spine of the talk rather than a retraction of slide 1**, and slide 1 needs no
+hedging.
+
+WHAT THE MACHINERY POINT IS FOR (on the slide; speak it only if there is room)
+The measure of how much an impure language is doing silently is what a pure one
+needs in order to say the same thing. Moggi's monads give you state and
+exceptions. Full non-local control needs first-class continuations, and Griffin
+showed in 1990 that `call/cc` has the type of Peirce's law — that is, the step
+from intuitionistic to **classical** logic. So the implicit content of imperative
+code is not nothing; it is an unstated, unchecked effect structure that costs
+real logical strength to make explicit.
+
+PRECISION, IF THIS IS CHALLENGED
+- Java's `try`/`catch` is upward-only and one-shot, so it is modelled by a monad
+  (`A + E`) and stays intuitionistic. **Do not claim Java's exceptions are
+  classical logic.** The `call/cc` ↔ Peirce's law result is about *first-class*
+  continuations, which Java does not have. "In the limit" carries that.
+- Unrestricted general recursion makes the naive reading inconsistent: `Y` gives
+  an inhabitant of every type. That is why the honest word for the proposition
+  Java proves is *nearly free* rather than merely *weak*.
+- In a genuinely untyped language the proposition is not fixed by the language;
+  it is fixed by whatever discipline you retrofit. Saying *the proposition is
+  still there, just never checked* is fair for a talk — if pressed, concede that
+  what is there is the intended contract, and the typing judgment is the thing
+  that would make it precise.
 
 C13 CHECK (Part 8)
 The three-sentence block — construction / proposition / checker — is the canonical

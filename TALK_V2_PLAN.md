@@ -1902,7 +1902,7 @@ source before being acted on; all of them held.
 
 | ID | Sev | Verdict | What was done |
 |---|---|---|---|
-| F-01 | MAJOR | **escalated** | Real tension between `A0-title` and the caveat. The proposed fix weakens MB's own opening — see below |
+| F-01 | MAJOR | **rejected; resolved the other way** | The premise was wrong. `A0-title` needs no hedging; the *caveat* was the defective half — see Part 13/A |
 | F-02 | MAJOR | accepted, own fix | Code was 15 px on a 1080-px slide. Now **21 px** |
 | F-03 | BLOCKER | accepted | Java wildcards *are* restricted existentials |
 | F-04 | MAJOR | accepted | An unbounded `T` still has `Object`'s methods |
@@ -1920,13 +1920,36 @@ source before being acted on; all of them held.
 
 ### The three where the diagnosis was right and the proposed fix was not
 
-**F-01 — escalated, not applied.** The tension is real: `A0-title` claims that a
-program which type-checks *is*, in a precise sense, a proof, and
-`A1-curry-howard` then says a Java method `A → B` does not prove `A implies B`.
-But the proposed repair — *"can be, in a precise sense … and how close Java
-gets"* — is exactly the under-promising Part 9/L1 records MB correcting, on the
-sentence MB wrote himself. Part 8/C11 says his voice does not get rewritten
-without asking. **This is a question for MB, and it is on the list below.**
+**F-01 — the review found a real inconsistency and blamed the wrong half.**
+Its premise is that the opening overclaims. It does not. MB's counter-question
+settles it, and the answer is worth writing down because it improves the talk:
+
+> Do impure, procedural languages like Java construct proofs in a precise sense,
+> of weaker propositions and with more convoluted machinery?
+
+**Yes, and precisely.** Under the standard monadic reading of an impure language,
+a method written `A → B` really has type `A → T(B)`, with `T` carrying
+nullability, thrown exceptions and non-termination. It therefore constructs a
+proof of `A ⇒ (B ∨ null ∨ throw ∨ ⊥)`. That is a real proposition and a real
+construction. It is simply weak — and, because `⊥` inhabits it, nearly free.
+
+So the opening is exact as written. What was wrong was the caveat, which said *a
+Java method from A to B does not prove that A implies B* — phrasing that sounds
+like no proof occurs, and which is what put the two slides in apparent conflict.
+The caveat is now a positive claim about **which proposition**, and the ladder
+becomes one repeated move: cut the disjunction down until the arrow means what it
+says. Stage 6's totality checker is what finally deletes `⊥`.
+
+**Two precisifications, so the claim survives a specialist.** Java's `try`/`catch`
+is upward-only and one-shot, so it is monadic (`A + E`) and stays intuitionistic —
+the `call/cc` ↔ Peirce's law result (Griffin 1990) is about *first-class*
+continuations, which Java does not have, so "in the limit" carries that clause.
+And with unrestricted recursion the naive reading is outright inconsistent, so
+the honest word is *nearly free* rather than *weak*.
+
+**Net: slide 1 keeps its full strength, the caveat gets stronger, and the tension
+the review found is gone.** Recorded here because it is the sharpest improvement
+to the argument since the primer was built, and it came from MB.
 
 **F-06 — the time problem is real; the proposed cuts are not available.** The
 review wanted 84 words gone: Church/Turing, Lambek, and the effects paragraph.
@@ -1952,10 +1975,7 @@ example earns its place more strongly than it did as "a hole".
 
 ### Open questions carried to MB
 
-1. **F-01.** Keep the strong opening and let `A1-curry-howard`'s caveat carry the
-   reconciliation, or weaken slide 1? Recommendation: **keep it.** The caveat
-   already says each stage moves Java toward a calculus that fits, and Part 9/L1
-   is explicit that the strong version is also the honest one.
+1. ~~**F-01.**~~ **Closed** — see Part 13/A. Slide 1 stands as written.
 2. **Act 1 is 1:36 over.** Recover it from the `A1-connectives` +
    `A1-quantifiers` merge held in reserve, or from per-slide trims at the
    read-through? Unchanged from Part 11/B — decide against measured numbers.
