@@ -1800,16 +1800,28 @@ with what they buy. The audience can count.
 not a line of speech. *You have already seen a quantifier* is something you say;
 in 60pt it spends the biggest text on the slide on nothing anyone can carry away.
 
-**R8 — The room is mixed, so a term standard for *part* of it is still jargon.**
-(MB, 18 Aug, on *a bound*.) C5 said "do not add jargon the room does not share";
-the sharper version is that sharing is not binary. `<T extends Comparable<T>>` is
-ordinary Java and a good part of a meetup audience still will not place the noun
-*a bound* — least of all arriving mid-sentence next to *universal quantification*,
-where they would have to resolve two unfamiliar things at once. **Show the code
-they can read, say what it does, and leave the name out.** The name costs airtime
-and buys nothing; if it matters, it belongs in the Q&A block of the script.
+**R8 — Introduce before use; and the room is mixed, so a term standard for
+*part* of it still needs introducing.** (MB, 18 Aug, on *a bound* and then on
+*phantom type*.) C5 said "do not add jargon the room does not share", which is
+too blunt in both directions. The talk **may and should** use technical terms
+where they are the subject — *phantom type* is the right word at `A3-stage4`,
+which names it and glosses it in the same breath, and the audience wants the name
+so they can go and read about it afterwards. Two things make a term a fault:
 
-Four instances of this were in Acts 0–2 and all four are now gone:
+1. **Using it before the beat that teaches it.** *Phantom parameters* on
+   `A2-values` was wrong because Stage 4 introduces the idea two acts later —
+   that is C3, name the frame then fill it, not a vocabulary problem.
+2. **Using it in passing, where teaching it costs more than the name earns.**
+   *A bound* on `A1-quantifiers` is the case: `<T extends Comparable<T>>` is
+   ordinary Java, a good part of a meetup audience still will not place the noun,
+   and it arrives mid-sentence beside *universal quantification*, so two
+   unfamiliar things have to be resolved at once. There is no beat here that
+   teaches bounded quantification and no budget to add one, so **show the code
+   they can read, say what it does, and leave the name out.**
+
+The test is therefore not *is this jargon* but **has this talk earned the word by
+this point, and is this the beat that should earn it.** Where the answer is no
+and the term is only passing through, five instances in Acts 0–2 were replaced:
 
 | was | now |
 |---|---|

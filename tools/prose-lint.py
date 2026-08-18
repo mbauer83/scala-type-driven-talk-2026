@@ -216,11 +216,13 @@ JARGON = [
     "kyc", "psd2", "sca", "liability shift", "catamorphism", "involution",
     "ι-reduction", "iota-reduction", "definitional equality", "hylomorphism",
     "anamorphism", "profunctor", "bifunctor", "existential quantification",
-    # Added 18 Aug. MB: the room is MIXED — a term that is standard for part of
-    # the audience is still jargon, and worse when it arrives beside an
-    # unfamiliar idea, because two things have to be resolved at once. These
-    # leaked into spoken text or slide copy and were replaced by showing the
-    # code and saying what it does:
+    # Added 18 Aug, and these are INTRODUCE-BEFORE-USE flags, not bans. MB: the
+    # talk may use a technical term where it is appropriate — it just has to
+    # introduce and explain it first. Two things make a term a fault: using it
+    # before the beat that teaches it (C3), and using it in passing where
+    # teaching it would cost more than the name earns. `phantom type` is the
+    # right word at A3-stage4, which names and glosses it; it was wrong on
+    # A2-values, two acts earlier. These all leaked in one of those two ways:
     #   "a bound" / "unbounded T"  ->  write `<T extends Comparable<T>>`
     #   "inhabit an impossible type"  ->  "produce a value of"
     #   "phantom parameters"  ->  "a type parameter like `<Initiated>`"
@@ -257,7 +259,10 @@ def check(text, path, rhythm=True):
         for term in JARGON:
             for m in re.finditer(rf"\b{re.escape(term)}\b", low):
                 out.append(("warn", "jargon", text[m.start():m.end()],
-                            "Gloss it, or use a term the talk established."))
+                            "Introduce-before-use: fine once the talk has named "
+                            "and explained it, so check that it has, earlier than "
+                            "here. If this is a passing mention, show the code and "
+                            "skip the name."))
         return out
 
     # 2. tricolon — three or more consecutive short sentences used for rhythm
@@ -401,8 +406,10 @@ def check(text, path, rhythm=True):
     for term in JARGON:
         for m in re.finditer(rf"\b{re.escape(term)}\b", low):
             out.append(("warn", "jargon", text[m.start():m.end()],
-                        "Gloss it in the same breath, or use a term from the "
-                        "payment domain the talk already established."))
+                        "Introduce-before-use. The talk MAY use this — it has to "
+                        "name and explain it first, at the beat where the technique "
+                        "is the subject. Check that it did, before this point. If "
+                        "this is a passing mention, show the code and skip the name."))
 
     return out
 
