@@ -5,6 +5,42 @@ Each file here is the verbatim script for one slide. The slide pulls it in with
 truth**: the PDF, the pdfpc presenter notes, the word counts and the prose
 linter all read the same file you edit. There is no second copy to keep in sync.
 
+## VS Code, Metals and one window at the repo root
+
+The talk is presented from a single VS Code window opened at the repo root,
+stepping into `03-…`, `04-…`, `05-…`, `06-…` for the demos. Metals only looks
+for a build at the *workspace root*, and there is no `build.sbt` there — so out
+of the box every Scala file reports **no build target found** and hover, type
+info and diagnostics fall back to a compiler with no classpath. Java is
+unaffected; the Java extension does its own project detection.
+
+The fix keeps the single root window. `.bloop/` at the root is a **symlink** to
+`05-scala3-payment/.bloop/`:
+
+```
+ln -s 05-scala3-payment/.bloop .bloop
+```
+
+Bloop's config files hold absolute paths, so a Metals instance rooted at the
+repo reads that config and gets a build target whose sources are
+`05-scala3-payment/src/main/scala`. It is a symlink rather than a copy so that
+`sbt bloopInstall` in `05-scala3-payment` keeps both ends in step. `.bloop/` is
+gitignored, so this does not survive a fresh clone — recreate it with the line
+above.
+
+After creating it, run **Metals: Restart build server** (or reload the window).
+If Metals offers to import a build from the root, decline: there is nothing to
+import there, and the config it needs is already in place. If a Metals version
+refuses to connect without a build-tool file at the root, the fallback is a
+multi-root `.code-workspace` listing the repo root and `05-scala3-payment` as
+two folders — untested here.
+
+Two stale configs caused the original symptom and are worth knowing about if it
+comes back: a `.bloop/` at the repo root from March whose sources pointed at a
+`src/main/scala` that does not exist, and `05-scala3-payment/.bloop/root.json`
+pointing at `06-scala3-payment` — an empty leftover directory. Both were deleted
+and regenerated with `sbt bloopInstall`.
+
 ## Demo pre-flight — run this before the room fills up
 
 Every demo's own script repeats its DIR and COMMAND, but `BEFORE` is only in

@@ -23,8 +23,9 @@ VERBATIM
 
 Start at the top, because that first line is the whole trick. `Session` is a type
 that takes a `SessionType`, so which type you get depends on the value you hand
-it. and a `SessionType` is a description and nothing more — a little tree that says
-send this, then receive that.
+it. And a `SessionType` is a description — the same little tree you read off the
+wall in Scala, except that there it was a type, and here it is an ordinary
+value.
 
 `protocolFromSnapshot` underneath is an ordinary function: snapshot in, one of
 those descriptions out, and you have written a thousand like it.
@@ -116,6 +117,28 @@ worth one clause on stage:
 So: description, endpoint, and operations are three separate things. If someone
 reads `Send` as a method the whole beat collapses, which is why the script now
 says *a description — a little tree … it holds no code and does nothing*.
+
+WHY THE »DESCRIPTION« LINE IS HERE AND NOT BACK IN ACT 4 (MB, 19 Aug)
+Fair question, and the answer is that the word is doing different work in the two
+acts. On `A4-sessions` the protocol is a **type** — `Send[Order, Receive[…]]`,
+built from type constructors — and that beat already reads the tree out loud:
+*send an order, receive the risk snapshot, the authorization, the capture, then
+choose*. The room has the shape by then. What it does not have, and does not need
+yet, is *this is inert data*.
+
+Here it does need it, and for a specific reason recorded above: `Send` is a data
+constructor, and a listener who reads it as a method loses the whole beat. Saying
+*a description and nothing more* one act earlier would be true of the Scala tree
+as well — and it would flatten the thing this act exists to show, which is that
+the tree moved down a level, from the type language into the value language,
+which is exactly what lets an ordinary function compute one.
+
+So it does not move. What was wrong is that it read as a first introduction to
+something the room met several minutes ago. The line now points back — *the same
+little tree you read off the wall in Scala, except that there it was a type, and
+here it is an ordinary value* — which closes the gap and states the act's thesis
+in the same breath. Ten words. **Revertible**: the original was *»a description
+and nothing more — a little tree that says send this, then receive that«*.
 
 `protocolFromSnapshot` IS NOT A TYPE-LEVEL FUNCTION (MB, 19 Aug — checked)
 The question was whether it returns a *type* or a *value*. It returns a **value**,
