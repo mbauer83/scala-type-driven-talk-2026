@@ -65,7 +65,11 @@ frame3 () {
 frame3
 
 # ── Demo 5 — Stage 5, the protocol refuses the operation (sbt) ───────────────
-# EDIT: serverHighRisk's LAST line, `ch5.send(captured)` -> `ch5.receive()._2`.
+# EDIT: serverHighRisk's LAST step becomes a wait for an acknowledgement the
+# other side's contract never mentions — `ch5.send(captured)` becomes
+# `val (ack, done) = ch5.receive()` and `done`. A mistake somebody makes; the
+# earlier one-liner `ch5.receive()._2` produced the same error and nobody writes
+# that by accident.
 #
 # The position is the whole trick. Four other edits produce the same class of
 # error and none of them is readable on a projector: sending a message the
@@ -82,11 +86,11 @@ frame3
 # server; that is what keeps it to one error.
 frame5 () {
   local dir=05-scala3-payment file=src/main/scala/demos/PaymentDemo.scala
-  local expr='s|^    ch5.send(captured)$|    ch5.receive()._2|'
+  local expr='s|^    ch5.send(captured)$|    val (ack, done)       = ch5.receive()\n    done|'
   local src="$ROOT/$dir/$file" bak; bak=$(mktemp)
   cp "$src" "$bak"
   {
-    echo "\$ sed -i '…ch5.send(captured) → ch5.receive()._2…' PaymentDemo.scala"
+    echo "\$ sed -i '…ch5.send(captured) → wait for an ack…' PaymentDemo.scala"
     echo "\$ git diff -- PaymentDemo.scala"
   } > "$OUT/5-edit.txt"
   sed -i "$expr" "$src"

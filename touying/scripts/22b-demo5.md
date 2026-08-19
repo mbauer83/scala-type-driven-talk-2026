@@ -1,4 +1,4 @@
-A4-demo5 · cap 1:20 across three slides · Act 4 beat 4 of 6
+A4-demo5 · cap 1:35 across three slides · Act 4 beat 4 of 6
 
 TERMINAL — the exact directory, the exact command. Same project and the same
 sbt session as Demo 3, so if Demo 3 compiled, this one will.
@@ -21,32 +21,40 @@ RUNBOOK — the three slides, in order, with what you say on each
   IDE       05-scala3-payment/src/main/scala/demos/PaymentDemo.scala  line 141,
             the LAST line of `serverHighRisk`.  Navigation only:
             »the high-risk server … its very last step, where it sends the
-             captured payment …»
-            change `ch5.send(captured)` to `ch5.receive()._2`
+             captured payment … and this side now wants to wait for the client
+             to confirm it …»
+            replace `ch5.send(captured)` with two lines:
+                `val (ack, done)       = ch5.receive()`
+                `done`
             »… and compile.»
             → TERMINAL, at the sbt prompt already running: `compile`
             → SILENCE until the error appears.
 
-  SLIDE     recorded, the edit  Advance. »There it is: send became receive.»
+  SLIDE     recorded, the edit  Advance. »There it is — this side now waits
+                                 for a confirmation.»
 
   SLIDE     recorded, scalac    Read the one line, unhurried:
                                 »No given instance of CanReceive, for Send of
                                  CapturedPayment, End.»
                                 Beat. Then the two sentences below.
 
-  IDE       Put `ch5.send(captured)` back. `compile`. Green. Say nothing.
+  IDE       Put `ch5.send(captured)` back — one line replacing two. `compile`.
+            Green. Say nothing.
 
 TALKING POINTS
 1. Let's make the payment side wait for a message the other side never sends
-2. (IDE) serverHighRisk, line 141, its last step — send becomes receive
-3. Advance: there it is
+2. (IDE) serverHighRisk, line 141, its last step — instead of sending the
+   capture, wait for the client to acknowledge it
+3. Advance: there it is — this side now waits for a confirmation
 4. Advance: read it — no given instance of CanReceive, for Send of
    CapturedPayment, End
 5. No evidence that you may receive here: what is left of the conversation
    begins with a send
-6. The drift Danielle found three weeks in has nowhere left to happen — that
+6. Untyped, this is not an exception anybody catches — it is two services
+   waiting for each other
+7. The drift Danielle found three weeks in has nowhere left to happen — that
    clause belongs HERE now, not on A4-sessions
-7. Do NOT say "nobody wrote a test" — Demo 2 has it, A5-payoff has the
+8. Do NOT say "nobody wrote a test" — Demo 2 has it, A5-payoff has the
    collective version (MB, 19 Aug)
 
 VERBATIM
@@ -56,13 +64,14 @@ send."
 
 ... navigate, `send` becomes `receive`, compile — then silence ...
 
-"There it is: send became receive.
+"There it is — this side now waits for a confirmation.
 
 No given instance of CanReceive, for Send of CapturedPayment, End.
 
 There is no evidence that you may receive here, because what is left of this
-conversation begins with a send — and the drift Danielle found three weeks in has
-nowhere left to happen."
+conversation begins with a send. Untyped, that is not an exception anybody
+catches — it is two services waiting for each other. The drift Danielle found
+three weeks in has nowhere left to happen."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.
@@ -97,7 +106,22 @@ THE EDIT, EXACTLY — AND IT IS EXECUTED, NOT DESCRIBED
 `05-scala3-payment/src/main/scala/demos/PaymentDemo.scala:141`, the last line of
 `serverHighRisk`:
 
-    ch5.send(captured)        ->   ch5.receive()._2
+    ch5.send(captured)   ->   val (ack, done)       = ch5.receive()
+                              done
+
+THE BUG CLASS HAS TO BE LEGIBLE, EVEN WHEN THE EDIT IS ARTIFICE (MB, 19 Aug)
+The first version of this edit was the one-liner `ch5.receive()._2`, which
+produces the identical error and is not a mistake anybody has ever made — `._2`
+on a receive is a shape chosen to satisfy a return type, and a room that notices
+that stops believing the demo. What is on stage now is a change somebody writes
+on a Tuesday: the payment side decides the high-risk flow should end with the
+client confirming the capture, so it waits for an acknowledgement. The client's
+contract has no such message in it. That is Danielle's incident exactly — each
+side correct against its own picture of the conversation — and untyped it is not
+an exception anybody catches, it is two services waiting for each other.
+
+Every demo in the deck is arranged; the arrangement is allowed. What is not
+allowed is a bug class the room cannot recognise from its own work.
 
 `tools/capture-demos.sh 5` and `tools/capture-terminal.sh` both apply exactly
 this edit, run the real `sbt -batch -warn compile`, write `demos/5-edit.txt`,
@@ -106,9 +130,9 @@ this edit, run the real `sbt -batch -warn compile`, write `demos/5-edit.txt`,
 CAPTURED OUTPUT — verbatim, `demos/5-term.txt`
 
     $ sbt compile
-    [error] -- [E172] Type Error: …/PaymentDemo.scala:141:17
-    [error] 141 |    ch5.receive()._2
-    [error]     |                 ^
+    [error] -- [E172] Type Error: …/PaymentDemo.scala:141:41
+    [error] 141 |    val (ack, done)       = ch5.receive()
+    [error]     |                                         ^
     [error]     |No given instance of type protocol.CanReceive[protocol.Send[
     [error]     |payment.CapturedPayment, protocol.End]] was found for parameter
     [error]     |r of method receive in class Channel

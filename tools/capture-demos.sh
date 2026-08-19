@@ -72,18 +72,27 @@ if want 3; then
 fi
 
 # ── Demo 5 — Stage 5, the protocol refuses the operation ────────────────────
-# EDIT: serverHighRisk's last line, ch5.send(captured) -> ch5.receive()._2.
+# EDIT: serverHighRisk's last step becomes a wait for an acknowledgement that
+# the other side's contract never mentions:
+#
+#     ch5.send(captured)   ->   val (ack, done) = ch5.receive()
+#                               done
 #
 # It has to be the LAST operation in the protocol. Anywhere earlier and every
 # binding below inherits the error type, so one honest error arrives with two or
 # three cascading "not found" complaints behind it. Here the remainder of the
 # protocol is `Send[CapturedPayment, End]`, which prints inline, and the whole
 # thing is one line the room can read.
+#
+# An earlier version of this edit was `ch5.receive()._2` — one line, same error,
+# and nobody has ever written that by accident. This one is a mistake a person
+# makes: the payment side decides it should wait for the client to confirm the
+# capture. Untyped, both ends then wait and the call hangs.
 if want 5; then
-  echo "demo 5: serverHighRisk receives where the protocol says send…"
+  echo "demo 5: serverHighRisk waits for an acknowledgement nobody sends…"
   d=05-scala3-payment
   edit_file "$d/src/main/scala/demos/PaymentDemo.scala" \
-            's|^    ch5.send(captured)$|    ch5.receive()._2|'
+            's|^    ch5.send(captured)$|    val (ack, done)       = ch5.receive()\n    done|'
   ( cd "$d" && sbt -batch -warn compile ) 2>&1 | grep -v '^\[info\]' \
     | sed "s|$ROOT/||g" > "$OUT/5-protocol-state.txt"
   echo "  -> demos/5-protocol-state.txt"

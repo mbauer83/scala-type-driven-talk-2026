@@ -1,7 +1,7 @@
 $ sbt compile
-[error] -- [E172] Type Error: 05-scala3-payment/src/main/scala/demos/PaymentDemo.scala:141:17 
-[error] 141 |    ch5.receive()._2
-[error]     |                 ^
+[error] -- [E172] Type Error: 05-scala3-payment/src/main/scala/demos/PaymentDemo.scala:141:41 
+[error] 141 |    val (ack, done)       = ch5.receive()
+[error]     |                                         ^
 [error]     |No given instance of type protocol.CanReceive[protocol.Send[payment.CapturedPayment, protocol.End]] was found for parameter r of method receive in class Channel
 [error] one error found
 [error] (Compile / compileIncremental) Compilation failed

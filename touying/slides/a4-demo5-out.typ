@@ -45,8 +45,10 @@ compiler naming its own plumbing.
 Beat. Then:
 
 »There is no evidence that you may receive here, because what is left of this
-conversation begins with a send — and the drift Danielle found three weeks in has
-nowhere left to happen.«
+conversation begins with a send. Untyped, that is not an exception anybody
+catches — it is two services waiting for each other. The drift Danielle found
+three weeks in has nowhere left to happen.«
 
-Then put `ch5.send(captured)` back, recompile, green. Say nothing.
+Then put `ch5.send(captured)` back — one line replacing the two — recompile,
+green. Say nothing.
 ]
