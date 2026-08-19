@@ -5,8 +5,8 @@
 // end. It was sixty words at the tail of A6-cost, spoken over a four-row cost
 // table the room was still reading.
 //
-// MB again, same day: an earlier version of this slide never named LLMs or
-// agentic development once, and hedged with "whoever wrote the line". This is
+// MB again, same day: an earlier version of this slide never named agentic
+// software development once, and hedged with "whoever wrote the line". This is
 // the one slide whose whole purpose is that argument. Name it. And the old
 // headline — "when code arrives faster than anyone can read it" — implied
 // nobody reviews, which is untrue and insulting to this room; the real claim is
@@ -32,7 +32,7 @@
 #light-slide(
   eyebrow: eyebrow([Why the arithmetic is changing]),
   body-gap: sz(28pt),
-  [What LLM-driven development changes],
+  [What agentic software development changes],
   stack(
     dir: ttb,
     spacing: sz(30pt),

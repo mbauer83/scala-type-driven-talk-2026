@@ -74,7 +74,51 @@ already carries the callback, the protocol, the match type and Danielle. It is o
 the wall for anyone reading ahead, it is the honest answer to »how do you know
 `Dual` is right«, and Q&A is where it gets explained. Do not start it on stage.
 
-HOW THE SESSION TYPE MEETS AN ACTUAL CHANNEL (Q&A — MB asked, 19 Aug)
+HOW SESSION TYPES MEET REAL CHANNELS, IN PRACTICE (Q&A — MB, 19 Aug)
+The honest headline: **a session type is a contract, not a wire format.** It
+constrains which operations your program can compile; something else still has
+to move bytes. In practice there are three routes, and only the second is what
+anybody deploys.
+
+1. **Embedded in the host language**, which is what this repository does — the
+   protocol lives in the type system and the channel is a typed wrapper over an
+   untyped transport. Cheap, and it only protects code you compile yourself.
+
+2. **Generated from a protocol description.** This is the practical route, and
+   Scribble is the reference toolchain. You write ONE global protocol describing
+   the whole conversation between all parties; the tool **projects** it to a
+   local type per role, and generates an endpoint API for each — usually a
+   typestate API, where each protocol state is a type exposing only the legal
+   next operations, plus the codec. Because the API and the serialisation come
+   out of the same description, the cast at the boundary is justified rather
+   than assumed. Implementations exist for Java, Scala, F#, Go and TypeScript;
+   StMungo generates Java typestate from Scribble, and nuScr is the current
+   front end. This is the answer to "how would I use it at work".
+
+3. **Runtime monitoring.** Generate a monitor from the same protocol and put it
+   at the endpoint, checking the message sequence as it happens. Used when you
+   cannot control what language the other end is written in — the guarantee
+   drops from "cannot compile" to "fails loudly at the boundary", which is still
+   far better than Danielle's three weeks.
+
+**Multiparty session types** are what make any of this usable beyond two
+parties: one global type, projected to N local ones. Two-party session types of
+the kind in this deck are the special case.
+
+**Where the room already meets the idea.** gRPC and protobuf give message
+schemas and, in streaming RPC, a channel — but nothing types the *order* of
+messages, which is the part session types add. OpenAPI/AsyncAPI describe shapes,
+not sequences. And a typestate API — `Payment<Authorized>`, or any builder that
+will not let you call `build()` early — is the single-party cousin of the same
+idea, which is exactly the Stage 4 to Stage 5 move in this talk.
+
+**The honest limits.** Classical session types assume a reliable, ordered,
+non-failing channel. Timeouts, retries, crashes and partitions are where it gets
+hard: there is real work on affine and exception-handling session types, but a
+process that dies mid-protocol breaks the "used exactly once" story, and that is
+a research frontier rather than something to promise a room.
+
+AND IN THIS REPOSITORY SPECIFICALLY
 It does not. The type is erased, and underneath are two ordinary untyped queues.
 
     final class Transport:

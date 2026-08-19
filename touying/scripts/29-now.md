@@ -39,8 +39,9 @@ test says only that something is wrong."
 PREPARATION — background, checks and citations. Not for the night.
 ==========================================================================
 
-SAY "MODEL" AND "LLM" OUT LOUD (MB, 19 Aug)
-An earlier version of this beat never named LLMs or agentic development once —
+NAME IT: "AGENTIC SOFTWARE DEVELOPMENT" (MB, 19 Aug)
+That is the term to use — not "LLM-driven", which MB corrected on 19 Aug.
+An earlier version of this beat never named it at all —
 it said *whoever wrote the line*, *whatever generated the patch*, *a person and a
 model both read*. MB: *why do you dance around the issue … I really don't
 understand why you did that.* Fair. This is the one slide in the deck whose
