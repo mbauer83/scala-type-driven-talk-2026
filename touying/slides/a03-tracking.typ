@@ -6,9 +6,13 @@
 #light-slide(
   eyebrow: eyebrow([Appendix A3 · Live Demo], style: "accent"),
   [Live: dependent typing catching a mismatch],
+  // The pane, the cue and the error block are one unit and they overflowed the
+  // page: the error block's background stopped after its first line and the rest
+  // spilled onto the page. Pull the whole stack up under the title.
+  body-gap: sz(34pt),
   stack(
     dir: ttb,
-    spacing: sz(20pt),
+    spacing: sz(18pt),
     code-pane(filename: "Main.idr", language: "haskell",
               code-size: 20pt,
               highlights: ((2, "hl"), (8, "hl-good")))[
