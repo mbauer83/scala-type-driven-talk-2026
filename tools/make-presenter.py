@@ -64,27 +64,39 @@ TEMPLATE = r"""<!doctype html>
   #hint.gone { opacity:0; pointer-events:none; }
 
   /* ---- presenter view ---- */
-  /* Notes get the full width and all the leftover height: they are the thing
-     being read under pressure. Slides sit above, current larger than next. */
+  /* The thumbnails are bounded by VIEWPORT HEIGHT, never by their own width.
+     Sizing them by width (width:100%) makes a wide window produce a tall image,
+     which eats the column and squeezes the notes to a single line — that was
+     the first version's bug. The notes are what gets read under pressure, so
+     they take everything left over and never less than half the height. */
   #console { display:none; height:100%; grid-template-columns: 2fr 1fr;
-             grid-template-rows: auto minmax(0,1fr) auto; gap:.7rem; padding:.7rem; }
+             grid-template-rows: minmax(0, 34vh) minmax(0, 1fr) auto;
+             gap:.7rem; padding:.7rem; }
   #console.on { display:grid; }
-  #cur  { grid-column:1; grid-row:1; }
-  #cur img { width:100%; border:1px solid #262b36; border-radius:6px; }
-  #side { grid-column:2; grid-row:1; align-self:end; }
-  #nextWrap { border:1px solid #262b36; border-radius:6px; overflow:hidden; }
-  #nextWrap img { width:100%; display:block; }
+  #cur  { grid-column:1; grid-row:1; min-height:0; min-width:0; display:flex;
+          align-items:flex-start; justify-content:flex-start; }
+  #cur img { max-width:100%; max-height:100%; width:auto; height:auto;
+             object-fit:contain; border:1px solid #262b36; border-radius:6px; }
+  #side { grid-column:2; grid-row:1; min-height:0; min-width:0; display:flex;
+          flex-direction:column; align-items:flex-start; }
+  #nextWrap { border:1px solid #262b36; border-radius:6px; overflow:hidden;
+              min-height:0; display:flex; }
+  #nextWrap img { max-width:100%; max-height:100%; width:auto; height:auto;
+                  object-fit:contain; display:block; }
   #nextLbl { font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
-             color:#8b8f98; margin-bottom:.25rem; }
-  #notes { grid-column:1 / span 2; grid-row:2; overflow-y:auto; padding:.7rem 1rem;
-           background:#12161f; border:1px solid #262b36; border-radius:6px;
-           white-space:pre-wrap; font-size:1.12rem; line-height:1.5; }
+             color:#8b8f98; margin-bottom:.25rem; flex:0 0 auto; }
+  #notes { grid-column:1 / span 2; grid-row:2; min-height:0; overflow-y:auto;
+           padding:.8rem 1.1rem; background:#12161f; border:1px solid #262b36;
+           border-radius:6px; white-space:pre-wrap;
+           font-size:clamp(1rem, 1.35vh + .55rem, 1.5rem); line-height:1.5; }
   #bar { grid-column:1 / span 2; grid-row:3; display:flex; align-items:center;
-         gap:1.2rem; font-variant-numeric:tabular-nums; color:#b9bcc4; font-size:1rem; }
+         flex:0 0 auto; gap:1.2rem; font-variant-numeric:tabular-nums;
+         color:#b9bcc4; font-size:.95rem; }
   #bar b { color:#e8e4dc; font-weight:600; }
   #bar .grow { margin-left:auto; }
   button { background:#1b2030; color:#e8e4dc; border:1px solid #2e3547;
-           border-radius:5px; padding:.35rem .8rem; font:inherit; cursor:pointer; }
+           border-radius:5px; padding:.3rem .7rem; font:inherit; font-size:.95rem;
+           line-height:1.2; cursor:pointer; flex:0 0 auto; }
   button:hover { background:#232a3d; }
   #elapsed.over { color:#e08a4a; }
   kbd { background:#1b2030; border:1px solid #2e3547; border-radius:3px;
