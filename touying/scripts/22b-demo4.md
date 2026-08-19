@@ -1,16 +1,16 @@
 A4-demo4 · cap 1:35 across three slides · Act 4 beat 4 of 6
 
-TERMINAL — the exact directory, the exact command. Same project and the same
-sbt session as Demo 3, so if Demo 3 compiled, this one will.
-
-    cd ~/workspace/scala-type-driven-talk/05-scala3-payment
-    sbt
-
-and on stage, at the prompt that is already open:
-
-    sbt:payment> compile
-
-Measured 8s. Do not start sbt here — it has been running since before Demo 3.
+FILE     05-scala3-payment/src/main/scala/demos/PaymentDemo.scala:141
+         the LAST line of `serverHighRisk`
+DIR      ~/workspace/scala-type-driven-talk/05-scala3-payment
+COMMAND  compile     — the same `sbt:payment>` session as Demo 3
+EDIT     `ch5.send(captured)`
+           -> `val (ack, done)       = ch5.receive()`
+              `done`
+BEFORE   nothing. sbt has been running since Demo 3; if that one compiled, this
+         one will. 8s.
+IF IT FAILS  advance and say nothing about it. The next two slides are the
+             same session, recorded, and the room cannot tell.
 
 RUNBOOK — the three slides, in order, with what you say on each
 
@@ -18,16 +18,13 @@ RUNBOOK — the three slides, in order, with what you say on each
                                  the other side is never going to send.»
             → STOP TALKING, switch to the IDE.
 
-  IDE       05-scala3-payment/src/main/scala/demos/PaymentDemo.scala  line 141,
-            the LAST line of `serverHighRisk`.  Navigation only:
+  IDE       Open FILE. Navigation only:
             »the high-risk server … its very last step, where it sends the
              captured payment … and this side now wants to wait for the client
              to confirm it …»
-            replace `ch5.send(captured)` with two lines:
-                `val (ack, done)       = ch5.receive()`
-                `done`
+            make the EDIT
             »… and compile.»
-            → TERMINAL, at the sbt prompt already running: `compile`
+            → run COMMAND
             → SILENCE until the error appears.
 
   SLIDE     recorded, the edit  Advance. »There it is — this side now waits
@@ -36,10 +33,25 @@ RUNBOOK — the three slides, in order, with what you say on each
   SLIDE     recorded, scalac    Read the one line, unhurried:
                                 »No given instance of CanReceive, for Send of
                                  CapturedPayment, End.»
-                                Beat. Then the two sentences below.
+                                Beat. Then:
+                                »There is no evidence that you may receive here,
+                                 because what is left of this conversation begins
+                                 with a send. Untyped, that is not an exception
+                                 anybody catches — it is two services waiting for
+                                 each other. The drift Danielle found three weeks
+                                 in has nowhere left to happen.»
 
-  IDE       Put `ch5.send(captured)` back — one line replacing two. `compile`.
-            Green. Say nothing.
+  IDE       Put `ch5.send(captured)` back — one line replacing two. Run
+            COMMAND. Green. Say nothing.
+
+==========================================================================
+PREPARATION — background, checks and citations. Not for the night.
+==========================================================================
+
+
+THE SCRIPT IN ONE PIECE — for rehearsal. On the night you do not need it: the
+RUNBOOK above carries every line at the point where you say it, which is why
+this sits below the fold and off the presenter view.
 
 TALKING POINTS
 1. Let's make the payment side wait for a message the other side never sends
@@ -73,9 +85,6 @@ conversation begins with a send. Untyped, that is not an exception anybody
 catches — it is two services waiting for each other. The drift Danielle found
 three weeks in has nowhere left to happen."
 
-==========================================================================
-PREPARATION — background, checks and citations. Not for the night.
-==========================================================================
 
 WHY THIS DEMO EXISTS AT ALL (MB, 19 Aug)
 Four incidents open the talk and, before this, three of them ended in a compiler

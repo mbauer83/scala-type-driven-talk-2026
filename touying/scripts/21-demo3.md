@@ -1,23 +1,16 @@
 A4-demo3 · cap 1:55 across three slides · Act 4 beat 2 of 6
 
-TERMINAL — the exact directory, the exact command, and the one demo where WHEN
-you start the tool matters more than what you type.
-
-    cd ~/workspace/scala-type-driven-talk/05-scala3-payment
-    sbt
-
-Start `sbt` before the act, not on stage, and leave it sitting at its prompt:
-
-    sbt:payment>
-
-On stage you then type one word — `compile` — and it answers in about eight
-seconds. Starting sbt cold in front of the room costs a JVM start and possibly a
-dependency resolution, which is the single largest time risk in the talk.
-
-    sbt:payment> compile
-
-Measured: 4.8s for a warm no-op compile, 8.4s for the edit-and-fail that this
-demo performs. Cold, it is 30s and up, and you cannot tell in advance.
+FILE     05-scala3-payment/src/main/scala/demos/PaymentDemo.scala:123
+         in `serverMediumRisk`
+DIR      ~/workspace/scala-type-driven-talk/05-scala3-payment
+COMMAND  compile     — at the `sbt:payment>` prompt. NOT `sbt compile`.
+EDIT     `authorize(order, ThreeDSApproved(proof))`
+           -> `authorize(order, AutoApproved)`
+BEFORE   start `sbt` in DIR before the act and leave it at its prompt. 8s warm;
+         starting it cold on stage is 30s and up, and the largest time risk in
+         the talk.
+IF IT FAILS  advance and say nothing about it. The next two slides are the
+             same session, recorded, and the room cannot tell.
 
 RUNBOOK — the three slides, in order, with what you say on each
 
@@ -25,12 +18,11 @@ RUNBOOK — the three slides, in order, with what you say on each
                                  automatic way.»
             → STOP TALKING, switch to the IDE.
 
-  IDE       05-scala3-payment/src/main/scala/demos/PaymentDemo.scala  line 123
-            in `serverMediumRisk`.  Navigation only:
+  IDE       Open FILE. Navigation only:
             »the medium-risk server … the line that builds the approval …»
-            swap `ThreeDSApproved(proof)` for `AutoApproved`
+            make the EDIT
             »… and compile.»
-            → TERMINAL, at the sbt prompt already running: `compile`
+            → run COMMAND
             → SILENCE until the error appears. sbt is slower than javac; let it
               be slow, and do not fill the gap.
 
@@ -39,10 +31,22 @@ RUNBOOK — the three slides, in order, with what you say on each
   SLIDE     recorded, scalac    Read it, unhurried:
                                 »Found: AutoApproved. Required: an Approval of
                                  MediumRisk.»
-                                Beat. Then the two sentences below.
+                                Beat. Then:
+                                »The first demo made Bob write the medium-risk
+                                 case. This one makes the medium-risk case do
+                                 the medium-risk thing, and the whole mechanism
+                                 is that one parameter on Approval.»
 
-  IDE       Put the proof back. `compile` again at the sbt prompt. Green.
-            Say nothing.
+  IDE       Put the proof back. Run COMMAND. Green. Say nothing.
+
+==========================================================================
+PREPARATION — background, checks and citations. Not for the night.
+==========================================================================
+
+
+THE SCRIPT IN ONE PIECE — for rehearsal. On the night you do not need it: the
+RUNBOOK above carries every line at the point where you say it, which is why
+this sits below the fold and off the presenter view.
 
 TALKING POINTS
 1. Let's try to approve a medium-risk order the automatic way
@@ -67,9 +71,6 @@ The first demo made Bob write the medium-risk case. This one makes the medium-ri
 case do the medium-risk thing, and the whole mechanism is that one parameter on
 `Approval`."
 
-==========================================================================
-PREPARATION — background, checks and citations. Not for the night.
-==========================================================================
 
 THE EDIT, EXACTLY — AND IT IS EXECUTED, NOT DESCRIBED
 `05-scala3-payment/src/main/scala/demos/PaymentDemo.scala:123`, inside

@@ -1,13 +1,12 @@
 A3-demo2 · cap 1:45 across four slides · Act 3 beat 7 of 8
 
-TERMINAL — the exact directory, the exact command. Different directory from
-Demo 1; open it and run the command once before the dark card goes up.
-
-    cd ~/workspace/scala-type-driven-talk/04-java-advanced-generics-typestate
-    javac -d /tmp/out *.java
-
-Same command as Demo 1, one directory over, and it is what the recorded fallback
-frame shows. Measured 0.6s.
+FILE     04-java-advanced-generics-typestate/Demo.java:170
+DIR      ~/workspace/scala-type-driven-talk/04-java-advanced-generics-typestate
+COMMAND  javac -d /tmp/out *.java
+EDIT     uncomment `Payment.capture(init);`  — the line marked `← UNCOMMENT`
+BEFORE   a different DIR from Demo 1. Open it and run COMMAND once. 0.6s warm.
+IF IT FAILS  advance and say nothing about it. The next two slides are the
+             same session, recorded, and the room cannot tell.
 
 RUNBOOK — the four slides, in order, with what you say on each
 
@@ -15,12 +14,11 @@ RUNBOOK — the four slides, in order, with what you say on each
                                 authorized.»
             → STOP TALKING, switch to the IDE.
 
-  IDE       04-java-advanced-generics-typestate/Demo.java  line 170
-            Navigation only:
+  IDE       Open FILE. Navigation only:
             »line one seventy … the line that is commented out …»
-            uncomment it
+            make the EDIT
             »… and compile.»
-            → TERMINAL: `javac -d /tmp/out *.java`   (↑ Enter)
+            → run COMMAND   (↑ Enter)
             → SILENCE until the error appears.
 
   SLIDE 21  recorded, the edit  Advance. »The line is back.»
@@ -31,20 +29,19 @@ RUNBOOK — the four slides, in order, with what you say on each
             Beat. Then:
             »Nobody wrote a test for that, and nobody had to catch it in review.»
 
-  IDE       Comment it out again. `javac -d /tmp/out *.java` — silent, which is
-            green. Say nothing.
+  IDE       Comment it out again. Run COMMAND — silent, which is green.
+            Say nothing.
 
   SLIDE 23  ceiling             Charlie closed, then what Java still accepts.
 
-THIS ONE IS FASTER THAN DEMO 1, DELIBERATELY
-Demo 1 establishes the pattern and cashes out Gentzen. This is a confirmation —
-the room already knows what a live edit looks like here and what the error means.
-Do not re-explain the mechanism. Part 6b's cut list has this as the fourth thing
-to drop if the clock demands it: skip the IDE entirely, run slides 21 and 22, and
-narrate over them. Nothing in the argument is lost.
+==========================================================================
+PREPARATION — background, checks and citations. Not for the night.
+==========================================================================
 
-WHAT TO DO IF IT FAILS
-As Demo 1. Advance, say the same words, do not mention it.
+
+THE SCRIPT IN ONE PIECE — for rehearsal. On the night you do not need it: the
+RUNBOOK above carries every line at the point where you say it, which is why
+this sits below the fold and off the presenter view.
 
 TALKING POINTS
 1. Let's try to capture a payment that was never authorized
@@ -69,9 +66,16 @@ Authorized.
 Nobody wrote a test for that, and nobody had to catch it in review. Charlie's
 transition is not a program any more."
 
-==========================================================================
-PREPARATION — background, checks and citations. Not for the night.
-==========================================================================
+
+WHAT TO DO IF IT FAILS
+As Demo 1. Advance, say the same words, do not mention it.
+
+THIS ONE IS FASTER THAN DEMO 1, DELIBERATELY
+Demo 1 establishes the pattern and cashes out Gentzen. This is a confirmation —
+the room already knows what a live edit looks like here and what the error means.
+Do not re-explain the mechanism. Part 6b's cut list has this as the fourth thing
+to drop if the clock demands it: skip the IDE entirely, run slides 21 and 22, and
+narrate over them. Nothing in the argument is lost.
 
 THE EDIT, EXACTLY
 `04-java-advanced-generics-typestate/Demo.java:170` — uncomment the line marked

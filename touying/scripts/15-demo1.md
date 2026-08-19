@@ -1,28 +1,23 @@
 A3-demo1 · cap 2:10 across four slides · Act 3 beat 4 of 8
 
-TERMINAL — the exact directory, the exact command. Have this open and warm
-BEFORE the dark card goes up, and run the command once so the room's first
-sight of it is already the second time you have typed it.
-
-    cd ~/workspace/scala-type-driven-talk/03-java-function-types-sealed
-    javac -d /tmp/out *.java
-
-That is the command, character for character. The recorded fallback frame shows
-`$ javac -d /tmp/out *.java`, so if the live compile fails and you advance into
-the recording, the room sees the same line it just watched you type. Measured
-0.6s on this machine.
+FILE     03-java-function-types-sealed/Demo.java:123
+DIR      ~/workspace/scala-type-driven-talk/03-java-function-types-sealed
+COMMAND  javac -d /tmp/out *.java
+EDIT     delete the `case RiskDecision.Medium m ->` arm, whole line
+BEFORE   open the terminal in DIR and run COMMAND once. 0.6s warm.
+IF IT FAILS  advance and say nothing about it. The next two slides are the
+             same session, recorded, and the room cannot tell.
 
 RUNBOOK — the four slides, in order, with what you say on each
 
   SLIDE 15  dark card          »Let's delete case Medium and watch what the compiler does.»
             → then STOP TALKING and switch to the IDE.
 
-  IDE       03-java-function-types-sealed/Demo.java  line 123
-            Narrate only the navigation, never the meaning:
+  IDE       Open FILE. Narrate the navigation only, never the meaning:
             »Demo dot java … line one two three … that is the medium case …»
-            delete the line
+            make the EDIT
             »… and compile.»
-            → TERMINAL: `javac -d /tmp/out *.java`   (↑ Enter)
+            → run COMMAND   (↑ Enter)
             → SILENCE from here until the error appears. Do not fill it.
 
   SLIDE 16  recorded, the edit  Advance. One second. »There is the line, gone.»
@@ -34,23 +29,19 @@ RUNBOOK — the four slides, in order, with what you say on each
             »That is the elimination rule from the Gentzen slide, coming out
              of javac.»
 
-  IDE       Undo the delete. `javac -d /tmp/out *.java` again — no output at
-            all is what green looks like here. Let the room see it. Say nothing.
+  IDE       Undo. Run COMMAND again — silence is green here. Let the room see
+            it. Say nothing.
 
   SLIDE 18  payoff              Bob's bug is now a compile error.
 
-WHY THE NARRATION RULE IS SPLIT
-D-D says »silence during», and that is right about the *result* and wrong about
-the *navigation*. Thirty seconds of a stranger typing in silence is a long time
-in a room, and the audience does not know whether something has gone wrong.
-Narrating where you are — file, line, what you are about to delete — costs them
-nothing to process and keeps them with you. The silence that matters is between
-pressing compile and the error appearing. Do not talk over that.
+==========================================================================
+PREPARATION — background, checks and citations. Not for the night.
+==========================================================================
 
-WHAT TO DO IF IT FAILS
-Nothing. Do not apologise, do not debug, do not explain. Advance. Slides 16 and
-17 are the same session, recorded, and the room cannot tell the difference. The
-only tell would be you announcing it.
+
+THE SCRIPT IN ONE PIECE — for rehearsal. On the night you do not need it: the
+RUNBOOK above carries every line at the point where you say it, which is why
+this sits below the fold and off the presenter view.
 
 TALKING POINTS
 1. Let's delete case Medium and watch what the compiler does
@@ -75,9 +66,19 @@ The switch expression does not cover all possible input values.
 That is the elimination rule from the Gentzen slide, coming out of javac: you may
 not use a disjunction without covering every side of it."
 
-==========================================================================
-PREPARATION — background, checks and citations. Not for the night.
-==========================================================================
+
+WHAT TO DO IF IT FAILS
+Nothing. Do not apologise, do not debug, do not explain. Advance. Slides 16 and
+17 are the same session, recorded, and the room cannot tell the difference. The
+only tell would be you announcing it.
+
+WHY THE NARRATION RULE IS SPLIT
+D-D says »silence during», and that is right about the *result* and wrong about
+the *navigation*. Thirty seconds of a stranger typing in silence is a long time
+in a room, and the audience does not know whether something has gone wrong.
+Narrating where you are — file, line, what you are about to delete — costs them
+nothing to process and keeps them with you. The silence that matters is between
+pressing compile and the error appearing. Do not talk over that.
 
 THE EDIT, EXACTLY
 `03-java-function-types-sealed/Demo.java:123` — delete the whole line:
@@ -121,6 +122,4 @@ CAPTURED OUTPUT — verbatim, `demos/1-exhaustiveness.txt`
 The error points at line 121, the head of the switch, not at the deleted line —
 worth knowing so you are not hunting for 123 on the screen.
 
-IF THE DEMO FAILS
-Say nothing about it. Advance. The next slide is the same error, and the room
-cannot tell the difference.
+(The failure drill is above, under WHAT TO DO IF IT FAILS.)

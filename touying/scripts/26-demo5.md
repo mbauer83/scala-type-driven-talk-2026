@@ -1,27 +1,28 @@
 A5-demo5 · cap 2:10 across three slides · Act 5 beat 2 of 3
 
-TERMINAL — the exact directory, the exact command. Run it once before the act
-so the `build/` directory is warm; from cold it compiles all five modules.
-
-    cd ~/workspace/scala-type-driven-talk/06-idris2-payment
-    idris2 --build payment.ipkg
-
-That is what the recorded fallback frame shows, character for character.
-Measured 1.5s warm — the fastest of the four, not the slowest.
+FILE     06-idris2-payment/src/Main.idr:115
+         in `settleServer`, the refund branch
+DIR      ~/workspace/scala-type-driven-talk/06-idris2-payment
+COMMAND  idris2 --build payment.ipkg
+EDIT     `finish done` -> `pure ()`   REPLACE it; deleting the line gives a
+         syntax complaint instead of the linearity error (see PREPARATION)
+BEFORE   run COMMAND once so `build/` is warm. 1.5s warm — the fastest of the
+         five; from cold it compiles all five modules.
+IF IT FAILS  advance and say nothing about it. The next two slides are the
+             same session, recorded, and the room cannot tell.
 
 RUNBOOK — the three slides, in order, with what you say on each
 
   SLIDE     dark card           »Let's drop the channel without closing it.»
             → STOP TALKING, switch to the editor.
 
-  EDITOR    06-idris2-payment/src/Main.idr  line 115
-            in `settleServer`.  Navigation only:
+  EDITOR    Open FILE. Navigation only:
             »the refund branch … the last thing it does is close the session …»
-            replace `finish done` with `pure ()`
+            make the EDIT
             »… and build.»
-            → TERMINAL: `idris2 --build payment.ipkg`   (↑ Enter)
-            → SILENCE. It rebuilds Main and answers in a second or two if the
-              build directory is warm; do not fill the gap either way.
+            → run COMMAND   (↑ Enter)
+            → SILENCE. A second or two if `build/` is warm; do not fill the gap
+              either way.
 
   SLIDE     recorded, the edit  Advance. »The close is gone.»
 
@@ -29,10 +30,23 @@ RUNBOOK — the three slides, in order, with what you say on each
                                 »There are zero uses of linear name done.»
                                 »Linearly bounded variables must be used exactly
                                  once.»
-                                Beat. Then the two sentences below.
+                                Beat. Then:
+                                »The compiler counted the uses of one variable,
+                                 got zero, and refused to build the program —
+                                 and that is the last of the four accounted
+                                 for.»
 
-  EDITOR    Put `finish done` back. `idris2 --build payment.ipkg` again — it
-            ends on »Now compiling the executable: paymentdemo«. Say nothing.
+  EDITOR    Put `finish done` back. Run COMMAND — it ends on »Now compiling
+            the executable: paymentdemo«. Say nothing.
+
+==========================================================================
+PREPARATION — background, checks and citations. Not for the night.
+==========================================================================
+
+
+THE SCRIPT IN ONE PIECE — for rehearsal. On the night you do not need it: the
+RUNBOOK above carries every line at the point where you say it, which is why
+this sits below the fold and off the presenter view.
 
 TALKING POINTS
 1. Let's drop the channel without closing it
@@ -59,9 +73,6 @@ used exactly once.
 The compiler counted the uses of one variable, got zero, and refused to build
 the program — and that is the last of the four accounted for."
 
-==========================================================================
-PREPARATION — background, checks and citations. Not for the night.
-==========================================================================
 
 THE EDIT, EXACTLY — AND IT IS EXECUTED, NOT DESCRIBED
 `06-idris2-payment/src/Main.idr:115`, in `settleServer`'s refund branch:
