@@ -84,6 +84,33 @@ already carries the callback, the protocol, the match type and Danielle. It is o
 the wall for anyone reading ahead, it is the honest answer to »how do you know
 `Dual` is right«, and Q&A is where it gets explained. Do not start it on stage.
 
+IS THE SCALA SESSION TYPE A PHANTOM TYPE? YES (Q&A — MB, 19 Aug, checked)
+Textbook case. `final class Channel[P <: Protocol]` has exactly three fields —
+`outbox`, `inbox`, `label` — and **none of them mentions `P`**
+(`runtime/Chan.scala:14-17`). `Proto.scala` says so in its own header comment:
+*no values live here; types carry all the information*. `Send`, `Receive`,
+`Choose` and `Offer` are `final class`es that are never instantiated
+(`protocol/Proto.scala:12-15`). So `P` is erased, and every protocol step is
+literally `new Channel[s.Rest](outbox, inbox, label)` — the same two queues,
+re-wrapped with a different phantom parameter.
+
+It is the same *mechanism* as Stage 4's `Payment<Initiated>`, one level up in
+structure: Charlie's markers are atoms, and this phantom parameter is a whole
+tree that `Dual` and `CanSend` compute over. Worth saying if it comes up — it
+makes Stage 4 the thing the room already understood.
+
+**And do not answer that Idris's version is the un-phantom one.** It is not.
+`MkSession : Channel Blob -> Channel Blob -> Session p`
+(`PaymentChannel.idr:66-67`) has two fields, neither mentioning `p`, and
+`openSession _ = …` ignores its `p` argument outright
+(`PaymentChannel.idr:73-78`). Both languages put an erased index over an
+untyped transport. The difference is not runtime presence, it is **which
+language the index is written in and who computes it**: in Scala it is a type,
+assembled by type-level machinery from what is known at compile time; in Idris
+it is a value of an ordinary data type, produced by an ordinary function at
+runtime — `protocolFromSnapshot snapshot n c` — and then appearing in a type.
+That is the thing Scala cannot do, and it is exactly what `A5-mltt` shows.
+
 HOW SESSION TYPES MEET REAL CHANNELS, IN PRACTICE (Q&A — MB, 19 Aug)
 The honest headline: **a session type is a contract, not a wire format.** It
 constrains which operations your program can compile; something else still has

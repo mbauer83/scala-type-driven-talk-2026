@@ -3,7 +3,7 @@ A5-mltt · cap 1:45 · Act 5 beat 1 of 3 · MERGE of v1 28-stage6-bridge + 29-ml
 TALKING POINTS
 1. Two things Scala could not say. Idris 2 says both
 2. START at `data Session : SessionType -> Type` — that line is the trick
-2b. A SessionType is only a DESCRIPTION — a tree. It holds no code
+2b. The VALUE handed in is only a description — a tree. It holds no code
 3. protocolFromSnapshot is an ORDINARY function: snapshot in, a value out
 4. openSession takes that value, calls it p, and p turns up INSIDE the type it
    returns: Session p, and Session (dual p)
@@ -23,9 +23,8 @@ VERBATIM
 
 Start at the top, because that first line is the whole trick. `Session` is a type
 that takes a `SessionType`, so which type you get depends on the value you hand
-it. And a `SessionType` is a description — the same little tree you read off the
-wall in Scala, except that there it was a type, and here it is an ordinary
-value.
+it. And that value is just a description — the same little tree you read off the
+wall in Scala, except that there it was a type and here it is a value.
 
 `protocolFromSnapshot` underneath is an ordinary function: snapshot in, one of
 those descriptions out, and you have written a thousand like it.
@@ -135,10 +134,16 @@ which is exactly what lets an ordinary function compute one.
 
 So it does not move. What was wrong is that it read as a first introduction to
 something the room met several minutes ago. The line now points back — *the same
-little tree you read off the wall in Scala, except that there it was a type, and
-here it is an ordinary value* — which closes the gap and states the act's thesis
-in the same breath. Ten words. **Revertible**: the original was *»a description
-and nothing more — a little tree that says send this, then receive that«*.
+little tree you read off the wall in Scala, except that there it was a type and
+here it is a value* — which closes the gap and states the act's thesis in the
+same breath. **Revertible**: the original was *»a description and nothing more —
+a little tree that says send this, then receive that«*.
+
+AND SAY »THAT VALUE«, NOT »A SessionType IS A VALUE« (MB, 19 Aug)
+A draft of the line above read *a `SessionType` is … an ordinary value*, which is
+a category error and MB caught it. `SessionType` is the data type; a protocol is
+one of its **values**. The sentence now says *that value* — the one just handed
+to `Session` — which is both correct and shorter.
 
 `protocolFromSnapshot` IS NOT A TYPE-LEVEL FUNCTION (MB, 19 Aug — checked)
 The question was whether it returns a *type* or a *value*. It returns a **value**,
