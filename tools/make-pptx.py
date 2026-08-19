@@ -28,6 +28,7 @@ marks that block "not for the night", and PowerPoint's notes pane is small
 enough that it would bury the script under its own commentary.
 """
 import argparse
+import copy
 import json
 import os
 import re
@@ -75,6 +76,53 @@ def render(ppi, outdir):
     )
 
 
+def write_note(text_frame, note):
+    """Lay a note out so it can be read at a glance in a presenter pane.
+
+    `TextFrame.text = ...` starts a new PARAGRAPH at every line feed, and PPTX
+    paragraphs carry no space before or after, so a blank line in the script came
+    out as nothing at all — every line the same distance apart, which is what made
+    the notes unreadable in Impress.
+
+    So: split the note into blocks on blank lines, one paragraph per block, with
+    real space after it. Lines inside a block are line breaks, which keeps the
+    runbook's aligned columns and the FILE / DIR / COMMAND header intact.
+    """
+    from pptx.util import Pt
+    from pptx.oxml.ns import qn
+
+    blocks = [b for b in re.split(r"\n\s*\n", note.strip()) if b.strip()]
+    text_frame.word_wrap = True
+    for n, block in enumerate(blocks):
+        para = text_frame.paragraphs[0] if n == 0 else text_frame.add_paragraph()
+        lines = block.split("\n")
+        # A block whose lines are aligned into columns — the FILE / DIR / COMMAND
+        # header and the runbook table — only reads correctly in a fixed pitch.
+        # Courier New rather than the deck's JetBrains Mono: PPTX cannot carry a
+        # vendored font, and Courier New is present on every machine that opens
+        # this file. Prose keeps the reader's default face.
+        # Column alignment, not merely indentation: a run of three or more
+        # spaces BETWEEN two non-space characters is what padding a column looks
+        # like. A hanging indent under a numbered talking point is not that, and
+        # reads better in the reader's own face.
+        fixed = sum(1 for l in lines if re.search(r"\S {3,}\S", l)) >= 1
+        for m, line in enumerate(lines):
+            run = para.add_run()
+            run.text = line
+            run.font.size = Pt(11 if fixed else 12)
+            if fixed:
+                run.font.name = "Courier New"
+            if m < len(lines) - 1:
+                # a line break inside the paragraph, not a new paragraph
+                br = copy.deepcopy(run._r)
+                br.tag = qn("a:br")
+                for child in list(br):
+                    br.remove(child)
+                run._r.addnext(br)
+        para.space_after = Pt(10)
+        para.line_spacing = 1.15
+
+
 def build(images, notes, output):
     from pptx import Presentation
     from pptx.util import Inches
@@ -89,7 +137,7 @@ def build(images, notes, output):
         slide.shapes.add_picture(image, 0, 0, prs.slide_width, prs.slide_height)
         note = notes[i] if i < len(notes) else ""
         if note:
-            slide.notes_slide.notes_text_frame.text = note
+            write_note(slide.notes_slide.notes_text_frame, note)
 
     prs.save(output)
     return len(images)
