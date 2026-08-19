@@ -29,8 +29,8 @@ make talk-presenter # two-window browser presenter
 make talk-notes     # a PDF with the notes printed under each slide
 ```
 
-Requires `typst` and `touying`; `make talk-pptx` and `make talk-presenter` also
-need Python with `python-pptx` and `Pillow`.
+Requires `typst`. `make talk-pptx` additionally needs Python with the
+dependencies declared in `pyproject.toml` — `pip install .` into a virtualenv.
 
 ## Presenting
 

@@ -1,6 +1,0 @@
-# Python dependencies for the talk's build tooling.
-#
-# tools/make-pptx.py      builds talk.pptx with the speaker notes as real text
-# tools/make-presenter.py builds presenter/ — standard library only
-# tools/make-qr.py        optional, not wired into any make target
-python-pptx==1.0.2

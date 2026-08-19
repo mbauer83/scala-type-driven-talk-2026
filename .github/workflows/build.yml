@@ -22,10 +22,10 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
-          cache-dependency-path: requirements.txt
+          cache-dependency-path: pyproject.toml
 
       - name: Install Python dependencies
-        run: pip install -r requirements.txt
+        run: pip install .
 
       - name: Build the deck and the notes sidecar
         run: make all

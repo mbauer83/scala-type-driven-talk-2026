@@ -1,0 +1,8 @@
+LICENSE
+README.md
+pyproject.toml
+type_driven_talk_tools.egg-info/PKG-INFO
+type_driven_talk_tools.egg-info/SOURCES.txt
+type_driven_talk_tools.egg-info/dependency_links.txt
+type_driven_talk_tools.egg-info/requires.txt
+type_driven_talk_tools.egg-info/top_level.txt

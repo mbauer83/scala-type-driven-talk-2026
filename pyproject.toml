@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "type-driven-talk-tools"
+version = "2.0.0"
+description = "Build tooling for the Type-Driven Programming talk"
+requires-python = ">=3.11"
+
+# tools/make-pptx.py writes the speaker notes into talk.pptx as real text.
+# tools/make-presenter.py and tools/talk-timing.py are standard library only.
+dependencies = [
+    "python-pptx==1.0.2",
+]
+
+[project.optional-dependencies]
+# tools/make-qr.py regenerates touying/assets/repo-qr.svg. The asset is
+# committed, so this is only needed when the repository URL changes.
+qr = ["segno==1.6.6"]
+
+# Nothing here is importable — this file exists to declare the build
+# dependencies in one place and to let pip cache them in CI.
+[tool.setuptools]
+packages = []
