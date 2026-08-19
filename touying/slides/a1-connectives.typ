@@ -37,7 +37,7 @@
 #theory-slide(
   eyebrow: eyebrow([Leibniz · Boole 1847], style: "accent"),
   [Logic becomes algebra],
-    body-gap: sz(18pt),
+    body-gap: sz(80pt),
   [
     #block(width: 100%)[
       #set text(size: sz(24pt), fill: pal.fg-dim)
@@ -52,13 +52,13 @@
     #grid(
       columns: (1.32fr, 1fr),
       column-gutter: sz(36pt),
-      row-gutter: sz(26pt),
+      row-gutter: sz(24pt),
       align: (left + top, left + top),
 
       connective([∨], [+], [a sum], [one of the variants, and the compiler knows which]),
       connective([∧], [×], [a product], [every field, at once]),
 
-      code-pane(filename: "RiskDecision.java", language: "java", code-size: 18pt, pad-y: 6pt)[
+      code-pane(filename: "RiskDecision.java", language: "java", code-size: 16pt, pad-y: 6pt)[
 ```java
 public sealed interface RiskDecision
     permits RiskDecision.Low,
@@ -116,7 +116,7 @@ public sealed interface RiskDecision
         #text(font: mono-font, fill: pal.accent)[6] values: #text(font: mono-font)[3 × 2]
       ],
     )
-            #v(sz(22pt))
+            #v(sz(4pt))
     #line(length: 100%, stroke: 0.5pt + pal.rule)
     #v(sz(10pt))
     #grid(
@@ -139,7 +139,7 @@ public sealed interface RiskDecision
     // The row is centred between the rule above and the progress rail below.
     // The rail is not pinned to the page bottom, so this gap has to be written
     // out; measure it, do not eyeball it.
-    #v(sz(45pt))
+    #v(sz(40pt))
   ],
   footer: act1-rail(lit: ("Leibniz", "Boole")),
 )

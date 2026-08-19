@@ -3,6 +3,7 @@ A3-demo2 · cap 1:35 across four slides · Act 3 beat 7 of 8
 FILE     04-java-advanced-generics-typestate/Demo.java:170
 DIR      ~/workspace/scala-type-driven-talk/04-java-advanced-generics-typestate
 COMMAND  javac -d /tmp/out *.java
+RUN      java -cp /tmp/out Demo        (only if the room asks to see it run)
 EDIT     uncomment `Payment.capture(init);`  — the line marked `← UNCOMMENT`
 BEFORE   a different DIR from Demo 1. Open it and run COMMAND once. 0.6s warm.
 IF IT FAILS  advance and say nothing about it. The next two slides are the

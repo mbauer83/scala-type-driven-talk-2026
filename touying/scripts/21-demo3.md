@@ -4,6 +4,7 @@ FILE     05-scala3-payment/src/main/scala/demos/PaymentDemo.scala:123
          in `serverMediumRisk`
 DIR      ~/workspace/scala-type-driven-talk/05-scala3-payment
 COMMAND  compile     typed at the sbt prompt — NOT `sbt compile` in the shell
+RUN      run         same prompt; mainClass is demos.PaymentDemo
 EDIT     `authorize(order, ThreeDSApproved(proof))`
            -> `authorize(order, AutoApproved)`
 BEFORE   in a terminal, before the act starts:

@@ -4,6 +4,7 @@ FILE     05-scala3-payment/src/main/scala/demos/PaymentDemo.scala:141
          the LAST line of `serverHighRisk`
 DIR      ~/workspace/scala-type-driven-talk/05-scala3-payment
 COMMAND  compile     at the same `sbt:scala3-payment>` prompt as Demo 3
+RUN      run         same prompt; mainClass is demos.PaymentDemo
 EDIT     `ch5.send(captured)`
            -> `val (ack, done)       = ch5.receive()`
               `done`

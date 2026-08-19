@@ -4,7 +4,7 @@
 
 #light-slide(
   eyebrow: eyebrow([Stage 4 · phantom typestate · java]),
-  body-gap: sz(34pt),
+  body-gap: sz(20pt),
   [The check happens once, and the type remembers],
   stack(
     dir: ttb,
@@ -61,11 +61,10 @@
 ```java
 public final class Payment<S extends PaymentState> { ... }
 
-static Payment<Initiated>        initiate(Order order)
-static Payment<Authorized>       authorizeAuto(Payment<Initiated> p)
-static Payment<Captured>         capture(Payment<Authorized> p)
-static Result<Payment<Refunded>, PaymentError>
-                                 refund(Payment<Captured> p, RefundMechanism m)
+static Payment<Initiated>                      initiate(Order order)
+static Payment<Authorized>                     authorizeAuto(Payment<Initiated> p)
+static Payment<Captured>                       capture(Payment<Authorized> p)
+static Result<Payment<Refunded>, PaymentError> refund(Payment<Captured> p, RefundMechanism m)
 ```
       ],
     ),

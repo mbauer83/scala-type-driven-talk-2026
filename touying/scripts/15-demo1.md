@@ -3,6 +3,7 @@ A3-demo1 · cap 1:55 across four slides · Act 3 beat 4 of 8
 FILE     03-java-function-types-sealed/Demo.java:123
 DIR      ~/workspace/scala-type-driven-talk/03-java-function-types-sealed
 COMMAND  javac -d /tmp/out *.java
+RUN      java -cp /tmp/out Demo        (only if the room asks to see it run)
 EDIT     delete the `case RiskDecision.Medium m ->` arm, whole line
 BEFORE   open the terminal in DIR and run COMMAND once. 0.6s warm.
 IF IT FAILS  advance and say nothing about it. The next two slides are the

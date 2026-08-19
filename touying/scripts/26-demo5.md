@@ -4,6 +4,7 @@ FILE     06-idris2-payment/src/Main.idr:115
          in `settleServer`, the refund branch
 DIR      ~/workspace/scala-type-driven-talk/06-idris2-payment
 COMMAND  idris2 --build payment.ipkg
+RUN      ./build/exec/paymentdemo    (the ipkg names the executable)
 EDIT     `finish done` -> `pure ()`   REPLACE it; deleting the line gives a
          syntax complaint instead of the linearity error (see PREPARATION)
 BEFORE   run COMMAND once so `build/` is warm. 1.5s warm — the fastest of the
