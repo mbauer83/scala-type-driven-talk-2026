@@ -5,7 +5,8 @@ TALKING POINTS
 1. Concede it: a test could have caught every one — Alice's did, eventually
 2. But a test is a case someone must think of and keep correct
 3. A type is applied at every use, by the compiler, for free
-4. You have been writing logic all along — every if, every guard
+4. You have been writing logic all along — every if, every guard — and it
+constrains what the program does WHILE IT RUNS. Types do the same one level up
 5. A type is that same job ONE LEVEL UP: about the program itself
 6. You write that kind too — sealed interface = Gentzen 1935; generic = ∀
 7. That question is 2,500 years old — philosophy, logic, maths, your compiler
@@ -25,8 +26,10 @@ That history stretches back about two and a half thousand years, across
 philosophy, logic, mathematics and computer science. It is the thread I want to
 follow tonight.
 
-You have been writing logic all along - every if, every guard. A type does the same
-job one level up, about the program itself.
+You have been writing logic all along - every if, every guard - and all of it
+constrains what the program does while it runs. Types do the same thing one
+level up: they constrain what a program can do at all, and they settle it before
+it runs.
 
 You write that kind too: when you write a sealed interface and the compiler makes
 you handle every case, you are applying a rule that Gerhard Gentzen wrote down in

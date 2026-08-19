@@ -22,17 +22,22 @@
   [
     #v(sz(4pt))
     #align(center)[
-      #block(fill: pal.bg-warm, inset: (x: sz(34pt), y: sz(20pt)), radius: sz(4pt))[
-        #set text(size: sz(27pt), fill: pal.fg-dim)
-        The barber shaves everyone who does not shave themselves.
-        #h(sz(10pt)) #text(fill: pal.bad, weight: 500)[Who shaves the barber?]
-        #v(sz(14pt))
-        #line(length: 100%, stroke: 0.5pt + pal.rule)
-        #v(sz(14pt))
-        #set text(size: sz(29pt), fill: pal.fg)
-        The set of all sets that do not contain themselves.
-        #h(sz(10pt)) #text(fill: pal.bad, weight: 500)[Does it contain itself?]
-      ]
+      // Two boxes, each with symmetric inset. One block with an internal rule
+      // could not centre both lines, because they are different sizes.
+      #stack(
+        dir: ttb,
+        spacing: sz(12pt),
+        block(fill: pal.bg-warm, inset: (x: sz(34pt), y: sz(22pt)), radius: sz(4pt))[
+          #set text(size: sz(27pt), fill: pal.fg-dim)
+          The barber shaves everyone who does not shave themselves.
+          #h(sz(10pt)) #text(fill: pal.bad, weight: 500)[Who shaves the barber?]
+        ],
+        block(fill: pal.bg-warm, inset: (x: sz(34pt), y: sz(22pt)), radius: sz(4pt))[
+          #set text(size: sz(29pt), fill: pal.fg)
+          The set of all sets that do not contain themselves.
+          #h(sz(10pt)) #text(fill: pal.bad, weight: 500)[Does it contain itself?]
+        ],
+      )
     ]
     #v(sz(44pt))
     #align(center)[
@@ -51,8 +56,8 @@
         #set text(size: sz(25pt), fill: pal.fg-dim)
         #set par(leading: 0.45em)
         Give every statement a level, defined by what it talks about: always one
-        above whatever it mentions. The set of all sets would have to sit one
-        level above itself — so there is no legal way to write it.
+        above whatever it mentions. The definition of that set would have to sit
+        one level above itself — so there is no legal way to write it down.
         #v(sz(12pt))
         #text(size: sz(27pt), fill: pal.fg)[He called the levels #text(fill: pal.accent, weight: 600)[types].]
       ],
@@ -67,7 +72,7 @@
         #v(sz(12pt))
         #text(size: sz(25pt), fill: pal.fg)[
           Gödel, 1931: any consistent system big enough
-          for arithmetic gives up #text(weight: 600)[complete].
+          for arithmetic gives up #text(weight: 600)[completeness].
         ]
       ],
     )

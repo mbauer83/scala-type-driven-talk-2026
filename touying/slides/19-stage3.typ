@@ -15,11 +15,11 @@
 
 #light-slide(
   eyebrow: eyebrow([Stage 3 · java 17 · records ⊕ sealed]),
-  body-gap: sz(24pt),
+  body-gap: sz(30pt),
   [Sums of products, in the language],
   stack(
     dir: ttb,
-    spacing: sz(30pt),
+    spacing: sz(44pt),
     grid(
       columns: (1fr, 1.2fr),
       column-gutter: sz(48pt),

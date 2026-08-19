@@ -14,15 +14,15 @@
 
 #light-slide(
   eyebrow: eyebrow([Stage 4 · phantom typestate · java]),
-  body-gap: sz(18pt),
+  body-gap: sz(34pt),
   [The check happens once, and the type remembers],
   stack(
     dir: ttb,
-    spacing: sz(22pt),
+    spacing: sz(40pt),
     grid(
       columns: (1fr, 1.15fr),
       column-gutter: sz(44pt),
-      row-gutter: sz(12pt),
+      row-gutter: sz(20pt),
       align: (left + top, left + top),
 
       text(size: sz(24pt), fill: pal.fg-dim)[

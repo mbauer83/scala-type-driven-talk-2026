@@ -50,8 +50,8 @@
   text(size: sz(38pt), weight: 300, fill: pal.accent)[#sym],
   stack(
     dir: ttb,
-    spacing: sz(8pt),
-    text(size: sz(22pt), fill: pal.fg-dim)[#gloss],
+    spacing: sz(16pt),
+  text(size: sz(22pt), fill: pal.fg-dim)[#gloss],
     body,
   ),
 )
@@ -62,7 +62,7 @@
   [The protocol is the argument],
   stack(
     dir: ttb,
-    spacing: sz(22pt),
+    spacing: sz(38pt),
     row([Π], [a type indexed by a runtime value #h(sz(10pt)) #text(fill: pal.fg-faint)[`L1` / `LPair` are linear plumbing — watch `p` cross from left to right]],
       code-pane(filename: "PaymentRules.idr · PaymentChannel.idr · Main.idr",
                 language: "haskell", code-size: 19pt, pad-y: 12pt,
@@ -87,7 +87,7 @@ openSession : (p : SessionType) -> L1 IO (LPair (Session p) (Session (dual p)))
       align: (left + top, left + top),
       row([Σ], [a value paired with a proof about that value #h(sz(10pt)) #text(fill: pal.fg-faint)[PaymentDomain.idr]],
         block(width: 100%, fill: pal.bg-dark-2, radius: sz(6pt),
-              inset: (x: sz(18pt), y: sz(14pt)))[
+              height: sz(108pt), inset: (x: sz(18pt), y: sz(16pt)))[
           #show raw: set text(font: mono-font, size: sz(18pt), fill: pal.fg-dark)
           #raw(block: true,
             "assessOrder : Order n c\n  -> (lvl : RiskLevel ** Assessment lvl n c)")
@@ -95,7 +95,7 @@ openSession : (p : SessionType) -> L1 IO (LPair (Session p) (Session (dual p)))
       ),
       row([1], [a binding that must be used exactly once #h(sz(10pt)) #text(fill: pal.fg-faint)[PaymentChannel.idr]],
         block(width: 100%, fill: pal.bg-dark-2, radius: sz(6pt),
-              inset: (x: sz(18pt), y: sz(14pt)))[
+              height: sz(108pt), inset: (x: sz(18pt), y: sz(16pt)))[
           #show raw: set text(font: mono-font, size: sz(18pt), fill: pal.fg-dark)
           #raw(block: true,
             "finish : (1 _ : Session End) -> L IO ()")

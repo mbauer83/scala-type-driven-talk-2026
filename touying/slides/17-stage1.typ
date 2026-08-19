@@ -16,7 +16,7 @@
 
 #let gain(n, head, body) = stack(
   dir: ttb,
-  spacing: sz(10pt),
+  spacing: sz(15pt),
   grid(
     columns: (auto, 1fr),
     column-gutter: sz(14pt),
@@ -33,15 +33,15 @@
 
 #light-slide(
   eyebrow: eyebrow([Stages 1 and 2 · java 1–5]),
-  body-gap: sz(24pt),
+  body-gap: sz(30pt),
   [A name is a constraint],
   stack(
     dir: ttb,
-    spacing: sz(26pt),
+    spacing: sz(42pt),
     grid(
       columns: (1fr, 1fr),
       column-gutter: sz(48pt),
-      row-gutter: sz(16pt),
+      row-gutter: sz(26pt),
 
       gain([1], [Nominal types, private constructors],
            [An `Order` is not an `Authorization`, and the compiler knows.

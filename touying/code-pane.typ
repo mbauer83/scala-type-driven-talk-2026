@@ -66,9 +66,11 @@
     ]
 
     // ── Code area ─────────────────────────────────────────────────────────
+        // Asymmetric on purpose: a line box ends tight under its baseline, so an
+    // equal inset leaves the last line looking flush with the bottom edge.
     #block(
       width: 100%,
-      inset: (x: ci-x, y: ci-y),
+      inset: (x: ci-x, top: ci-y, bottom: ci-y * 1.7),
     )[
       #{
         // Dark syntax theme; base text colour for un-highlighted tokens.

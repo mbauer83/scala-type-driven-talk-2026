@@ -22,7 +22,7 @@
   [What to do on Monday],
   stack(
     dir: ttb,
-    spacing: sz(22pt),
+    spacing: sz(40pt),
     [
       #set text(size: sz(26pt), fill: pal.fg)
       Each of these is a change one team makes in one service

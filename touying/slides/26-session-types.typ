@@ -23,11 +23,11 @@
   [Both ends, out of one definition],
   stack(
     dir: ttb,
-    spacing: sz(20pt),
+    spacing: sz(34pt),
     grid(
       columns: (1fr, 1.05fr),
       column-gutter: sz(38pt),
-      row-gutter: sz(14pt),
+      row-gutter: sz(28pt),
       align: (left + top, left + top),
 
       code-pane(filename: "Derivation.scala", language: "scala", code-size: 19pt, pad-y: 12pt)[

@@ -52,18 +52,10 @@
       [All nine. `protocolFromSnapshot` computes type from runtime value. Linearity closes the channel.],
       encoded-active: true,
     ),
-    grid(
-      columns: (1fr, 1fr, 1fr, 1fr),
-      gutter: sz(10pt),
-      block(fill: pal.bg-warm, inset: (x: sz(10pt), y: sz(6pt)), radius: sz(3pt),
-        text(size: sz(20pt), weight: 500, fill: pal.accent)[✓ Alice — boundary]),
-      block(fill: pal.bg-warm, inset: (x: sz(10pt), y: sz(6pt)), radius: sz(3pt),
-        text(size: sz(20pt), weight: 500, fill: pal.accent)[✓ Bob — approval]),
-      block(fill: pal.bg-warm, inset: (x: sz(10pt), y: sz(6pt)), radius: sz(3pt),
-        text(size: sz(20pt), weight: 500, fill: pal.accent)[✓ Charlie — lifecycle]),
-      block(fill: pal.bg-warm, inset: (x: sz(10pt), y: sz(6pt)), radius: sz(3pt),
-        text(size: sz(20pt), weight: 500, fill: pal.accent)[✓ Danielle — protocol]),
-    ),
+        // The four name-chips are removed: they overflowed the slide, and they were
+    // the fifth appearance of the tracking furniture P5 took off every other
+    // payoff. A5-payoff carries the collective view (MB, 19 Aug).
+
   ),
 )
 

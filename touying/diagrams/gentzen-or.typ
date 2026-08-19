@@ -178,10 +178,10 @@
     ],
   )
 
-  #v(10pt)
+    #v(26pt)
 
   #block(
-    inset: (x: 0.8em, y: 0.4em),
+    inset: (x: 0.8em, y: 0.6em),
     stroke: (left: 2pt + accent),
     width: 100%,
   )[

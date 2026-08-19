@@ -12,7 +12,7 @@ TALKING POINTS
 7. — nothing makes you finish the channel
 8.   finish will not let you hang up early; it wants proof the protocol ended
 9.   drop the channel halfway and the compiler has nothing to say
-10. Both were on that same list of four
+10. One wants a type computed from a value; the other wants counting
 11. One needs a type computed from a value; the other needs the compiler to count
 
 VERBATIM
@@ -34,9 +34,8 @@ there is none to be had. Drop the channel halfway down and walk away, though, an
 nothing objects. What is missing is a way to write: this has to
 be used exactly once.
 
-Both of those were on that same list of four. One wants a type computed from a
-value, the other wants the compiler to count, and there is a language that does
-both."
+One of them wants a type computed from a value, the other wants the compiler to
+count — and there is a language that does both."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.

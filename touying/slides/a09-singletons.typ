@@ -8,9 +8,9 @@
   [Singletons — Pretending to Depend on a Value],
   stack(
     dir: ttb,
-    spacing: sz(28pt),
+        spacing: sz(20pt),
     [
-      #set text(size: sz(26pt), fill: pal.fg-dim)
+            #set text(size: sz(23pt), fill: pal.fg-dim)
       #set par(leading: 0.4em)
       A literal singleton type contains exactly #text(weight: 600, fill: pal.fg)[one value].
       That razor-thin type lets a runtime literal flow into a place
@@ -21,7 +21,7 @@
       gutter: sz(36pt),
       align: (left + top, left + top),
       // Left — the singleton example
-      code-pane(filename: "Singletons.scala", language: "scala")[
+      code-pane(filename: "Singletons.scala", language: "scala", code-size: 19pt, pad-y: 12pt)[
 ```scala
 // Literal type — only `1234` has this type
 def openGate(code: 1234.type): OpenGate
@@ -38,11 +38,11 @@ type Pricing[L <: Level] = L match
       // Right — what's actually happening
       stack(
         dir: ttb,
-        spacing: sz(14pt),
-        text(size: sz(22pt), weight: 500, font: mono-font, fill: pal.fg-dim, tracking: 0.05em)[THE BRIDGE],
+                spacing: sz(10pt),
+        text(size: sz(20pt), weight: 500, font: mono-font, fill: pal.fg-dim, tracking: 0.05em)[THE BRIDGE],
         line(length: 100%, stroke: 0.5pt + pal.rule),
         [
-          #set text(size: sz(22pt))
+          #set text(size: sz(20pt))
           #set par(leading: 0.4em)
           Pair a #text(weight: 600)[singleton] (a literal whose only inhabitant is itself) with
           a #text(weight: 600)[match type] (a type-level pattern-matcher) and the literal can
@@ -50,7 +50,7 @@ type Pricing[L <: Level] = L match
         ],
         v(sz(4pt)),
         [
-          #set text(size: sz(22pt), fill: pal.fg-dim)
+          #set text(size: sz(20pt), fill: pal.fg-dim)
           #set par(leading: 0.4em)
           Dependent-type _behaviour_ achieved entirely at compile time. The
           runtime value-space is still untouched — only literals make it across.
@@ -60,7 +60,7 @@ type Pricing[L <: Level] = L match
     callout(
       [Why not climb to the actual summit (CIC / λΠ)?],
       [
-        #set text(size: sz(22pt))
+        #set text(size: sz(20pt))
         Full dependent types erase the compile/runtime boundary — any term can
         appear in a type, so the compiler must EVALUATE arbitrary programs while
         type-checking. That forces #text(weight: 600)[totality checking] — every

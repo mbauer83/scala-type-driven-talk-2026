@@ -576,6 +576,8 @@
 // Closed chips: pal.accent border + "CLOSED ✓" state label.
 // Open chips: pal.rule-strong border + dim state label.
 
+// Rendered only on the dark A5-payoff slide, so the inks are the dark-ground
+// ones. If this is ever reused on a light slide it needs a palette switch.
 #let story-strip(chips) = {
   let chip-card(chip) = {
     let (name, what, state, closed) = chip
@@ -594,14 +596,14 @@
       #stack(
         dir: ttb,
         spacing: 0pt,
-        text(font: mono-font, size: sz(18pt), weight: 500, fill: pal.fg-dim, tracking: 0.04em)[#upper(name)],
-        v(sz(8pt)),
-        {
-          set par(leading: 0.4em)
-          text(size: sz(26pt), weight: 400, fill: pal.fg)[#what]
-        },
+                text(font: mono-font, size: sz(23pt), weight: 600, fill: pal.fg-dark, tracking: 0.04em)[#upper(name)],
         v(sz(10pt)),
-        text(font: mono-font, size: sz(18pt), weight: 500, fill: state-color, tracking: 0.04em)[#state-text],
+        {
+          set par(leading: 0.42em)
+          text(size: sz(25pt), weight: 400, fill: pal.fg-dark-dim)[#what]
+        },
+        v(sz(12pt)),
+        text(font: mono-font, size: sz(19pt), weight: 500, fill: state-color, tracking: 0.04em)[#state-text],
       )
     ]
   }

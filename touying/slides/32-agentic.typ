@@ -26,30 +26,30 @@
 // beside a top-aligned price column throws every row out of register.
 #let cost(stage, price, verdict) = stack(
   dir: ttb,
-  spacing: sz(5pt),
-  text(size: sz(25pt), weight: 600, fill: pal.fg)[#stage],
+  spacing: sz(12pt),
+  text(size: sz(27pt), weight: 600, fill: pal.fg)[#stage],
   block[
-    #set text(size: sz(23pt), fill: pal.fg-dim)
-    #set par(leading: 0.42em)
+    #set text(size: sz(25pt), fill: pal.fg-dim)
+    #set par(leading: 0.48em)
     #price #text(fill: pal.fg)[#verdict]
   ],
 )
 
 #light-slide(
   eyebrow: eyebrow([What it costs · and why the calculation is moving]),
-  body-gap: sz(24pt),
+  body-gap: sz(38pt),
   [What each stage costs to encode],
   stack(
     dir: ttb,
-    spacing: sz(24pt),
+    spacing: sz(40pt),
     grid(
-      columns: (1fr, 1fr),
-      column-gutter: sz(56pt),
+      columns: (1.35fr, 1fr),
+      column-gutter: sz(64pt),
       align: (left + top, left + top),
 
       stack(
         dir: ttb,
-        spacing: sz(20pt),
+        spacing: sz(34pt),
         cost([Stage 3 · sealed ⊕ records],
              [Java 17, no dependency, an afternoon. ],
              [Worth doing regardless.]),
@@ -75,20 +75,7 @@
            the one check at the boundary you would have written by hand anyway.],
           style: "accent",
         ),
-        [
-          #set text(size: sz(24pt), fill: pal.fg)
-          #set par(leading: 0.45em)
-          #text(weight: 600)[Code now arrives faster than anybody can read it.]
-          #text(fill: pal.fg-dim)[ A type system that carries your invariants
-          holds the same floor whoever wrote the line — and the error names the
-          type it wanted, which is something to act on.]
-        ],
-        block(width: 100%, fill: pal.bg-warm, radius: sz(6pt),
-              inset: (x: sz(20pt), y: sz(14pt)))[
-          #set text(size: sz(20pt), font: mono-font, fill: pal.fg-dim)
-          Found:    Approval[LowRisk] \
-          Required: Approval[MediumRisk]
-        ],
+        
       ),
     ),
     line(length: 100%, stroke: 0.5pt + pal.rule),

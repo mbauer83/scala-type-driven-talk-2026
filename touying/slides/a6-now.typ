@@ -20,11 +20,11 @@
 
 #let claim(head, body) = stack(
   dir: ttb,
-  spacing: sz(8pt),
-  text(size: sz(28pt), weight: 600, fill: pal.fg)[#head],
+    spacing: sz(16pt),
+  text(size: sz(33pt), weight: 600, fill: pal.fg)[#head],
   block[
-    #set text(size: sz(24pt), fill: pal.fg-dim)
-    #set par(leading: 0.45em)
+    #set text(size: sz(28pt), fill: pal.fg-dim)
+    #set par(leading: 0.5em)
     #body
   ],
 )
@@ -36,9 +36,12 @@
   stack(
     dir: ttb,
     spacing: sz(30pt),
+        // Two across, then one: three narrow columns made the type small and the
+    // claims cramped, and these are the practical argument (MB, 19 Aug).
     grid(
-      columns: (1fr, 1fr, 1fr),
-      column-gutter: sz(44pt),
+      columns: (1fr, 1fr),
+      column-gutter: sz(72pt),
+      row-gutter: sz(46pt),
       claim([A hard constraint.],
             [It holds on every line, from every author, on every build, and it
              does not care whether a person or a model wrote it. A test only ever
@@ -47,19 +50,23 @@
             [A signature says what a thing is for, in a form a model can read,
              and it cannot drift away from the code, because it is checked every
              time. The comment above it can.]),
-      stack(
-        dir: ttb,
-        spacing: sz(16pt),
-        claim([A loop measured in seconds, answering by name.],
-              [The error says which type it wanted and where — precise enough for
-               a model to act on. A red test says only that something is wrong.]),
-        block(width: 100%, fill: pal.bg-warm, radius: sz(6pt),
-              inset: (x: sz(20pt), y: sz(14pt)))[
-          #set text(size: sz(20pt), font: mono-font, fill: pal.fg-dim)
-          Found:    Approval[LowRisk] \
-          Required: Approval[MediumRisk]
-        ],
-      ),
+            grid.cell(colspan: 2)[
+        #grid(
+          columns: (1fr, auto),
+          column-gutter: sz(60pt),
+          align: (left + horizon, left + horizon),
+          claim([A loop measured in seconds, answering by name.],
+                [The error says which type it wanted and where — precise enough
+                 for a model to act on. A red test says only that something is
+                 wrong.]),
+          block(fill: pal.bg-warm, radius: sz(6pt),
+                inset: (x: sz(24pt), y: sz(18pt)))[
+            #set text(size: sz(23pt), font: mono-font, fill: pal.fg-dim)
+            Found:    Approval[LowRisk] \
+            Required: Approval[MediumRisk]
+          ],
+        )
+      ],
     ),
   ),
 )

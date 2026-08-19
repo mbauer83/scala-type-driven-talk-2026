@@ -20,8 +20,10 @@
   [
     #v(sz(6pt))
     #grid(
-      columns: (sz(560pt), 1fr),
-      column-gutter: sz(52pt),
+      // Equal halves either side of the centre line: the right block used to
+      // begin 236px before centre, which read as lopsided (MB, 19 Aug).
+      columns: (1fr, sz(800pt)),
+      column-gutter: sz(96pt),
       align: (left + top, left + top),
 
       // ── left: the correspondence itself

@@ -88,15 +88,18 @@
 ]
 
 
+// Larger since the repeated flow diagram came off the slide: these four are
+// the content, not a caption under a picture.
 #let buys(head, body) = grid(
-  columns: (sz(30pt), 1fr),
-  column-gutter: sz(14pt),
+  columns: (sz(36pt), 1fr),
+  column-gutter: sz(16pt),
   align: (left + top, left + top),
-  text(size: sz(24pt), fill: pal.accent)[→],
+    text(size: sz(32pt), fill: pal.accent)[→],
   block[
-    #set text(size: sz(24pt), fill: pal.fg)
-    #set par(leading: 0.45em)
-    #text(weight: 600)[#head] #h(sz(4pt)) #text(fill: pal.fg-dim)[#body]
+    #set text(size: sz(32pt), fill: pal.fg)
+    #set par(leading: 0.5em)
+    #text(weight: 600)[#head] #h(sz(6pt))
+    #text(fill: pal.fg-dim, size: sz(30pt))[#body]
   ],
 )
 
@@ -125,21 +128,23 @@
         )
       ]
     ],
-    payment-process,
-    grid(
-      columns: (1fr, 1fr),
-      column-gutter: sz(52pt),
-      row-gutter: sz(18pt),
+    
+    // One column, not two: with the flow diagram gone these four ARE the slide,
+    // and a 2x2 left half of it empty.
+    block(width: sz(1500pt))[
+    #grid(
+      columns: (1fr),
+      row-gutter: sz(40pt),
       buys([Every use, not every call you remembered.],
            [The rule is applied where it is used, by the compiler.]),
       buys([The failure moves to compile time.],
            [Seconds after you typed it, not hours after you shipped it.]),
-      buys([The signal arrives at the definition.],
-           [Clear, small, and where the rule lives — not a stack trace three
+      buys([The error points where the rule lives.],
+           [Clear, small, and at the definition — not a stack trace three
             services away at 2 a.m.]),
       buys([The defensive tests go.],
            [The ones that only ask _did somebody remember_. Behavioural tests stay.]),
-    ),
+    )],
   ),
 )
 

@@ -70,9 +70,9 @@
         #set text(size: sz(23pt), fill: pal.fg-dim)
         #set par(leading: 0.45em)
         #set text(size: sz(23pt), fill: pal.fg-dim)
-        Read it left to right: #emph[max has this type — for every T, provided T
-        can be compared]. The double arrow is the #text(font: mono-font)[if], the
-        same shape as _all medium-risk orders need 3DS_ two slides ago.
+        Read it left to right: #emph[for any type T, provided T can be compared, take
+two Ts and give back a T]. The double arrow is the #text(font: mono-font)[if] —
+the same shape as _all medium-risk orders need 3DS_, two slides ago.
       ],
       stack(
         dir: ttb,

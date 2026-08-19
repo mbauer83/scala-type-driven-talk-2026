@@ -21,7 +21,7 @@
 
 #let limit(head, body) = stack(
   dir: ttb,
-  spacing: sz(8pt),
+  spacing: sz(14pt),
   text(size: sz(25pt), weight: 600, fill: pal.fg)[#head],
   block[
     #set text(size: sz(23pt), fill: pal.fg-dim)
@@ -32,11 +32,11 @@
 
 #light-slide(
   eyebrow: eyebrow([Stage 4 payoff · and the Java ceiling]),
-  body-gap: sz(22pt),
+  body-gap: sz(30pt),
   [Charlie's bug is now a compile error, too],
   stack(
     dir: ttb,
-    spacing: sz(30pt),
+    spacing: sz(44pt),
     block(width: 100%, fill: pal.good-bg, inset: (x: sz(26pt), y: sz(18pt)), radius: sz(4pt))[
       #set text(size: sz(26pt), fill: pal.fg)
       Two of the four incidents are gone, and neither of them by a test. Bob's

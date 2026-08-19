@@ -28,28 +28,28 @@
 
 #let limit(head, body) = stack(
   dir: ttb,
-  spacing: sz(8pt),
-  text(size: sz(25pt), weight: 600, fill: pal.fg)[#head],
+  spacing: sz(16pt),
+  text(size: sz(27pt), weight: 600, fill: pal.fg)[#head],
   block[
-    #set text(size: sz(23pt), fill: pal.fg-dim)
-    #set par(leading: 0.45em)
+    #set text(size: sz(25pt), fill: pal.fg-dim)
+    #set par(leading: 0.52em)
     #body
   ],
 )
 
 #light-slide(
   eyebrow: eyebrow([Stage 5 payoff · and the Scala 3 ceiling]),
-  body-gap: sz(24pt),
+  body-gap: sz(32pt),
   [Danielle's bug is a compile error now],
   stack(
     dir: ttb,
-    spacing: sz(30pt),
+        spacing: sz(54pt),
     block(width: 100%, fill: pal.good-bg, inset: (x: sz(26pt), y: sz(18pt)), radius: sz(4pt))[
       #set text(size: sz(26pt), fill: pal.fg)
       Two services that were each correct against their own contract now have a
-      #text(weight: 500)[third thing] to be correct against — and so did the
-      demo's mistake, the medium case with an automatic approval inside it,
-      because the approval carries its risk level in its type.
+      #text(weight: 500)[third thing] to be correct against. And the demo's
+      mistake went with it: the approval carries its risk level in its type, so
+      the medium case cannot take an automatic one.
     ],
     line(length: 100%, stroke: 0.5pt + pal.rule),
     [
@@ -73,8 +73,8 @@
     ),
     align(center)[
       #set text(size: sz(24pt), fill: pal.fg-dim)
-      Both were on that same list of four. One wants a type computed from a
-      value; the other wants the compiler to count.
+      One of them wants a type computed from a value. The other wants the
+      compiler to count.
     ],
   ),
 )

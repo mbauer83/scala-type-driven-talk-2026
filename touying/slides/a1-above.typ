@@ -57,8 +57,8 @@
     #v(sz(50pt))
     #align(center)[
       #set text(size: sz(27pt), fill: pal.fg)
-      You will walk out knowing #text(fill: pal.accent, weight: 500)[what each one buys],
-      having watched all four run on the payment flow.
+      All four of these run on the payment flow #text(fill: pal.accent, weight:
+500)[before the end].
     ]
   ],
   footer: act1-rail(lit: ("Martin-Löf",)),

@@ -31,12 +31,12 @@
 #theory-slide(
   eyebrow: eyebrow([Hilbert's three, about your compiler], style: "normal"),
   [What a type checker actually promises],
-  body-gap: sz(30pt),
+  body-gap: sz(44pt),
   [
     #grid(
       columns: (sz(230pt), sz(470pt), 1fr),
       column-gutter: sz(36pt),
-      row-gutter: sz(16pt),
+      row-gutter: sz(26pt),
       align: (left + top, left + top, left + top),
       stroke: (x, y) => if y == 0 { (bottom: 0.5pt + pal.rule-strong) } else { none },
       inset: (bottom: sz(9pt)),
@@ -57,7 +57,7 @@
     #grid(
       columns: (1fr, 1fr),
       column-gutter: sz(40pt),
-      row-gutter: sz(12pt),
+      row-gutter: sz(22pt),
       align: (left + top, left + top),
 
       text(size: sz(23pt), fill: pal.fg-dim)[

@@ -17,8 +17,8 @@
 
 #let mech(name, code, body) = stack(
   dir: ttb,
-  spacing: sz(6pt),
-  text(size: sz(26pt), weight: 600, fill: pal.fg)[#name],
+  spacing: sz(11pt),
+  text(size: sz(27pt), weight: 600, fill: pal.fg)[#name],
   block[
     #show raw: set text(font: mono-font, size: sz(22pt), fill: pal.accent-deep)
     #code
@@ -32,7 +32,7 @@
 
 #light-slide(
   eyebrow: eyebrow([Stage 5 · the mechanisms, and the family next door]),
-  body-gap: sz(24pt),
+  body-gap: sz(36pt),
   [What else a type can carry],
   grid(
     columns: (1fr, 0.95fr),
@@ -41,7 +41,7 @@
 
     stack(
       dir: ttb,
-      spacing: sz(24pt),
+      spacing: sz(34pt),
       mech([Refined types], `String :| MinLength[1]`,
            [The predicate is part of the type. A macro decides it for a literal;
             a smart constructor decides it for everything else.]),
@@ -59,7 +59,7 @@
 
     stack(
       dir: ttb,
-      spacing: sz(20pt),
+            spacing: sz(32pt),
       [
         #set text(size: sz(25pt), fill: pal.fg)
         #set par(leading: 0.45em)
@@ -71,7 +71,7 @@
         [In production today · ZIO],
         stack(
           dir: ttb,
-          spacing: sz(10pt),
+                    spacing: sz(14pt),
           text(font: mono-font, size: sz(20pt), fill: pal.fg)[
             def loadUser(id: UserId): ZIO\[Database, DbError, User\]
           ],
@@ -88,7 +88,7 @@
         [Experimental · Scala 3 capture checking],
         stack(
           dir: ttb,
-          spacing: sz(10pt),
+                    spacing: sz(14pt),
           text(font: mono-font, size: sz(20pt), fill: pal.fg)[
             val loadUser: UserId -\>\{db, canThrow\} User
           ],

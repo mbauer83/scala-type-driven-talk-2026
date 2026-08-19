@@ -27,7 +27,7 @@
       #{
         set text(size: sz(72pt), weight: 300, fill: pal.fg-dark)
         set par(leading: 0.55em, justify: false)
-        [All four incidents are now]
+        [All four bugs are now]
         linebreak()
         [programs that cannot be written down.]
         linebreak()
@@ -37,10 +37,10 @@
     ]
     #v(sz(64pt))
     #story-strip((
-      (name: "Alice",    what: [Empty OrderId slips through the boundary],           state: "open", closed: true),
-      (name: "Bob",      what: [Medium-risk branch forgotten — wrong approval path],  state: "open", closed: true),
-      (name: "Charlie",  what: [Capture before authorize — lifecycle violated],       state: "open", closed: true),
-      (name: "Danielle", what: [Client / server protocol drift at deployment],        state: "open", closed: true),
+      (name: "Alice",    what: [CSV amounts summed as strings — a twelve-digit total], state: "open", closed: true),
+      (name: "Bob",      what: [Medium-risk branch forgotten — 3-D Secure skipped],   state: "open", closed: true),
+      (name: "Charlie",  what: [A refund executed without checking its state],        state: "open", closed: true),
+      (name: "Danielle", what: [Client and server drifted apart on the protocol],     state: "open", closed: true),
     ))
     #v(1fr)
   ]

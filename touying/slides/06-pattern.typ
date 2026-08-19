@@ -27,9 +27,10 @@
       #set text(size: sz(30pt), weight: 300, fill: pal.fg)
       #set par(leading: 0.62em, justify: false)
       #block(width: sz(1240pt))[
-        You have been writing logic all along — every `if`, every guard.\
-        A type does that same job #text(fill: pal.accent)[one level up]: about what
-        the program may do at all, settled before it runs.
+        You have been writing logic all along — every `if`, every guard — and all of it
+constrains what the program does #text(fill: pal.accent)[while it runs].\ Types
+do the same thing #text(fill: pal.accent)[one level up]: they constrain what a
+program can do at all,\ and they settle it before it runs.
       ]
     ]
     #v(sz(60pt))
