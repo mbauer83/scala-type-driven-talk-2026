@@ -14,7 +14,7 @@ TALKING POINTS
 VERBATIM
 
 "Alice's service had no types at all: twelve plus thirty-four, as strings, is
-twelve-thirty-four, and nothing anywhere complains. That is where we start.
+twelve-thirty-four, and nothing anywhere complains.
 
 Our payment-flow still carries the rest of the talk. What changes at each stage 
 is how much of it the compiler enforces — and each time we move a

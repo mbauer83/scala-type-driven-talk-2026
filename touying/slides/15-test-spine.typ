@@ -100,7 +100,7 @@
   [What encoding a rule in the type system buys],
   stack(
     dir: ttb,
-    spacing: sz(30pt),
+    spacing: sz(58pt),
     // The floor we start from — Alice's language had nothing to check.
     align(center)[
       #block(width: 100%, fill: pal.bg-warm, inset: (x: sz(28pt), y: sz(16pt)), radius: sz(4pt))[
@@ -114,7 +114,7 @@
             Alice's service had no types at all —
             #text(font: mono-font, fill: pal.fg)["12" + "34"] is
             #text(font: mono-font, fill: pal.fg)["1234"], and nothing complains.
-            Everything from here is bought back from that.
+            That is where we start.
           ],
         )
       ]
@@ -125,7 +125,7 @@
     block(width: sz(1500pt))[
     #grid(
       columns: (1fr),
-      row-gutter: sz(40pt),
+      row-gutter: sz(88pt),
       buys([Every use, not every call you remembered.],
            [The rule is applied where it is used, by the compiler.]),
       buys([The failure moves to compile time.],

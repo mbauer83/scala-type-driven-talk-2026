@@ -51,10 +51,14 @@
       align: (left + top, left + top),
 
       text(size: sz(23pt), fill: pal.fg-dim)[
-        a switch #text(weight: 600, fill: pal.bad)[statement] — exhaustive, safe, rejected
+        `Colour` has three values and no others. A switch
+        #text(weight: 600, fill: pal.bad)[statement] covering all three:
+        exhaustive, safe, rejected.
       ],
       text(size: sz(23pt), fill: pal.fg-dim)[
-        the same three cases as a switch #text(weight: 600, fill: pal.good)[expression]
+        The same three cases as a switch
+        #text(weight: 600, fill: pal.good)[expression] — and the compiler now
+        uses the fact that three is all of them.
       ],
 
       code-pane(filename: "Colour.java", language: "java", code-size: 18pt, pad-y: 10pt)[

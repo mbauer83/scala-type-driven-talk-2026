@@ -1,10 +1,11 @@
-A2-promises · cap 1:16 · Act 2 beat 2 of 2 · VERBATIM
+A2-promises · cap 1:25 · Act 2 beat 2 of 2 · VERBATIM
 
 TALKING POINTS
 1. Hilbert wanted three things — ask the same three of your compiler
 2. Consistent — no well-typed program produces a value of an impossible type
 3. Sound — if it compiles the property holds, as far as the hatches let it
 4. Complete — every safe program accepted. Given up, on purpose
+4b. Colour is an enum of exactly three values — RED, GREEN, BLUE, and no fourth
 5. Left: a switch STATEMENT, every case returns. javac: missing return statement
 6. Exhaustive, safe, rejected — the approximation, in their own language
 7. Right: the same three cases as a switch EXPRESSION. Java 14. It compiles
@@ -24,14 +25,15 @@ far as the escape hatches allow, and `null` is the big one.
 Completeness - means every safe program gets accepted. That is the one we gave up, on
 purpose.
 
-Here is where you feel it. On the left, a switch statement over three colours,
-every case returning, and javac says: missing return statement.
+Here is where you feel it. `Colour` is an enum of exactly three values. On the
+left, a switch covering all three, every case returning, and javac says: missing
+return statement.
 Exhaustive, safe, rejected — because a check that has to terminate has to
 approximate, and it approximates on the side that says no.
 
 On the right, the same three cases as a switch expression, which Java fourteen
 gave exhaustiveness checking. Identical logic, and it compiles. Java moved what
-it can safely conclude from the types - which is exactly what this talk is about."
+it can safely conclude from the types, which is exactly what this talk is about."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.

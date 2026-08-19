@@ -57,6 +57,7 @@
              side's protocol needs types computed from types, and Java has no
              such thing. #text(fill: pal.accent)[Stage 5, and 6.]]),
     ),
+    v(sz(120pt)),
     align(center)[
       #set text(size: sz(24pt), fill: pal.fg-dim)
       You can go a long way in Java. What comes next is a language where all

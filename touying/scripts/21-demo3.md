@@ -1,4 +1,4 @@
-A4-demo3 · cap 1:55 across three slides · Act 4 beat 2 of 6
+A4-demo3 · cap 1:45 across three slides · Act 4 beat 2 of 6
 
 FILE     05-scala3-payment/src/main/scala/demos/PaymentDemo.scala:123
          in `serverMediumRisk`

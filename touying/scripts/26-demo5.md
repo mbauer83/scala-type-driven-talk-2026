@@ -1,4 +1,4 @@
-A5-demo5 · cap 2:10 across three slides · Act 5 beat 2 of 3
+A5-demo5 · cap 2:05 across three slides · Act 5 beat 2 of 3
 
 FILE     06-idris2-payment/src/Main.idr:115
          in `settleServer`, the refund branch

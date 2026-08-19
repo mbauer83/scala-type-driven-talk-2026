@@ -56,6 +56,7 @@
              channel halfway] and walk away, and nothing objects. What is
              missing is a way to write #emph[used exactly once].]),
     ),
+    v(sz(120pt)),
     align(center)[
       #set text(size: sz(24pt), fill: pal.fg-dim)
       One of them wants a type computed from a value. The other wants the

@@ -50,7 +50,7 @@ a1-above	1:20	prose
 # no referent. Defining them costs words. The 0:11 comes from ONE named slide
 # that measured under after its own rework, A6-monday (where-to-start), which
 # lost the gradual-typing frame the same day. Net zero; nothing else is shaved.
-a2-promises	1:16	prose
+a2-promises	1:25	prose
 #
 # a2-values is cut: "doesn't really make a coherent or important
 # enough point, and doesn't fit in well". Its two load-bearing facts are
@@ -96,7 +96,7 @@ a3-demo2	1:35	demo
 # in their first clause, and both slides carry a filled language chip where the
 # grey eyebrow used to be. Zero slides, zero seconds.
 25-stage5	1:20	prose
-a4-demo3	1:55	demo
+a4-demo3	1:45	demo
 26-session-types	1:45	prose   # protocol type, Dual, and the two channel
 #                       operations whose evidence Demo 4's error is about
 a4-demo4	1:35	demo    # A4-demo4 — Danielle is the one incident
@@ -117,7 +117,7 @@ stage5-mechanisms	2:05	prose   # 1:20 -> 1:50: the higher-kinded
 #                       sentence became precise about type-vs-value, which is the
 #                       one beat where the shorthand costs something, and picked
 #                       up the phantom-type callback to Stage 4.
-a5-demo5	2:10	demo    # A5-demo5
+a5-demo5	2:05	demo    # A5-demo5
 30-stage6-payoff	0:50	prose   # A5-payoff
 
 # ── Act 6 · Close — 3:30 ─────────────────────────────────────────────────

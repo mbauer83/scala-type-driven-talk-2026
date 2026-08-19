@@ -81,11 +81,16 @@ the same shape as _all medium-risk orders need 3DS_, two slides ago.
       ),
     )
     #v(sz(64pt))
-    #align(right)[
-            #text(size: sz(24pt), fill: pal.fg-dim)[
-        #text(font: mono-font)[∃] — the other quantifier. Java's wildcards
-        (`List<?>`) are a restricted form of it; the strong version — a value
-        handed to you together with evidence about it — we come back to.
+    #align(center)[
+      #block(width: 100%)[
+        #set text(size: sz(23pt), fill: pal.fg-dim)
+        #set par(leading: 0.55em, justify: false)
+        #align(center)[
+          #text(font: mono-font)[∃] — the other quantifier. Java's wildcards
+          (`List<?>`) are a restricted form of it; the strong version is a value
+          handed to you with evidence about it. \
+          (We'll get back to that.)
+        ]
       ]
     ]
   ],

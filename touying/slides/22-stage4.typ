@@ -54,8 +54,10 @@
         #text(fill: pal.fg-dim)[ You cannot refund what was never captured, or
         capture what was never authorized. `Payment.java`, bodies elided.]
       ],
-      code-pane(filename: "Payment.java", language: "java", code-size: 17pt, pad-y: 12pt,
-                highlights: ((5, "hl-good"),))[
+      // No highlight: green reads as "this is the fix", and capture is not the
+      // fix — it is the line Demo 2 is about to break. Let the room find it when
+      // the error names it.
+      code-pane(filename: "Payment.java", language: "java", code-size: 17pt, pad-y: 12pt)[
 ```java
 public final class Payment<S extends PaymentState> { ... }
 

@@ -37,7 +37,7 @@
 #theory-slide(
   eyebrow: eyebrow([Leibniz · Boole 1847], style: "accent"),
   [Logic becomes algebra],
-    body-gap: sz(24pt),
+    body-gap: sz(18pt),
   [
     #block(width: 100%)[
       #set text(size: sz(24pt), fill: pal.fg-dim)
@@ -48,11 +48,11 @@
       for that. You know both already, as `||` and `&&` over booleans. Here they
       are over #text(fill: pal.fg, weight: 500)[types].
     ]
-        #v(sz(10pt))
+        #v(sz(2pt))
     #grid(
       columns: (1.32fr, 1fr),
       column-gutter: sz(36pt),
-      row-gutter: sz(22pt),
+      row-gutter: sz(10pt),
       align: (left + top, left + top),
 
       connective([∨], [+], [a sum], [one of the variants, and the compiler knows which]),
@@ -118,7 +118,7 @@ public sealed interface RiskDecision
     )
             #v(sz(22pt))
     #line(length: 100%, stroke: 0.5pt + pal.rule)
-    #v(sz(30pt))
+    #v(sz(10pt))
     #grid(
       columns: (auto, 1fr),
       column-gutter: sz(40pt),
@@ -136,6 +136,10 @@ public sealed interface RiskDecision
         A sum whose variants are products. Most domain models are this shape.
       ],
     )
+    // The row is centred between the rule above and the progress rail below.
+    // The rail is not pinned to the page bottom, so this gap has to be written
+    // out; measure it, do not eyeball it.
+    #v(sz(45pt))
   ],
   footer: act1-rail(lit: ("Leibniz", "Boole")),
 )

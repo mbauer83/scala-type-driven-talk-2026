@@ -15,20 +15,27 @@
   [
     #v(sz(4pt))
     #align(center)[
-      // Two boxes, each with symmetric inset. One block with an internal rule
-      // could not centre both lines, because they are different sizes.
+      // Two boxes of equal width, so the intuitive form and the set-theoretic
+      // one read as the same statement twice rather than as two sizes of claim.
+      // The width is fixed rather than shrink-to-fit; each line is centred in it.
       #stack(
         dir: ttb,
         spacing: sz(12pt),
-        block(fill: pal.bg-warm, inset: (x: sz(34pt), y: sz(22pt)), radius: sz(4pt))[
+        block(width: sz(1120pt), fill: pal.bg-warm,
+              inset: (x: sz(34pt), y: sz(22pt)), radius: sz(4pt))[
           #set text(size: sz(27pt), fill: pal.fg-dim)
-          The barber shaves everyone who does not shave themselves.
-          #h(sz(10pt)) #text(fill: pal.bad, weight: 500)[Who shaves the barber?]
+          #align(center)[
+            The barber shaves everyone who does not shave themselves.
+            #h(sz(10pt)) #text(fill: pal.bad, weight: 500)[Who shaves the barber?]
+          ]
         ],
-        block(fill: pal.bg-warm, inset: (x: sz(34pt), y: sz(22pt)), radius: sz(4pt))[
+        block(width: sz(1120pt), fill: pal.bg-warm,
+              inset: (x: sz(34pt), y: sz(22pt)), radius: sz(4pt))[
           #set text(size: sz(29pt), fill: pal.fg)
-          The set of all sets that do not contain themselves.
-          #h(sz(10pt)) #text(fill: pal.bad, weight: 500)[Does it contain itself?]
+          #align(center)[
+            The set of all sets that do not contain themselves.
+            #h(sz(10pt)) #text(fill: pal.bad, weight: 500)[Does it contain itself?]
+          ]
         ],
       )
     ]
