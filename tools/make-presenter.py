@@ -101,6 +101,12 @@ TEMPLATE = r"""<!doctype html>
   #elapsed.over { color:#e08a4a; }
   kbd { background:#1b2030; border:1px solid #2e3547; border-radius:3px;
         padding:0 .3rem; font-size:.85em; }
+  #fallback { position:fixed; inset:auto 1rem 1rem 1rem; max-width:60rem; margin:0 auto;
+              padding:1rem 1.2rem; background:#2a1d16; border:1px solid #7a4a24;
+              border-radius:8px; color:#f0e6dc; font-size:1rem; z-index:9; }
+  #fallback p { margin:0 0 .5rem; }
+  #fallback a { color:#e08a4a; word-break:break-all; }
+  #fallback button { margin-top:.6rem; }
 </style>
 
 <div id="stage"><img id="slide" alt=""></div>
@@ -150,7 +156,9 @@ addEventListener('message', e => {
   const m = e.data;
   if (!m || typeof m !== 'object') return;
   if (m.type === 'goto')  render(m.i);
-  if (m.type === 'hello') { if (!isConsole) { peer = e.source; send({type:'goto', i: idx}); } }
+  if (m.type === 'hello') { if (!isConsole) { helloSeen = true; peer = e.source;
+        const f = document.getElementById('fallback'); if (f) f.remove();
+        send({type:'goto', i: idx}); } }
   if (m.type === 'timer') started = m.started;
 });
 
@@ -180,11 +188,45 @@ function go(i) {
   if (!started) { started = Date.now(); send({type:'timer', started}); }
 }
 
+/* Build the console URL from location.href, never from location.pathname.
+   pathname drops the host and mangles drive letters, so on Windows — and
+   especially when the folder is opened across \\wsl.localhost\... — the popup
+   loaded nothing and painted an empty window. href is always absolute. */
+function consoleURL() {
+  const u = new URL(location.href);
+  u.search = '?view=console';
+  u.hash = '';
+  return u.href;
+}
+
+let helloSeen = false;
 function openConsole() {
   // Must be called from a key/click handler or popup blockers eat it.
-  peer = window.open(location.pathname + '?view=console', 'presenter',
-                     'width=1200,height=800');
-  if (!peer) alert('The presenter window was blocked. Allow pop-ups for this page and press P again.');
+  peer = window.open(consoleURL(), 'presenter', 'width=1200,height=800');
+  if (!peer) { showFallback('The presenter window was blocked. Allow pop-ups for this page, then press P again.'); return; }
+  // If it never reports in, say so and offer the link rather than leaving a
+  // blank window on the second screen with no explanation.
+  helloSeen = false;
+  setTimeout(() => { if (!helloSeen) showFallback('The presenter window did not load. Open this address in a second window:'); }, 2500);
+}
+
+function showFallback(msg) {
+  let el = document.getElementById('fallback');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'fallback';
+    document.body.appendChild(el);
+  }
+  el.innerHTML = '';
+  const p = document.createElement('p');
+  p.textContent = msg;
+  const a = document.createElement('a');
+  a.href = consoleURL(); a.target = '_blank'; a.rel = 'noopener';
+  a.textContent = consoleURL();
+  const b = document.createElement('button');
+  b.textContent = 'dismiss';
+  b.onclick = () => el.remove();
+  el.append(p, a, document.createElement('br'), b);
 }
 
 function toggleFullscreen() {
