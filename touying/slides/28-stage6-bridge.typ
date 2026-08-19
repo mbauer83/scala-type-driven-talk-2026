@@ -66,15 +66,16 @@
     row([Π], [a type indexed by a runtime value #h(sz(10pt)) #text(fill: pal.fg-faint)[`L1` / `LPair` are linear plumbing — watch `p` cross from left to right]],
       code-pane(filename: "PaymentRules.idr · PaymentChannel.idr · Main.idr",
                 language: "haskell", code-size: 19pt, pad-y: 12pt,
-                highlights: ((5, "hl-good"), (8, "hl-good")))[
+                highlights: ((1, "hl-good"), (6, "hl-good")))[
 ```haskell
-protocolFromSnapshot : (snap : RiskSnapshot)
-                    -> (n : Nat) -> (c : Currency)
-                    -> SessionType
+data Session : SessionType -> Type      -- a TYPE, indexed by a VALUE
+
+protocolFromSnapshot : (snap : RiskSnapshot) -> (n : Nat) -> (c : Currency)
+                    -> SessionType      -- an ordinary function, ordinary value
 
 openSession : (p : SessionType) -> L1 IO (LPair (Session p) (Session (dual p)))
 
--- and at the call site, one expression:
+-- one expression, at the call site:
 (clientEnd # serverEnd) <- openSession (protocolFromSnapshot snapshot n c)
 ```
       ],

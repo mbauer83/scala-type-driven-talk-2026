@@ -6,7 +6,8 @@ RUNBOOK — the four slides, in order, with what you say on each
                                 authorized.»
             → STOP TALKING, switch to the IDE.
 
-  IDE       Demo.java, line 170.  Navigation only:
+  IDE       04-java-advanced-generics-typestate/Demo.java  line 170
+            Navigation only:
             »line one seventy … the line that is commented out …»
             uncomment it
             »… and compile.»

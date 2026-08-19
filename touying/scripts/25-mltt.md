@@ -2,14 +2,14 @@ A5-mltt · cap 1:45 · Act 5 beat 1 of 3 · MERGE of v1 28-stage6-bridge + 29-ml
 
 TALKING POINTS
 1. Two things Scala could not say. Idris 2 says both
-2. protocolFromSnapshot returns a SessionType. An ordinary function so far —
-   concede that, it is the setup
-3. openSession takes that value, calls it p, and p turns up INSIDE the type it
+2. START at `data Session : SessionType -> Type` — that line is the trick
+2b. A SessionType is only a DESCRIPTION — a tree. It holds no code
+3. protocolFromSnapshot is an ORDINARY function: snapshot in, a value out
+4. openSession takes that value, calls it p, and p turns up INSIDE the type it
    returns: Session p, and Session (dual p)
-4. Ignore L1 and LPair — linear plumbing. Value in on the left, in the type
+5. Ignore L1 and LPair — linear plumbing. Value in on the left, in the type
    on the right
-5. That is a type indexed by a runtime value, the first of the four rows
-6. Which is why there is no menu: the protocol IS the argument
+6. A type indexed by a runtime value. No hardcoded list of protocol variants
 7. Second row — a value paired with a proof about it. assessOrder returns the
    level, and an assessment whose type mentions that level
 8. The answer and the evidence, travelling together
@@ -21,29 +21,31 @@ VERBATIM
 
 "Two things Scala could not say, and Idris 2 says both.
 
-Here is the first. `protocolFromSnapshot` takes the risk snapshot and returns a
-`SessionType` — an ordinary function returning an ordinary value, and you have
-written a thousand of those.
+Start at the top, because that first line is the whole trick. `Session` is a type
+that takes a `SessionType`, so which type you get depends on the value you hand
+it. and a `SessionType` is a description and nothing more — a little tree that says
+send this, then receive that.
 
-Now look at the line under it. `openSession` takes that value and calls it `p` —
-and then `p`, the value, turns up inside the type it hands back: one channel at
-`Session p`, the other at `Session` of `dual p`. Ignore the `L1` and the `LPair`,
-which are Idris's linear plumbing; the shape to see is a value going in on the
-left and appearing in the type on the right.
+`protocolFromSnapshot` underneath is an ordinary function: snapshot in, one of
+those descriptions out, and you have written a thousand like it.
 
-That is the first of those four rows, a type indexed by a runtime value, and it
-is why there is no menu here. The protocol is the argument.
+Now put them together. `openSession` takes that value, calls it `p`, and `p`
+turns up inside the type it hands back — one channel at `Session p`, the other
+at `Session` of `dual p`. Ignore the `L1` and the `LPair`; the shape to see is a
+value going in on the left and appearing in a type on the right.
 
-The second row was a value paired with a proof about it, and `assessOrder` is
-that: it hands back the risk level together with an assessment whose type
-mentions the level it came from. The answer and the evidence, as one thing.
+That is the first of the four rows, a type indexed by a runtime value, and it is
+why nobody has to write the protocol variants out in advance.
 
-And the third row is that `1`. Every one of these channel operations carries a
-`1` in front of its channel argument, which says that this binding has to be used
-exactly once — and the compiler counts.
+The second row is a value paired with a proof about it: `assessOrder` hands back
+the risk level together with an assessment whose type mentions that level. The
+answer and the evidence, as one thing.
 
-That is a rule about your program that Scala had no way to state. So let me try
-to break it."
+And the third is that `1`. Every channel operation carries one in front of its
+channel argument, meaning this binding has to be used exactly once — and the
+compiler counts.
+
+A rule about your program that Scala had no way to state. So let me break it."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.
@@ -93,6 +95,49 @@ FACTS — grepped against `06-idris2-payment/src/` (C1, rule 9)
 - `finish : (1 _ : Session End) -> L IO ()` — `PaymentChannel.idr:146`. `send`,
   `receive`, `selectLeft`, `selectRight` and `awaitChoice` all carry the same
   `(1 _ : Session ...)`.
+
+`Send` AND `Receive` ARE CONSTRUCTORS, NOT METHODS (MB, 19 Aug — checked)
+MB asked whether the protocol value holds the send/receive operations, i.e.
+whether it contains a client. It does not, and the naming is what makes that
+worth one clause on stage:
+
+- `Send`, `Receive`, `Choose`, `Offer`, `End` are **data constructors of
+  `SessionType`** (`PaymentSessionTypes.idr:7-12`). `lowRiskProtocol` builds
+  `Send (Order n c) $ Receive RiskSnapshot $ …` (`PaymentRules.idr:182-186`) —
+  a tree of tags. No behaviour anywhere in it.
+- The endpoint is `data Session : SessionType -> Type` with
+  `MkSession : Channel Blob -> Channel Blob -> Session p`
+  (`PaymentChannel.idr:66-67`) — two byte channels, and that is all.
+- The operations are ordinary top-level functions whose *types* pattern-match on
+  the description: `send : (1 _ : Session (Send a rest)) -> a -> L1 IO (Session
+  rest)` (`PaymentChannel.idr:82`). `send` will only accept a channel whose
+  description starts with `Send`.
+
+So: description, endpoint, and operations are three separate things. If someone
+reads `Send` as a method the whole beat collapses, which is why the script now
+says *a description — a little tree … it holds no code and does nothing*.
+
+`protocolFromSnapshot` IS NOT A TYPE-LEVEL FUNCTION (MB, 19 Aug — checked)
+The question was whether it returns a *type* or a *value*. It returns a **value**,
+and the distinction is the whole beat, so it must not blur:
+
+- `data SessionType : Type where End | Send | Receive | Choose | Offer`
+  (`PaymentSessionTypes.idr:7-12`) — an ordinary algebraic data type.
+- `protocolFromSnapshot : (snap : RiskSnapshot) -> (n : Nat) -> (c : Currency)
+  -> SessionType` (`PaymentRules.idr:212-214`) — an ordinary function returning
+  an ordinary value. Nothing dependent about it.
+- `dual : SessionType -> SessionType` (`PaymentSessionTypes.idr:15-20`) —
+  likewise ordinary, and `%default total`.
+- **`data Session : SessionType -> Type`** (`PaymentChannel.idr:66`) — THIS is
+  the dependency. `Session` is a type family *indexed by a value*, so `Session p`
+  is a type determined by which `SessionType` value `p` is.
+- It bites at `openSession : (p : SessionType) -> L1 IO (LPair (Session p)
+  (Session (dual p)))` (`PaymentChannel.idr:73`): the return type mentions the
+  argument value. That is the Π-type, and `p` can be computed at runtime.
+
+So the slide leads with `data Session : SessionType -> Type` and the script says
+so first. Saying *protocolFromSnapshot computes a type* would be plainly false
+and a Scala or Haskell person in the room would catch it.
 
 WHY `L1 IO` IS WAVED PAST OUT LOUD (MB, 18 Aug)
 It is on the slide because the signature is verbatim, and MB is right that a room

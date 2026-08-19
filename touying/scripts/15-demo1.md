@@ -5,7 +5,8 @@ RUNBOOK — the four slides, in order, with what you say on each
   SLIDE 15  dark card          »Let's delete case Medium and watch what the compiler does.»
             → then STOP TALKING and switch to the IDE.
 
-  IDE       Demo.java, line 123.  Narrate only the navigation, never the meaning:
+  IDE       03-java-function-types-sealed/Demo.java  line 123
+            Narrate only the navigation, never the meaning:
             »Demo dot java … line one two three … that is the medium case …»
             delete the line
             »… and compile.»

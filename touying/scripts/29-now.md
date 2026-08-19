@@ -1,40 +1,57 @@
 A6-now · cap 1:10 · Act 6 beat 2 of 4 · NEW · partly un-merges v1 32-agentic
 
 TALKING POINTS
-1. Code arrives faster than anyone can read it. That is the second reason
-2. A hard constraint — enforced on every line, from every author, every build.
-   Not a convention somebody has to remember
-3. The densest statement of intent you can put in a file
-4. A signature says what a thing is for, and it cannot drift, because it is
-   checked on every build. A comment can
-5. And it answers in seconds, by name
-6. Found Approval of LowRisk, required Approval of MediumRisk — that says
-   exactly which thing to change
-7. A review comment for a person; a specification for whatever wrote the patch
-8. Deliver this slowly. It is the practical argument the room came for
+1. A great deal of the code we ship is now written by a model. SAY SO
+2. NOT a complaint about review — people still review. It is volume and speed
+3. Ten changes before lunch: attention per line thins, and what scales is what
+   needs no attention
+4. A type is a HARD CONSTRAINT — every line, every author, every build
+5. A test only covers the case somebody thought of
+6. Clearest statement of intent you can hand a model — and it cannot drift,
+   because it is checked
+7. The loop is seconds long and answers BY NAME
+8. Approval of LowRisk where MediumRisk was required says what to change;
+   a red test says only that something is wrong
+9. Deliver this slowly. It is the practical argument the room came for
 
 VERBATIM
 
-"There is a second reason that set keeps growing. Code now arrives faster than
-anybody can read it.
+"And the arithmetic behind all of this has changed, because a great deal of the
+code we ship is now written by a model.
 
-A type is a hard constraint. The compiler applies it to every line, from every
-author, on every build — and it does not get tired at four in the afternoon, or
-care what wrote the diff.
+That is not a complaint about review — people still review. It is volume and
+speed: when ten changes land before lunch, attention per line thins, and what
+scales is the part that needs no attention at all.
 
-It is also the densest statement of intent you can put in a file. A signature
-says what a thing is for, in a form a person and a model both read, and it cannot
-drift away from the code the way the comment above it can, because it is checked
-every time.
+A type is a hard constraint. It holds on every line, from every author, on every
+build, and it does not care whether a person or a model wrote it. A test only
+ever covers the case somebody thought of.
 
-And it answers in seconds, by name. `Approval` of `LowRisk` where `Approval` of
-`MediumRisk` was required says exactly which thing to change — a review comment
-if a person is reading it, and a specification precise enough to act on if
-something else is."
+It is also the clearest statement of intent you can hand a model: a signature
+says what a thing is for in a form it can read, and it cannot drift, because it
+is checked every time.
+
+And the loop is seconds long and it answers by name. `Approval` of `LowRisk`
+where `Approval` of `MediumRisk` was required says exactly what to change; a red
+test says only that something is wrong."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.
 ==========================================================================
+
+SAY "MODEL" AND "LLM" OUT LOUD (MB, 19 Aug)
+An earlier version of this beat never named LLMs or agentic development once —
+it said *whoever wrote the line*, *whatever generated the patch*, *a person and a
+model both read*. MB: *why do you dance around the issue … I really don't
+understand why you did that.* Fair. This is the one slide in the deck whose
+entire purpose is that argument, and hedging on it is worse than leaving it out.
+Name it in the first sentence.
+
+Also corrected: *code arrives faster than anyone can read it* implied nobody
+reviews, which is both untrue and insulting to a room of working developers. The
+true claim is MB's own — **volume and iteration speed** are what change, so hard
+constraints, fast feedback and clear signals are worth more than a suite of
+tests. Concede the review explicitly before making it.
 
 WHY THIS BEAT EXISTS (MB, 19 Aug)
 *I'm not quite sure that the immense value of types as hard constraints, dense

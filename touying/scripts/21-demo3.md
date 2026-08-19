@@ -6,7 +6,8 @@ RUNBOOK — the three slides, in order, with what you say on each
                                  automatic way.»
             → STOP TALKING, switch to the IDE.
 
-  IDE       PaymentDemo.scala, `serverMediumRisk`, line 123. Navigation only:
+  IDE       05-scala3-payment/src/main/scala/demos/PaymentDemo.scala  line 123
+            in `serverMediumRisk`.  Navigation only:
             »the medium-risk server … the line that builds the approval …»
             swap `ThreeDSApproved(proof)` for `AutoApproved`
             »… and compile.»

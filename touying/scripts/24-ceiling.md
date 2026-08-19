@@ -5,7 +5,7 @@ TALKING POINTS
    case with an automatic approval inside it. NOT "Bob's open half": Bob closed
    at Stage 3
 2. Two things you can still write, and Scala will still take them
-3. — the protocol comes off a menu: low+refund, low, medium, high, all in source
+3. — every protocol is hardcoded: low+refund, low, medium, high, spelled out
 4.   the compiler checks each one completely
 5.   what it cannot do is build the protocol out of the order in front of it
 6.   for that you need a type that depends on a value
@@ -22,9 +22,9 @@ demo — the medium case with an automatic approval inside it.
 
 Two things you can still write here, and Scala will still take them.
 
-The protocol comes off a menu. `ProtocolVariant` lists them — low with a refund,
-low without, medium, high — written out in the source, and the risk assessment
-picks one while the program runs. Each is checked completely. What the compiler
+Every protocol the program can ever speak is hardcoded. `ProtocolVariant` spells
+them out — low with a refund, low without, medium, high — and the risk
+assessment picks one of those four while the program runs. Each is checked completely. What the compiler
 cannot do is build the protocol out of the order in front of it, and for that you
 need a type that depends on a value.
 

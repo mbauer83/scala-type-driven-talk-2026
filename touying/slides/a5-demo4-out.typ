@@ -20,7 +20,7 @@
     align(center)[
       #set text(size: sz(28pt), fill: pal.fg)
       #set par(leading: 0.55em)
-      Nobody wrote a test for that, and nothing ran.
+      The compiler counted the uses of one variable and got zero.
     ],
   ),
 )
@@ -33,9 +33,8 @@ Read both lines off the screen, unhurried. Say »zero uses« for `0 uses`:
 
 Beat. Then:
 
-»Nobody wrote a test for that, and nothing ran. The compiler counted the uses of
-one variable, got zero, and refused — and that is the last of the four accounted
-for.«
+»The compiler counted the uses of one variable, got zero, and refused to build
+the program — and that is the last of the four accounted for.«
 
 Then put `finish done` back, rebuild, green. Say nothing.
 ]

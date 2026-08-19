@@ -2,13 +2,14 @@ A6-cost · cap 1:20 · Act 6 beat 1 of 4
 
 TALKING POINTS
 1. What each of these costs to encode, where you actually are
-2. Stage 3 — nothing. Java 17, no dependency, an afternoon. Do it regardless
+2. Stage 3 — nothing. Java 17, no dependency, an afternoon. Worth it regardless
 3. Stage 4 — one interface, a private constructor, a code-review conversation,
    generic noise. Earns it where there is a lifecycle. Not everywhere
-4. Stage 5 — a real team decision. Build tooling, compile times in seconds,
-   hiring, a learning curve that is genuinely there. Not a default
-5. Stage 6 — not a production proposal. It shows where the ceiling is, and the
-   ideas leak downwards
+4. Stage 5 — becomes a team decision. Build tooling, compile times, hiring,
+   a real learning curve
+4b. But the FIRST step is an afternoon on something small, not a team decision
+5. Stage 6 — not a production proposal. It shows where the ceiling is, the ideas
+   leak downwards, and an evening with it changes how you read a signature
 6. None of the type-level machinery survives to runtime — what is left is one
    check at the boundary you would have written anyway
 7. Is this invariant expensive enough to encode? That set keeps growing
@@ -16,27 +17,25 @@ TALKING POINTS
 
 VERBATIM
 
-"So: what does each of these cost to encode, where you actually are.
+"So: what does each of these cost, where you actually are.
 
 Stage three — sealed interfaces and records — costs nothing at all: Java
-seventeen, no dependency, an afternoon. Do that one whether or not you believe
-anything else I have said tonight.
+seventeen, no dependency, an afternoon. Worth doing on Monday regardless of
+where the rest of this lands for you.
 
 Stage four costs an interface, a private constructor, a code-review conversation
-and some generic noise in your signatures — and it earns that where there is a
-lifecycle.
+and some generic noise in your signatures — earned where there is a lifecycle.
 
-Stage five is a real team decision, because it brings build tooling, compile
-times in seconds rather than milliseconds, hiring, and a learning curve that is
-genuinely there — all of which is worth it when the domain has invariants
-expensive enough to encode.
+Stage five becomes a team decision eventually: build tooling, compile times in
+seconds rather than milliseconds, hiring, a real learning curve. But that is not
+the first step — the first step is one of you spending an afternoon on something
+small, to find out whether your domain has invariants worth encoding.
 
-Stage six is not a production proposal. It is here because it shows where the
-ceiling is, and because these ideas keep leaking down into the languages you do
-ship.
+Stage six is not a production proposal. It shows where the ceiling is, the ideas
+keep leaking down into languages you do ship, and an evening with it changes how
+you read a type signature.
 
-None of it costs anything at runtime, by the way: it is gone before the program
-starts, and what is left is one boundary check.
+None of it costs anything at runtime: it is gone before the program starts.
 
 So the question is whether an invariant is expensive enough to encode. The tools
 keep getting cheaper, so that set keeps getting bigger — and there is a second

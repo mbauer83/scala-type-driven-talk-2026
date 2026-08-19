@@ -1,9 +1,16 @@
 // A6-now · cap 1:00 · Act 6 beat 2 of 4 · NEW
 //
-// MB, 19 Aug: the value of types as hard constraints, as dense signals of
-// intent, and as a fast feedback loop for iteration was not landing forcefully
-// enough at the end. It was sixty words at the tail of A6-cost, spoken over a
-// four-row cost table the room was still reading.
+// MB, 19 Aug: the value of types as hard constraints, as clear signals of
+// intent, and as a fast feedback loop was not landing forcefully enough at the
+// end. It was sixty words at the tail of A6-cost, spoken over a four-row cost
+// table the room was still reading.
+//
+// MB again, same day: an earlier version of this slide never named LLMs or
+// agentic development once, and hedged with "whoever wrote the line". This is
+// the one slide whose whole purpose is that argument. Name it. And the old
+// headline — "when code arrives faster than anyone can read it" — implied
+// nobody reviews, which is untrue and insulting to this room; the real claim is
+// volume and iteration speed.
 //
 // Three claims, MB's own and in his order, one block each. Part 3 merged v1's
 // 32-agentic into the cost slide; that merge is partly undone here, flagged in
@@ -23,9 +30,9 @@
 )
 
 #light-slide(
-  eyebrow: eyebrow([Why the calculation is moving]),
+  eyebrow: eyebrow([Why the arithmetic is changing]),
   body-gap: sz(28pt),
-  [When code arrives faster than anyone can read it],
+  [What LLM-driven development changes],
   stack(
     dir: ttb,
     spacing: sz(30pt),
@@ -33,20 +40,19 @@
       columns: (1fr, 1fr, 1fr),
       column-gutter: sz(44pt),
       claim([A hard constraint.],
-            [The compiler applies it to every line, from every author, on every
-             build. It does not get tired at four in the afternoon, and it does
-             not care what wrote the diff.]),
-      claim([The densest statement of intent.],
-            [A signature says what a thing is for, in a form a person and a model
-             both read — and it cannot drift away from the code, because it is
-             checked every time. The comment above it can.]),
+            [It holds on every line, from every author, on every build, and it
+             does not care whether a person or a model wrote it. A test only ever
+             covers the case somebody thought of.]),
+      claim([The clearest statement of intent.],
+            [A signature says what a thing is for, in a form a model can read,
+             and it cannot drift away from the code, because it is checked every
+             time. The comment above it can.]),
       stack(
         dir: ttb,
         spacing: sz(16pt),
-        claim([An answer in seconds, by name.],
-              [The error says which type it wanted and where. That is a review
-               comment if a person is reading it, and a specification precise
-               enough to act on if something else is.]),
+        claim([A loop measured in seconds, answering by name.],
+              [The error says which type it wanted and where — precise enough for
+               a model to act on. A red test says only that something is wrong.]),
         block(width: 100%, fill: pal.bg-warm, radius: sz(6pt),
               inset: (x: sz(20pt), y: sz(14pt)))[
           #set text(size: sz(20pt), font: mono-font, fill: pal.fg-dim)

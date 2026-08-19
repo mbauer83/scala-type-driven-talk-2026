@@ -59,10 +59,10 @@
     grid(
       columns: (1fr, 1fr),
       column-gutter: sz(52pt),
-      limit([The protocol comes off a menu.],
-            [`ProtocolVariant` writes them all out in the source —
+      limit([Every protocol is hardcoded.],
+            [`ProtocolVariant` spells all four out in the source —
              `LowRefund`, `LowNoRefund`, `MediumRefund`, `HighNoRefund` — and the
-             risk assessment picks one at runtime. Each is checked completely. #text(fill: pal.fg)[What the compiler cannot
+             risk assessment picks one of them at runtime. Each is checked fully. #text(fill: pal.fg)[What the compiler cannot
              do] is build the protocol out of the order in front of it — that
              needs a type that depends on a value.]),
       limit([Nothing makes you finish the channel.],

@@ -5,7 +5,8 @@ RUNBOOK — the three slides, in order, with what you say on each
   SLIDE     dark card           »Let's drop the channel without closing it.»
             → STOP TALKING, switch to the editor.
 
-  EDITOR    Main.idr, `settleServer`, line 115. Navigation only:
+  EDITOR    06-idris2-payment/src/Main.idr  line 115
+            in `settleServer`.  Navigation only:
             »the refund branch … the last thing it does is close the session …»
             replace `finish done` with `pure ()`
             »… and build.»
@@ -27,8 +28,9 @@ TALKING POINTS
 3. Advance: the close is gone
 4. Advance: read both lines — zero uses of linear name done; linearly bounded
    variables must be used exactly once
-5. Nobody wrote a test. Nothing ran
-6. The compiler counted the uses of one variable and got zero
+5. The compiler counted the uses of one variable, got zero, and refused
+6. Do NOT say "nobody wrote a test" here — Demo 2 has it, A5-payoff has the
+   collective version, and a third telling is one too many (MB, 19 Aug)
 7. That is the last of the four accounted for
 
 VERBATIM
@@ -42,9 +44,8 @@ VERBATIM
 There are zero uses of linear name `done`. Linearly bounded variables must be
 used exactly once.
 
-Nobody wrote a test for that, and nothing ran. The compiler counted the uses of
-one variable, got zero, and refused — and that is the last of the four accounted
-for."
+The compiler counted the uses of one variable, got zero, and refused to build
+the program — and that is the last of the four accounted for."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.

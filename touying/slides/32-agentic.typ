@@ -52,7 +52,7 @@
         spacing: sz(20pt),
         cost([Stage 3 · sealed ⊕ records],
              [Java 17, no dependency, an afternoon. ],
-             [Do it regardless.]),
+             [Worth doing regardless.]),
         cost([Stage 4 · phantom typestate],
              [An interface, a private constructor, a conversation in code
               review, and some generic noise in your signatures. ],
@@ -60,7 +60,7 @@
         cost([Stage 5 · Scala 3],
              [Build tooling, compile times in seconds rather than milliseconds,
               hiring, a real learning curve. ],
-             [A team decision, when the invariants are expensive enough.]),
+             [A team decision eventually — an afternoon on something small first.]),
         cost([Stage 6 · Idris 2],
              [Not a production proposal. ],
              [It shows where the ceiling is — and the ideas leak downwards.]),
