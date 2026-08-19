@@ -21,7 +21,7 @@
       ],
       text(size: sz(24pt), fill: pal.fg-dim)[
         #text(weight: 600, fill: pal.good)[A reviewer's approval is an argument] —
-        and it is the only way past this step.
+        and on the high-risk path you need one to get an authorized payment.
       ],
 
       block(width: 100%, fill: pal.bad-bg, radius: sz(6pt),

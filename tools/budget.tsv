@@ -97,7 +97,8 @@ a3-demo2	1:35	demo
 # grey eyebrow used to be. Zero slides, zero seconds.
 25-stage5	1:20	prose
 a4-demo3	1:55	demo
-26-session-types	1:30	prose
+26-session-types	1:45	prose   # protocol type, Dual, and the two channel
+#                       operations whose evidence Demo 4's error is about
 a4-demo4	1:35	demo    # A4-demo4 — Danielle is the one incident
 #                       of the four with no compiler error behind it. Three
 #                       slides, one cap, as with Demos 1-4.

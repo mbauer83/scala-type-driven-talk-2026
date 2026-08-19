@@ -1,4 +1,4 @@
-A4-sessions · cap 1:30 · Act 4 beat 3 of 6
+A4-sessions · cap 1:45 · Act 4 beat 3 of 6
 
 TALKING POINTS
 1. The four things a type can do, from the end of the history — here is the first
@@ -9,6 +9,9 @@ TALKING POINTS
 4. Dual is a match — scrutinee is a type, result is a type, runs in the compiler
 5. Send turns into receive, choose into offer, recursing into the remainder
 6. Client holds Channel of P, server holds Channel of Dual of P — one definition
+6b. Every operation asks for EVIDENCE that it is the one allowed next: send wants
+    CanSend, receive wants CanReceive. Mid-protocol only one of them exists —
+    which is the error Demo 4 is about to produce
 7. Danielle's two services were each correct against their own contract
 8. There was no third thing for them to be correct against. This is it
 9. Hand off into Demo 4 — watch what happens when one side forgets whose turn
@@ -16,22 +19,23 @@ TALKING POINTS
 
 VERBATIM
 
-"At the end of the history I showed you four things a type can do, and said you
-would watch every one of them run. Here is the first — a conversation between two
+"At the end of the history I put four things on the wall and said you would watch
+each one run. Here is the first — a conversation between two
 services, written down as one type.
 
 `LowRiskProtocol` is the whole exchange, in order: send an order, receive the
 risk snapshot, the authorization, the capture, then choose between a refund and
 finishing. The channel you are holding is typed by what is left to do — so every
 step hands back a smaller protocol, and when nothing is left the type is `End`.
-That is the protocol as a type.
 
 Now the part Java has no version of. `Dual` is a `match` — Scala's switch — except
 that it matches on a type, returns a type, and runs inside the compiler: send
-turns into receive, choose into offer, and it recurses into the remainder of the
-protocol, so the whole conversation comes back turned around. The client holds a
+turns into receive, and it recurses into the rest, so the whole conversation
+comes back turned around. The client holds a
 channel of `P` and the server one of `Dual` of `P`, both out of that one
-definition.
+definition. And every operation asks the compiler for evidence that it is the one
+the protocol allows next — `send` wants `CanSend`, `receive` wants `CanReceive` —
+and mid-protocol only one of them exists.
 
 Danielle's two services were each correct against their own contract, with
 nothing else to be correct against. This is that missing thing. So watch what

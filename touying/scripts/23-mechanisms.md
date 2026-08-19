@@ -20,8 +20,8 @@ VERBATIM
 
 "Everything Scala has been doing for the last few minutes has a name, and the
 names are how you find any of it again. The predicate in the type is a refined
-type; the `AuthCode` that cannot go where a `CaptureId` is expected, despite
-both actually being strings, is an opaque type.
+type; the `AuthCode` that cannot go where a `CaptureId` is expected, though both
+are strings, is an opaque type.
 
 `CanSend[P]` is the twin of the `CanReceive` you just watched fail. `P` is
 whatever is left of the protocol, and

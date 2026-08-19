@@ -32,10 +32,8 @@ From then on the value carries its provenance — where it has been — in its o
 type, and the compiler is what makes sure nobody skips the step that put it
 there.
 
-And Charlie's refund is the last rung of that same ladder: one parameter, four
-values, every transition naming the state it accepts — including the one that
-takes a reviewer's approval as an argument, which is the step his shortcut went
-around.
+And Charlie's refund is the last rung of that same ladder. The route his shortcut
+went around is the one that takes a reviewer's approval as an argument.
 
 That one check at the boundary is a real one, running at runtime, because the row
 came from outside the program. Inside your own code there is no check to run at
