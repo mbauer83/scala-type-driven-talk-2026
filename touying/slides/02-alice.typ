@@ -82,7 +82,7 @@
 #light-slide(
   eyebrow: eyebrow([Alice · Bob · Charlie · Danielle], style: "bad"),
   body-gap: sz(-26pt),
-  [Four Bugs That Compiled],
+  [Four bugs that compiled],
   block(width: 100%, height: 100%, stack(
     dir: ttb,
     spacing: sz(34pt),

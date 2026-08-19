@@ -5,7 +5,7 @@
 
 #light-slide(
   eyebrow: eyebrow([Appendix A3 · Live Demo], style: "accent"),
-  [Live: Dependent Typing Catching a Mismatch],
+  [Live: dependent typing catching a mismatch],
   stack(
     dir: ttb,
     spacing: sz(20pt),

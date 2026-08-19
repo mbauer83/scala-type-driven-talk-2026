@@ -5,7 +5,7 @@
 
 #light-slide(
   eyebrow: eyebrow([Appendix A8 · Type-level Logic], style: "accent"),
-  [Match Types — Pattern-Matching at the Type Level],
+  [Match types — pattern-matching at the type level],
   stack(
     dir: ttb,
     spacing: sz(28pt),

@@ -61,8 +61,10 @@
     #grid(
       columns: (1fr, sz(760pt)),
       column-gutter: sz(48pt),
-      align: (left + top, left + top),
-      [
+                  align: (left + top, left + top),
+            [
+                // Top-aligned columns already put this signature on the Java line's
+        // baseline; padding by the card inset overshot by exactly that inset.
         #text(font: mono-font, size: sz(27pt), fill: pal.fg)[
           max : #h(sz(8pt)) ∀ T. #h(sz(8pt)) comparable(T) #h(sz(8pt)) ⇒ #h(sz(8pt)) T × T → T
         ]
@@ -91,7 +93,7 @@ the same shape as _all medium-risk orders need 3DS_, two slides ago.
     )
     #v(sz(64pt))
     #align(right)[
-      #text(size: sz(21pt), fill: pal.fg-faint)[
+            #text(size: sz(24pt), fill: pal.fg-dim)[
         #text(font: mono-font)[∃] — the other quantifier. Java's wildcards
         (`List<?>`) are a restricted form of it; the strong version — a value
         handed to you together with evidence about it — we come back to.

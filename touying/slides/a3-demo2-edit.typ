@@ -8,7 +8,7 @@
 #light-slide(
   eyebrow: eyebrow([Demo 2 · recorded · 1 of 2], style: "bad"),
   body-gap: sz(30pt),
-  [the commented line comes back],
+  [The commented line comes back],
   terminal-pane(read("../../demos/2-edit.txt").trim(), title: "04-java-advanced-generics-typestate", size: 19pt),
 )
 

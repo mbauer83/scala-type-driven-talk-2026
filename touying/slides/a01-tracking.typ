@@ -12,7 +12,7 @@
 
 #light-slide(
   eyebrow: eyebrow([Appendix A1 · Effect Systems], style: "accent"),
-  [Tracking Capabilities: Effect Systems and Capture Checking],
+  [Tracking capabilities: effect systems and capture checking],
   stack(
     dir: ttb,
     spacing: sz(36pt),

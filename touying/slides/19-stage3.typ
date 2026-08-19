@@ -21,8 +21,8 @@
     dir: ttb,
     spacing: sz(44pt),
     grid(
-      columns: (1fr, 1.2fr),
-      column-gutter: sz(48pt),
+            columns: (1fr, 1fr),
+      column-gutter: sz(56pt),
       align: (left + horizon, left + top),
       [
         #set text(size: sz(26pt), fill: pal.fg)
@@ -44,8 +44,8 @@ return switch (risk) {
     ),
     line(length: 100%, stroke: 0.5pt + pal.rule),
     grid(
-      columns: (1.2fr, 1fr),
-      column-gutter: sz(48pt),
+            columns: (0.92fr, 1fr),
+      column-gutter: sz(56pt),
       align: (left + top, left + horizon),
       code-pane(filename: "Result.java", language: "java", code-size: 17pt, pad-y: 12pt)[
 ```java

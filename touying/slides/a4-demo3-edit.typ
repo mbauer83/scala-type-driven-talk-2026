@@ -8,7 +8,7 @@
 #light-slide(
   eyebrow: eyebrow([Demo 3 · recorded · 1 of 2], style: "bad"),
   body-gap: sz(30pt),
-  [the proof goes away],
+  [The proof goes away],
   terminal-pane(read("../../demos/3-edit.txt").trim(), title: "05-scala3-payment", size: 19pt),
 )
 

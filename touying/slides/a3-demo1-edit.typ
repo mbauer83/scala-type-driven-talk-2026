@@ -8,7 +8,7 @@
 #light-slide(
   eyebrow: eyebrow([Demo 1 · recorded · 1 of 2], style: "bad"),
   body-gap: sz(30pt),
-  [the switch loses a case],
+  [The switch loses a case],
   terminal-pane(read("../../demos/1-edit.txt").trim(), title: "03-java-function-types-sealed", size: 19pt),
 )
 

@@ -8,7 +8,7 @@
 #light-slide(
   eyebrow: eyebrow([Demo 4 · recorded · 1 of 2], style: "bad"),
   body-gap: sz(30pt),
-  [the close goes away],
+  [The close goes away],
   terminal-pane(read("../../demos/4-edit.txt").trim(), title: "06-idris2-payment", size: 19pt),
 )
 

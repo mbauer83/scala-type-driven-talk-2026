@@ -5,7 +5,7 @@
 
 #light-slide(
   eyebrow: eyebrow([Appendix A9 · Simulated Dependent Types], style: "accent"),
-  [Singletons — Pretending to Depend on a Value],
+  [Singletons — pretending to depend on a value],
   stack(
     dir: ttb,
         spacing: sz(20pt),

@@ -4,7 +4,7 @@
 
 #light-slide(
   eyebrow: eyebrow([Appendix A2 · Linearity], style: "accent"),
-  [Linearity Across Languages],
+  [Linearity across languages],
   stack(
     dir: ttb,
     spacing: sz(28pt),

@@ -46,7 +46,7 @@
       align: (left + top, left + top),
 
       code-pane(filename: "Domain.scala", language: "scala", code-size: 19pt, pad-y: 14pt,
-                height: 100%, highlights: ((7, "hl-good"), (8, "hl-good")))[
+                height: sz(232pt), highlights: ((7, "hl-good"), (8, "hl-good")))[
 ```scala
 sealed trait Approval[+R <: Risk]
 
@@ -59,7 +59,7 @@ def authorize[R <: Risk](order: Order, approval: Approval[R])
 ```
       ],
       code-pane(filename: "Domain.scala", language: "scala", code-size: 19pt, pad-y: 14pt,
-                height: 100%, highlights: ((6, "hl-good"),))[
+                height: sz(232pt), highlights: ((6, "hl-good"),))[
 ```scala
 type NonEmptyLines  = List[OrderLine] :| MinLength[1]
 type NonNegativeInt = Int :| GreaterEqual[0]

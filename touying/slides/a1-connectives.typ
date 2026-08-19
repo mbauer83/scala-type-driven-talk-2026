@@ -45,7 +45,7 @@
 #theory-slide(
   eyebrow: eyebrow([Leibniz · Boole 1847], style: "accent"),
   [Logic becomes algebra],
-  body-gap: sz(34pt),
+    body-gap: sz(24pt),
   [
     #block(width: 100%)[
       #set text(size: sz(24pt), fill: pal.fg-dim)
@@ -56,7 +56,7 @@
       for that. You know both already, as `||` and `&&` over booleans. Here they
       are over #text(fill: pal.fg, weight: 500)[types].
     ]
-    #v(sz(14pt))
+        #v(sz(10pt))
     #grid(
       columns: (1.32fr, 1fr),
       column-gutter: sz(36pt),
@@ -66,7 +66,7 @@
       connective([∨], [+], [a sum], [one of the variants, and the compiler knows which]),
       connective([∧], [×], [a product], [every field, at once]),
 
-      code-pane(filename: "RiskDecision.java", language: "java", code-size: 19pt, pad-y: 10pt)[
+      code-pane(filename: "RiskDecision.java", language: "java", code-size: 18pt, pad-y: 6pt)[
 ```java
 public sealed interface RiskDecision
     permits RiskDecision.Low,
@@ -96,9 +96,9 @@ public sealed interface RiskDecision
           fill: pal.bg-dark-2,
           stroke: 0.5pt + pal.rule-dark-strong,
           radius: sz(6pt),
-          inset: (x: sz(26pt), y: sz(22pt)),
+                    inset: (x: sz(24pt), y: sz(18pt)),
         )[
-          #show raw: set text(font: mono-font, size: sz(21pt), fill: pal.fg-dark)
+                    #show raw: set text(font: mono-font, size: sz(19pt), fill: pal.fg-dark)
           #set par(leading: 0.62em)
           #raw(block: true,
             "record RefundRule(\n"
@@ -108,8 +108,8 @@ public sealed interface RiskDecision
         ],
         // Where the 2 comes from — RiskDecision's 3 is visible on the left, and
         // this is the only other number the arithmetic needs.
-        block[
-          #set text(size: sz(20pt), fill: pal.fg-faint)
+                block[
+          #set text(size: sz(23pt), fill: pal.fg-dim)
           #set par(leading: 0.45em)
           #text(font: mono-font)[RefundMechanism] is the other sealed one in that
           package: #text(font: mono-font)[InstantReversal] or
@@ -124,9 +124,9 @@ public sealed interface RiskDecision
         #text(font: mono-font, fill: pal.accent)[6] values: #text(font: mono-font)[3 × 2]
       ],
     )
-    #v(sz(18pt))
+            #v(sz(22pt))
     #line(length: 100%, stroke: 0.5pt + pal.rule)
-    #v(sz(16pt))
+    #v(sz(30pt))
     #grid(
       columns: (auto, 1fr),
       column-gutter: sz(40pt),
