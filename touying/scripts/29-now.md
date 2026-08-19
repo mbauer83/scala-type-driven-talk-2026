@@ -20,9 +20,9 @@ VERBATIM
 code we ship is now written by a model.
 
 People still review at least some of the code - and good shops will require human review
-of critical code. What changes is volume and speed: when ten changes land before lunch, 
-attention per line thins, and to support our efforts, the only approach that actually scales 
-is one that requires no attention at all.
+of modifications to critical paths. What changes is volume and speed: when ten changes land 
+before lunch, attention per line thins, and to support our efforts, the only approach that 
+actually scales is one that requires no attention at all.
 
 A type is a hard constraint. It holds at every use, from every author, on every
 build, and it does not care whether a person or a model wrote it. A test only

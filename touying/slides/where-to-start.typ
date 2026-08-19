@@ -68,7 +68,7 @@
         [Idris 2 · Lean 4],
         [Brady's _Type-Driven Development with Idris_ is the on-ramp. Lean has
          proof games that run in a browser with nothing to install —
-         `adam.math.hhu.de`, and the easiest thing here to start tonight.],
+         `adam.math.hhu.de`.],
       ),
     )),
     align(right)[

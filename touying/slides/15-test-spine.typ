@@ -106,7 +106,7 @@
 #light-slide(
   eyebrow: eyebrow([The payment domain]),
   body-gap: sz(20pt),
-  [What encoding a rule buys],
+  [What encoding a rule in the type system buys],
   stack(
     dir: ttb,
     spacing: sz(30pt),

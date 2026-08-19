@@ -65,8 +65,9 @@
            [Evidence of a different claim — that `P` has reached the end. Mid-protocol
             there is none to be had, so you cannot hang up in the middle of the call.]),
       mech([Higher-kinded types], `def interpret[F[_]: Functor, A](algebra: F[A] => A)`,
-           [`F[_]` is a type parameter that is itself generic — it stands for
-            `List`, not for a list of something, and Java has no way to write it.
+           [`F[_]` is a type parameter that is itself generic — it stands, say,
+            for `List`, not for a list of something, and Java has no way to write
+            it.
             The payment rules are one tree: `interpret` walks it once, and what
             comes out is a parameter — an audit sentence, or a risk analysis.]),
     ),

@@ -20,21 +20,21 @@ VERBATIM
 
 "Everything Scala has been doing for the last few minutes has a name, and the
 names are how you find any of it again. The predicate in the type is a refined
-type; the `AuthCode` that cannot go where a `CaptureId` is expected is an opaque
-one.
+type; the `AuthCode` that cannot go where a `CaptureId` is expected, despite
+both actually being strings, is an opaque type.
 
 `CanSend[P]` is the twin of the `CanReceive` you just watched fail. `P` is
 whatever is left of the protocol, and
 `CanSend` is a claim about `P` — that it starts with a send. Ask the compiler for
 that claim as evidence, and the message type comes with it, which is why `send`
 already knows what it will accept. `finish` asks for evidence of a different
-claim: that the protocol has ended.
+claim: that the type for the current protocol-remainder is <<End>> at this point.
 
 And the last one goes up a level again. `F` of underscore is a type parameter
-that is itself generic — it stands for `List`, not for a list of something — and
-Java has no way to write that. Here it means the payment rules are one tree,
-walked once, and what comes out of the walk is a parameter: an audit sentence, or
-a risk analysis.
+that is itself generic — it stands e.g. for `List`, not for a list of something 
+— and Java has no way to write that. Here it means the payment rules are one tree,
+walked once, and what comes out of the walk depends on the parameter you put in: 
+an audit sentence for the rules for example, or a risk analysis for an order.
 
 All of that puts something about a value into the value's type. Next door is a
 family that puts in what a value may do. Plenty of teams run ZIO in production,

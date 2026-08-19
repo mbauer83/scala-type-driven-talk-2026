@@ -4,7 +4,7 @@ TALKING POINTS
 1. The floor: Alice's service had no types — 12 plus 34 as strings gives 1234
 2. That is where we start
 3. The flow, once: order → assess → authorize → capture (→ refund or invoice)
-4. What encoding a rule buys, four things:
+4. What encoding a rule in the type system buys, four things:
 5. — applied at every use, by the compiler, not every call you remembered
 6. — the failure moves to compile time
 7. — the signal is clear and small, and arrives where the rule is defined
