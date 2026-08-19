@@ -1,65 +1,59 @@
-# Scala / sbt / Scala 3
-*.class
-*.log
-*.scala_dependencies
-*.swp
-
-# sbt
-/target/
-/project/target/
-/project/project/
-**/target/
-**/project/target/
-**/project/project/
-
-# Metals / Bloop / BSP
-.bloop
-.bloop/
-.metals/
-.bsp/
-**/metals.sbt
-
-# IntelliJ
-.idea/
-*.iml
-
-# VS Code (workspace-local state)
-.vscode/
-
-# OS-generated files
-.DS_Store
-Thumbs.db
-
-# Idris 2
-**/build/
-**/build_exec/
-**/.idris2/
-**/*.ttc
-**/*.ttm
-**/*.ibc
-
-# Idris package/build helper outputs
-.idris2-pack/
-
-# AI agent helper directories — not part of the talk
-.codex/
-.claude/
-.agents/
-memory/
-
-# Talk build outputs (regenerate with `make`)
+# ── Talk build outputs — regenerate with `make` ──────────────────────────────
 /talk.pdf
 /talk-with-notes.pdf
 /talk.pdfpc
 /talk.html
 /talk.pptx
 /talk-nonotes.pptx
-touying/deck.pdf
-touying/deck.html
+/presenter/
+/presenter.zip
 touying/*.pdf
 touying/*.png
 touying/*.svg
+touying/deck.html
 
-# WSL / Windows interop artefacts
+# ── Java ────────────────────────────────────────────────────────────────────
+*.class
+
+# ── Scala / sbt ─────────────────────────────────────────────────────────────
+**/target/
+**/project/target/
+**/project/project/
+*.scala_dependencies
+
+# ── Idris 2 ─────────────────────────────────────────────────────────────────
+**/build/
+**/build_exec/
+**/.idris2/
+**/*.ttc
+**/*.ttm
+**/*.ibc
+.idris2-pack/
+
+# ── Editors and language servers ────────────────────────────────────────────
+.bloop
+.bloop/
+.metals/
+.bsp/
+**/metals.sbt
+.idea/
+*.iml
+.vscode/
+*.swp
+
+# ── Python tooling ──────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+.venv/
+
+# ── AI agent helpers — not part of the talk ─────────────────────────────────
+.claude/
+.agents/
+.codex/
+memory/
+
+# ── OS and interop noise ────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.log
 *:Zone.Identifier
-/presenter/
