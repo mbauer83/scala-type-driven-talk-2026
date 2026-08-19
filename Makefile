@@ -23,8 +23,13 @@ talk.pdf: $(TYPST_SOURCES)
 # those landed, leaving talk.pdfpc at 0 bytes: the presenter view the speaker actually
 # reads from, empty, and `make check` reporting build OK because the file
 # existed. Use the query deck.typ has documented all along; it takes --root.
+# Write via a temp file: `>` truncates the target before typst runs, so a failed
+# query used to leave a 0-byte talk.pdfpc that every later step treated as valid
+# and that make then considered up to date.
 talk.pdfpc: $(TYPST_SOURCES)
-	typst query --root . touying/deck.typ "<pdfpc-file>" --field value --one > talk.pdfpc
+	typst query --root . touying/deck.typ "<pdfpc-file>" --field value --one > $@.tmp
+	test -s $@.tmp
+	mv $@.tmp $@
 
 # talk-presenter: two-window browser presenter that survives this deck.
 # One flat PNG per slide as <img>, no impress.js, no iframes; the audience and
