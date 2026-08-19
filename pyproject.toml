@@ -1,7 +1,3 @@
-[build-system]
-requires = ["setuptools>=68"]
-build-backend = "setuptools.build_meta"
-
 [project]
 name = "type-driven-talk-tools"
 version = "2.0.0"
@@ -19,7 +15,8 @@ dependencies = [
 # committed, so this is only needed when the repository URL changes.
 qr = ["segno==1.6.6"]
 
-# Nothing here is importable — this file exists to declare the build
-# dependencies in one place and to let pip cache them in CI.
-[tool.setuptools]
-packages = []
+# Nothing here is importable: the tools are scripts, not a library. `package =
+# false` tells uv to manage the environment without building or installing this
+# project itself.
+[tool.uv]
+package = false
