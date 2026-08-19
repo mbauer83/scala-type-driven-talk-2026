@@ -101,9 +101,11 @@ TEMPLATE = r"""<!doctype html>
   #elapsed.over { color:#e08a4a; }
   kbd { background:#1b2030; border:1px solid #2e3547; border-radius:3px;
         padding:0 .3rem; font-size:.85em; }
-  #fallback { position:fixed; inset:auto 1rem 1rem 1rem; max-width:60rem; margin:0 auto;
+  #fallback { position:fixed; left:1rem; bottom:1rem; max-width:52rem;
               padding:1rem 1.2rem; background:#2a1d16; border:1px solid #7a4a24;
               border-radius:8px; color:#f0e6dc; font-size:1rem; z-index:9; }
+  #fallback.quiet { background:rgba(0,0,0,.5); border-color:#2e3547; color:#8b8f98;
+                    padding:.35rem .7rem; font-size:.8rem; }
   #fallback p { margin:0 0 .5rem; }
   #fallback a { color:#e08a4a; word-break:break-all; }
   #fallback button { margin-top:.6rem; }
@@ -156,8 +158,8 @@ addEventListener('message', e => {
   const m = e.data;
   if (!m || typeof m !== 'object') return;
   if (m.type === 'goto')  render(m.i);
-  if (m.type === 'hello') { if (!isConsole) { helloSeen = true; peer = e.source;
-        const f = document.getElementById('fallback'); if (f) f.remove();
+  if (m.type === 'hello') { if (!isConsole) { helloSeen = helloEver = true;
+        peer = e.source; clearTimeout(waitTimer); clearNotice();
         send({type:'goto', i: idx}); } }
   if (m.type === 'timer') started = m.started;
 });
@@ -199,34 +201,46 @@ function consoleURL() {
   return u.href;
 }
 
-let helloSeen = false;
+/* The notice lives on the AUDIENCE window, which is the projector, so it must
+   never cry wolf in front of the room:
+     - once a console has connected even once, it is never shown again;
+     - a cold load from a slow path can take a while, so the wait is 12s, and
+       until then it is only a small "opening…" chip, not a warning. */
+let helloSeen = false, helloEver = false, waitTimer = null;
 function openConsole() {
   // Must be called from a key/click handler or popup blockers eat it.
   peer = window.open(consoleURL(), 'presenter', 'width=1200,height=800');
-  if (!peer) { showFallback('The presenter window was blocked. Allow pop-ups for this page, then press P again.'); return; }
-  // If it never reports in, say so and offer the link rather than leaving a
-  // blank window on the second screen with no explanation.
+  if (!peer) { showNotice('blocked'); return; }
   helloSeen = false;
-  setTimeout(() => { if (!helloSeen) showFallback('The presenter window did not load. Open this address in a second window:'); }, 2500);
+  showNotice('waiting');
+  clearTimeout(waitTimer);
+  waitTimer = setTimeout(() => { if (!helloSeen) showNotice('failed'); }, 12000);
 }
 
-function showFallback(msg) {
-  let el = document.getElementById('fallback');
-  if (!el) {
-    el = document.createElement('div');
-    el.id = 'fallback';
-    document.body.appendChild(el);
+function clearNotice() { const el = document.getElementById('fallback'); if (el) el.remove(); }
+
+function showNotice(kind) {
+  if (helloEver) return;               // it has worked once; never alarm the room
+  clearNotice();
+  const el = document.createElement('div');
+  el.id = 'fallback';
+  el.className = kind === 'waiting' ? 'quiet' : '';
+  if (kind === 'waiting') {
+    el.textContent = 'opening presenter window…';
+  } else {
+    const p = document.createElement('p');
+    p.textContent = kind === 'blocked'
+      ? 'The presenter window was blocked. Allow pop-ups for this page, then press P again — or open this address in a second window:'
+      : 'The presenter window has not reported in. Open this address in a second window:';
+    const a = document.createElement('a');
+    a.href = consoleURL(); a.target = '_blank'; a.rel = 'noopener';
+    a.textContent = consoleURL();
+    const b = document.createElement('button');
+    b.textContent = 'dismiss';
+    b.onclick = clearNotice;
+    el.append(p, a, document.createElement('br'), b);
   }
-  el.innerHTML = '';
-  const p = document.createElement('p');
-  p.textContent = msg;
-  const a = document.createElement('a');
-  a.href = consoleURL(); a.target = '_blank'; a.rel = 'noopener';
-  a.textContent = consoleURL();
-  const b = document.createElement('button');
-  b.textContent = 'dismiss';
-  b.onclick = () => el.remove();
-  el.append(p, a, document.createElement('br'), b);
+  document.body.appendChild(el);
 }
 
 function toggleFullscreen() {
