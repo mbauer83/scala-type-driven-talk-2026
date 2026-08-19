@@ -3,12 +3,12 @@ A4-demo4 · cap 1:35 across three slides · Act 4 beat 4 of 6
 FILE     05-scala3-payment/src/main/scala/demos/PaymentDemo.scala:141
          the LAST line of `serverHighRisk`
 DIR      ~/workspace/scala-type-driven-talk/05-scala3-payment
-COMMAND  compile     — the same `sbt:payment>` session as Demo 3
+COMMAND  compile     at the same `sbt:scala3-payment>` prompt as Demo 3
 EDIT     `ch5.send(captured)`
            -> `val (ack, done)       = ch5.receive()`
               `done`
-BEFORE   nothing. sbt has been running since Demo 3; if that one compiled, this
-         one will. 8s.
+BEFORE   nothing — that window has been open since before Demo 3. If it was
+         closed: `cd` to DIR and run `sbt` again. 8s.
 IF IT FAILS  advance and say nothing about it. The next two slides are the
              same session, recorded, and the room cannot tell.
 

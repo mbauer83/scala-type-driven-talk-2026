@@ -3,12 +3,16 @@ A4-demo3 · cap 1:55 across three slides · Act 4 beat 2 of 6
 FILE     05-scala3-payment/src/main/scala/demos/PaymentDemo.scala:123
          in `serverMediumRisk`
 DIR      ~/workspace/scala-type-driven-talk/05-scala3-payment
-COMMAND  compile     — at the `sbt:payment>` prompt. NOT `sbt compile`.
+COMMAND  compile     typed at the sbt prompt — NOT `sbt compile` in the shell
 EDIT     `authorize(order, ThreeDSApproved(proof))`
            -> `authorize(order, AutoApproved)`
-BEFORE   start `sbt` in DIR before the act and leave it at its prompt. 8s warm;
-         starting it cold on stage is 30s and up, and the largest time risk in
-         the talk.
+BEFORE   in a terminal, before the act starts:
+             cd ~/workspace/scala-type-driven-talk/05-scala3-payment
+             sbt
+         it loads for a few seconds and settles on `sbt:scala3-payment>`. Leave
+         that window open — Demo 4 uses the same session, so do not exit it.
+         From there `compile` answers in 8s. Starting sbt cold in front of the
+         room is 30s and up, and the largest time risk in the talk.
 IF IT FAILS  advance and say nothing about it. The next two slides are the
              same session, recorded, and the room cannot tell.
 
@@ -84,10 +88,23 @@ this edit, run the real `sbt -batch -warn compile`, write `demos/3-edit.txt`,
 `demos/3-term.txt` and `demos/3-risk-indexed-approval.txt`, and restore the
 source. Re-run either after any change to the Scala code.
 
+THE PROMPT IS `sbt:scala3-payment>`, CHECKED
+the `name` setting in `05-scala3-payment/build.sbt:6` is scala3-payment, and sbt
+announces
+*set current project to scala3-payment* on load. An earlier draft of this script
+wrote `sbt:payment>` from memory, which is the project the DIRECTORY is named
+after, not the one the build declares.
+
+Also seen on that run: *sbt server could not start because there's another
+instance of sbt running on this build.* It is a warning, not a failure — it comes
+from a Metals/Bloop sbt server already holding the build, and the session works
+anyway. If it appears on the night, ignore it.
+
 ONE MISMATCH TO KNOW ABOUT, AND IT IS A DELIBERATE TRADE
 The recorded fallback frame's first line reads `$ sbt compile`, because the
 capture runs non-interactively. If you take the advice above and keep an sbt
-session open, what the room watches you type is `compile` at the `sbt:payment>`
+session open, what the room watches you type is `compile` at the
+`sbt:scala3-payment>`
 prompt — and the fallback frame, if you ever need it, says `$ sbt compile`.
 Nobody will notice, and the twenty-plus seconds a cold `sbt compile` can cost in
 front of an audience is a real risk against a cosmetic one. If you would rather

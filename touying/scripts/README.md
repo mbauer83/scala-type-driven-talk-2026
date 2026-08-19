@@ -5,6 +5,35 @@ Each file here is the verbatim script for one slide. The slide pulls it in with
 truth**: the PDF, the pdfpc presenter notes, the word counts and the prose
 linter all read the same file you edit. There is no second copy to keep in sync.
 
+## Demo pre-flight — run this before the room fills up
+
+Every demo's own script repeats its DIR and COMMAND, but `BEFORE` is only in
+front of you once that demo has already started. This is the whole list, in one
+place, to walk once beforehand.
+
+```
+# demos 1 and 2 — javac, ~0.6s each. Warm the compiler and check they are green.
+cd ~/workspace/scala-type-driven-talk/03-java-function-types-sealed   && javac -d /tmp/out *.java
+cd ~/workspace/scala-type-driven-talk/04-java-advanced-generics-typestate && javac -d /tmp/out *.java
+
+# demo 5 — idris2, ~1.5s once build/ is warm; from cold it builds five modules.
+cd ~/workspace/scala-type-driven-talk/06-idris2-payment && idris2 --build payment.ipkg
+
+# demos 3 and 4 — ONE sbt session, left open for the whole talk.
+cd ~/workspace/scala-type-driven-talk/05-scala3-payment && sbt
+#   -> settles on   sbt:scala3-payment>
+#   -> type `compile` once now (8s). LEAVE THE WINDOW OPEN.
+```
+
+Nothing should print but success. `sbt` is the only one that matters: started
+cold on stage it is 30s and up, and it is the largest time risk in the talk. If
+sbt warns *server could not start because there's another instance running*,
+ignore it — that is a Metals/Bloop server holding the build, and the session
+works anyway.
+
+Then open all five files in the IDE, at the lines in each script's `FILE`, so no
+demo begins with a file-tree hunt.
+
 | script | slide | id |
 |---|---|---|
 | `01-title.md` | `slides/01-title.typ` | `A0-title` |
