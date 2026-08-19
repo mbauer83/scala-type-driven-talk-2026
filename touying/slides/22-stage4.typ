@@ -59,9 +59,9 @@
 ```java
 public final class Payment<S extends PaymentState> { ... }
 
-static Payment<Initiated>  initiate(Order order)
-static Payment<Authorized> authorizeAuto(Payment<Initiated> p)
-static Payment<Captured>   capture(Payment<Authorized> p)
+static Payment<Initiated>        initiate(Order order)
+static Payment<Authorized>       authorizeAuto(Payment<Initiated> p)
+static Payment<Captured>         capture(Payment<Authorized> p)
 static Result<Payment<Refunded>> refund(Payment<Captured> p, RefundMechanism m)
 ```
       ],
