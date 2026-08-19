@@ -4,7 +4,8 @@ TALKING POINTS
 1. Everything Scala has been doing for the last few minutes has a name
 2. The predicate in the type — a refined type
 3. AuthCode that cannot go where CaptureId is expected — an opaque type
-4. CanSend[P]: P is what is LEFT of the protocol; CanSend is a claim ABOUT P,
+4. CanSend[P] — the twin of the CanReceive Demo 5 just failed to find. P is
+   what is LEFT of the protocol; CanSend is a claim ABOUT P,
    that it starts with a send. Ask for the claim as evidence, get the message
    type with it — which is why send knows what it accepts
 5. finish asks for evidence of a different claim: the protocol has ended
@@ -22,7 +23,8 @@ names are how you find any of it again. The predicate in the type is a refined
 type; the `AuthCode` that cannot go where a `CaptureId` is expected is an opaque
 one.
 
-`CanSend[P]` is worth a second. `P` is whatever is left of the protocol, and
+`CanSend[P]` is the twin of the `CanReceive` you just watched fail. `P` is
+whatever is left of the protocol, and
 `CanSend` is a claim about `P` — that it starts with a send. Ask the compiler for
 that claim as evidence, and the message type comes with it, which is why `send`
 already knows what it will accept. `finish` asks for evidence of a different
@@ -39,6 +41,14 @@ fail that way, and nothing else."
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.
 ==========================================================================
+
+THE SEAM WITH DEMO 5 (19 Aug)
+`A4-demo5` now sits between `A4-sessions` and this slide, and its error is
+*»No given instance of CanReceive…«*. So the `CanSend[P]` paragraph opens by
+naming it as the twin of the thing the room has just watched the compiler fail to
+find, instead of introducing it cold. Five words, and it turns a vocabulary row
+into the explanation of an error they have seen. **Reversible** — it used to read
+*»`CanSend[P]` is worth a second.«*
 
 WHY A NAMING SLIDE IS NOT FURNITURE HERE
 Part 12/R8 is the reason: the talk *should* use the technical term at the beat

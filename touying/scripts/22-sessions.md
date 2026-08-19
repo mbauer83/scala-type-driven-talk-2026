@@ -11,7 +11,8 @@ TALKING POINTS
 6. Client holds Channel of P, server holds Channel of Dual of P — one definition
 7. Danielle's two services were each correct against their own contract
 8. There was no third thing for them to be correct against. This is it
-9. A server that sends where it should receive does not compile
+9. Hand off into Demo 5 — watch what happens when one side forgets whose turn
+   it is. Do NOT close the point here; the demo closes it
 
 VERBATIM
 
@@ -33,13 +34,22 @@ channel of `P` and the server one of `Dual` of `P`, both out of that one
 definition.
 
 Danielle's two services were each correct against their own contract, with
-nothing else to be correct against. This is that missing thing —
-and a server that sends where it should receive does not compile, so the drift
-she found three weeks in has nowhere left to happen."
+nothing else to be correct against. This is that missing thing. So watch what
+happens when one side forgets whose turn it is."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.
 ==========================================================================
+
+THIS BEAT NO LONGER CLOSES DANIELLE — DEMO 5 DOES (19 Aug)
+It used to end *»a server that sends where it should receive does not compile, so
+the drift she found three weeks in has nowhere left to happen«*, which asserted
+the one thing in Act 4 the room never got to watch. `A4-demo5` checks it in front
+of them now, and that clause moved there with it. What is left here is the gap
+and the hand-off; closing the point twice, thirty seconds apart, would flatten
+both. The slide still carries the property as written copy — *a server that sends
+where it should be receiving does not compile* — which is now a promise the next
+slide keeps rather than a claim the room has to take on trust.
 
 THE CALLBACK IS EXACT, AND IT IS THE REASON THIS SLIDE OPENS THAT WAY
 `A1-above` closes on four things the room is promised it will see running: *a

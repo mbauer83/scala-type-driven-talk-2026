@@ -7,7 +7,7 @@ working day remains.** Audience: a Java meetup in Köln — working developers,
 mixed seniority and mixed depth, little FP or type-theory background.
 
 **The deck is written.** All 30 main beats carry a finished three-part script,
-all four demos are captured from the real compilers, and every slide from Act 3
+all five demos are captured from the real compilers, and every slide from Act 3
 onward is at or under its cap. **What is left is review and rehearsal:** MB has
 not read Acts 4, 5 or 6, and the whole deck has never been run end to end.
 

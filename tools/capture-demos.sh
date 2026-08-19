@@ -8,7 +8,7 @@
 # produce, and Demo 4's edit as "comment out the line", which yields a
 # different error entirely. Both were only caught by running them.
 #
-#   ./tools/capture-demos.sh          # capture all four
+#   ./tools/capture-demos.sh          # capture all five
 #   ./tools/capture-demos.sh 3        # just one
 #
 # Restores every file it touches, including on failure.
@@ -69,6 +69,24 @@ if want 3; then
   ( cd "$d" && sbt -batch -warn compile ) 2>&1 | grep -v '^\[info\]' \
     | sed "s|$ROOT/||g" > "$OUT/3-risk-indexed-approval.txt"
   echo "  -> demos/3-risk-indexed-approval.txt"
+fi
+
+# ── Demo 5 — Stage 5, the protocol refuses the operation ────────────────────
+# EDIT: serverHighRisk's last line, ch5.send(captured) -> ch5.receive()._2.
+#
+# It has to be the LAST operation in the protocol. Anywhere earlier and every
+# binding below inherits the error type, so one honest error arrives with two or
+# three cascading "not found" complaints behind it. Here the remainder of the
+# protocol is `Send[CapturedPayment, End]`, which prints inline, and the whole
+# thing is one line the room can read.
+if want 5; then
+  echo "demo 5: serverHighRisk receives where the protocol says send…"
+  d=05-scala3-payment
+  edit_file "$d/src/main/scala/demos/PaymentDemo.scala" \
+            's|^    ch5.send(captured)$|    ch5.receive()._2|'
+  ( cd "$d" && sbt -batch -warn compile ) 2>&1 | grep -v '^\[info\]' \
+    | sed "s|$ROOT/||g" > "$OUT/5-protocol-state.txt"
+  echo "  -> demos/5-protocol-state.txt"
 fi
 
 # ── Demo 4 — Stage 6, QTT linearity ─────────────────────────────────────────

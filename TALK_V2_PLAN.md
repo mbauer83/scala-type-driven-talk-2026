@@ -1218,7 +1218,7 @@ since nothing in the talk depends on appendix numbering and Q&A slides can be fo
 **Acceptance criteria.** Per slide: builds, passes `prose-lint` if it carries a script, and is
 within its `budget.tsv` cap at 130 wpm. Per act: the act total matches `make timing`, and every
 claim about the code has been checked against the code. Whole deck: `make check` green, the
-four demos rehearsed with their fallbacks visible, and a measured read-through under 45:00.
+five demos rehearsed with their fallbacks visible, and a measured read-through under 45:00.
 
 ---
 
@@ -2279,7 +2279,7 @@ are over budget; nothing reported slides the plan says should not be there.
 ### The deck is written
 
 **All 30 main beats carry a finished three-part script.** Acts 0 through 6 are
-authored and lint-clean; the four demos are captured from the real compilers.
+authored and lint-clean; the five demos are captured from the real compilers.
 
 | act | beats | state |
 |---|---|---|

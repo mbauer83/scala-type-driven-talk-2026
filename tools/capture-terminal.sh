@@ -64,6 +64,44 @@ frame3 () {
 
 frame3
 
+# ── Demo 5 — Stage 5, the protocol refuses the operation (sbt) ───────────────
+# EDIT: serverHighRisk's LAST line, `ch5.send(captured)` -> `ch5.receive()._2`.
+#
+# The position is the whole trick. Four other edits produce the same class of
+# error and none of them is readable on a projector: sending a message the
+# protocol has no room for prints `Required: ?1.Msg`; handing a server the wrong
+# channel prints both protocols expanded, about thirty-five lines; skipping a
+# step mid-protocol cascades into every binding below it. This one is the last
+# operation in the protocol, so nothing downstream inherits the error type and
+# the remainder is two constructors deep — one error, one line, all concrete:
+#
+#   No given instance of type CanReceive[Send[CapturedPayment, End]] was found
+#   for parameter r of method receive in class Channel
+#
+# Keep the edit on the LAST operation if this ever has to move to another
+# server; that is what keeps it to one error.
+frame5 () {
+  local dir=05-scala3-payment file=src/main/scala/demos/PaymentDemo.scala
+  local expr='s|^    ch5.send(captured)$|    ch5.receive()._2|'
+  local src="$ROOT/$dir/$file" bak; bak=$(mktemp)
+  cp "$src" "$bak"
+  {
+    echo "\$ sed -i '…ch5.send(captured) → ch5.receive()._2…' PaymentDemo.scala"
+    echo "\$ git diff -- PaymentDemo.scala"
+  } > "$OUT/5-edit.txt"
+  sed -i "$expr" "$src"
+  diff -u "$bak" "$src" | sed -n '3,$p' | sed 's|^|  |' >> "$OUT/5-edit.txt"
+  {
+    echo "\$ sbt compile"
+    ( cd "$ROOT/$dir" && sbt -batch -warn compile 2>&1 \
+        | grep -v '^\[info\]' | sed "s|$ROOT/||g" | head -8 )
+  } > "$OUT/5-term.txt"
+  cp "$bak" "$src"; rm -f "$bak"
+  echo "captured 5: $(wc -l < "$OUT/5-edit.txt") + $(wc -l < "$OUT/5-term.txt") lines"
+}
+
+frame5
+
 # ── Demo 4 — Stage 6, QTT linearity (idris2) ─────────────────────────────────
 # Same edit capture-demos.sh applies. NOT "comment the line out": `finish done`
 # is the last statement of its do block, so deleting it yields a syntax

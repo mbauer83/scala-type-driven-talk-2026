@@ -63,6 +63,9 @@
 #include "slides/a4-demo3-edit.typ"        // recorded terminal, frame 1
 #include "slides/a4-demo3-out.typ"         // captured sbt output / fallback
 #include "slides/26-session-types.typ"     // A4-sessions
+#include "slides/a4-demo5.typ"              // A4-demo5 — live, dark setup card
+#include "slides/a4-demo5-edit.typ"         // recorded terminal, frame 1
+#include "slides/a4-demo5-out.typ"          // captured sbt output / fallback
 #include "slides/stage5-mechanisms.typ"    // A4-mechanisms
 #include "slides/27-stage5-payoff.typ"     // A4-ceiling — MERGE of v1 payoff + scala3-ceiling
 #include "slides/28-stage6-bridge.typ"     // A5-mltt — MERGE of v1 bridge + 29-mltt-running
