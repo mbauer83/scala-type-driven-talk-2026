@@ -274,12 +274,19 @@ addEventListener('keydown', e => {
   else if (k === 'r' || k === 'R') resetTimer();
 });
 addEventListener('click', e => { if (!isConsole && e.target.tagName !== 'BUTTON') go(idx+1); });
-/* In the console, a click in the empty space around the two thumbnails advances.
-   The target is the grid container itself, so clicks on the images, the notes or
-   the buttons are untouched. Toggleable, because an accidental advance mid-talk
-   is worse than a convenience is good. */
+/* In the console, a click anywhere ABOVE THE NOTES advances — the thumbnails,
+   the space between them, the space around them.
+   Do NOT test for `e.target.id === 'console'`: that is only ever true for the
+   0.7rem grid gap itself. #cur and #side fill their grid cells, so a real click
+   in what LOOKS like empty space lands on one of them, and the first version of
+   this did nothing anywhere a person would actually click.
+   The notes pane and the button bar are excluded so scrolling, selecting and
+   pressing a button stay themselves. Toggleable, because an accidental advance
+   mid-talk is worse than the convenience is good. */
 addEventListener('click', e => {
-  if (isConsole && clickAdvance && e.target.id === 'console') go(idx+1);
+  if (!isConsole || !clickAdvance) return;
+  if (e.target.closest('#notes') || e.target.closest('#bar')) return;
+  go(idx + 1);
 });
 
 function syncTimer() { send({type:'timer', started, pausedAt, pausedTotal}); }
