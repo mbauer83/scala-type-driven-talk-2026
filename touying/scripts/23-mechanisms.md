@@ -30,6 +30,10 @@ that claim as evidence, and the message type comes with it, which is why `send`
 already knows what it will accept. `finish` asks for evidence of a different
 claim: that the protocol has ended.
 
+And the last one abstracts one step further up: `F` of underscore is a type that
+still wants a type, so `interpret` folds the rule tree once and takes the
+interpretation as a parameter.
+
 All of that puts something about a value into the value's type. Next door is a
 family that puts in what a value may do. Plenty of teams run ZIO in production,
 where `loadUser` comes back as `ZIO` of `Database`, `DbError`, `User` — it needs
@@ -102,12 +106,32 @@ FACTS
   and `type Rest` in `protocol/ProtocolEvidence.scala:17-19`; `def
   finish()(using ev: P =:= End): Unit` (`Chan.scala:56`).
 
-THE ONE THAT IS NOT ON THE SLIDE
-v1's sixth row was higher-kinded types — `interpret[F[_]: Functor, A]` in
-`payment/Rules.scala`, the policy interpreter parameterised over the effect type.
-It is real and it is good, and it closes no incident and appears in no demo, so
-it is the row that pays least for its width. If the read-through comes in short
-it is the cheapest thing to add back.
+HIGHER-KINDED TYPES ARE BACK (MB, 19 Aug)
+It was cut for width: real, good, closes no incident, appears in no demo, so it
+paid least for the space it took. It was also recorded here as the cheapest thing
+to restore if the read-through came in short — and MB's standing run came in at
+33 minutes against a 45-minute slot, so it is restored.
+
+It gets **one clause**, not a sentence of its own, which is what kept the v1
+version from working. What the clause has to carry is the shape: `F[_]` is a type
+that still wants a type, so you can abstract over the container rather than only
+over what is in it.
+
+FACTS — grepped (C1)
+- `trait Functor[F[_]]` with `def map[A, B](fa: F[A])(f: A => B): F[B]` —
+  `payment/Rules.scala:22-23`.
+- `def interpret[F[_]: Functor, A](algebra: F[A] => A)(fix: Fix[F]): A` —
+  `payment/Rules.scala:41-42`. On the slide, truncated after the `algebra`
+  parameter list, which is the part that shows the shape.
+- `case class Fix[F[_]](unfix: F[Fix[F]])` — `payment/Rules.scala:37`; `type
+  Policy = Fix[PolicyF]` — `:39`.
+- The two interpretations that make the point are real and both in the file:
+  `interpret[PolicyF, String]` at `:60` (the audit string) and
+  `interpret[PolicyF, Analysis]` at `:80`. One tree, two folds.
+- If asked why this is not just a visitor: the algebra is a value you pass, the
+  recursion is written once in `interpret`, and `F` is a parameter — so a new
+  interpretation is a new function, not a new class in a hierarchy somebody has
+  to edit.
 
 JOIN
 Backwards: `A4-sessions`, and Danielle. Forwards: `A4-ceiling`, which is the

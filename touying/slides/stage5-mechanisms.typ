@@ -8,8 +8,10 @@
 //
 // v1 had six rows, each read out in a sentence of its own — the demo narrated a
 // second time. The higher-kinded row (interpret[F[_]: Functor, A],
-// payment/Rules.scala) is dropped: real, good, closes no incident, in no demo.
-// It is the cheapest thing to add back if the read-through comes in short.
+// payment/Rules.scala) was dropped for width and is BACK as of 19 Aug: MB's
+// standing read-through came in at 33 minutes against a 45-minute slot, and this
+// was the documented first thing to restore. It gets one clause spoken, not a
+// sentence of its own.
 //
 // Depth for the right-hand half is appendix a01-tracking.
 //
@@ -47,7 +49,7 @@
 
     stack(
       dir: ttb,
-      spacing: sz(34pt),
+      spacing: sz(26pt),
       mech([Refined types], `String :| MinLength[1]`,
            [The predicate is part of the type. A macro decides it for a literal;
             a smart constructor decides it for everything else.]),
@@ -62,6 +64,10 @@
       mech([Evidence the compiler builds], `def finish()(using ev: P =:= End)`,
            [Evidence of a different claim — that `P` has reached the end. Mid-protocol
             there is none to be had, so you cannot hang up in the middle of the call.]),
+      mech([Higher-kinded types], `def interpret[F[_]: Functor, A](algebra: F[A] => A)`,
+           [`F[_]` is a type that still wants a type. One fold over the rule tree,
+            and the interpretation is a parameter — audit string, risk analysis,
+            whatever comes next.]),
     ),
 
     stack(

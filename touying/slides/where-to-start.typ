@@ -60,13 +60,15 @@
         [A WEEKEND],
         [Scala 3 and the Iron library],
         [Where tonight's refinements came from. The sbt scaffold in the Stage 5
-         repository builds and runs as it stands.],
+         repository builds and runs as it stands — or `rockthejvm.com` if you
+         would rather be taught than handed a build file.],
       ),
       (
         [A RABBIT HOLE],
         [Idris 2 · Lean 4],
-        [Brady's _Type-Driven Development with Idris_ is the on-ramp. Lean teaches
-         itself in a browser — the proof games at `adam.math.hhu.de`.],
+        [Brady's _Type-Driven Development with Idris_ is the on-ramp. Lean has
+         proof games that run in a browser with nothing to install —
+         `adam.math.hhu.de`, and the easiest thing here to start tonight.],
       ),
     )),
     align(right)[

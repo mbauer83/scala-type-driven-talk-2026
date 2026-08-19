@@ -19,9 +19,10 @@ VERBATIM
 "And the arithmetic behind all of this has changed, because a great deal of the
 code we ship is now written by a model.
 
-People still review, and they read carefully. What changes is volume and speed:
-when ten changes land before lunch, attention per line thins, and what scales is
-the part that needs no attention at all.
+People still review at least some of the code - and good shops will require human review
+of critical code. What changes is volume and speed: when ten changes land before lunch, 
+attention per line thins, and to support our efforts, the only approach that actually scales 
+is one that requires no attention at all.
 
 A type is a hard constraint. It holds at every use, from every author, on every
 build, and it does not care whether a person or a model wrote it. A test only
@@ -31,9 +32,9 @@ It is also the clearest statement of intent you can hand a model. A type
 signature says what a thing is for in a form it can read, and it cannot drift, because it
 is checked every time.
 
-And the loop is seconds long and it answers by name. `Approval` of `LowRisk`
-where `Approval` of `MediumRisk` was required says exactly what to change; a red
-test says only that something is wrong."
+And - the feedback loop is very short and inexpensive. `Approval` of `LowRisk`
+where `Approval` of `MediumRisk` was required says exactly what to change, 
+and is available as feedback before the code is ever run;"
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.

@@ -17,29 +17,25 @@ TALKING POINTS
 
 VERBATIM
 
-"So: what does each of these cost, where you actually are.
+"So: what does each of these cost, where you actually are. The prices are on the
+wall; what matters is their shape.
 
-Stage three — sealed interfaces and records — costs nothing at all: Java
-seventeen, no dependency, an afternoon. Worth doing on Monday regardless of
-where the rest of this lands for you.
+The first two are cheap enough that nobody has to approve them. Stage five is a
+team decision eventually — build tooling, compile times in seconds rather than
+milliseconds, hiring, a real learning curve — but the first step is not that
+decision. It is one person spending an afternoon on something small, to find out
+whether you have invariants worth the expressivity. And stage six is not a
+production proposal at all: it shows where the ceiling is, the ideas keep leaking
+down into languages you do ship, and an evening with it changes how you read a
+type signature.
 
-Stage four costs an interface, a private constructor, a code-review conversation
-and some generic noise in your signatures — earned where there is a lifecycle.
+None of it costs anything at runtime. The type-level machinery is gone before the
+program starts, and what is left is the one check at the boundary you would have
+written by hand anyway.
 
-Stage five becomes a team decision eventually: build tooling, compile times in
-seconds rather than milliseconds, hiring, a real learning curve. But that is not
-the first step — the first step is one of you spending an afternoon on something
-small, to find out whether your domain has invariants worth encoding.
-
-Stage six is not a production proposal. It shows where the ceiling is, the ideas
-keep leaking down into languages you do ship, and an evening with it changes how
-you read a type signature.
-
-None of it costs anything at runtime: it is gone before the program starts.
-
-So the question is whether an invariant is expensive enough to encode. The tools
-keep getting cheaper, so that set keeps getting bigger — and there is a second
-reason it is growing."
+So the question is never which language to move to. It is whether a particular
+invariant is expensive enough to encode — and the tools keep making that
+cheaper, which is why the set worth encoding keeps growing."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.

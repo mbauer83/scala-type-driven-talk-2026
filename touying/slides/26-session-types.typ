@@ -1,8 +1,8 @@
 // A4-sessions · cap 1:30 · Act 4 beat 3 of 6 · REWORK of v1 26-session-types
 //
 // A1-above promises four things running; this is the conversation-as-one-type
-// row, and the first of them the talk pays off — which is why A1-above lists it
-// first. It is also the item A3-ceiling names as the one Java cannot reach at
+// promise, and the first of them the talk pays off — which is why A1-above
+// lists it first. It is also the item A3-ceiling names as the one Java cannot reach at
 // all, because deriving the other side needs types computed from types.
 //
 // v1 carried four prose bullets plus a callout plus a pane, and the bullets

@@ -1,6 +1,6 @@
 // A5-mltt · cap 1:45 · Act 5 beat 1 of 3 · MERGE of v1 28-stage6-bridge + 29-mltt-running
 //
-// This slide pays off three of the four rows A1-above put on the wall at minute
+// This slide pays off three of the four promises A1-above put on the wall at minute
 // nine, with the SAME code fragments the primer showed, beside the real
 // signatures they came from:
 //
@@ -9,7 +9,7 @@
 //   1  (1 _ : Session p) -> ...                  a binding used exactly once
 //   ⇄  Send[Order, Receive[RiskSnapshot, ...]]   ALREADY PAID OFF at A4-sessions
 //
-// So the row order here is Π, Σ, 1 — the primer's order, minus the one already
+// So the order here is Π, Σ, 1 — the primer's order, minus the one already
 // spent. `1` is set up and NOT fired; Demo 5 fires it.
 //
 // v1's 29-mltt-running is gone: it re-taught the Π and Σ inference rules as
@@ -24,7 +24,7 @@
 // PaymentChannel.idr:146.
 //
 // KEEP `: RiskLevel` IN THE DEPENDENT PAIR. Dropping it is legal Idris sugar
-// and it hides the index type, which is the entire point of the Σ row.
+// and it hides the index type, which is the entire point of the Σ promise.
 #import "../theme.typ": *
 #import "../components.typ": *
 #import "../code-pane.typ": *

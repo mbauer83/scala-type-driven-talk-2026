@@ -25,16 +25,19 @@ VERBATIM
 Start at the top, because that first line is the whole trick. `Session` takes a
 value of type `SessionType` and gives back a type, so which type you get depends
 on which value you hand it. And that value is just a description — the same
-little tree you read off the wall in Scala, except that there it was a phantom
+little protocol-tree you saw in Scala, except that there it was a phantom
 type, and here it is a value.
 
 `protocolFromSnapshot` underneath is an ordinary function: snapshot in, one of
-those descriptions out, and you have written a thousand like it.
+those descriptions out - you have written a thousand like it.
+
+Those two carry the names from the wall: Pi for a result type that depends on the
+argument, Sigma for a value carrying a proof about itself.
 
 Now put them together. `openSession` takes that value, calls it `p`, and `p`
 turns up inside the type it hands back — one channel at `Session p`, the other
-at `Session` of `dual p`. Ignore the `L1` and the `LPair`; the shape to see is a
-value going in on the left and appearing in a type on the right.
+at `Session` of `dual p`. Ignore the `L1` and the `LPair` for now - those are for linearity; 
+the shape to see is a value going in on the left and appearing in a type on the right.
 
 That is the first of the four rows, a type indexed by a runtime value, and it is
 why nobody has to write the protocol variants out in advance.
@@ -47,7 +50,8 @@ And the third is that `1`. Every channel operation carries one in front of its
 channel argument, meaning this binding has to be used exactly once — and the
 compiler counts.
 
-A rule about your program that Scala had no way to state. So let me break it."
+A rule about your program that Scala had no way to state. So let's see what happens
+when we break it."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.
@@ -58,7 +62,7 @@ Same decision as `A4-opens`, and its PREPARATION has the reasoning for why there
 is no dark stage-opener slide at either language change. The first sentence
 names Idris 2 and the eyebrow is a filled chip; that is the whole announcement.
 
-THIS SLIDE PAYS OFF THREE OF THE FOUR ROWS FROM `A1-above`
+THIS SLIDE PAYS OFF THREE OF THE FOUR PROMISES FROM `A1-above`
 `A1-above` puts four notations on the wall with their real code and promises
 *you will walk out knowing what each one buys, having watched all four run on the
 payment flow*:

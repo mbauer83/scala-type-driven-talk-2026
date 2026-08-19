@@ -5,9 +5,9 @@ TALKING POINTS
 2. An afternoon — sealed interfaces and switch expressions
 3. One service — phantom typestate, wherever there is a lifecycle
 4. A weekend — Scala 3 and Iron, where tonight's refinements came from. The
-   scaffold in the repository builds as it stands
-5. A rabbit hole — Brady's Idris book; Lean if you want the proof end, and it
-   teaches itself in a browser
+   scaffold builds as it stands; Rock the JVM if you would rather be taught
+5. A rabbit hole — Brady's Idris book; Lean's browser proof games, nothing to
+   install, the one thing they could do tonight
 6. Reading list is in the appendix
 
 VERBATIM
@@ -22,10 +22,12 @@ One service: phantom typestate, wherever you have a lifecycle — it comes back 
 as easily as it went in.
 
 A weekend: Scala three and the Iron library, where tonight's refinements came
-from; the scaffold in the repository builds as it stands.
+from. The scaffold in the repository builds as it stands, and Rock the JVM is the
+guided path if you would rather be taught.
 
-And a rabbit hole, if you want the proof end of this: Brady's Idris book is the
-on-ramp, and Lean will teach you in a browser game."
+And a rabbit hole, if you want the proof end: Brady's Type-Driven Development
+with Idris is the on-ramp, and Lean has proof games that run in a browser with
+nothing to install — the one thing here you could do tonight."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.

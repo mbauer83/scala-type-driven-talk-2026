@@ -128,7 +128,10 @@ a4-demo3	1:55	demo
 a4-demo4	1:35	demo    # A4-demo4 — NEW 19 Aug: Danielle was the one incident
 #                       of the four with no compiler error behind it. Three
 #                       slides, one cap, as with Demos 1-4.
-stage5-mechanisms	1:20	prose
+stage5-mechanisms	1:50	prose   # 1:20 -> 1:50 on 19 Aug: the higher-kinded
+#                       mechanism is back (documented as the first thing to
+#                       restore if the read-through came in short — it did, at 33
+#                       minutes), and CanSend gained the Demo 4 callback.
 27-stage5-payoff	1:20	prose
 
 # ── Act 5 · Idris 2 — 5:00 · AUTHORED 18 Aug ───────────────────────────────
@@ -159,7 +162,9 @@ a5-demo5	2:10	demo    # A5-demo5
 # A6-now): caps 40:45 -> 41:20, spare 4:15 -> 3:40. Nothing was shaved for it.
 32-agentic	1:20	prose   # A6-cost
 a6-now	1:10	prose   # A6-now
-where-to-start	0:44	prose   # A6-monday — 0:11 moved to a2-promises, see above
+where-to-start	1:05	prose   # 0:44 -> 1:05 on 19 Aug: the three on-ramps are
+#                       named out loud now — Rock the JVM, Brady's book, Lean's
+#                       browser games — which is the one thing anybody acts on.   # A6-monday — 0:11 moved to a2-promises, see above
 34-close	0:50	prose   # A6-close
 
 # ── Cut or merged (kept so the reason survives) ────────────────────────────
