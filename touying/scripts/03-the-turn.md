@@ -17,18 +17,18 @@ VERBATIM
 tests, though, is a case somebody has to think of, write down, and keep correct,
 everywhere the rule applies.
 
-Where the same rule can be encoded in a type at a reasonable price, the compiler
-applies it at every use, and nobody has to remember. How we can tell whether
-something is valid and how we can say what that means 
-- those questions are much older than programming.
+Such rules - business rules - tell us what's valid. Where such a can be encoded 
+in a type at a reasonable price, the compiler applies it at every use, and nobody 
+has to remember. How we can tell whether something is valid and how we can say 
+what that means - those questions are much older than programming.
 
 That history stretches back about two and a half thousand years, across
-philosophy, logic, mathematics and computer science. It is the thread I want to
+philosophy, logic, mathematics and computer science - and it is the thread I want to
 follow tonight.
 
 You have been writing logic all along - every if, every guard - and all of it
-constrains what the program does while it runs. Types do the same thing one level up: they constrain how a program can be
-constructed at all, and they settle it before it runs.
+constrains what the program does while it runs. Types do the same thing one level up: 
+they constrain how a program can be constructed at all, and they settle it before it runs.
 
 You write that kind too: when you write a sealed interface and the compiler makes
 you handle every case, you are applying a rule that Gerhard Gentzen wrote down in

@@ -26,13 +26,14 @@ nineteen-oh-one, and broke Frege's life's work with one question: the set of all
 sets that do not contain themselves — does it contain itself?
 
 Either answer contradicts, so naive set theory is inconsistent — and set theory
-was the ground being laid under arithmetic, analysis and proof itself. Russell's own repair is the reason we are all here tonight. He
-gave every statement a level, defined by what it talks about: always one above
-whatever it mentions. The set of all sets that do not contain themselves would
-have to sit one level above itself, so it has no level at all — there is no legal
-way to write that statement. He called the levels types, and
-every sealed interface any of you writes is downstream of a man trying to stop
-logic and mathematics from eating themselves.
+was the ground being laid under arithmetic, analysis and proof itself. 
+Russell's own repair is the reason we are all here tonight.
+He gave every statement a level, defined by what it talks about: always one above
+whatever it mentions. A statement trying to define the set of all sets 
+that do not contain themselves would have to sit one level above itself, 
+so it has no level at all — there is no legal way to write it. 
+He called the levels types, and every sealed interface any of you writes 
+is downstream of a man trying to stop logic and mathematics from eating themselves.
 
 If the ground can crack like that, what is a formal system still good for?
 Hilbert wanted three things at once: no contradictions, everything true provable,

@@ -13,10 +13,9 @@ TALKING POINTS
 
 VERBATIM
 
-"Hilbert wanted three things of a formal system. Ask the same three of your
-compiler.
+"Hilbert wanted three things of a formal system. Let's see how those translate to compilers.
 
-Consistent: no program it accepts hands you a value of a type that has no values
+Consistency - means no program it accepts hands you a value of a type that has no values
 — Scala's `Nothing`, say. A logician would say: you cannot derive a falsehood.
 
 Sound: if it compiles, what the types claim is true of the values at runtime — as

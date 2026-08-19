@@ -16,11 +16,11 @@ VERBATIM
 "Alice's service had no types at all: twelve plus thirty-four, as strings, is
 twelve-thirty-four, and nothing anywhere complains. That is where we start.
 
-One flow carries the rest of the talk, and you have seen it already. What changes
-at each stage is how much of it the compiler enforces — and each time we move a
-rule into a type we get the same four things back: it holds at every use, the
-failure moves to compile time, the signal is small and arrives at the
-definition, and the defensive tests go.
+Our payment-flow still carries the rest of the talk. What changes at each stage 
+is how much of it the compiler enforces — and each time we move a
+rule into a type, we get the same four things back: it holds at every use, the
+failure moves to compile time, the signal of intent is precise, brief and located 
+at the site of definition - and the defensive tests go.
 
 So before any of that: what is the compiler actually promising when it says yes?"
 

@@ -20,7 +20,7 @@ VERBATIM
 "Why a compiler can take that deal at all is the last piece.
 
 Church and Turing made computation formal in nineteen thirty-six, and Church's
-typed lambda calculus is the direct ancestor of the Function you wrote in Java 8.
+typed lambda calculus is the direct ancestor of the lambdas you've been writing since Java 8.
 
 In nineteen sixty-nine Howard wrote down what Curry had noticed twenty years
 earlier, and it is what I promised you at the start. A proposition corresponds to
@@ -31,17 +31,17 @@ thing. That's honestly still one of the most mind-blowing and beautiful facts I 
 
 So: your program is the construction. Its type says what you constructed a proof
 of. The compiler checks the one against the other - and proofs, like programs,
-compose, with the types governing how. None of that depends on writing the types
-down: declared, inferred, or carried at runtime, every value has one. What
-changes is whether anything checks it before you run.
+compose, with the types governing how. None of that depends on a language where 
+you delcare types: declared, inferred, or carried at runtime, every expression has one. 
+What changes is whether anything checks it before you run.
 
-There is a caveat, and it is the reason this talk has stages. A function type from A to B is an
-implication: give me an A and I will always give you a B. In Java that is not
-quite truthful, because of nullability, exceptions, and loops that never return —
-so what you can actually get is the second line. And notice that Java already
+There is a caveat, and it is the reason this talk has stages. A function type from A to B,
+is, logically, an implication: give me an A and I will always give you a B. 
+In Java that is not quite truthful, because of nullability, exceptions, and loops that never return —
+so what you can actually get is what the second signature says. And notice that Java already
 gives you one way to close part of that gap: A arrow B throws C.
 
-And a good part of our climb from here is that one move, repeated: something the
+A good part of our climb from here is that one move, repeated: something the
 code only promises becomes something the type states."
 
 ==========================================================================

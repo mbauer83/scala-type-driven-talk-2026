@@ -11,19 +11,20 @@ TALKING POINTS
 
 VERBATIM
 
-"Frege's move, in eighteen seventy-nine: let a proposition contain a variable,
+"Frege's move, in eighteen seventy-nine, was to let a proposition contain a variable,
 then say what holds for every value it could take. You already write that — every method signature
 you have ever typed quantifies over the values of its arguments. The line on the
-slide is that, in the logician's notation: for every `o` of type `Order`, the
+slide is just that, in the logician's notation: for every `o` of type `Order`, the
 result of applying assess-risk to it has type RiskDecision.
 
 A generic moves the variable one level up, from values to types. Take max. For
-all T, if T can be compared, then you can pick the larger of two — and the
-comparing is exactly why that bound is there. Strip it off and there is nothing
-the body can do with a T at all — it cannot compare two of them, so max cannot be
-written.
+all T, if T can be compared, then you can pick the larger of two — 
+take a pair of T and return a single T. The comparing is exactly why that 
+"Comparable" bound is there. Types tell you what you can do with values. 
+And when you introduce a variable for a type without a bound - there's really not 
+much you can do except hand it back.
 
-That is a for-all with an if inside it, the same form we started with two slides
+So this signature is a for-all with an if inside it, the same form we started with two slides
 ago. The bound is the if: it says which types the claim covers.
 
 There is a second quantifier, there-exists. Java's wildcards are a weak version

@@ -49,14 +49,16 @@
     #stack(
       dir: ttb,
       spacing: sz(38pt),
+      // Order follows the script, which follows the order the talk pays them
+      // off in (MB, 19 Aug). See scripts/09-above.md.
       notation([Π], `Approval : RiskLevel -> Type`,
                [a type indexed by a runtime value]),
+      notation([⇄], `Send[Order, Receive[RiskSnapshot, ...]]`,
+               [a whole conversation, as one type]),
       notation([Σ], `(lvl : RiskLevel ** Assessment lvl n c)`,
                [a value paired with a proof about that value]),
       notation([1], `(1 _ : Session p) -> ...`,
                [a binding that must be used exactly once]),
-      notation([⇄], `Send[Order, Receive[RiskSnapshot, ...]]`,
-               [a whole conversation, as one type]),
     )
     #v(sz(50pt))
     #align(center)[
