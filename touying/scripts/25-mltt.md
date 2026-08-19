@@ -2,7 +2,8 @@ A5-mltt · cap 1:45 · Act 5 beat 1 of 3 · MERGE of v1 28-stage6-bridge + 29-ml
 
 TALKING POINTS
 1. Two things Scala could not say. Idris 2 says both
-2. START at `data Session : SessionType -> Type` — that line is the trick
+2. START at `data Session : SessionType -> Type` — that line is the trick.
+   `Session` takes a VALUE of type SessionType and gives back a TYPE
 2b. The VALUE handed in is only a description — a tree. It holds no code
 3. protocolFromSnapshot is an ORDINARY function: snapshot in, a value out
 4. openSession takes that value, calls it p, and p turns up INSIDE the type it
@@ -21,10 +22,11 @@ VERBATIM
 
 "Two things Scala could not say, and Idris 2 says both.
 
-Start at the top, because that first line is the whole trick. `Session` is a type
-that takes a `SessionType`, so which type you get depends on the value you hand
-it. And that value is just a description — the same little tree you read off the
-wall in Scala, except that there it was a type and here it is a value.
+Start at the top, because that first line is the whole trick. `Session` takes a
+value of type `SessionType` and gives back a type, so which type you get depends
+on which value you hand it. And that value is just a description — the same
+little tree you read off the wall in Scala, except that there it was a phantom
+type, and here it is a value.
 
 `protocolFromSnapshot` underneath is an ordinary function: snapshot in, one of
 those descriptions out, and you have written a thousand like it.
@@ -138,6 +140,25 @@ little tree you read off the wall in Scala, except that there it was a type and
 here it is a value* — which closes the gap and states the act's thesis in the
 same breath. **Revertible**: the original was *»a description and nothing more —
 a little tree that says send this, then receive that«*.
+
+TWO MORE PRECISIONS IN THE SAME SENTENCE (MB, 19 Aug)
+Both his, both right, and the second one is free.
+
+*»takes a value of type `SessionType`«*, not *»takes a `SessionType`«*. The
+shorthand is idiomatic everywhere else — nobody objects to *takes an Int* — and
+it is the one place in the talk where it costs something, because this beat
+exists to teach the type/value distinction. Do not use the shorthand while
+teaching the thing it elides. The line also now says `Session` *gives back a
+type*, which states the Π-shape outright instead of leaving it to *is a type
+that takes*.
+
+*»there it was a phantom type«*, not *»there it was a type«*. Accurate: in Scala
+the tree is built from `final class Send[A, Next] extends Protocol` and friends,
+never instantiated, carried as `Channel[P]` whose three fields never mention `P`
+(`runtime/Chan.scala:14-17`). And it is a callback the room has already been
+handed — `A3-stage4` says *»which is why the pattern is called phantom typestate.
+Phantom because there is nothing there«* out loud, two acts earlier. One word,
+and the Idris beat lands against a term this audience already owns.
 
 AND SAY »THAT VALUE«, NOT »A SessionType IS A VALUE« (MB, 19 Aug)
 A draft of the line above read *a `SessionType` is … an ordinary value*, which is

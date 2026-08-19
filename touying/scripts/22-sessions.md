@@ -103,11 +103,36 @@ makes Stage 4 the thing the room already understood.
 `MkSession : Channel Blob -> Channel Blob -> Session p`
 (`PaymentChannel.idr:66-67`) has two fields, neither mentioning `p`, and
 `openSession _ = …` ignores its `p` argument outright
-(`PaymentChannel.idr:73-78`). Both languages put an erased index over an
-untyped transport. The difference is not runtime presence, it is **which
-language the index is written in and who computes it**: in Scala it is a type,
-assembled by type-level machinery from what is known at compile time; in Idris
-it is a value of an ordinary data type, produced by an ordinary function at
+(`PaymentChannel.idr:73-78`).
+
+Underneath, both are the same thing: **a protocol that exists only at compile
+time, sitting on top of a pipe that carries no type information at all.**
+
+  Scala   two `BlockingQueue[Any]`, and `receive` ends in
+          `inbox.take().asInstanceOf[r.Msg]`  (`runtime/Chan.scala:15-16, 33`)
+  Idris   two `Channel Blob`, where `Blob` is a one-constructor type and
+          `packBlob = believe_me`, `unpackBlob = believe_me`
+          (`PaymentChannel.idr:54-61`)
+
+`believe_me` and `asInstanceOf` are the same move: assert a type the compiler
+cannot check. So in both languages the protocol lives entirely in the parameter,
+and the parameter is gone before a single message moves.
+
+**Why that matters, and it is the honest bound on the whole claim.** A session
+type guarantees that *the program you compiled* uses its end of the channel in
+the right order with the right message types. It does not make the wire
+self-describing and it checks nothing at runtime. Hand the queue to something
+compiled against a different protocol, or write to it from elsewhere, and
+nothing catches it — the same way a phantom type does not stop reflection
+building a `Payment<Authorized>` that was never authorized. This is also the
+answer to *how does this meet a real socket*: identically. The protocol sits
+above serialization, and the unchecked cast at the boundary is where a real
+decoder would go.
+
+So the difference between the two acts is **not** runtime presence. It is
+**which language the index is written in, and who computes it**: in Scala a
+type, assembled by type-level machinery out of what compile time already knows;
+in Idris a value of an ordinary data type, produced by an ordinary function at
 runtime — `protocolFromSnapshot snapshot n c` — and then appearing in a type.
 That is the thing Scala cannot do, and it is exactly what `A5-mltt` shows.
 
