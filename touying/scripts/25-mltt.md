@@ -31,20 +31,18 @@ type, and here it is a value.
 `protocolFromSnapshot` underneath is an ordinary function: snapshot in, one of
 those descriptions out - you have written a thousand like it.
 
-Those two carry the names from the wall: Pi for a result type that depends on the
-argument, Sigma for a value carrying a proof about itself.
-
 Now put them together. `openSession` takes that value, calls it `p`, and `p`
 turns up inside the type it hands back — one channel at `Session p`, the other
 at `Session` of `dual p`. Ignore the `L1` and the `LPair` for now - those are for linearity; 
 the shape to see is a value going in on the left and appearing in a type on the right.
 
-That is the first of the four rows, a type indexed by a runtime value, and it is
-why nobody has to write the protocol variants out in advance.
+That is the first of the four, a type indexed by a runtime value, and it is why
+nobody has to write the protocol variants out in advance.
 
-The second row is a value paired with a proof about it: `assessOrder` hands back
-the risk level together with an assessment whose type mentions that level. The
-answer and the evidence, as one thing.
+The second is a value paired with a proof about it: `assessOrder` hands back the
+risk level together with an assessment whose type mentions that level. The answer
+and the evidence, as one thing. If you go looking for these afterwards, the first
+one is called a Pi type and the second a Sigma type.
 
 And the third is that `1`. Every channel operation carries one in front of its
 channel argument, meaning this binding has to be used exactly once — and the

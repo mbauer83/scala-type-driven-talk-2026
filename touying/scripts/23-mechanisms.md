@@ -30,9 +30,11 @@ that claim as evidence, and the message type comes with it, which is why `send`
 already knows what it will accept. `finish` asks for evidence of a different
 claim: that the protocol has ended.
 
-And the last one abstracts one step further up: `F` of underscore is a type that
-still wants a type, so `interpret` folds the rule tree once and takes the
-interpretation as a parameter.
+And the last one goes up a level again. `F` of underscore is a type parameter
+that is itself generic — it stands for `List`, not for a list of something — and
+Java has no way to write that. Here it means the payment rules are one tree,
+walked once, and what comes out of the walk is a parameter: an audit sentence, or
+a risk analysis.
 
 All of that puts something about a value into the value's type. Next door is a
 family that puts in what a value may do. Plenty of teams run ZIO in production,
@@ -112,10 +114,19 @@ paid least for the space it took. It was also recorded here as the cheapest thin
 to restore if the read-through came in short — and MB's standing run came in at
 33 minutes against a 45-minute slot, so it is restored.
 
-It gets **one clause**, not a sentence of its own, which is what kept the v1
-version from working. What the clause has to carry is the shape: `F[_]` is a type
-that still wants a type, so you can abstract over the container rather than only
-over what is in it.
+It gets a short passage, not a paragraph, which is what kept the v1 version from
+working. Two things have to land and nothing else. **`F[_]` is a type parameter
+that is itself generic** — the Java room's hook is that `List` on its own is not
+a type they can name in a signature, and here it is. And **what it buys**, in
+this domain rather than in the abstract: the rules are one tree, walked once, and
+the thing you walk it into is a parameter.
+
+MB, 19 Aug, on both halves. *»a type that still wants a type«* was cute and told
+nobody anything. *»audit string, risk analysis — whatever comes next«* was
+gibberish to anyone who has not done a deep dive on algebras and interpreters,
+because the room has never been shown either interpretation. Naming them as
+things — the sentence an auditor reads, the analysis the risk engine runs — costs
+four words and means something.
 
 FACTS — grepped (C1)
 - `trait Functor[F[_]]` with `def map[A, B](fa: F[A])(f: A => B): F[B]` —

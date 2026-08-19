@@ -49,7 +49,7 @@
 
     stack(
       dir: ttb,
-      spacing: sz(26pt),
+      spacing: sz(18pt),
       mech([Refined types], `String :| MinLength[1]`,
            [The predicate is part of the type. A macro decides it for a literal;
             a smart constructor decides it for everything else.]),
@@ -65,9 +65,10 @@
            [Evidence of a different claim — that `P` has reached the end. Mid-protocol
             there is none to be had, so you cannot hang up in the middle of the call.]),
       mech([Higher-kinded types], `def interpret[F[_]: Functor, A](algebra: F[A] => A)`,
-           [`F[_]` is a type that still wants a type. One fold over the rule tree,
-            and the interpretation is a parameter — audit string, risk analysis,
-            whatever comes next.]),
+           [`F[_]` is a type parameter that is itself generic — it stands for
+            `List`, not for a list of something, and Java has no way to write it.
+            The payment rules are one tree: `interpret` walks it once, and what
+            comes out is a parameter — an audit sentence, or a risk analysis.]),
     ),
 
     stack(
