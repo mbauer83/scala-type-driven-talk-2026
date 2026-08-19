@@ -157,6 +157,8 @@ let idx = 0, peer = null, started = null, blacked = false;
    across any number of pauses. All three travel in the sync message. */
 let pausedAt = null, pausedTotal = 0;
 let clickAdvance = true;
+let focusedAt = 0;
+addEventListener('focus', () => { focusedAt = Date.now(); });
 
 /* ---------- sync ----------
    postMessage is cross-origin-safe by design, so this works from file:// where
@@ -286,6 +288,9 @@ addEventListener('click', e => { if (!isConsole && e.target.tagName !== 'BUTTON'
 addEventListener('click', e => {
   if (!isConsole || !clickAdvance) return;
   if (e.target.closest('#notes') || e.target.closest('#bar')) return;
+  // A click that merely brought this window to the front is not an instruction
+  // to advance; Windows delivers it to the page as well as focusing.
+  if (Date.now() - focusedAt < 400) return;
   go(idx + 1);
 });
 

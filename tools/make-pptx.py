@@ -79,60 +79,54 @@ def render(ppi, outdir):
 def write_note(text_frame, note):
     """Lay a note out so it can be read at a glance in a presenter pane.
 
-    `TextFrame.text = ...` starts a new PARAGRAPH at every line feed, and PPTX
-    paragraphs carry no space before or after, so a blank line in the script came
-    out as nothing at all — every line the same distance apart, which is what made
-    the notes unreadable in Impress.
+    Every source line becomes its own PARAGRAPH — that part always worked, and
+    it is what keeps a numbered talking point on its own line. What did not work
+    was the blank line between blocks: `TextFrame.text = ...` turned it into an
+    empty paragraph, and LibreOffice Impress collapses those, so the structure
+    vanished. Impress also ignores space-after on notes text, so that is not a
+    substitute.
 
-    So: split the note into blocks on blank lines, one paragraph per block, with
-    real space after it. Lines inside a block are line breaks, which keeps the
-    runbook's aligned columns and the FILE / DIR / COMMAND header intact.
+    So a blank line becomes a paragraph holding a single space. Nothing collapses
+    a paragraph with content in it, in any renderer.
+
+    a:br is deliberately not used: Impress drops it, which put a whole block of
+    talking points onto one line.
     """
     from pptx.util import Pt
-    from pptx.oxml.ns import qn
 
-    blocks = [b for b in re.split(r"\n\s*\n", note.strip()) if b.strip()]
     text_frame.word_wrap = True
+    lines = note.strip().split("\n")
+
+    # A block's lines are set fixed-pitch when they are padded into COLUMNS — a
+    # run of three or more spaces between two non-space characters. That is the
+    # FILE/DIR/COMMAND header and the runbook table. A hanging indent under a
+    # numbered talking point is not that, and reads better proportional.
+    fixed_for = {}
+    block, start = [], 0
+    def close(i):
+        col = any(re.search(r"\S {3,}\S", l) for l in block)
+        for j in range(start, i):
+            fixed_for[j] = col
+    for i, line in enumerate(lines):
+        if line.strip():
+            if not block:
+                start = i
+            block.append(line)
+        else:
+            close(i); block = []
+    close(len(lines))
+
     first = True
-    for block in blocks:
-        # A SPACER PARAGRAPH, not just space-after. LibreOffice Impress ignores
-        # spcAft on notes text and collapses a genuinely empty paragraph, which
-        # is why the blank lines in the script disappeared entirely. A paragraph
-        # holding one space cannot be collapsed by anything, so the gap survives
-        # every renderer. spcAft stays as well — PowerPoint does honour it.
-        if not first:
-            gap = text_frame.add_paragraph()
-            grun = gap.add_run()
-            grun.text = " "
-            grun.font.size = Pt(8)
+    for i, line in enumerate(lines):
         para = text_frame.paragraphs[0] if first else text_frame.add_paragraph()
         first = False
-        lines = block.split("\n")
-        # A block whose lines are aligned into columns — the FILE / DIR / COMMAND
-        # header and the runbook table — only reads correctly in a fixed pitch.
-        # Courier New rather than the deck's JetBrains Mono: PPTX cannot carry a
-        # vendored font, and Courier New is present on every machine that opens
-        # this file. Prose keeps the reader's default face.
-        # Column alignment, not merely indentation: a run of three or more
-        # spaces BETWEEN two non-space characters is what padding a column looks
-        # like. A hanging indent under a numbered talking point is not that, and
-        # reads better in the reader's own face.
-        fixed = sum(1 for l in lines if re.search(r"\S {3,}\S", l)) >= 1
-        for m, line in enumerate(lines):
-            run = para.add_run()
-            run.text = line
-            run.font.size = Pt(11 if fixed else 12)
-            if fixed:
-                run.font.name = "Courier New"
-            if m < len(lines) - 1:
-                # a line break inside the paragraph, not a new paragraph
-                br = copy.deepcopy(run._r)
-                br.tag = qn("a:br")
-                for child in list(br):
-                    br.remove(child)
-                run._r.addnext(br)
-        para.space_after = Pt(10)
-        para.line_spacing = 1.15
+        run = para.add_run()
+        blank = not line.strip()
+        run.text = " " if blank else line
+        run.font.size = Pt(8) if blank else Pt(11 if fixed_for.get(i) else 12)
+        if not blank and fixed_for.get(i):
+            run.font.name = "Courier New"
+        para.line_spacing = 1.1
 
 
 def build(images, notes, output):
