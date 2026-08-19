@@ -1,4 +1,4 @@
-A6-monday · cap 0:44 · Act 6 beat 3 of 4
+A6-monday · cap 1:05 · Act 6 beat 3 of 4
 
 TALKING POINTS
 1. If you want to try any of it — cheapest first, and none of it needs a mandate

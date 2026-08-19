@@ -1,4 +1,4 @@
-VERBATIM · cap 2:00 · word count is computed by `make timing`, not stated here. Checked facts follow the script.
+VERBATIM · cap 2:30 · word count is computed by `make timing`, not stated here. Checked facts follow the script.
 
 TALKING POINTS
 1. The flow: order → assess risk → authorize → capture (→ refund)

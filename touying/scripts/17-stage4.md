@@ -1,10 +1,12 @@
-A3-stage4 · cap 1:45 · Act 3 beat 6 of 8
+A3-stage4 · cap 2:05 · Act 3 beat 6 of 8
 
 TALKING POINTS
 1. Bob's was a missing case. Charlie's is different, and harder
 2. He loaded a refund out of the database and executed it
 3. Nothing in those two lines asked whether it had been approved
 4. And no type can know that — the row came from outside the program
+4b. THE LADDER, on the slide: Payment<Initiated>, <Authorized>, <Captured>,
+    <Refunded> — one parameter, four values, and capture names the one it takes
 5. So the type does the other thing: it makes the gateway unreachable
 6. execute demands Refund<Approved>. The repository cannot produce one
 7. The only way across is asApproved, which does the check, once
@@ -21,15 +23,19 @@ shape, and a harder one. He loaded a refund out of the database by its id and
 handed it to the payment gateway. Nothing in those two lines asked whether it had
 been approved, and nothing had to.
 
-Now, no type system on earth knows what is in your database, because that row came
-from outside the program — so we say that we don't know the actual type of its type argument.
-We do something better than guessing: the gateway demands a refund that is approved, and the
-repository cannot give you one. The only way across is a function that actually performs
-the check and hands you back the evidence.
+No type system knows what is in your database, because that row came from outside
+the program — so we do not know its type argument.
+We do something better than guessing: the only way to a value the gateway accepts
+is a function that performs the check and hands back the evidence.
 
 From then on the value carries its provenance — where it has been — in its own
 type, and the compiler is what makes sure nobody skips the step that put it
 there.
+
+And Charlie's refund is the last rung of that same ladder: one parameter, four
+values, every transition naming the state it accepts — including the one that
+takes a reviewer's approval as an argument, which is the step his shortcut went
+around.
 
 That one check at the boundary is a real one, running at runtime, because the row
 came from outside the program. Inside your own code there is no check to run at

@@ -33,8 +33,8 @@ most of the way, but is inflexible and still noisy.
 
 And - you can disagree with the service at the other end about your protocol. That
 one Java cannot reach at all: deriving the other side's protocol from yours means
-computing types from types, and Java has nothing of the kind. That gap is is 
-how Danielle's incident was able to occur.
+computing types from types, and Java has nothing of the kind. That gap is how 
+Danielle's incident was able to occur.
 
 You can go a long way in Java, and many teams have no immediate reason to move beyond. 
 What comes next is a language where all three of these are cheap."

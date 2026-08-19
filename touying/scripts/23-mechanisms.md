@@ -1,4 +1,4 @@
-A4-mechanisms · cap 1:20 · Act 4 beat 5 of 6
+A4-mechanisms · cap 2:05 · Act 4 beat 5 of 6
 
 TALKING POINTS
 1. Everything Scala has been doing for the last few minutes has a name
@@ -31,10 +31,10 @@ already knows what it will accept. `finish` asks for evidence of a different
 claim: that the type for the current protocol-remainder is <<End>> at this point.
 
 And the last one goes up a level again. `F` of underscore is a type parameter
-that is itself generic — it stands e.g. for `List`, not for a list of something 
-— and Java has no way to write that. Here it means the payment rules are one tree,
-walked once, and what comes out of the walk depends on the parameter you put in: 
-an audit sentence for the rules for example, or a risk analysis for an order.
+that is itself generic — it stands, say, for `List`, not for a list of something
+— which Java has no way to write. Here it means the payment rules are one tree,
+walked once, and what comes out depends on what you walk it into: an audit
+sentence, or a risk analysis.
 
 All of that puts something about a value into the value's type. Next door is a
 family that puts in what a value may do. Plenty of teams run ZIO in production,

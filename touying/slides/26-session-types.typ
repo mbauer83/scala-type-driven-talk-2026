@@ -66,7 +66,17 @@ type Dual[P <: Protocol] <: Protocol = P match
         #set par(leading: 0.45em)
         The client holds `Channel[P]` and the server holds `Channel[Dual[P]]`.
         #text(fill: pal.fg-dim)[ A server that sends where it should be
-        receiving does not compile.]
+        receiving does not compile — because each operation asks the compiler
+        for evidence that it is the operation the protocol allows next, and
+        mid-protocol there is only ever one such piece of evidence to be had.]
+        #v(sz(16pt))
+        #block(width: 100%, fill: pal.bg-dark-2, stroke: 0.5pt + pal.rule-dark-strong,
+               radius: sz(6pt), inset: (x: sz(20pt), y: sz(16pt)))[
+          #show raw: set text(font: mono-font, size: sz(17pt), fill: pal.fg-dark)
+          #raw(block: true,
+            "def send   (using s: CanSend[P])   (value: s.Msg): Channel[s.Rest]\n"
+            + "def receive()(using r: CanReceive[P]): (r.Msg, Channel[r.Rest])")
+        ]
       ],
       block(width: 100%, fill: pal.good-bg, radius: sz(6pt),
             inset: (x: sz(20pt), y: sz(14pt)))[

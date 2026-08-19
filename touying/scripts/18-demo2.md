@@ -1,4 +1,4 @@
-A3-demo2 · cap 1:45 across four slides · Act 3 beat 7 of 8
+A3-demo2 · cap 1:35 across four slides · Act 3 beat 7 of 8
 
 FILE     04-java-advanced-generics-typestate/Demo.java:170
 DIR      ~/workspace/scala-type-driven-talk/04-java-advanced-generics-typestate

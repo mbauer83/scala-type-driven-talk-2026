@@ -65,12 +65,14 @@ a2-promises	1:16	prose
 19-stage3	1:05	prose
 # The whole of Demo 1 is scripted on its setup card, so one cap covers all
 # four of its slides; the frames carry only the line to read.
-a3-demo1	2:10	demo
+a3-demo1	1:55	demo
 20-stage3-payoff	0:35	prose
 # 21-bridge is cut — it is two spoken sentences between
 # A3-payoff-bob and A3-stage4; it never earned 1:30 of its own.
-22-stage4	1:45	prose
-a3-demo2	1:45	demo
+22-stage4	2:05	prose   # carries the phantom parameter, the four-state
+#                       ladder from Payment.java, and the bridge from Charlie's
+#                       refund to it.
+a3-demo2	1:35	demo
 24-java-ceiling	1:30	prose
 
 # ── Act 4 · Scala 3 — 9:00 ───────────────────────────────────────────────

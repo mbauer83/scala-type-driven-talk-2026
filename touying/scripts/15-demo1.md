@@ -1,4 +1,4 @@
-A3-demo1 · cap 2:10 across four slides · Act 3 beat 4 of 8
+A3-demo1 · cap 1:55 across four slides · Act 3 beat 4 of 8
 
 FILE     03-java-function-types-sealed/Demo.java:123
 DIR      ~/workspace/scala-type-driven-talk/03-java-function-types-sealed

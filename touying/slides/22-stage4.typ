@@ -8,7 +8,7 @@
   [The check happens once, and the type remembers],
   stack(
     dir: ttb,
-    spacing: sz(40pt),
+    spacing: sz(28pt),
     grid(
       columns: (1fr, 1.15fr),
       column-gutter: sz(44pt),
@@ -20,8 +20,8 @@
         Nothing asked whether it was approved.
       ],
       text(size: sz(24pt), fill: pal.fg-dim)[
-        #text(weight: 600, fill: pal.good)[The gateway demands evidence] — and
-        the repository cannot produce it.
+        #text(weight: 600, fill: pal.good)[A reviewer's approval is an argument] —
+        and it is the only way past this step.
       ],
 
       block(width: 100%, fill: pal.bad-bg, radius: sz(6pt),
@@ -34,11 +34,39 @@
             radius: sz(6pt), inset: (x: sz(22pt), y: sz(18pt)))[
         #show raw: set text(font: mono-font, size: sz(18pt), fill: pal.fg-dark)
         #raw(block: true,
-          "Refund<?>                 findById(RefundId id)\n"
-          + "Optional<Refund<Approved>> asApproved(Refund<?> r)\n"
-          + "void                      execute(Refund<Approved> r)")
+          "authorizeReview(Payment<Initiated>, ManualReviewApproval)\n"
+          + "                       -> Payment<Authorized>")
       ],
     ),
+    line(length: 100%, stroke: 0.5pt + pal.rule),
+
+    // The state ladder, from the real file. Without this the room never sees
+    // the phantom parameter written out before Demo 2's error names two of its
+    // values — and the demo breaks Payment, while Charlie's card above is about
+    // a refund, so the two need visibly joining.
+    stack(
+      dir: ttb,
+      spacing: sz(16pt),
+      [
+        #set text(size: sz(24pt), fill: pal.fg)
+        #text(weight: 600)[One parameter, four values, and Charlie's refund is
+        the last rung of the same ladder.]
+        #text(fill: pal.fg-dim)[ You cannot refund what was never captured, or
+        capture what was never authorized. `Payment.java`, bodies elided.]
+      ],
+      code-pane(filename: "Payment.java", language: "java", code-size: 17pt, pad-y: 12pt,
+                highlights: ((5, "hl-good"),))[
+```java
+public final class Payment<S extends PaymentState> { ... }
+
+static Payment<Initiated>  initiate(Order order)
+static Payment<Authorized> authorizeAuto(Payment<Initiated> p)
+static Payment<Captured>   capture(Payment<Authorized> p)
+static Result<Payment<Refunded>> refund(Payment<Captured> p, RefundMechanism m)
+```
+      ],
+    ),
+
     line(length: 100%, stroke: 0.5pt + pal.rule),
     grid(
       columns: (1fr, 1fr),
