@@ -1,27 +1,18 @@
-// A1-curry-howard · cap 1:30 · Act 1 beat 5 of 6 · the fulcrum
-//
-// v1 paired the three equations with a ∨E ≅ exhaustive-match panel. That panel
-// is gone: Gentzen's rule now has its own slide in Act 3 (`A3-gentzen`), sixty
-// seconds before the compile error it explains, so showing it here duplicated
-// it AND overflowed the slide once the C13 block and the caveat were added.
-//
-// What replaces it is the C13 block — program / type / checker named as three
-// different things. See Part 8/C13: this is the one place in the talk where the
-// equivocation is closed explicitly.
+// That panel is gone: Gentzen's rule now has its own slide in Act 3
+// (`A3-gentzen`), sixty seconds before the compile error it explains, so
+// showing it here duplicated it AND overflowed the slide once the C13 block
+// and the caveat were added. What replaces it is the C13 block — program /
+// type / checker named as three different things.
 #import "../theme.typ": *
 #import "../components.typ": *
 
 #theory-slide(
-  // Lambek is off the eyebrow on purpose (Part 10): listed beside Church/Turing
-  // and Curry-Howard he reads as a co-equal third pillar. He is a side note in
-  // the left column instead.
+// He is a side note in the left column instead.
   eyebrow: eyebrow([Church/Turing 1936 · Curry-Howard 1969], style: "accent"),
   [Proposition = Type.  Proof = Program.],
   [
     #v(sz(6pt))
     #grid(
-      // Equal halves either side of the centre line: the right block used to
-      // begin 236px before centre, which read as lopsided (MB, 19 Aug).
       columns: (1fr, sz(800pt)),
       column-gutter: sz(96pt),
       align: (left + top, left + top),
@@ -51,7 +42,6 @@
         theory.
       ],
 
-      // ── right: C13, the distinction the whole primer rests on
       block(fill: pal.bg-warm, inset: (x: sz(26pt), y: sz(22pt)), radius: sz(4pt))[
         #grid(
           columns: (sz(180pt), 1fr),
@@ -72,10 +62,6 @@
       ],
     )
     #v(sz(28pt))
-    // MB, 18 Aug: the caveat was 85 words of prose in a callout. It is a
-    // comparison, so show the comparison — the claim the signature makes, and
-    // the one Java can actually keep. The monad / continuations point that used
-    // to be here is in the script's PREPARATION block; it is Q&A material.
     #callout(
       [What the arrow actually promises],
       [

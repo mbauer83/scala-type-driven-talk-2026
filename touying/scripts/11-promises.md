@@ -37,18 +37,6 @@ it can safely conclude from the types - which is exactly what this talk is about
 PREPARATION — background, checks and citations. Not for the night.
 ==========================================================================
 
-WHAT WAS HERE BEFORE, AND WHY IT WENT (MB, 18 Aug)
-The slide argued that completeness goes for decidability, that the theorem is
-Rice's rather than Gödel's, and that Java's covariant arrays are the evidence.
-MB: *convoluted, and shows the revision history in terms of reading like the
-result of an argument*; on the Rice line, *are you serious? That is horrific*;
-on arrays, *barely coherent and doesn't seem to fit*. All three land.
-
-The Rice/Gödel correction was addressed to a heckler who does not exist. Nobody
-in that room cares which theorem bounds the checker. They care that it says no to
-code they know is fine — which was MB's actual question: **where, in Java, is
-completeness noticeably given up?**
-
 THE ANSWER, AND IT IS BETTER THAN THE THEOREM
 An exhaustive `switch` statement over an enum, every case returning, is rejected
 with *missing return statement*. Every Java developer in the room has hit it and

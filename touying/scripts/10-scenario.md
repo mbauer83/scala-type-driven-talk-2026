@@ -28,27 +28,13 @@ So before any of that: what is the compiler actually promising when it says yes?
 PREPARATION — background, checks and citations. Not for the night.
 ==========================================================================
 
-WHAT WAS HERE BEFORE, AND WHY IT WENT (MB, 18 Aug)
-Untouched v1: headline *Demo Scenario & Potential Bugs*, a nine-row inventory
-with a `CLOSES` column, and a note that re-explained the payment flow. Three
-faults, all of them already written down in this plan and none of them executed:
-
-- **The scenario is not new.** The room met the flow on slide 2 and the four
-  incidents are named after it. Explaining it again spends the slide's whole
-  budget on something already paid for.
-- **The `CLOSES` column gives away every payoff** before its suspense exists.
-  That is P5, verbatim, from the original diagnosis of v1.
-- **Part 2 sent that table to the appendix** and it never moved. It is now
-  `a10-invariants`, which is where it is actually useful: a Q&A artefact for
-  anyone who asks for the complete set.
-
 THE UNTYPED FLOOR — why this slide has to carry it
 Stage 0 was cut with the note *one line on A2-scenario*, and the line was never
-written. MB, 18 Aug: by the Stage 1 slide the contrast to Alice's untyped service
+written. by the Stage 1 slide the contrast to Alice's untyped service
 is gone, so *simple types* lands against nothing. One line here restores it, and
 it is Alice's own bug, so it costs no setup.
 
-THE FOUR THINGS — MB's framing, 18 Aug
+THE FOUR THINGS — the framing
 *Encode invariants, and thus prevent bugs and reduce tests, for better
 guarantees, stronger signals and shorter, more efficient and effective feedback
 loops.* Mapped onto the slide: **every use** is the guarantee, **compile time**
@@ -59,5 +45,5 @@ overclaim C2 exists for.
 
 FACTS
 - `»12« + »34« === »1234«` in JavaScript. Alice's incident, `02-incidents.md`.
-- The flow diagram is unchanged v1 cetz and is the same shape as the strip on
+- The flow diagram is unchanged cetz and is the same shape as the strip on
   `A0-incidents`.

@@ -1,24 +1,3 @@
-// A6-cost · cap 1:45 · Act 6 beat 1 of 3 · NEW + MERGE of v1 32-agentic
-//
-// The slide `A3-ceiling` set up: its PREPARATION records that "is a language
-// with better types worth moving to" is the wrong question, and that the one
-// the room actually faces is what each of these costs to encode where they are.
-//
-// The price and the reason the price is worth paying now are one conversation,
-// which is why Part 3 merges the agentic argument in here rather than giving it
-// a slide. v1's 32-agentic was that slide, and most of its speaker note was a
-// proof-assistant digression that is now Q&A material in the script.
-//
-// GRADUAL TYPING IS NOT HERE. Part 3 puts it on this slide; it does its work on
-// A6-monday, which IS the incremental ladder. Flagged in the script, reversible.
-//
-// The landing line is rephrased from Part 3's: "the question was never 'should
-// I use dependent types for my CRUD endpoints'" is R1, define-by-exclusion, and
-// v1 had the same shape on 33-horizon. The positive half loses nothing.
-//
-// The erasure claim is about the TYPE-LEVEL MACHINERY only — sealed interfaces
-// and records are ordinary runtime objects, and Iron still runs one predicate
-// check on a runtime value. C2 discipline is in the script's PREPARATION.
 #import "../theme.typ": *
 #import "../components.typ": *
 

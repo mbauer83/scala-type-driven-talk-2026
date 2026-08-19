@@ -20,7 +20,7 @@ talk.pdf: $(TYPST_SOURCES)
 # `touying compile --format pdfpc` runs its own typst query WITHOUT --root, so
 # it fails "access denied" on every slide that #read()s a file above touying/ —
 # which is all six recorded demo frames. It had been failing silently since
-# those landed, leaving talk.pdfpc at 0 bytes: the presenter view MB actually
+# those landed, leaving talk.pdfpc at 0 bytes: the presenter view the speaker actually
 # reads from, empty, and `make check` reporting build OK because the file
 # existed. Use the query deck.typ has documented all along; it takes --root.
 talk.pdfpc: $(TYPST_SOURCES)
@@ -74,13 +74,13 @@ watch:
 #
 # It does NOT fix the presenter console. An earlier version of this comment
 # blamed file:// opaque origins; that was wrong, and the failure was reproduced
-# over http in headless Chromium on 19 Aug: at step 13 both console frames paint
+# over http in headless Chromium: at step 13 both console frames paint
 # grey while the DOM underneath is correct (right step, SVG present) and the
 # notes pane still updates. So it is a compositing failure, not a scripting one.
 #
 # The cause is the export meeting this deck. touying's html is impress.js: one
-# 10.3 MB document with 49 inline SVGs, and the presenter holds THREE live
-# copies (main + slideView + preView) on 3D-transformed containers — ~31 MB of
+# 10.3 the speaker document with 49 inline SVGs, and the presenter holds THREE live
+# copies (main + slideView + preView) on 3D-transformed containers — ~31 the speaker of
 # composited DOM. Past ~a dozen steps the compositor drops the layers.
 #
 # Not fixable from here. Use talk.pptx in LibreOffice Impress or PowerPoint.
@@ -106,7 +106,7 @@ timing:
 # Run this after editing any script in touying/scripts/.
 .PHONY: check
 # The timing number must always be reachable. Draft 5's version chained the
-# lint in front of it, so 15 inherited v1 register errors made `make timing`
+# lint in front of it, so 15 inherited register errors made `make timing`
 # unreachable through the documented command — the instrument that decides the
 # budget, blocked by a complaint about sentence rhythm.
 check: talk.pdf talk.pdfpc

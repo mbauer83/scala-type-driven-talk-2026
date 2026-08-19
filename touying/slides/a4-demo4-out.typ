@@ -12,8 +12,6 @@
     dir: ttb,
     spacing: sz(34pt),
     terminal-pane(read("../../demos/4-term.txt").trim(), title: "bash", size: 20pt),
-    // The money line is one clause in the middle of a dark pane. This is that
-    // clause, at a size the back row can read, and it is the thing MB points at.
     align(center)[
       #block(fill: pal.bg-warm, inset: (x: sz(30pt), y: sz(18pt)), radius: sz(4pt))[
         #set text(font: mono-font, size: sz(26pt), fill: pal.fg)

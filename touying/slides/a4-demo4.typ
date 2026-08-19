@@ -1,16 +1,12 @@
 // A4-demo4 · Act 4 beat 4 · LIVE DEMO 4 — setup card. Same shape as Demos 1-3.
-//
-// NEW, 19 Aug. Danielle was the one incident of the four that ended in a
-// sentence rather than in a compiler error the room watched arrive; A4-sessions
-// states the property and this checks it. The edit is the LAST operation of
+// Danielle was the one incident of the four that ended in a sentence rather
+// than in a compiler error the room watched arrive; A4-sessions states the
+// property and this checks it. The edit is the LAST operation of
 // serverHighRisk, which is what keeps the error to a single readable line —
-// scripts/22b-demo4.md records the four positions that do not.
-//
-// The edit is arranged, and the bug class is not: the payment side decides the
-// high-risk flow ends with the client confirming the capture, and waits for an
-// acknowledgement the client's contract never mentions. An earlier version used
-// `ch5.receive()._2` — same error, but nobody writes that by accident, and a
-// room that notices stops believing the demo (MB, 19 Aug).
+// scripts/22b-demo4.md records the four positions that do not. The edit is
+// arranged, and the bug class is not: the payment side decides the high-risk
+// flow ends with the client confirming the capture, and waits for an
+// acknowledgement the client's contract never mentions.
 #import "../theme.typ": *
 #import "../components.typ": *
 

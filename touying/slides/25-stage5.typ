@@ -1,29 +1,19 @@
-// A4-opens · cap 1:20 · Act 4 beat 1 of 6 · REWORK of v1 25-stage5
-//
-// D-C option (d): the act is motivated by the residual failure A3-ceiling ends
-// on. That slide names three things Java still accepts; this one takes the
-// first two, Demo 3 fires the first, and A4-sessions takes the third.
-//
-// v1 was a stage-opener showing the BODY of authorize — a match building an
-// audit string — with `order.id`, `p.id`, `a.id` and `audit =`. None of those
+// That slide names three things Java still accepts; this one takes the first
+// two, Demo 3 fires the first, and A4-sessions takes the third. None of those
 // identifiers exist (Domain.scala has order.orderId.orderIdStr, p.challengeId,
 // a.reviewer, auditTrail), and the body demonstrates nothing anyway: the
-// signature above it is the whole argument, and it is what makes Demo 3's error
-// readable sixty seconds later.
-//
-// Both panes are verbatim from payment/Domain.scala, bodies elided with `...`.
-// MinLength[1] & MaxLength[10] is real in Iron and is NOT in this repository,
-// so composition stays a spoken clause (Part 12/R9).
+// signature above it is the whole argument, and it is what makes Demo 3's
+// error readable sixty seconds later. Both panes are verbatim from
+// payment/Domain.scala, bodies elided with `...`.
 #import "../theme.typ": *
 #import "../components.typ": *
 #import "../code-pane.typ": *
 
-// The language change gets a filled chip rather than the 21px grey eyebrow every
-// other slide carries. MB, 18 Aug: nothing made it prominent that the talk had
-// moved language. This and A5-mltt are the only two slides that use it, because
-// they are the only two places the syntax on the wall changes — stages 1 to 4
-// are all Java. Two dark stage-opener slides were built for this and cut again;
-// scripts/20-stage5.md records why.
+// The language change gets a filled chip rather than the 21px grey eyebrow
+// every other slide carries. This and A5-mltt are the only two slides that use
+// it, because they are the only two places the syntax on the wall changes —
+// stages 1 to 4 are all Java. Two dark stage-opener slides were built for this
+// and cut again; scripts/20-stage5.md records why.
 #let lang-chip(lang, rest) = {
   box(fill: pal.accent, inset: (x: sz(14pt), y: sz(8pt)), radius: sz(4pt))[
     #text(font: mono-font, size: sz(26pt), weight: 700, fill: pal.bg, tracking: 0.08em)[#upper(lang)]

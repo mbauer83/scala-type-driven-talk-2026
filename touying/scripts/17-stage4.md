@@ -43,20 +43,19 @@ PREPARATION — background, checks and citations. Not for the night.
 ==========================================================================
 
 WHY THE HAPPY PATH IS GONE
-v1 showed the three-line success sequence — initiate, authorize, capture — plus
+An earlier version showed the three-line success sequence — initiate, authorize, capture — plus
 the signature family. The happy path is the one thing on this slide that cannot
 go wrong, so it demonstrates the mechanism and hides the argument. Charlie's
 incident is the argument.
 
 THE BRIDGE FROM BOB IS TWO SENTENCES, NOT A SLIDE
-Part 4 deleted `21-bridge`, which spent 1:30 on a transition. The two sentences
+An earlier draft had `21-bridge`, which spent 1:30 on a transition. The two sentences
 that replace it open this script, and the distinction they draw is the one that
 matters: **a missing case is a sum-type problem; a wrong order is not.** If that
 lands, Stage 4 needs no other motivation.
 
 THE PHANTOM PARAMETER — name it here, and only here
-This is the beat that teaches the term, so it is where the word belongs
-(Part 12/R8, introduce before use). `A2-values` used to say *phantom parameters*
+This is the beat that teaches the term, so it is where the word belongs. `A2-values` used to say *phantom parameters*
 two acts early and it was cut for exactly that. Say what it does first — a type
 parameter that carries no data — and the name second, if at all.
 
@@ -70,8 +69,7 @@ FACTS — grepped (C1)
   spend it.
 - The signature family is verbatim in shape from `Payment.java`: `initiate`,
   `authorizeAuto`, `authorize3DS`, `capture`, `refund`. Only three are shown.
-- Charlie's two lines are narrative, from `A0-incidents` — a card, not a pane
-  (Part 12/R9).
+- Charlie's two lines are narrative, from `A0-incidents` — a card, not a pane.
 
 JOIN
 Forwards: Demo 2 uncomments `Payment.capture(init)` and lets javac say the same

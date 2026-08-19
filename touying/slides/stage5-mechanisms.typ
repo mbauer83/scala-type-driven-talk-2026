@@ -1,25 +1,3 @@
-// A4-mechanisms · cap 1:20 · Act 4 beat 5 of 6 · REWORK of v1 stage5-mechanisms
-//
-// Two halves. The left is the vocabulary for what has just run — names attached
-// to things the room has seen, which is the one shape in which a naming slide
-// earns a cap (Part 12/R8: the audience wants the name so they can go and read
-// about it). The right is Part 3's effects aside, ~40 seconds, and it is the
-// new material: the same move, applied to what a value is allowed to do.
-//
-// v1 had six rows, each read out in a sentence of its own — the demo narrated a
-// second time. The higher-kinded row (interpret[F[_]: Functor, A],
-// payment/Rules.scala) was dropped for width and is BACK as of 19 Aug: MB's
-// standing read-through came in at 33 minutes against a 45-minute slot, and this
-// was the documented first thing to restore. It gets one clause spoken, not a
-// sentence of its own.
-//
-// Depth for the right-hand half is appendix a01-tracking.
-//
-// MB, 19 Aug, asked whether path-dependent types are explained adequately. The
-// row named them and then described the evidence pattern, which is the row
-// below it; nothing said what makes the type PATH-dependent. The gloss now says
-// `s.Msg` is reached through the value `s` — six words, no extra line, and the
-// only part the name needs to earn itself here. The rest is a12-not-covered.
 #import "../theme.typ": *
 #import "../components.typ": *
 

@@ -1,17 +1,10 @@
-// A1-crisis · cap 1:05 · Act 1 beat 4 of 6
-// Restored from v1 and reframed: this is the origin story of the word "type",
-// plus what a mechanical check can promise. A2-promises cashes the three
-// requirements out for type checkers — do not do that work here.
-//
-// Part 10 rebuild, four corrections:
-//   · the headline said "where the word comes from", which is an unintelligible
-//     forward reference until the reader reaches "types" halfway down. It now
-//     names the word.
-//   · the slide posed the paradox and jumped straight to the repair without
-//     saying what the paradox DESTROYS. The damage line is now on screen.
-//   · Hilbert's three requirements arrived unmotivated. They are kept, and the
-//     column head is now the question they answer.
-//   · the barber sits above the set-theoretic form as the intuitive version.
+// A2-promises cashes the three requirements out for type checkers — do not do
+// that work here. It now names the word. · the slide posed the paradox and
+// jumped straight to the repair without saying what the paradox DESTROYS. The
+// damage line is now on screen. · Hilbert's three requirements arrived
+// unmotivated. They are kept, and the column head is now the question they
+// answer. · the barber sits above the set-theoretic form as the intuitive
+// version.
 #import "../theme.typ": *
 #import "../components.typ": *
 

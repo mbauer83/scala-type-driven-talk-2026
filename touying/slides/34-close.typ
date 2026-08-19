@@ -1,22 +1,3 @@
-// A6-close · cap 0:50 · Act 6 beat 3 of 3 · REWORK of v1 34-close
-//
-// Closes the loop opened by A0-title and does nothing else. The promise, in MB's
-// words: "writing a program that type-checks is, in a precise sense, the same
-// thing as constructing a proof in formal logic — and you've been doing it all
-// along." The first spoken sentence returns that sentence.
-//
-// It must NOT re-tell the four incidents. A5-payoff — the dark Unrepresentable
-// slide — is three slides earlier and is the emotional peak; Part 3 cut
-// 31-the-climb so the last four minutes carry two summaries, not three. v1's
-// script opened with a sentence per incident, which was the third telling.
-//
-// v1's slide copy said "Some bugs aren't 'just part of engineering life' —
-// they're artifacts of a language level that can't express the invariants we
-// care about." That is R1, define-by-exclusion, made worse by scare quotes. The
-// replacement says the same thing forwards.
-//
-// The zero-runtime-overhead footnote that ended v1 is now on A6-cost, where it
-// is a cost fact. A talk should not end on a note about erasure.
 #import "../theme.typ": *
 #import "../components.typ": *
 

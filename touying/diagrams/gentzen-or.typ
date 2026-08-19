@@ -1,17 +1,3 @@
-// =============================================================================
-// diagrams/gentzen-or.typ — Gentzen's OR introduction + elimination rules.
-//
-// Built from scratch for the Touying deck. Exposes `gentzen-or-canvas`, a
-// self-contained cetz canvas that can be placed inside an `.s-theory` slide.
-//
-// Content requirements (Phase 1 spec):
-//   - ∨I₁, ∨I₂ introduction rules
-//   - ∨E elimination rule with discharged-assumption gloss
-//   - Closing line "The rest follows."
-//   - Code side: sealed declaration + exhaustive match with case-arms
-//     aligned under the `match` keyword
-// =============================================================================
-
 #import "@preview/cetz:0.5.2": canvas, draw
 
 // ─── Local theme tokens — mirror the deck palette so the canvas looks at home

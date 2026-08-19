@@ -6,12 +6,12 @@
 #import "../theme.typ": *
 #import "../components.typ": *
 
-// Part 10 layout pass. Three complaints, three fixes:
-//   · name and scenario tag sat too close — spacing 4pt → 12pt
-//   · the orange cost line and its grey qualifier ran together — the qualifier
-//     is now its own argument with real vertical separation, not a `\` break
-//   · the space above the first row was too big and everything below it too
-//     tight — see `body-gap` and the row spacing at the call site
+// Three complaints, three fixes: · name and scenario tag sat too close —
+// spacing 4pt → 12pt · the orange cost line and its grey qualifier ran
+// together — the qualifier is now its own argument with real vertical
+// separation, not a `\` break · the space above the first row was too big and
+// everything below it too tight — see `body-gap` and the row spacing at the
+// call site
 #let incident(name, system, story, cost, qualifier) = grid(
   columns: (sz(330pt), 1fr, sz(360pt)),
   column-gutter: sz(36pt),
@@ -47,18 +47,6 @@
 
 #let divider = line(length: 100%, stroke: 0.5pt + pal.rule)
 
-// Domain frame. The four stories use payment vocabulary — authorize, capture,
-// risk tier, refund — and without this strip the audience meets the jargon
-// before it has anywhere to put it. The full domain slide comes later; this is
-// just the shape.
-// Domain frame. The four stories use payment vocabulary — authorize, capture,
-// risk tier, refund — and without this the audience meets the jargon before it
-// has anywhere to put it (C3).
-//
-// It used to carry a sentence of introduction. That sentence was MB's own
-// spoken framing lifted onto the slide, which is not what slide copy is for,
-// and it said "one" three times. The label does the same job in two words and
-// gives the four rows the vertical space they were short of.
 #let domain-strip = block(
   width: 100%,
   fill: pal.bg-warm,

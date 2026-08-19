@@ -1,21 +1,12 @@
-// A3-ceiling · cap 1:20 · Act 3 beat 8 of 8 · MERGE of v1 23-stage4-payoff + 24-java-ceiling
-//
-// Charlie's payoff is one line here rather than a slide of its own — v1's
-// payoff carried the nine-row table and the four-chip strip, both of which P5
-// removed and Part 2 replaced with Device 1.
-//
-// NO CUBE REVEAL. Part 2/Device 2 wants `lambda-cube-canvas(reveal: 1)` here,
-// and the diagram is still the fixed unparameterised value it always was
-// (diagrams/lambda-cube.typ:29). Parameterising it well is an hour I do not
-// have before Thursday, and the reveal's whole job — name the two axes Java
-// does not reach — is done in words below at no risk. The full cube is wired
-// into the appendix for Q&A. Flagged in the plan, not quietly dropped.
-//
-// C2 discipline on the ceiling claims, checked one at a time rather than
-// asserted in bulk: risk-indexed approval Java can do properly; refinements it
-// can do downstream but not on a literal and not composed; protocol duality it
-// cannot do at all, because deriving the dual is type-level computation and
-// Java has none. Conceding the first two is what makes the third believable.
+// NO CUBE REVEAL. Parameterising it well is an hour I do not have before
+// Thursday, and the reveal's whole job — name the two axes Java does not reach
+// — is done in words below at no risk. The full cube is wired into the
+// appendix for Q&A. C2 discipline on the ceiling claims, checked one at a time
+// rather than asserted in bulk: risk-indexed approval Java can do properly;
+// refinements it can do downstream but not on a literal and not composed;
+// protocol duality it cannot do at all, because deriving the dual is type-
+// level computation and Java has none. Conceding the first two is what makes
+// the third believable.
 #import "../theme.typ": *
 #import "../components.typ": *
 

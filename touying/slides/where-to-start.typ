@@ -1,30 +1,12 @@
-// A6-monday · cap 0:55 · Act 6 beat 2 of 3 · MERGE of v1 where-to-start + 33-horizon
-//
-// The one slide in the deck that asks the audience to go and do something, which
-// is exactly why MB found it presumptuous on 19 Aug: NOW / SOON / NEXT / HORIZON
-// is a schedule for somebody else's team, and the rows told this room how to
-// spend its sprints. Two changes fix that without losing the ladder:
-//
-//  - The title opens with the invitation — "Curious to try it out?" — so the four
-//    rungs read as entry points rather than as instructions.
-//  - The rungs are labelled by what each one costs YOU to try, cheapest first,
-//    instead of by when your team is supposed to reach it. Every line is now
-//    something one person can do without anybody's agreement.
-//
-// The lead line went with them. "A change one team makes in one service — and
-// can undo in one service" is a symmetry doing the work of a sentence: it says
-// only "reversible", which the rungs say better and concretely.
-//
-// Gradual typing lives here rather than on A6-cost (Part 3 put it there), because
-// this slide IS the incremental ladder — the point is its frame rather than an
-// aside. Kotlin platform types and TypeScript are Q&A.
-//
-// HORIZON absorbs 33-horizon, which budget.tsv has listed as "three lines on
-// A6-monday" since the cut list was written. Lean's browser proof games are the
-// one thing from that slide anybody will actually go and use.
-//
-// The v1 landing line — "the right question is not 'is this mature?'" — is gone.
-// R1, and A6-cost says the positive version one slide earlier.
+// Two changes fix that without losing the ladder:  - The title opens with the
+// invitation — "Curious to try it out?" — so the four rungs read as entry
+// points rather than as instructions. - The rungs are labelled by what each
+// one costs YOU to try, cheapest first, instead of by when your team is
+// supposed to reach it. Every line is now something one person can do without
+// anybody's agreement. The lead line went with them. Kotlin platform types and
+// TypeScript are Q&A. Lean's browser proof games are the one thing from that
+// slide anybody will actually go and use. R1, and A6-cost says the positive
+// version one slide earlier.
 #import "../theme.typ": *
 #import "../components.typ": *
 

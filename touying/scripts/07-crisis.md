@@ -92,7 +92,7 @@ PART 10 — WHAT CHANGED AND WHY
    answer.
 4. The barber goes above the set-theoretic form as the intuitive version.
 
-C13 CHECK (Part 8)
+C13 CHECK
 This beat is about the *checker*, not about programs or types individually. It
 establishes what a mechanical check can promise at all, which is why it sits
 before Curry-Howard rather than after.
@@ -121,10 +121,3 @@ FACTS
 - Gödel's first incompleteness theorem, 1931.
 - Do NOT say type-checker conservatism is Gödel — that is Rice's theorem and
   decidability, and it belongs to `A2-promises`. See Part 8/C8.
-
-WORDING (18 Aug)
-The barber shaves everyone who does not shave **themselves**. An earlier pass
-changed that to *himself*; MB had chosen the neutral form deliberately and it
-goes back. The flowery half of the damage line — *the young business of putting
-proof itself on a formal footing* — is cut to *proof itself*, which says the same
-thing at a third of the length and does not sound like it is enjoying itself.

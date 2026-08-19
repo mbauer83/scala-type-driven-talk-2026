@@ -35,53 +35,6 @@ payment flow. There is a map of this territory, and we fill it in as we go."
 PREPARATION — background, checks and citations. Not for the night.
 ==========================================================================
 
-WHAT WAS MISSING, AND IT WAS THE WHOLE POINT (MB, 18 Aug)
-
-The previous version listed four notations and never said what dependent types
-*change*. It showed the syntax of the most powerful idea in the section and left
-the room with no reason to care, then covered the gap with
-*four notations, and I am deliberately not going to teach them* — a line that
-announces a refusal and carries no information.
-
-The shift, stated plainly, and it is now the lede on the slide:
-
-> Until now a function's result type was fixed before you called it. Martin-Löf
-> let the result type be **computed from the argument**. In Idris, Agda and Lean
-> the type language and the term language are the same one, so the compiler
-> evaluates your code while it type-checks — and anything you can compute, you
-> can state in a type.
-
-**NONE OF THIS IS SPOKEN, and the slide does not say it either.** It was on both
-and MB retracted it twice before I removed it from the second place. The vector
-example is the claim, in concrete form, and it is enough for a 1:05 glimpse. What
-follows is Q&A material only.
-
-**Do not overreach on either half.** It is not a property of dependent types in
-general: refinement systems (Liquid Haskell, Dependent ML) restrict what may
-appear in a type to a decidable fragment and hand it to a solver, and their
-compilers run no such thing. And *anything you can compute* needs the function to
-be total, and stating a property is not proving it — the proof burden is the
-cost, and it is what `A6-cost` is for. One sentence on the slide, this much in
-reserve, nothing more spoken.
-
-That is the ceiling coming off. Everything below Stage 6 is a way of encoding
-*some* invariants in a type system that was not designed to hold them; above it,
-the question stops being *can my type system express this* and becomes *can I
-write down a proof*.
-
-MB, 19 AUG — »CHANGES WHAT A TYPE IS ABLE TO SAY« WAS TRUE OF EVERY STAGE
-The slide said the computed result type *is the step that changes what a type is
-able to say*. Records and sealed change that. Generics change that. Refinement
-changes that. Singling out this one made a claim the rest of the talk disproves,
-and the room has already watched four of the other steps.
-
-What survives is the distinction, not the superlative: this is the step after
-which a type can be **about a particular value** rather than about a shape. The
-slide now says so, and the opening line here says *changes what a type can be
-about* rather than *fundamentally changes what a type can say*. **The spoken
-words are MB's to keep or revert** — the original clause was
-*»starting with a big one that fundamentally changes what a type can say«*.
-
 IT IS ALSO THE THIRD RUNG OF A LADDER THE ROOM HAS ALREADY CLIMBED
 `A1-quantifiers` puts two rungs on the board. This is the third, and saying so
 out loud is what makes the beat land as an arrival rather than as new syntax:
@@ -111,7 +64,7 @@ revealing them separately invites the room to decode each one, and they are a
 glimpse rather than a lesson. Do not announce that you are not teaching them;
 just do not teach them, and spend the words on what they buy instead.
 
-C13 CHECK (Part 8)
+C13 CHECK
 *A type indexed by a runtime value* keeps the type/value distinction visible.
 Avoid *types are values* and *values are types* — both false, both the kind of
 thing that sounds profound at speed.
@@ -126,7 +79,7 @@ FACTS — every identifier grepped from the code (C1)
                                             real LowRiskProtocol is five deep
 - Martin-Löf's type theory, 1972; Coquand and Huet, Calculus of Constructions,
   1988, extended to CIC.
-- **F-07, 18 Aug review: the four systems do not share one kernel.** Rocq and
+- **the four systems do not share one kernel.** Rocq and
   Lean descend from the Calculus of Constructions; **Agda is an extension of
   Martin-Löf type theory** and **Idris 2's core is quantitative type theory**,
   Atkey's QTT over an MLTT base. Saying *that kernel is what all four are built

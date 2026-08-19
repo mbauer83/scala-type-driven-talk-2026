@@ -49,23 +49,6 @@ impractical. The question they actually face is **which of these you are already
 paying for, and what each one costs to encode where you are** — and that is this
 slide. The opening line is deliberately the same sentence, twenty minutes later.
 
-THE PLAN'S LANDING LINE IS REPHRASED, AND THIS IS THE CHANGE TO REVIEW
-Part 3 has: *The question was never »should I use dependent types for my CRUD
-endpoints.« It's: is this invariant expensive enough to encode?* That is R1 —
-define positively, never by exclusion — and the same shape appears twice in v1
-(`33-horizon`: *the right question is not »is this fancy?«*). Naming the silly
-reading plants it. The positive half loses nothing and is on the slide as well as
-in the script. Flagged rather than done quietly (C11).
-
-GRADUAL TYPING MOVED TO `A6-monday`, AND HERE IS WHY
-Part 3 puts gradual typing on this slide, on the grounds that *how do I start
-without a rewrite* is the question it exists to answer. That question is answered
-better one slide later: `A6-monday` **is** the incremental ladder, so the gradual
--typing point is its frame rather than an aside here. It arrives as one sentence
-in the room's own terms — a raw type talking to a generic one, `@Nullable` added
-a file at a time — which is where it does work instead of taking twenty seconds
-from the cost argument. Deviation from the plan, deliberate, and reversible.
-
 THE ERASURE CLAIM, STATED CAREFULLY (C2)
 The honest version is *the type-level machinery* is erased, not *everything*.
 - Phantom type parameters: erased by Java's generics erasure. `Payment<Initiated>`
@@ -91,7 +74,7 @@ too. *More to go on than a red assertion* is the comparative that survives.
 `Approval[LowRisk]` / `Approval[MediumRisk]` is the error the room watched come
 out of `scalac` at Demo 3, so it is a memory rather than an example.
 
-FOR Q&A — the proof-assistant tail, which v1 had in the script
+FOR Q&A — the proof-assistant tail, 
 Lean, Rocq, Agda and Idris go further than anything shown tonight: the proof
 obligation becomes part of the type, and to call a function you supply an explicit
 proof that its precondition holds. The machine checks that proof term, and modern
@@ -101,19 +84,5 @@ only declare the type. Good answer; no airtime.
 
 Also for Q&A: regulated domains — avionics, medical devices, parts of finance —
 crossed this threshold long ago, because a field incident costs more than the
-encoding. v1 had it in the close. It is a supporting anecdote for the cost
+encoding. It is a supporting anecdote for the cost
 argument, not the argument, and it is unverifiable from the stage.
-
-WHY THE AGENTIC HALF IS NO LONGER ON THIS SLIDE (MB, 19 Aug)
-MB: *I'm not quite sure that the immense value of types as hard constraints,
-dense and clear signals of intent and fast feedback loops for iteration for AI
-agents is made clear enough towards the end of the talk, where it should land
-again forcefully.* It was sixty words at the end of a cost list, delivered while
-the room read a four-row table. It is now `A6-now`, its own beat, with the three
-claims separated. Part 3 merged v1's `32-agentic` into this slide; that merge is
-partly undone, deliberately, and the reason is above.
-
-JOIN
-Backwards: `A5-payoff`, the dark *Unrepresentable* slide, which is the emotional
-peak — let it land before starting this. Forwards: `A6-now`, the second reason
-the set keeps growing.

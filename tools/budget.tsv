@@ -2,61 +2,33 @@
 #
 # slide-stem<TAB>m:ss<TAB>kind        kind ∈ prose | demo | stub
 #
-# Rate calibrated 2026-08-17, re-measured twice on 2026-08-18.
-#
-#     Act 0, read 1                       177 wpm
-#     Act 0, read 2                       185 wpm
-#     Act 0, standing, projecting         187 wpm
-#     Slides 1-5 standing                 191 wpm
-#     SLIDES 1-12 STANDING, 18 Aug eve    186 wpm   <- 2514 words in 13:29
-#
-# The last is the one to trust: the whole authored deck, standing, in one run.
-# 186 wpm, and steady — the per-slide spread is 158 to 212 with one outlier.
-#
-#     measured 13:29   against 14:50 of caps for those twelve   -> 1:21 UNDER
-#
-# **The planning rate stays 140.** MB, 18 Aug: "we still need a comfortable
-# margin for nervosity & interruptions of any kind, so don't take my WPM as the
-# target." 186 minus 22% is 145, so 140 remains slightly conservative.
-#
-# THREE SLIDES ARE OVER CAP EVEN AT SOLO PACE, and those are the real ones:
-#     08-crisis        1:32 against 1:05   +0:27
-#     curry-howard     1:47 against 1:30   +0:17
-#     a1-above         1:16 against 1:05   +0:11
-# Everything else came in under, several by more than twenty seconds.
-#
-# ONE DELIVERY FLAG, not a budget one: 01-title ran 128 words in 27 seconds —
-# 284 wpm, on the slide that carries the thesis of the whole talk. Finishing
-# early there is not a saving.
-#
-# A cap is the AIRTIME a slide gets on the night. It is a pacing decision and
+# A cap is the AIRTIME a slide gets on the night. It is a pacing decision, and it
 # does NOT move when the planning rate moves — the rate only decides how many
-# words fit inside it. Caps total 42:50 against a 45:00 slot.
+# words fit inside it. Caps total just under the 45:00 slot.
 #
-# `demo` rows score at the lower DEMO_WPM — on a live edit you talk around
+# PLANNING RATE: 140 wpm. Measured delivery is around 186 wpm, standing and
+# projecting, steady across a whole-deck run (per-slide spread 158-212 with one
+# outlier). 186 minus 22% is 145, so 140 leaves a deliberate margin for nerves
+# and interruptions. Do not raise it to match a measurement.
+#
+# `demo` rows score at the lower DEMO_WPM — on a live edit you talk around your
 # typing and pause while the room reads the error. The five demos are 9:35,
-# 21% of the slot, and before these rows existed the tool could not see one
-# second of it.
+# about a fifth of the slot, and without these rows the tool cannot see any of
+# it.
 #
-# `stub` rows are v2 slides that do not exist yet, carrying their planned cap
-# so `make timing` measures the deck we INTEND rather than the deck we have.
+# `stub` rows carry a planned cap for a slide that does not exist yet, so
+# `make timing` measures the deck intended rather than the deck present.
 #
-# ONE SOURCE OF TRUTH for durations. The plan quotes this file, never the
-# reverse: three drafts running, hand-carried arithmetic in the plan drifted in
-# the same direction every time (Part 8/C10, C12).
+# ONE SOURCE OF TRUTH for durations: this file. Hand-carried arithmetic
+# elsewhere drifted in the same direction every time.
 
 # ── Act 0 · Open — 4:40 · AUTHORED, SIGNED OFF ─────────────────────────────
-# Caps rebalanced 18 Aug against MB's measured standing run. Time is moved,
-# not shaved (C10): the four slides that came in well under cap give it to the
-# three that came in over. Net zero.
 01-title	0:50	prose
-02-alice	2:30	prose   # 2:15 in v1, cut to 2:00 in a rebalance the
-#                       measurement never supported. 2:30 on 19 Aug: Charlie's
-#                       incident gained the sentence that says what his operator
-#                       action is FOR, and lost the verbosity that came with it.
+02-alice	2:30	prose   # carries four incidents, one of which needs a sentence
+#                       saying what Charlie's operator action is for.
 06-pattern	1:25	prose
 
-# ── Act 1 · Primer — 7:10 · AUTHORED (Part 10 corrections applied) ─────────
+# ── Act 1 · Primer — 7:10 ────────────────────────────────────────────────
 # These were `stub` rows until the act was written, and stayed `stub` after it
 # was — so `make timing` printed the planned cap and hid the real script. They
 # are `prose` now: the act measures long against its caps and the tool has to
@@ -71,16 +43,16 @@ a1-above	1:20	prose
 
 # ── Act 2 · Ground floor — 2:20 · all three exist ──────────────────────────
 # a2-values and a2-promises are cues + a scripted landing line, so they carry
-# an EST-WORDS declaration rather than a countable script (Part 6b/T).
+# an EST-WORDS declaration rather than a countable script (see the tool).
 15-test-spine	0:40	prose
-# a2-promises 1:05 -> 1:16 on 18 Aug. MB: the three Hilbert properties were
+# a2-promises 1:05 -> 1:16. the speaker: the three Hilbert properties were
 # unintelligible — "an impossible type" was never defined and "the property" had
 # no referent. Defining them costs words. The 0:11 comes from ONE named slide
 # that measured under after its own rework, A6-monday (where-to-start), which
 # lost the gradual-typing frame the same day. Net zero; nothing else is shaved.
 a2-promises	1:16	prose
 #
-# a2-values CUT 18 Aug (MB): "doesn't really make a coherent or important
+# a2-values is cut: "doesn't really make a coherent or important
 # enough point, and doesn't fit in well". Its two load-bearing facts are
 # relocated rather than lost — Payment<Initiated> and Payment<Authorized> being
 # the same bytes belongs at A3-stage4 where phantom types appear, and the
@@ -95,28 +67,27 @@ a2-promises	1:16	prose
 # four of its slides; the frames carry only the line to read.
 a3-demo1	2:10	demo
 20-stage3-payoff	0:35	prose
-# 21-bridge deleted 18 Aug — Part 4 makes it two spoken sentences between
+# 21-bridge is cut — it is two spoken sentences between
 # A3-payoff-bob and A3-stage4; it never earned 1:30 of its own.
 22-stage4	1:45	prose
 a3-demo2	1:45	demo
 24-java-ceiling	1:30	prose
 
-# ── Act 4 · Scala 3 — 9:00 · AUTHORED 18 Aug; measured 10:36 in v1 ─────────
-# Six beats since 19 Aug, and the act is motivated by A3-ceiling's residual
+# ── Act 4 · Scala 3 — 9:00 ───────────────────────────────────────────────
+# Six beats, and the act is motivated by A3-ceiling's residual
 # failure (D-C option d): that slide names three things Java still accepts,
 # A4-opens takes the first two, Demo 3 fires the first, A4-sessions takes the
 # third — and Demo 4 now fires that one too. Danielle was the only one of the
 # four incidents that ended in a sentence rather than in a compiler error the
 # room watched arrive; the act header goes 7:20 -> 8:45 to pay for it, out of
-# the slot's spare rather than out of another act. 1:20 -> 1:35 on 19 Aug when
+# the slot's spare rather than out of another act. 1:20 -> 1:35 when
 # the edit was rewritten from a one-liner nobody would write into a change
 # somebody makes; the extra beat is the sentence about two services waiting.
 # The demo's whole script sits on its setup card, as with Demos 1 and 2, so one
 # cap covers all three of its slides; the frames carry only the line to read.
-# NO STAGE OPENER SLIDES. v1 had one for every stage 0-6 and the v2 rework
-# dropped all seven. MB, 18 Aug, noticed the consequence: nothing announces the
+# NO STAGE OPENER SLIDES, deliberately. Rendered, that template does not
 # move to Scala. Two dark openers were built and then cut again — rendered, the
-# v1 template is two-thirds empty at 0:12 of speech, its dominant element is a
+# carry 0:12 of speech: two-thirds empty, its dominant element a
 # numeral nobody needs, and a dark card two slides before a3/a4-demo's dark card
 # weakens the one signal that has to work ("stop reading, look at the IDE").
 # The announcement is a SPOKEN job: A4-opens and A5-mltt now name the language
@@ -125,53 +96,48 @@ a3-demo2	1:45	demo
 25-stage5	1:20	prose
 a4-demo3	1:55	demo
 26-session-types	1:30	prose
-a4-demo4	1:35	demo    # A4-demo4 — NEW 19 Aug: Danielle was the one incident
+a4-demo4	1:35	demo    # A4-demo4 — Danielle is the one incident
 #                       of the four with no compiler error behind it. Three
 #                       slides, one cap, as with Demos 1-4.
-stage5-mechanisms	2:05	prose   # 1:20 -> 1:50 on 19 Aug: the higher-kinded
+stage5-mechanisms	2:05	prose   # 1:20 -> 1:50: the higher-kinded
 #                       mechanism is back (documented as the first thing to
 #                       restore if the read-through came in short — it did, at 33
 #                       minutes), and CanSend gained the Demo 4 callback.
 27-stage5-payoff	1:20	prose
 
-# ── Act 5 · Idris 2 — 5:00 · AUTHORED 18 Aug ───────────────────────────────
+# ── Act 5 · Idris 2 — 5:00 ───────────────────────────────────────────────
 # Header said 5:30 and the rows summed to 4:45; the rows are what the act
 # needed once written, so the header is corrected DOWN to match them. No cap
-# moved. Part 3's 5:30 predates the merge of 29-mltt-running into A5-mltt.
 # Demo 5's whole script sits on its setup card, as with Demos 1-3, so one cap
 # covers all three of its slides.
-28-stage6-bridge	2:00	prose   # A5-mltt. 1:45 -> 2:00 on 19 Aug: the opening
+28-stage6-bridge	2:00	prose   # A5-mltt. 1:45 -> 2:00: the opening
 #                       sentence became precise about type-vs-value, which is the
 #                       one beat where the shorthand costs something, and picked
 #                       up the phantom-type callback to Stage 4.
 a5-demo5	2:10	demo    # A5-demo5
 30-stage6-payoff	0:50	prose   # A5-payoff
 
-# ── Act 6 · Close — 3:30 · AUTHORED 18 Aug ─────────────────────────────────
-# The three rows used to sum to 3:00 while this header and Part 3 both said
-# 3:30 — they were never updated when Part 3 specified A6-cost as a NEW slide
-# merging the agentic argument into a cost argument that did not exist before.
+# ── Act 6 · Close — 3:30 ─────────────────────────────────────────────────
 # 1:20 was the cap for the agentic slide alone. Rows now match the allocation
-# the header and the plan have carried all along; deck caps go 40:15 -> 40:45,
+# the header and the outline have carried all along; deck caps go 40:15 -> 40:45,
 # and the slot still has 4:15 spare. This is not time shaved from anywhere.
-# A6-now ADDED 19 Aug (MB): the agentic argument — types as hard constraints,
+# A6-now carries the agentic argument — types as hard constraints,
 # as dense signals of intent, and as a fast feedback loop — was sixty words at
 # the tail of the cost slide, spoken over a table the room was still reading.
-# It gets its own beat, which partly un-merges Part 3's fold of v1 32-agentic
-# into A6-cost. Cost +0:35 across Act 6 (1:45 -> 1:20 here, plus 1:00 for
+# It gets a beat of its own.
 # A6-now): caps 40:45 -> 41:20, spare 4:15 -> 3:40. Nothing was shaved for it.
 32-agentic	1:20	prose   # A6-cost
 a6-now	1:10	prose   # A6-now
-where-to-start	1:05	prose   # 0:44 -> 1:05 on 19 Aug: the three on-ramps are
+where-to-start	1:05	prose   # 0:44 -> 1:05: the three on-ramps are
 #                       named out loud now — Rock the JVM, Brady's book, Lean's
 #                       browser games — which is the one thing anybody acts on.   # A6-monday — 0:11 moved to a2-promises, see above
 34-close	0:50	prose   # A6-close
 
 # ── Cut or merged (kept so the reason survives) ────────────────────────────
-# 31-the-climb      cut 18 Aug: three summaries in the last four minutes; the
+# 31-the-climb      cut: three summaries in the last four minutes; the
 #                   dark Unrepresentable slide and the close are the two that
 #                   work. Moved to the appendix, not deleted.
-# 33-horizon        deleted 18 Aug; Lean/Agda/HoTT are the HORIZON row of
+# 33-horizon        cut; Lean/Agda/HoTT are the HORIZON row of
 #                   A6-monday, which is what this file has said all along
 # 29-mltt-running   merged into 28-stage6-bridge  -> A5-mltt
 # scala3-ceiling    merged into 27-stage5-payoff  -> A4-ceiling

@@ -67,29 +67,6 @@ named after addition and multiplication, and you can count the values*, the beat
 worked. That is a fact about types they have never been told and cannot confuse
 with anything else they know.
 
-THIS SLIDE DEMONSTRATES THE LEVEL POINT; `A0-turn` MAKES IT (MB, 18 Aug)
-The claim — *all programming already does logic with conditionals and control
-flow, and types do logic one level up, about the program* — is stated on
-`A0-turn`, where the incidents become the thesis and Bob's `if (risk != HIGH)` is
-one slide old. **This slide is the demonstration, not the claim:** `||` and `&&`
-are the connectives the room already has, and the two panes are the same two
-connectives over types.
-
-An earlier attempt put the whole thing here as a clause — *Watch which level they
-land on in Java: one above the booleans you compute while the program runs* —
-which MB rejected, correctly. It never affirmed the first half, it dismissed
-program logic instead of crediting it, and it interrupted a sentence about
-algebra to do it. Claim first, on its own slide; demonstration here.
-
-The word *level* then does work three more times without further explanation:
-
-  `A1-quantifiers`  a generic quantifies one level up again, over types
-  `A1-above`        Π lets a type depend on a value, and the levels collapse
-  `A2-values`       a type classifies; the checker reasons with it
-
-Making it general and early is what lets `A1-quantifiers` stop teaching two
-things at once.
-
 HOW THIS SLIDE HANDLES C13 — and why there is no disclaimer on it
 The equivocation to head off is a Java developer hearing *you already write
 logic* and thinking `if (a && b)`. The previous version fought that with a line
@@ -105,7 +82,7 @@ Introduction and elimination — the exhaustive match as `∨E` — belong to
 `A3-gentzen`, sixty seconds before the compile error they explain. That is the
 whole of P2. This beat is formation: what the connectives *build*. Splitting it
 that way is also what gave `∧` room to have an example of its own, which is the
-thing MB called out as unacceptable in the previous version.
+thing the speaker called out as unacceptable in the previous version.
 
 PART 10/F1 — WHAT BOOLE BUYS, AND WHAT HE DOES NOT
 An earlier draft said of Boole: *that is the moment inference becomes something a
@@ -132,21 +109,3 @@ FACTS — grepped, not remembered (C1)
   rendered as a `code-pane`: no filename tab, no line numbers, no syntax colour,
   so nothing on the slide claims it is a file. If asked, say so plainly — it is a
   shape, and the two types in it are real.
-
-WHY THE PRODUCT EXAMPLE CHANGED (MB, 18 Aug)
-It used to be the real `OrderLine(String sku, int unitPriceCents, int quantity)`.
-Verbatim from the repo, and useless here: the number of strings is unbounded, so
-the caption could only say *as many as sku × price × quantity*, which asserts the
-arithmetic instead of doing it. **The one thing this slide has to earn is that
-you can count the values**, and a `String` field makes that impossible. Two small
-real sealed types multiply to six, which a room can check in their heads while
-you say it. The trade — one invented wrapper name against a demonstration that
-actually demonstrates — is worth taking, and the mitigation above keeps it
-honest.
-- `PaymentMethod` — `Card(String token) | Wallet(String token) |
-  Invoice(String reference)`, `PaymentMethod.java:9-12`. The bottom line is that
-  type written as algebra.
-- Leibniz: *characteristica universalis*, *calculus ratiocinator*, *calculemus*.
-  Named in a clause, on the rail, no beat of his own (Part 6b/D2).
-- Frege is NOT on this slide any more. 1879 and the quantifier are the next
-  beat, and he was here only because an earlier draft needed a third name.

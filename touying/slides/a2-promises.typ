@@ -1,22 +1,12 @@
-// A2-promises · cap 1:05 · Act 2 beat 2 of 2
-//
-// REBUILT 18 Aug. MB: "convoluted, and shows the revision history in terms of
-// reading like the result of an argument"; "'and that's Rice, not Gödel' — are
-// you serious? That is horrific"; the array-covariance passage "barely coherent
-// and doesn't seem to fit". All three land.
-//
-// The Rice/Gödel line was a correction addressed to a heckler who does not
-// exist. Nobody in the room cares which theorem bounds the checker; they care
-// that it says no to code they know is fine. So the slide answers MB's actual
-// question — WHERE, in Java, is completeness noticeably given up — with a
-// program every one of them has written and had rejected.
-//
+// That is horrific"; the array-covariance passage "barely coherent and doesn't
+// seem to fit". All three land. The Rice/Gödel line was a correction addressed
+// to a heckler who does not exist. Nobody in the room cares which theorem
+// bounds the checker; they care that it says no to code they know is fine.
 // Verified against javac 21.0.11: `f` fails with "missing return statement",
 // `g` compiles. Exhaustive, safe, rejected — and then accepted, four Java
-// versions later, which is the boundary moving in front of them.
-//
-// Rice, decidability and array covariance are all in the script's PREPARATION
-// block for Q&A. None of it is spoken.
+// versions later, which is the boundary moving in front of them. Rice,
+// decidability and array covariance are all in the script's PREPARATION block
+// for Q&A. None of it is spoken.
 #import "../theme.typ": *
 #import "../components.typ": *
 #import "../code-pane.typ": *

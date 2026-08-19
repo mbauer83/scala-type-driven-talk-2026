@@ -1,10 +1,6 @@
-// APPENDIX · the complete invariant inventory.
-//
-// Part 2 sent this out of the main deck and it never moved — it was still slide
-// 10, headed "Demo Scenario & Potential Bugs", with a `CLOSES` column that gives
-// the answer away before the suspense exists (P5) and a note that re-explained a
-// scenario the room met on slide 2. Here it is a Q&A artefact, which is what it
-// is good for: nine invariants and the stage that removes each one.
+// APPENDIX · the complete invariant inventory. Here it is a Q&A artefact,
+// which is what it is good for: nine invariants and the stage that removes
+// each one.
 #import "../theme.typ": *
 #import "../components.typ": *
 

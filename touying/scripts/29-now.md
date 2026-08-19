@@ -1,4 +1,4 @@
-A6-now · cap 1:10 · Act 6 beat 2 of 4 · NEW · partly un-merges v1 32-agentic
+A6-now · cap 1:10 · Act 6 beat 2 of 4
 
 TALKING POINTS
 1. A great deal of the code we ship is now written by a model. SAY SO
@@ -40,48 +40,20 @@ and is available as feedback before the code is ever run;"
 PREPARATION — background, checks and citations. Not for the night.
 ==========================================================================
 
-SAY »TYPE« ON THE SLIDE, NOT ONLY IN THE SCRIPT (MB, 19 Aug)
-The script always said *a type is a hard constraint*; the slide said only
-*a hard constraint* and *a signature*, and left the room to infer the subject on
-the one slide where the practical argument lands. Both headings now name it.
-
-*At every use* rather than *on every line*, in both places: a constraint is not
-checked per line, it is checked wherever the value is used, and MB proposed the
-sharper word. **Reversible** — the original was *»It holds on every line«*.
-
-NAME IT: "AGENTIC SOFTWARE DEVELOPMENT" (MB, 19 Aug)
-That is the term to use — not "LLM-driven", which MB corrected on 19 Aug.
+NAME IT: "AGENTIC SOFTWARE DEVELOPMENT"
+That is the term to use — not "LLM-driven", which the review corrected.
 An earlier version of this beat never named it at all —
 it said *whoever wrote the line*, *whatever generated the patch*, *a person and a
-model both read*. MB: *why do you dance around the issue … I really don't
+model both read*. the speaker: *why do you dance around the issue … I really don't
 understand why you did that.* Fair. This is the one slide in the deck whose
 entire purpose is that argument, and hedging on it is worse than leaving it out.
 Name it in the first sentence.
 
 Also corrected: *code arrives faster than anyone can read it* implied nobody
 reviews, which is both untrue and insulting to a room of working developers. The
-true claim is MB's own — **volume and iteration speed** are what change, so hard
+true claim is the speaker's own — **volume and iteration speed** are what change, so hard
 constraints, fast feedback and clear signals are worth more than a suite of
 tests. Concede the review explicitly before making it.
-
-WHY THIS BEAT EXISTS (MB, 19 Aug)
-*I'm not quite sure that the immense value of types as hard constraints, dense
-and clear signals of intent and fast feedback loops for iteration for AI agents
-is made clear enough towards the end of the talk, where it should land again
-forcefully.* It was not. It was sixty words at the tail of `A6-cost`, spoken over
-a four-row cost table the room was still reading.
-
-The three claims are MB's own, one paragraph each, in his order: **hard
-constraint**, **dense signal of intent**, **fast feedback loop**. Do not merge
-them back into one paragraph; the merge is what buried them.
-
-THIS PARTLY UN-MERGES A PART 3 DECISION, DELIBERATELY
-Part 3 folded v1's `32-agentic` into the new cost slide *»because they are the
-same conversation — the price, and why the price is worth paying now«*. They are
-the same conversation and they are still adjacent, but one slide could not hold a
-cost table and a three-claim argument without the argument losing. Flagged rather
-than done quietly. Cost: +0:35 across Act 6, caps 40:45 → 41:20, spare 4:15 →
-3:40. Nothing else was shaved to pay for it.
 
 WHAT EACH CLAIM DOES AND DOES NOT ASSERT (C2)
 - **Hard constraint.** True as stated: the checker applies the rule uniformly.

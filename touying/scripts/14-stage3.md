@@ -35,13 +35,7 @@ every variant has a branch."
 PREPARATION — background, checks and citations. Not for the night.
 ==========================================================================
 
-WHAT CHANGED FROM v1
-v1 opened with a `Function<String,Integer>` / `map` / inference pane. Real Stage 3
-content, and a distraction here — Part 3 gives this slide records + sealed = sums
-of products, Bob's code beside the sealed version, and `Result<T>` as the same
-rule again. Lambdas get a clause in the eyebrow and nothing more.
-
-BOB IS NOT RE-TOLD HERE (MB, 18 Aug)
+BOB IS NOT RE-TOLD HERE
 He was on `A0-incidents`, his line is on `A3-stage12`'s bottom strip, the demo
 deletes his case and the payoff slide resolves him. A fifth appearance here — his
 `if` beside the sealed switch — was redundant, and the ADT shape itself was

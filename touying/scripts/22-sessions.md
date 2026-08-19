@@ -41,16 +41,6 @@ happens when one side forgets whose turn it is."
 PREPARATION — background, checks and citations. Not for the night.
 ==========================================================================
 
-THIS BEAT NO LONGER CLOSES DANIELLE — DEMO 4 DOES (19 Aug)
-It used to end *»a server that sends where it should receive does not compile, so
-the drift she found three weeks in has nowhere left to happen«*, which asserted
-the one thing in Act 4 the room never got to watch. `A4-demo4` checks it in front
-of them now, and that clause moved there with it. What is left here is the gap
-and the hand-off; closing the point twice, thirty seconds apart, would flatten
-both. The slide still carries the property as written copy — *a server that sends
-where it should be receiving does not compile* — which is now a promise the next
-slide keeps rather than a claim the room has to take on trust.
-
 THE CALLBACK IS EXACT, AND IT IS THE REASON THIS SLIDE OPENS THAT WAY
 `A1-above` closes on four things the room is promised it will see running: *a
 type indexed by a runtime value; a value paired with a proof about that value; an
@@ -59,7 +49,7 @@ once; and a conversation between two services written down as one type.* This is
 the fourth, and it is the first of the four to be paid off. The other three land
 in Act 5, and `A4-ceiling` says which two of them Scala cannot reach.
 
-Reference the SLIDE, never the clock. MB, 18 Aug: *nobody references an earlier
+Reference the SLIDE, never the clock: *nobody references an earlier
 place in a talk like that.* Correct — »at minute nine« is a stage direction read
 out loud. Name what was on the slide instead; the room remembers the four rows,
 and it can place them without being told the time.
@@ -84,7 +74,7 @@ already carries the callback, the protocol, the match type and Danielle. It is o
 the wall for anyone reading ahead, it is the honest answer to »how do you know
 `Dual` is right«, and Q&A is where it gets explained. Do not start it on stage.
 
-IS THE SCALA SESSION TYPE A PHANTOM TYPE? YES (Q&A — MB, 19 Aug, checked)
+IS THE SCALA SESSION TYPE A PHANTOM TYPE? YES (Q&A
 Textbook case. `final class Channel[P <: Protocol]` has exactly three fields —
 `outbox`, `inbox`, `label` — and **none of them mentions `P`**
 (`runtime/Chan.scala:14-17`). `Proto.scala` says so in its own header comment:
@@ -118,7 +108,7 @@ time, sitting on top of a pipe that carries no type information at all.**
 cannot check. So in both languages the protocol lives entirely in the parameter,
 and the parameter is gone before a single message moves.
 
-HOW MUCH OF THAT IS THE DEMO, AND HOW MUCH IS THE TECHNIQUE (MB, 19 Aug)
+HOW MUCH OF THAT IS THE DEMO, AND HOW MUCH IS THE TECHNIQUE
 Mostly the demo, and the distinction is worth having straight before answering.
 
 **The unchecked cast is a shortcut.** `asInstanceOf` and `believe_me` are there
@@ -166,7 +156,7 @@ in Idris a value of an ordinary data type, produced by an ordinary function at
 runtime — `protocolFromSnapshot snapshot n c` — and then appearing in a type.
 That is the thing Scala cannot do, and it is exactly what `A5-mltt` shows.
 
-HOW SESSION TYPES MEET REAL CHANNELS, IN PRACTICE (Q&A — MB, 19 Aug)
+HOW SESSION TYPES MEET REAL CHANNELS, IN PRACTICE (Q&A
 The honest headline: **a session type is a contract, not a wire format.** It
 constrains which operations your program can compile; something else still has
 to move bytes. In practice there are three routes, and only the second is what

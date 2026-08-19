@@ -18,11 +18,6 @@
       whether you thought of it or not.
     ]
     #v(sz(60pt))
-    // The point MB asked to land early, and it lands here because this is where
-    // the incidents become the thesis and Bob's `if (risk != HIGH)` is one slide
-    // old. Deliberately NOT a second two-line contrast — the statement above is
-    // already one, and two competing slogans blur each other. This is a flowing
-    // sentence at half the size: elaboration, not a rival headline.
     #align(center)[
       #set text(size: sz(30pt), weight: 300, fill: pal.fg)
       #set par(leading: 0.62em, justify: false)

@@ -1,4 +1,4 @@
-A3-stage12 · cap 1:00 · Act 3 beat 1 of 8 · MERGE of v1 Stage 1 + Stage 2
+A3-stage12 · cap 1:00 · Act 3 beat 1 of 8
 
 TALKING POINTS
 1. Start buying guarantees, from the floor we just saw
@@ -37,7 +37,7 @@ constraint, and the constructor is private. Stage 2 is one the room met on
 airtime re-teaching. Merged, they are a 1:15 opener that leaves Act 3's real
 budget for Stage 3, Stage 4 and the two demos.
 
-THE BOTTOM STRIP IS THE POINT (MB, 18 Aug)
+THE BOTTOM STRIP IS THE POINT
 *By the Stage 1 slide we have lost the contrast to Alice's untyped JavaScript.*
 Two repairs: `A2-scenario` now states the floor explicitly, and this slide opens
 by referring back to it in one clause. Then the strip names what these stages

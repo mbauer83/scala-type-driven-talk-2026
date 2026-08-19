@@ -12,7 +12,7 @@ any property you could write a program to check	overclaims dependent types; the 
 the language you write your program in	true of full-spectrum systems only, not of dependent types in general
 Anything you can compute, you can state in a type	needs totality, and stating is not proving
 which T was larger	half the point — without the bound the body can do nothing with a T at all
-you are paying for already	nobody is paying for Scala if they do not use it (MB, 18 Aug)
+you are paying for already	nobody is paying for Scala if they do not use it
 whether a language that gives it to you directly is worth the move	nobody changes language for types
 Java can encode all three	false for protocol duality — Java has no type-level computation
 Neither stage touched Bob	Bob does not want touching, and three short declaratives in a row
@@ -21,28 +21,28 @@ Four notations, and I am deliberately not going to teach them	the talk narrating
 None of this is `if (a && b)`	defining by exclusion
 every stage from here deletes one of those alternatives	false — only two of six stages touch that disjunction
 max : List<T> → T	partial: the empty list has no maximum
-seeing them cheap	laid on thick, and the cheap/costing inversion is too clever (MB, 18 Aug)
+seeing them cheap	laid on thick, and the cheap/costing inversion is too clever
 the only way to find out	overclaim — "the only way" is never true
 the protocol context is what catches Bob's mistake	false for the demo as it stands: the ascription on PaymentDemo.scala:122 puts the error on the edited line
 Alice's boundary class is done	Alice's incident closes at Stage 1; refinements close a different thing — A3-ceiling's second item
-the best of what Scala 3's type system can do	superlative the audience cannot check (v1 scala3-ceiling)
-sixty seconds old, coming out	unintelligible: it reads as though Gentzen's RULE is sixty seconds old (MB, twice)
-It did not say a test failed	nobody assumes a compiler reports test failures; the contrast is silly (MB)
-it is one construction with three names	only two names are given (MB)
-The boundary moved, in a language you already use	AI sentence structure, and the trailing clause is smarmy (MB)
-buying guarantees back	back from whom? nothing took them (MB)
-A type layer goes on in pieces	meaningless as a headline (MB)
-you will want them	presumptuous, and "these" had no referent (MB)
-at minute nine	nobody references an earlier place in a talk by the clock (MB)
-Not caught by tests	anaphoric negatives plus the word "unrepresentable" twice — eye-roll (MB)
-it is stronger still	stronger than what? the comparison was never stated (MB)
-a value, computed while the program is running	true of almost every program, so it establishes nothing (MB)
-you do at least pay for that check	"pay" in a payments talk, and "at least" answered nothing (MB)
-a name worth having	reads as if the audience does not know the word (MB)
-What is new is what the compiler does with them	not new either — a2-promises already showed a switch expression refused (MB)
-four bits of notation	dismissive, and they are capabilities rather than notation (MB)
-That is the machinery	"that" had no referent from the slide before it (MB)
-Every one of these fits inside a single service	never in doubt; the point is blast radius, local and reversible (MB)
-Bob's leftover	nothing had ever said a piece of Bob's bug was left over (MB)
-the open half of Bob's	Bob's bug is fully closed at Stage 3; Stage 5 removes a DIFFERENT mistake (MB)
-that one is Bob again	same error — nothing of Bob's incident was left open (MB)
+the best of what Scala 3's type system can do	superlative the audience cannot check (cut)
+sixty seconds old, coming out	unintelligible: it reads as though Gentzen's RULE is sixty seconds old (the speaker, twice)
+It did not say a test failed	nobody assumes a compiler reports test failures; the contrast is silly
+it is one construction with three names	only two names are given
+The boundary moved, in a language you already use	AI sentence structure, and the trailing clause is smarmy
+buying guarantees back	back from whom? nothing took them
+A type layer goes on in pieces	meaningless as a headline
+you will want them	presumptuous, and "these" had no referent
+at minute nine	nobody references an earlier place in a talk by the clock
+Not caught by tests	anaphoric negatives plus the word "unrepresentable" twice — eye-roll
+it is stronger still	stronger than what? the comparison was never stated
+a value, computed while the program is running	true of almost every program, so it establishes nothing
+you do at least pay for that check	"pay" in a payments talk, and "at least" answered nothing
+a name worth having	reads as if the audience does not know the word
+What is new is what the compiler does with them	not new either — a2-promises already showed a switch expression refused
+four bits of notation	dismissive, and they are capabilities rather than notation
+That is the machinery	"that" had no referent from the slide before it
+Every one of these fits inside a single service	never in doubt; the point is blast radius, local and reversible
+Bob's leftover	nothing had ever said a piece of Bob's bug was left over
+the open half of Bob's	Bob's bug is fully closed at Stage 3; Stage 5 removes a DIFFERENT mistake
+that one is Bob again	same error — nothing of Bob's incident was left open

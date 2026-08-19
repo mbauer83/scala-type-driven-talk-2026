@@ -1,13 +1,7 @@
-// A3-payoff-bob · cap 0:35 · Act 3 beat 5 of 8 · Device 1
-//
-// v1 carried a nine-row `test-list` with a CLOSES column AND a four-chip
-// `story-strip`. P5 diagnosed both: two parallel scoreboards doing the same job
-// badly, strikethrough that dies at projection distance, ~15 seconds each time,
-// five times across the deck. Part 2 replaced them with Device 1 — one
-// declarative claim, plus the line of code that is now unwriteable — and the
-// collective view happens once, on the dark Unrepresentable slide at the end.
-//
-// So: no tables. The claim, the dead line, and the handover.
+// P5 diagnosed both: two parallel scoreboards doing the same job badly,
+// strikethrough that dies at projection distance, ~15 seconds each time, five
+// times across the deck. So: no tables. The claim, the dead line, and the
+// handover.
 #import "../theme.typ": *
 #import "../components.typ": *
 

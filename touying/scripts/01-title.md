@@ -22,33 +22,3 @@ Thanks to the organisers for having me."
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.
 ==========================================================================
-
-HOW MB IS INTRODUCED (MB, 19 Aug)
-*»A software and solution architect, in the business for over 15 years.«* That is
-his wording and it replaces *»the last dozen or so years«* — which understated it
-and hedged twice in six words.
-
-The framing deliberately promises the size of the real talk. An earlier draft
-opened on a-specific-kind-of-bug, which sets up something much smaller than what
-follows; the audience feels that mismatch by minute ten. The bugs are the way in,
-not the subject.
-
-This slide is now load-bearing. It carries the thesis of the whole talk, and
-slide 3 no longer restates it — everything after this is demonstration rather
-than repetition. If the promise does not land here, there is no second attempt
-before slide 8.
-
-»In a precise sense« is not a hedge. It points at where the rigour lives: the
-Curry-Howard correspondence is an isomorphism, not an analogy. The caveat it
-promises is discharged on `A1-curry-howard` — see the note there about total pure calculi
-versus Java's null, exceptions and non-termination.
-
-Do not say production-incidents. Alice's was caught in staging, and whether any
-of the four escaped to production is a matter of process and luck rather than
-anything about the bug. Claiming production overstates three of them and is simply
-wrong about one.
-
-Budget note: 1:00 at the 130 wpm planning rate, 0:41 at MB's measured read rate.
-The cap was raised rather than the text cut — an opening that carries the thesis
-is worth the seconds, and the overage is taken from Act 4, which measured 10:36
-in v1 against a 6:30 target.

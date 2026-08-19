@@ -38,8 +38,8 @@ one type."
 PREPARATION — background, checks and citations. Not for the night.
 ==========================================================================
 
-THE LANGUAGE CHANGE IS ANNOUNCED HERE, IN THE FIRST CLAUSE (MB, 18 Aug)
-MB: *nothing in notes or on the slide makes it prominent that we're now moving
+THE LANGUAGE CHANGE IS ANNOUNCED HERE, IN THE FIRST CLAUSE
+the speaker: *nothing in notes or on the slide makes it prominent that we're now moving
 to Scala.* True, and it was worse than that — the word **Scala** was not spoken
 anywhere at the boundary. `A3-ceiling` hands over with *what comes next is a
 language where all three of these are cheap*, which names no language, and this
@@ -47,10 +47,10 @@ script opened on *two of those three cost about a line each*, which names none
 either.
 
 Two dark stage-opener slides were built for this and then cut again. The
-reasoning is worth keeping, because v1 had one of those for every stage 0-6 and
+reasoning is worth keeping, because an earlier deck had one for every stage 0-6 and
 somebody will propose bringing them back:
 
-1. **Rendered, the v1 template does not carry 0:12 of speech.** Two-thirds of
+1. **Rendered, that template does not carry 0:12 of speech.** Two-thirds of
    the slide is empty and its dominant element is a 320px numeral — the room does
    not need to be told it is Stage 5, it needs to be told it is Scala.
 2. **It weakens the demo card.** `a4-demo3` is two slides later and its whole
@@ -68,7 +68,7 @@ THE JOIN, AND WHY THIS SLIDE OPENS ON A LIST IT DID NOT WRITE
 `A3-ceiling` ends on three things Java still accepts, with a different verdict
 on each: risk-indexed approval Java can do properly but noisily; refinements it
 gets downstream but not on a literal and not composed; protocol duality it cannot
-reach. That is D-C option (d) — capability-led, motivated by residual failure —
+reach. That is capability-led, motivated by residual failure:
 and this act answers the three in that order. Beat 1 takes the first two, the
 demo fires the first, and `A4-sessions` takes the third.
 
@@ -100,18 +100,5 @@ comment is the answer.
 
 COMPOSITION IS SPOKEN, NOT SHOWN
 `MinLength[1] & MaxLength[10]` is real in Iron and is the thing Java cannot do,
-but it appears nowhere in this repository. Part 12/R9: do not put an invented
+but it appears nowhere in this repository. do not put an invented
 identifier in a pane with a filename on it. It stays a clause in speech.
-
-WHAT WAS ON THE v1 SLIDE, AND WHY IT IS GONE
-v1 showed the body of `authorize` — a match over the three approval constructors
-building an audit string — with `order.id`, `p.id`, `a.id` and `audit =`. None of
-those identifiers exist: the real fields are `order.orderId.orderIdStr`,
-`p.challengeId`, `a.reviewer` and `auditTrail`. It also demonstrated nothing: the
-match is bookkeeping, and the signature above it is the entire point. Replaced by
-the signature plus the two constructors, which is what makes the demo's error
-legible sixty seconds later.
-
-JOIN
-Forwards: Demo 3 swaps `ThreeDSApproved(proof)` for `AutoApproved` and lets
-`scalac` say what `Approval[R]` is for. Do not describe the error here.

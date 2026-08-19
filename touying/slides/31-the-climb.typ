@@ -52,9 +52,9 @@
       [All nine. `protocolFromSnapshot` computes type from runtime value. Linearity closes the channel.],
       encoded-active: true,
     ),
-        // The four name-chips are removed: they overflowed the slide, and they were
-    // the fifth appearance of the tracking furniture P5 took off every other
-    // payoff. A5-payoff carries the collective view (MB, 19 Aug).
+// The four name-chips are removed: they overflowed the slide, and they were
+// the fifth appearance of the tracking furniture P5 took off every other
+// payoff.
 
   ),
 )

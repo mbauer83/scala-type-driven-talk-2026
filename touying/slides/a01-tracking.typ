@@ -1,12 +1,3 @@
-// Clock: Q&A — Tracking Capabilities
-//
-// Depth for A4-mechanisms, which carries the same pair in 40 seconds. This slide
-// is NOT redundant with it: what it adds is the cost of each (monadic style vs
-// direct), the status of each, the fact that they are not exclusive, and the
-// linearity-vs-capability distinction. Keep it in step with the main slide —
-// the capture-checking example was wrong on both until 19 Aug (MB): it
-// annotated the returned value, `User^{db}`, instead of the arrow, and it
-// dropped ZIO's error channel so the two sides did not correspond.
 #import "../theme.typ": *
 #import "../components.typ": *
 

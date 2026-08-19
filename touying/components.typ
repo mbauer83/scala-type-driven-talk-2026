@@ -1,15 +1,7 @@
-// =============================================================================
-// components.typ — slide-class functions and reusable patterns.
-//
-// SIGNATURES are FINAL — do not change them in later phases.
-// BODIES are layout stubs in Phase 1: each slide-class function applies the
-// correct background fill, padding, and column grid drawn from
-// style_other_presentation.css. Typography is refined in Phase 4 as real
-// slide content lands.
-//
-// Pattern functions documented in Phase 3 (ladder, story-strip, test-list,
-// lcube) are present here as // TODO stubs with their final signatures.
-// =============================================================================
+// ============================================================================
+// = components.typ — slide-class functions and reusable patterns. SIGNATURES
+// are FINAL — do not change them in later phases. ============================
+// =================================================
 
 #import "theme.typ": *
 #import "code-pane.typ": code-pane
@@ -524,10 +516,6 @@
   ]
 ]
 
-// =============================================================================
-// PATTERNS (Phase 3)
-// =============================================================================
-
 // ─── ladder ──────────────────────────────────────────────────────────────────
 //
 // Three-column DOCUMENTED / TESTED / ENCODED grid. The ENCODED column gets an
@@ -792,10 +780,7 @@
   "Russell", "Church", "Curry-Howard", "Martin-Löf",
 )
 
-// Display label where it differs from the key. The last beat reads
-// "Martin-Löf (+)" because quantitative type theory, session types with duality
-// and the rest of what `A1-above` shows all sit beyond MLTT — the bare name
-// would claim the rail ends where it does not (Part 10).
+// Display label where it differs from the key.
 #let act1-labels = (
   "Martin-Löf": "Martin-Löf (+)",
 )

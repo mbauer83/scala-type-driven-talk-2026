@@ -1,17 +1,3 @@
-// APPENDIX · what the talk leaves out.
-//
-// MB, 19 Aug: an appendix slide for important points not covered, so a question
-// from the room lands on a prepared answer instead of an improvised one. Six
-// entries, each a topic he can talk to for a minute; the gloss on the slide is
-// the hook, and the argument is in the speaker note.
-//
-// Path-dependent types are here for a second reason. They DO appear in the main
-// deck — `A4-mechanisms` names them next to `def send(using s: CanSend[P])
-// (value: s.Msg)` — but that row explains the evidence pattern, not the
-// path-dependent part. This slide carries the part the main deck has no time
-// for, and A4-mechanisms now says the one thing that makes the name earn itself.
-//
-// Every factual claim was checked on 19 Aug; citations are in the note.
 #import "../theme.typ": *
 #import "../components.typ": *
 
@@ -87,7 +73,7 @@
 )
 
 #speaker-note[
-Q&A only. Nothing here is spoken in the talk. Checked 19 Aug 2026.
+Q&A only. Nothing here is spoken in the talk. Checked August 2026.
 
 BOUNDS VS. TYPE CLASSES
 The real distinction is where the constraint is attached. A subtype bound is

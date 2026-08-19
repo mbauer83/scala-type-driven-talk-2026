@@ -1,40 +1,12 @@
-// A5-mltt · cap 1:45 · Act 5 beat 1 of 3 · MERGE of v1 28-stage6-bridge + 29-mltt-running
-//
-// This slide pays off three of the four promises A1-above put on the wall at minute
-// nine, with the SAME code fragments the primer showed, beside the real
-// signatures they came from:
-//
-//   Π  Approval : RiskLevel -> Type              a type indexed by a runtime value
-//   Σ  (lvl : RiskLevel ** Assessment lvl n c)   a value paired with a proof
-//   1  (1 _ : Session p) -> ...                  a binding used exactly once
-//   ⇄  Send[Order, Receive[RiskSnapshot, ...]]   ALREADY PAID OFF at A4-sessions
-//
-// So the order here is Π, Σ, 1 — the primer's order, minus the one already
-// spent. `1` is set up and NOT fired; Demo 5 fires it.
-//
-// v1's 29-mltt-running is gone: it re-taught the Π and Σ inference rules as
-// rule-cards, which Act 1 already did, carried 315 words against no cap, and
-// its note was a nine-item IDE runbook.
-//
-// GREPPED (rule 9). protocolFromSnapshot takes THREE parameters —
-// PaymentRules.idr:212-214; the one-argument story is protocolDerivedFrom (:224)
-// and takes an Order, so it is not a substitute. openSession is
-// PaymentChannel.idr:73, the call site Main.idr:277, assessOrder
-// PaymentDomain.idr:255, Approval PaymentDomain.idr:264, finish
-// PaymentChannel.idr:146.
-//
-// KEEP `: RiskLevel` IN THE DEPENDENT PAIR. Dropping it is legal Idris sugar
-// and it hides the index type, which is the entire point of the Σ promise.
 #import "../theme.typ": *
 #import "../components.typ": *
 #import "../code-pane.typ": *
 
-// The language change gets a filled chip rather than the 21px grey eyebrow every
-// other slide carries. MB, 18 Aug: nothing made it prominent that the talk had
-// moved language. This and A4-opens are the only two slides that use it, because
-// they are the only two places the syntax on the wall changes — stages 1 to 4
-// are all Java. Two dark stage-opener slides were built for this and cut again;
-// scripts/20-stage5.md records why.
+// The language change gets a filled chip rather than the 21px grey eyebrow
+// every other slide carries. This and A4-opens are the only two slides that
+// use it, because they are the only two places the syntax on the wall changes
+// — stages 1 to 4 are all Java. Two dark stage-opener slides were built for
+// this and cut again; scripts/20-stage5.md records why.
 #let lang-chip(lang, rest) = {
   box(fill: pal.accent, inset: (x: sz(14pt), y: sz(8pt)), radius: sz(4pt))[
     #text(font: mono-font, size: sz(26pt), weight: 700, fill: pal.bg, tracking: 0.08em)[#upper(lang)]

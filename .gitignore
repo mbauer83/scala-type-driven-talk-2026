@@ -13,6 +13,7 @@
 **/project/project/
 
 # Metals / Bloop / BSP
+.bloop
 .bloop/
 .metals/
 .bsp/
@@ -40,12 +41,9 @@ Thumbs.db
 # Idris package/build helper outputs
 .idris2-pack/
 
-# AI Agent helper directories
-.codex
+# AI agent helper directories — not part of the talk
 .codex/
 .claude/
-# ...except the project hook config, which is part of the quality gate
-!.claude/settings.json
 .agents/
 memory/
 
@@ -59,11 +57,8 @@ memory/
 touying/deck.pdf
 touying/deck.html
 touying/*.pdf
-slides/png/
-slides/svg/
-slides/*.pdf
-slides/*.svg
-slides/*.png
+touying/*.png
+touying/*.svg
 
 # WSL / Windows interop artefacts
 *:Zone.Identifier

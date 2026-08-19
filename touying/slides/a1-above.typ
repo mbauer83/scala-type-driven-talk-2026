@@ -18,14 +18,6 @@
   [What lies above],
   body-gap: sz(46pt),
   [
-    // The shift, stated. Four notations with glosses and no statement of what
-    // changed was the previous version's whole failure: the slide showed the
-    // syntax of dependent types and never said what they buy. This lede is the
-    // third rung of A1-quantifiers' ladder — over values, over types, and now
-    // over values with the RESULT TYPE computed from the value. The lede does not
-    // claim this is *the* step that changes what a type can say (MB, 19 Aug):
-    // every stage in the talk changes that. It draws the distinction instead —
-    // this is the step after which a type can mention one particular value.
     #block(width: 100%)[
       #set text(size: sz(25pt), fill: pal.fg-dim)
       #set par(leading: 0.45em)
@@ -49,10 +41,9 @@
     #stack(
       dir: ttb,
       spacing: sz(38pt),
-      // ORDER = ORDER OF APPEARANCE IN THE TALK (MB, 19 Aug). ⇄ is paid off on
-      // A4-sessions in Act 4; Π and Σ both land on A5-mltt in Act 5, Π first;
-      // 1 is set up there and fired by Demo 5. Any other order makes
-      // A4-sessions' "here is the first" false. Keep the script in step.
+// ⇄ is paid off on A4-sessions in Act 4; Π and Σ both land on A5-mltt in Act
+// 5, Π first; 1 is set up there and fired by Demo 5. Any other order makes
+// A4-sessions' "here is the first" false. Keep the script in step.
       notation([⇄], `Send[Order, Receive[RiskSnapshot, ...]]`,
                [a whole conversation, as one type]),
       notation([Π], `Approval : RiskLevel -> Type`,

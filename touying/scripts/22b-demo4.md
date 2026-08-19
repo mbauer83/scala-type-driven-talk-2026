@@ -67,7 +67,7 @@ TALKING POINTS
 7. The drift Danielle found three weeks in has nowhere left to happen — that
    clause belongs HERE now, not on A4-sessions
 8. Do NOT say "nobody wrote a test" — Demo 2 has it, A5-payoff has the
-   collective version (MB, 19 Aug)
+   collective version
 
 VERBATIM
 
@@ -85,13 +85,6 @@ conversation begins with a send. Untyped, that is not an exception anybody
 catches — it is two services waiting for each other. The drift Danielle found
 three weeks in has nowhere left to happen."
 
-
-WHY THIS DEMO EXISTS AT ALL (MB, 19 Aug)
-Four incidents open the talk and, before this, three of them ended in a compiler
-error the room watched arrive. Bob got two — Demo 1 and Demo 3. Charlie got Demo
-2. Danielle got a sentence: *a server that sends where it should receive does not
-compile.* She is the incident that motivates the most distinctive idea in the
-deck, and she was the one the room had to take on trust.
 
 THE POSITION OF THE EDIT IS THE WHOLE TRICK
 Five edits produce this class of error and four of them cannot be read from a
@@ -118,7 +111,7 @@ THE EDIT, EXACTLY — AND IT IS EXECUTED, NOT DESCRIBED
     ch5.send(captured)   ->   val (ack, done)       = ch5.receive()
                               done
 
-THE BUG CLASS HAS TO BE LEGIBLE, EVEN WHEN THE EDIT IS ARTIFICE (MB, 19 Aug)
+THE BUG CLASS HAS TO BE LEGIBLE, EVEN WHEN THE EDIT IS ARTIFICE
 The first version of this edit was the one-liner `ch5.receive()._2`, which
 produces the identical error and is not a mistake anybody has ever made — `._2`
 on a receive is a shape chosen to satisfy a return type, and a room that notices

@@ -56,7 +56,7 @@ TALKING POINTS
    variables must be used exactly once
 5. The compiler counted the uses of one variable, got zero, and refused
 6. Do NOT say "nobody wrote a test" here — Demo 2 has it, A5-payoff has the
-   collective version, and a third telling is one too many (MB, 19 Aug)
+   collective version, and a third telling is one too many
 7. That is the last of the four accounted for
 
 VERBATIM

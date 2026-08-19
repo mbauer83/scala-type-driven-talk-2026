@@ -1,26 +1,20 @@
-// =============================================================================
-// theme.typ — palette, type-scale, page setup for the Type-Driven Programming
-// talk (Java Meetup Cologne, 28 May 2026). Phase 1 scaffold.
-//
-// The deck targets a 1920×1080 logical stage. To keep the rendered PDF a
-// reasonable file size while preserving SVG fidelity, every size unit defined
-// in the slide plan (e.g. "32px") is stored in this file at its raw value and
-// scaled by `scale` (= 0.5) at the point of use. The on-page geometry is
-// therefore 960×540pt; sizes the audience perceives are 1× of the slide-plan
-// numbers because the projector itself drives the final magnification.
-//
-// Font availability note:
-//   IBM Plex Sans  — install with `sudo apt install fonts-ibm-plex` on Debian
-//                    11+ / Ubuntu 22.04+. Falls back to Inter, then to Typst's
-//                    bundled Libertinus Sans.
-//   JetBrains Mono — not packaged in Debian 11 main. On bookworm and Ubuntu
-//                    22.04+ use `sudo apt install fonts-jetbrains-mono`. Else
-//                    unzip the GitHub release into ~/.local/share/fonts/ and
-//                    run `fc-cache -f`. Falls back to Fira Code, then to
-//                    Typst's bundled DejaVu Sans Mono. The build succeeds
-//                    without the preferred fonts; only typography fidelity
-//                    suffers.
-// =============================================================================
+// ============================================================================
+// = theme.typ — palette, type-scale, page setup for the Type-Driven
+// Programming talk (Java Meetup Cologne, 28 May 2026). The deck targets a
+// 1920×1080 logical stage. To keep the rendered PDF a reasonable file size
+// while preserving SVG fidelity, every size unit defined in the slide plan
+// (e.g. "32px") is stored in this file at its raw value and scaled by `scale`
+// (= 0.5) at the point of use. The on-page geometry is therefore 960×540pt;
+// sizes the audience perceives are 1× of the slide-plan numbers because the
+// projector itself drives the final magnification. Font availability note: IBM
+// Plex Sans  — install with `sudo apt install fonts-ibm-plex` on Debian 11+ /
+// Ubuntu 22.04+. Falls back to Inter, then to Typst's bundled Libertinus Sans.
+// JetBrains Mono — not packaged in Debian 11 main. On bookworm and Ubuntu
+// 22.04+ use `sudo apt install fonts-jetbrains-mono`. Else unzip the GitHub
+// release into ~/.local/share/fonts/ and run `fc-cache -f`. Falls back to Fira
+// Code, then to Typst's bundled DejaVu Sans Mono. The build succeeds without
+// the preferred fonts; only typography fidelity suffers. =====================
+// ========================================================
 
 #import "@preview/touying:0.7.4": *
 
@@ -49,7 +43,6 @@
   bad-bg:            oklch(93%, 0.04, 28deg),
   good:              oklch(55%, 0.10, 145deg),
   good-bg:           oklch(93%, 0.03, 145deg),
-  // Code colours (used on dark code panes — Phase 2)
   c-key:             oklch(78%, 0.10, 60deg),
   c-type:            oklch(80%, 0.10, 200deg),
   c-str:             oklch(78%, 0.10, 130deg),

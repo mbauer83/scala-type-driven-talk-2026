@@ -1,0 +1,71 @@
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to release"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Typst
+        uses: typst-community/setup-typst@v4
+        with:
+          typst-version: latest
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install Python dependencies
+        run: pip install python-pptx Pillow
+
+      - name: Build every release artifact
+        run: |
+          make all
+          make talk-pptx
+          make talk-presenter
+
+      - name: Verify the artifacts are what the release claims
+        run: |
+          test -s talk.pdf
+          test -s talk.pptx
+          test -s presenter/index.html
+          python3 - <<'PY'
+          import json, zipfile, sys
+          pages = len(json.load(open('talk.pdfpc'))['pages'])
+          notes = sum(1 for p in json.load(open('talk.pdfpc'))['pages'] if p.get('note'))
+          print(f'{pages} slides, {notes} with notes')
+          if pages < 40 or notes < pages - 2:
+              sys.exit('deck looks truncated')
+          with zipfile.ZipFile('talk.pptx') as z:
+              n = sum(1 for x in z.namelist() if x.startswith('ppt/notesSlides/notesSlide'))
+          print(f'{n} notesSlide parts in talk.pptx')
+          if n < pages - 2:
+              sys.exit('pptx is missing speaker notes')
+          PY
+
+      - name: Package the presenter
+        run: zip -qr presenter.zip presenter
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
+          name: ${{ github.event.inputs.tag || github.ref_name }}
+          generate_release_notes: true
+          fail_on_unmatched_files: true
+          files: |
+            talk.pdf
+            talk.pptx
+            presenter.zip

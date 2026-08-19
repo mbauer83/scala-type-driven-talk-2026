@@ -57,7 +57,7 @@ BEATS — delivery aid; the script is below
   column of the slide.
   › proposition = type, proof = program, running = simplifying the proof
 - Lambek in passing — the same structure turns up a third time in category
-  theory. One clause, not a third pillar (Part 10).
+  theory. One clause, not a third pillar.
 - **The C13 block — deliver this one exactly:**
   › your program is the construction; its type says what you constructed a proof
     of; the compiler checks the one against the other
@@ -72,7 +72,7 @@ BEATS — delivery aid; the script is below
 - Pivot into the rest of the talk: everything we climb buys a correspondence a
   little closer to exact.
 
-TWO THINGS TO CHECK IN MB'S 18 AUG REWRITE (not changed — flagged)
+TWO THINGS TO CHECK IN the speaker'S 18 AUG REWRITE (not changed — flagged)
 
 **1. The C13 triple had lost its third member in speech — MERGED, flagged (C11).**
 The line *the compiler is the machine that checks the one against the other* had
@@ -92,8 +92,8 @@ C13 check at the bottom of this file needs revising to match.
 **2. The caveat's framing moved, and `A0-title` should be checked against it.**
 It now says a signature `A → B` *is not necessarily truthful*. The earlier
 framing was that Java *proves a weaker proposition* — `A ⇒ (B ∨ null ∨ throw ∨
-⊥)` — which is what Part 13/A used to reconcile the caveat with slide 1's claim
-that a program which type-checks *is* a proof. Both are defensible and MB's is
+⊥)` — which is what an earlier draft used to reconcile the caveat with slide 1's claim
+that a program which type-checks *is* a proof. Both are defensible and the speaker's is
 crisper for the room. Worth one deliberate decision: under *not truthful*, slide
 1's promise is discharged by the ladder rather than by the caveat, so the caveat
 no longer does that job on its own.
@@ -106,10 +106,10 @@ The caveat paragraph is the one to rehearse. Delivered as an apology it makes th
 thesis look naive; delivered as a map it is the spine of the talk. The last line
 is the pivot into Act 2 — do not drop it.
 
-THE CAVEAT, AND WHY IT IS NOW A POSITIVE CLAIM (MB, 18 Aug — supersedes F2)
+THE CAVEAT, AND WHY IT IS NOW A POSITIVE CLAIM
 
 Two earlier versions of this caveat were wrong in the same direction. The first
-implied that logic cannot capture imperative programs (Part 10/F2). The second
+implied that logic cannot capture imperative programs. The second
 said *a Java method from A to B does not prove that A implies B*, which sounds
 like no proof happens at all — and that contradicts the promise on `A0-title`.
 
@@ -152,7 +152,7 @@ PRECISION, IF THIS IS CHALLENGED
   what is there is the intended contract, and the typing judgment is the thing
   that would make it precise.
 
-C13 CHECK (Part 8)
+C13 CHECK
 The three-sentence block — construction / proposition / checker — is the canonical
 statement of the distinction and is deliberately verbatim from the standing
 correction. It is the single place in the talk where the equivocation is closed

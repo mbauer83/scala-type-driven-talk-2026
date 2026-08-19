@@ -1,6 +1,4 @@
-// A1-aristotle · cap 1:05 · Act 1 beat 1 of 6
-// Validity is a property of form. Absorbs v1's `07-toolkit` history slide:
-// the 2,400-year sweep now runs along the rail instead of costing a beat.
+// A1-aristotle · cap 1:05 · Act 1 beat 1 of 6 Validity is a property of form.
 #import "../theme.typ": *
 #import "../components.typ": *
 
@@ -34,11 +32,6 @@
       )
     ]
     #v(sz(56pt))
-    // Part 10: "The content is gone. The argument survived." was overused-AI
-    // phrasing. MB's direction — validity comes from shape; true premises give
-    // true conclusions. The second line also carries the F1 point: a shape is
-    // checkable by inspection, which is where mechanical checking actually
-    // starts. Boole buys calculability later, not checkability.
     #align(center)[
       #set text(size: sz(36pt), weight: 400, fill: pal.fg)
       Validity comes from #text(fill: pal.accent)[shape.]

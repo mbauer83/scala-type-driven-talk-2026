@@ -1,14 +1,3 @@
-// A3-stage3 · cap 1:45 · Act 3 beat 3 of 8 · REWORK of v1 19-stage3
-//
-// v1 opened with a Function/map/lambda pane demonstrating type inference. It is
-// real Stage 3 content and it is a distraction here: the slide's job (Part 3) is
-// records + sealed = sums of products, with Bob's actual code beside the sealed
-// version, and `Result<T>` as the same rule applied again. Lambdas get a clause.
-//
-// Bob's `if (risk != HIGH)` exists nowhere in the repository — it is narrative,
-// from `A0-incidents`. So it is a labelled card, not a file pane (Part 12/R9),
-// exactly as `RefundRule` is on `A1-connectives`. Everything in a pane with a
-// filename tab is verbatim, bodies elided with `...`.
 #import "../theme.typ": *
 #import "../components.typ": *
 #import "../code-pane.typ": *

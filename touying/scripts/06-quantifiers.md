@@ -31,27 +31,24 @@ There is a second quantifier, there-exists. Java's wildcards are a weak version
 of it; the strong one hands you a value together with evidence about that value,
 and we come back to it."
 
-WHAT THE JUDGMENT SAYS — MB, 18 Aug, and it took until 19 Aug to land
-The sentence read *»Assess-risk, there on the slide, takes an Order and holds for
-every order there will ever be.«* Two things wrong with it, and MB named both:
-a function is not the kind of thing that holds, and the sentence does not say
-what the notation on the slide says.
-
-    ∀ o : Order.  assessRisk(o) : RiskDecision
-
-is a **typing judgment**: for every `o` of type `Order`, the expression
-`assessRisk(o)` has type `RiskDecision`. That is the whole content, it is what
-the room can read off the wall, and it is what the spoken line says now.
-
-A proposition holds. A function has a type. `holds` is right in the Frege clause
-above — *say what holds for every value it could take* is about propositions —
-and wrong the moment the subject becomes a method.
-
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.
 ==========================================================================
 
-THIRD BUILD (MB, 18 Aug). Three changes, and the reasons matter more than the
+WHAT THE JUDGMENT ON THE SLIDE SAYS
+
+    ∀ o : Order.  assessRisk(o) : RiskDecision
+
+is a **typing judgment**: for every `o` of type `Order`, the expression
+`assessRisk(o)` has type `RiskDecision`. That is the whole content, and it is
+what the room can read off the wall.
+
+A proposition holds; a function has a type. `holds` is right in the Frege clause
+above — *say what holds for every value it could take* is about propositions —
+and wrong the moment the subject becomes a method.
+
+
+THIRD BUILD. Three changes, and the reasons matter more than the
 wording:
 
 **1. This slide no longer teaches two things.** The program-level / type-level
@@ -60,7 +57,7 @@ once for the whole act — *these land one level above the booleans a program wo
 out while it runs*. Repeating it here as a second teaching job was what made the
 slide feel like two slides.
 
-**2. The values rung is a concession, not a rung.** MB's objection stands and has
+**2. The values rung is a concession, not a rung.** the speaker's objection stands and has
 to be answered — `assessRisk(Order order)` **is** `∀o:Order`, so presenting ∀ as
 the new thing tells the room nothing. But answering it costs one clause in the
 lede, not half the slide and a code pane of its own.
@@ -87,27 +84,6 @@ Two glosses, one clause each, and then move on:
   it. It is also the honest ancestor of Act 4's refinements, so if the question
   comes early the answer is *Act 4*.
 
-TWO THINGS THAT WERE WRONG HERE (MB, 18 Aug)
-
-**1. The bound looked like it was doing the wrong job.** The line was *for all T,
-if T can be compared, then a list of T gives you back a T* — which reads as
-though comparability is what gets an element out of the list. It never named the
-function. Naming `max` fixes it and makes the beat much stronger: **`max` cannot
-be written at all without the bound**, which is the sharpest possible way to show
-that an unbounded `T` buys you almost nothing.
-
-**2. »The first thing we need at the top of the climb« was two errors.** Nobody
-knows what *the climb* is — the word appears in exactly one other spoken line, on
-`A1-curry-howard`, which comes *two slides later*, and the opening never
-announces a Java → Scala → Idris ascent at all. And *the first thing we need* is
-a ranking claim with nothing behind it: Stage 6's payoff is led by Π, not Σ. Now
-it is just *we come back to it* — which is all the forward reference has to do,
-since its only job (Part 10/E) is to stop a listener concluding Java has Σ-types.
-
-**Standing rule from this: no metaphor the talk has not issued.** *The climb*,
-*the top*, *the summit*, *the ladder* — every one of them is invisible to the
-room until the deck has spent a sentence establishing it, and none of them has.
-
 WHAT IS DELIBERATELY NOT HERE
 - **Composition over inheritance.** There is a real connection — a sealed
   interface is the alternative to subtype polymorphism for closed variation — but
@@ -122,7 +98,7 @@ BEATS
 
 - Frege 1879: a proposition with a **variable** in it, and a way to say what
   holds for every value that variable could take. **Say »variable«, not »a hole
-  in a proposition«** — MB, 18 Aug: the room has the first word already.
+  in a proposition«**.
 - You already write it — every signature is one. `assessRisk` over every `Order`.
   › a function type is a for-all whose body never mentions what it bound
 - The move: a generic quantifies over TYPES.
@@ -143,7 +119,7 @@ BEATS
 - Margin, one line only: ∃ exists, Java's wildcards are a weak version, the
   strong form comes back later. **No ranking, no »the climb«** — see below.
 
-UNBOUNDED GENERICS ARE BARELY USEFUL, AND THE SLIDE HAS TO ADMIT IT (MB, 18 Aug)
+UNBOUNDED GENERICS ARE BARELY USEFUL, AND THE SLIDE HAS TO ADMIT IT
 
 `∀T. T → T` has exactly one inhabitant, and `∀T` in general lets you move a `T`
 around and do nothing else to it. Claiming that a generic *proves something for
@@ -155,7 +131,7 @@ The honest framing, and it costs one clause: **the body's inability to inspect
 every `T`, and it is why with nothing known about `T` you can pass it around and
 do nothing else to it.
 
-**Say `<T extends Comparable<T>>`, not »a bound«.** (MB, 18 Aug.) The room is
+**Say `<T extends Comparable<T>>`, not »a bound«.** The room is
 mixed — the term is standard Java and a good part of the audience still will not
 place it, especially arriving mid-sentence alongside quantification, where they
 would have to resolve two unfamiliar things at once. Show the syntax they can
@@ -179,7 +155,7 @@ Generics are quantification one level up. If the room takes away *a generic is a
 for-all over types, and the body's inability to look at T is what makes it worth
 anything*, the beat worked.
 
-C13 CHECK (Part 8)
+C13 CHECK
 The SIGNATURE is the quantified proposition; the BODY is the construction that
 proves it. Both halves are said in the last sentence of the second beat. Never
 compress to *generics are ∀* — that is the equivocation, and it drops the half
@@ -194,7 +170,7 @@ from Stage 2 and it is instantiated on the domain three lines later
 (`PaymentService.java:76-84`, `Validator<Integer> positiveQuantity`) — say so if
 anyone looks sceptical about where it comes from.
 
-TWO CORRECTIONS FROM THE 18 AUG EXTERNAL REVIEW
+TWO POINTS OF PRECISION
 
 **F-03 was a blocker: »Java has no honest way to write ∃« is false.** JLS §4.5.1
 treats wildcards as a restricted existential — `List<?>` is `∃T. List<T>`, and a
@@ -224,5 +200,5 @@ FACTS — grepped, not remembered (C1)
 - Do NOT offer `Optional<Proof>` as ∃. `Optional[T]` is `T ∨ 1`, a disjunction.
   The Curry-Howard reading of ∃ is a dependent pair — Σ on `A1-above`, and the
   thing Stage 6 shows Java cannot express. This is the one deliberate exception
-  to Act 1's pair-every-concept-with-Java rule (Part 10/E) and it is
+  to Act 1's pair-every-concept-with-Java rule and it is
   load-bearing.

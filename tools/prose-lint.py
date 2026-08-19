@@ -114,7 +114,7 @@ NOT_X_BUT_Y = [
     (r"\bthat'?s not\b[^.?!]{0,40}[.—–]\s*that'?s\b", "that's-not-X.-that's-Y"),
 ]
 
-# Shapes MB flagged in the 18 Aug review. None of these were catchable by the
+# Shapes the review flagged in review. None of these were catchable by the
 # rules above, and all four were produced by me in one pass, which is the point:
 # the linter encodes faults it has SEEN, so every new fault has to be added the
 # day it is found or it recurs.
@@ -151,7 +151,7 @@ APHORISM = [
     (r"\bthat is not a metaphor\b", "that-is-not-a-metaphor"),
 ]
 
-# Enumerate-then-declare. MB, 18 Aug: the pattern is "[n] X — [declaration]" or
+# Enumerate-then-declare. the pattern is "[n] X — [declaration]" or
 # "[n] X, [declaration]", with or without the dash. It announces a count and then
 # comments on the count, which is a sentence spent on bookkeeping:
 #     "Four notations, all of which you will see running later"
@@ -216,7 +216,7 @@ JARGON = [
     "kyc", "psd2", "sca", "liability shift", "catamorphism", "involution",
     "ι-reduction", "iota-reduction", "definitional equality", "hylomorphism",
     "anamorphism", "profunctor", "bifunctor", "existential quantification",
-    # Added 18 Aug, and these are INTRODUCE-BEFORE-USE flags, not bans. MB: the
+    # These are INTRODUCE-BEFORE-USE flags, not bans. the speaker: the
     # talk may use a technical term where it is appropriate — it just has to
     # introduce and explain it first. Two things make a term a fault: using it
     # before the beat that teaches it (C3), and using it in passing where
@@ -307,7 +307,7 @@ def check(text, path, rhythm=True):
         out.append(("error", "rhetorical-qa", text[max(0, m.start() - 40):m.end()],
                     "Rhetorical question followed by its own answer."))
 
-    # 6b. shapes from the 18 Aug review — see the block above the tables
+    # 6b. shapes from review — see the block above the tables
     for pat, name in NEGATIVE_DEFINITION:
         for m in re.finditer(pat, low, flags=re.I | re.M):
             out.append(("error", "negative-definition", text[m.start():m.end()],
@@ -447,7 +447,7 @@ def check_title(src, path):
 
 # ── slide copy ───────────────────────────────────────────────────────────────
 # The linter has only ever read the SPOKEN script. Slide copy — the words in
-# 60pt on the wall — went unchecked, and MB found two register faults in it that
+# 60pt on the wall — went unchecked, and the speaker found two register faults in it that
 # no rule could see ("Neither stage touched Bob. The risk level is a proper type.
 # Nothing forces you to handle all of it."). Extraction from Typst markup is
 # necessarily approximate, so everything here is a WARNING, never an error.

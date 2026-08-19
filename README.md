@@ -1,32 +1,50 @@
-# Type-Driven Payments Talk Repo
+# Type-Driven Programming — Correctness by Construction
 
-This repository now treats the **numbered example ladder** as the only canonical code path for the talk.
+Slides, speaker scripts and runnable example code for the talk *Type-Driven
+Programming: Correctness by Construction, from the Basics to the Cutting Edge*.
 
-## Progression (Stages 0–6)
+The deck walks one payment flow up a ladder of type systems — untyped
+JavaScript, Java, Scala 3, Idris 2 — and closes four real bugs along the way,
+live, in front of the room.
 
-- `00-js-untyped-payment/`
-- `01-java-simple-types/`
-- `02-java5-generics/`
-- `03-java-function-types-sealed/`   ← merged: function types + sealed hierarchies (was stages 3 + 4)
-- `04-java-advanced-generics-typestate/`
-- `05-scala3-payment/`
-- `06-idris2-payment/`
+## Layout
 
+| path | what it is |
+|---|---|
+| `touying/` | the deck. `deck.typ` is the running order; `slides/*.typ` are the slides; `scripts/*.md` are the speaker scripts and the single source of every note |
+| `tools/` | build and quality tooling — notes export, PPTX and presenter builders, prose linter, timing model, demo capture |
+| `demos/` | real compiler output, captured from the real toolchains, rendered on the demo slides as fallbacks |
+| `00-…` … `06-…` | the example ladder, one directory per stage, each independently buildable |
 
-The older root-level Scala booking example and the older unnumbered Idris booking example have been removed so the repo tells one story only: the staged payment progression.
+`touying/scripts/README.md` has the script-to-slide map, the demo pre-flight and
+the editor setup.
 
-## Talk Docs
+## Build
 
-- [PRESENTATION_SLIDE_PLAN.md](PRESENTATION_SLIDE_PLAN.md) — the canonical, slide-by-slide plan
-- `slides/` — runnable Typst + cetz sources for figure-heavy slides (Gentzen's ∨ rules, the lambda cube)
+```
+make            # talk.pdf and the notes sidecar
+make check      # build + prose lint + timing against the slot
+make talk-pptx      # slides with the speaker notes as real text
+make talk-presenter # two-window browser presenter
+make talk-notes     # a PDF with the notes printed under each slide
+```
 
-## Current End States
+Requires `typst` and `touying`; `make talk-pptx` and `make talk-presenter` also
+need Python with `python-pptx` and `Pillow`.
 
-- `05-scala3-payment/` is the Scala 3 ceiling: strong protocol typing, duality, phantom/indexed evidence, refined values, and a runtime bridge through a fixed protocol menu.
-- `06-idris2-payment/` is the Idris 2 payoff: `protocolDerivedFrom : Order n c -> SessionType` and `assessOrder : Order n c -> (lvl ** Assessment lvl n c)` let the protocol shape and the required approval witness come from the same runtime order facts.
+## Presenting
 
-## Repo Hygiene
+`talk.pptx` in LibreOffice Impress or PowerPoint is the primary artifact — the
+notes are real text, so presenter view, timer and next-slide thumbnail all work.
+`presenter/` is a self-contained two-window browser alternative. `talk.pdf` is
+the no-notes fallback.
 
-- tracked source should live in the numbered directories and top-level talk docs only
-- build outputs (`target/`, Idris `build/`, `.class`, `.ttc`, jars) are not part of the source of truth
-- if a future example supersedes an older one, remove the older one instead of keeping two parallel stories alive
+Run the demo pre-flight in `touying/scripts/README.md` before presenting.
+
+## Releases
+
+Tagging `v*` builds and attaches `talk.pdf`, `talk.pptx` and `presenter.zip`.
+
+## Licence
+
+See `LICENSE`.

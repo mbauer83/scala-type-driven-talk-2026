@@ -1,27 +1,16 @@
-// A1-quantifiers · cap 1:05 · Act 1 beat 3 of 6
-//
-// THIRD BUILD, 18 Aug. MB: still unhappy with the second. Three changes:
-//
-//  1. The program-level / type-level distinction has moved to `A1-connectives`,
-//     where Java first appears, and is made once for the whole act. This slide
-//     no longer teaches two things at once.
-//  2. The values rung loses its code pane and becomes a one-line concession.
-//     MB's objection stands and must be answered — `assessRisk(Order order)` IS
-//     ∀o:Order, so presenting ∀ as new tells the room nothing — but answering it
-//     costs a clause, not half a slide.
-//  3. **Generics arrive bounded.** An unbounded `T` is barely useful, so showing
-//     one bare and adding bounds as an afterthought teaches the wrong default.
-//
-// The bound is explained by the shape the room already has: `∀ T. comparable(T)
-// → …` is a universally quantified conditional, exactly like Aristotle's "all
-// medium-risk orders need 3DS" on the slide two beats back. A bound is the *if*.
-//
-// The Java is illustrative and rendered as a card, not a file — same treatment,
-// and for the same reason, as `RefundRule` on `A1-connectives` (Part 12/R9).
-// The repo's real bounded generic is `Payment<S extends PaymentState>`
-// (04-…-typestate/Payment.java:20), deliberately not spent here: A3-stage4 needs
-// it, and `Comparable` shows you getting an operation back, which a marker
-// interface cannot.
+// Three changes:  1. The program-level / type-level distinction has moved to
+// `A1-connectives`, where Java first appears, and is made once for the whole
+// act. This slide no longer teaches two things at once. 2. The values rung
+// loses its code pane and becomes a one-line concession. 3. **Generics arrive
+// bounded.** An unbounded `T` is barely useful, so showing one bare and adding
+// bounds as an afterthought teaches the wrong default. The bound is explained
+// by the shape the room already has: `∀ T. comparable(T) → …` is a universally
+// quantified conditional, exactly like Aristotle's "all medium-risk orders
+// need 3DS" on the slide two beats back. A bound is the *if*. The repo's real
+// bounded generic is `Payment<S extends PaymentState>`
+// (04-…-typestate/Payment.java:20), deliberately not spent here: A3-stage4
+// needs it, and `Comparable` shows you getting an operation back, which a
+// marker interface cannot.
 #import "../theme.typ": *
 #import "../components.typ": *
 #import "../code-pane.typ": *

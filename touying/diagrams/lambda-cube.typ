@@ -1,20 +1,7 @@
-// =============================================================================
-// diagrams/lambda-cube.typ — Barendregt's lambda cube with stage tags.
-//
-// Built from scratch for the Touying deck. Exposes `lambda-cube-canvas`, a
-// self-contained cetz canvas placed inside the .s-theory slide for S15.
-//
-// Content requirements (Phase 1 spec):
-//   - 3D cube, 8 labelled vertices
-//   - Primary labels = system names (normal weight); λ-names secondary, 9pt muted
-//   - Vertex names: STLC, System F, Fω⁻, System Fω, LF, F+dep., Fω+dep., CIC
-//   - Three labelled axes:
-//       · terms-on-types       (bottom, horizontal — generics)
-//       · types-on-types       (right, vertical — type operators)
-//       · types-on-terms       (depth, diagonal — dependent types)
-//   - Stage tags: Stage 1 / Stage 2 / Stages 4–5 / Stage 6 at the path vertices
-//   - Highlight path: λ→ → λ2 → λω→ → λC (front-bottom-left → back-top-right)
-// =============================================================================
+// ============================================================================
+// = diagrams/lambda-cube.typ — Barendregt's lambda cube with stage tags. Built
+// from scratch for the Touying deck. Exposes `lambda-cube-canvas`, a self-
+// contained cetz canvas placed inside the .s-theory slide for S15.
 
 #import "@preview/cetz:0.5.2": canvas, draw
 

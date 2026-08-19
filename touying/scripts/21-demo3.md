@@ -134,14 +134,6 @@ is a `case object`, so its type is written that way. Say »AutoApproved« and le
 here. If somebody asks: every object in Scala has a type of its own, inhabited by
 that one object.
 
-THE V1 FRAMING OF THIS DEMO IS WRONG, AND WAS WRONG IN THE PLAN TOO
-v1's note said the swap itself type-checks and the error lands one line later at
-`ch.send`, so »the protocol context is what catches Bob's mistake«. That was true
-of an earlier shape of the file and is not true of this one — the ascription
-moves the error onto the edited line, where it belongs. The protocol catching a
-mismatch is a real and separate fact; it is `A4-sessions`, and it is Danielle's,
-not Bob's.
-
 WHY THIS DEMO AND NOT THE REFINEMENT ONE
 `refineUnsafe[MinLength[1]]` on an empty literal failing at compile time is the more surprising
 error, and it is one line with no story attached. This one closes a named

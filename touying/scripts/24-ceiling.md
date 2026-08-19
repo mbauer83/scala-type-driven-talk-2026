@@ -1,4 +1,4 @@
-A4-ceiling · cap 1:20 · Act 4 beat 6 of 6 · MERGE of v1 27-stage5-payoff + scala3-ceiling
+A4-ceiling · cap 1:20 · Act 4 beat 6 of 6
 
 TALKING POINTS
 1. Danielle's bug is a compile error now, and so is the demo's — the medium
@@ -40,29 +40,13 @@ count — and this brings us to the final language we'll look at this evening."
 PREPARATION — background, checks and citations. Not for the night.
 ==========================================================================
 
-THIS SLIDE IS TWO v1 SLIDES, AND IT DROPS BOTH SCOREBOARDS
-`27-stage5-payoff` carried a nine-row `test-list` with a `CLOSES` column *and* a
-four-chip `story-strip` — the same furniture P5 removed from every other payoff
-slide and Part 2 replaced with Device 1: one declarative claim plus what is now
-unwriteable. `scala3-ceiling` was the second half. Merged here, per the plan and
-`budget.tsv`.
-
-**No collective view here.** The standing decision is that it happens once, at
-the end, on the dark *Unrepresentable* slide, which is the emotional peak and
-already works. That is also why this script does not count incidents: `A3-ceiling`
-says *two of the four* at the end of Act 3, and Alice's closed silently back at
-Stage 1, so any count stated here has to relitigate Act 3's bookkeeping on stage.
-Name what closed, do not tally.
-
 NO CUBE REVEAL — SAME DECISION AS `A3-ceiling`
-Part 2/Device 2 wants `lambda-cube-canvas(reveal: 2)` here. The diagram is still
+An earlier plan wanted `lambda-cube-canvas(reveal: 2)` here. The diagram is still
 unparameterised (`diagrams/lambda-cube.typ:29`), the full cube is in the appendix
 for Q&A, and — more to the point — the deck has never named an axis of it out
 loud. `A1-above` says *there is a map of this territory, and we fill it in as we
 go*, and that is the whole issuance. Talking about a third axis here would be
-Part 9/L18 exactly: a metaphor the talk has not issued. v1's script did it twice.
-
-THE TWO LIMITS, CHECKED ONE AT A TIME (C2 — the same discipline as `A3-ceiling`)
+Part 9/L18 exactly: a metaphor the talk has not issued. THE TWO LIMITS, CHECKED ONE AT A TIME (C2 — the same discipline as `A3-ceiling`)
 
 1. **The protocol type cannot be computed from a runtime value.** True, and worth
    stating carefully. `ProtocolVariant` (`payment/Derivation.scala:67-79`) is a
@@ -81,12 +65,12 @@ THE TWO LIMITS, CHECKED ONE AT A TIME (C2 — the same discipline as `A3-ceiling
    Handlers return `Channel[End]` (not `Unit`) to signal intent and centralise
    `finish()` naturally, but must-use-exactly-once is not enforced here.*
 
-WHAT IS **NOT** CLAIMED, AND WAS IN v1
+WHAT IS **NOT** CLAIMED
 - *Proof that `dual(dual(P)) = P` for all `P`.* True that Scala cannot do it, and
   it is a proof-assistant point, not a payment point. `Dual.scala:20-26` checks
   instances. Q&A material; off the slide.
 - *Open-ended protocol vocabulary.* This is limit 1 again, said a second way.
-- *Alice's boundary class is done.* v1 said this; Alice's incident closes at
+- *Alice's boundary class is done.* Alice's incident closes at
   Stage 1 (`02-incidents.md`: *closes: Stage 1*). Refinements close a different
   thing — the second item on `A3-ceiling`'s list — and that landed on `A4-opens`.
 

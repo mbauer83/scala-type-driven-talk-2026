@@ -1,7 +1,5 @@
-// =============================================================================
-// test-code-pane.typ — Phase 2 validation: three code-pane scenarios on one
-// slide.  Build: typst compile test-code-pane.typ test-code-pane.pdf
-// =============================================================================
+// Build: typst compile test-code-pane.typ test-code-pane.pdf =================
+// ============================================================
 
 #import "theme.typ": pal, sz, type-scale, our-theme, slide-page, mono-font
 #import "code-pane.typ": code-pane

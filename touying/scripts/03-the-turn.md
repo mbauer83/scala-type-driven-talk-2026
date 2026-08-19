@@ -44,36 +44,6 @@ of what your system actually requires, and have it checked for you
 PREPARATION — background, checks and citations. Not for the night.
 ==========================================================================
 
-EDIT TO MB'S PROSE, FLAGGED (C11) — 18 Aug
-The fourth paragraph was: *When you write a sealed interface … That is a
-universally quantified statement.* Both sentences survive verbatim. What is new
-is the claim they are now evidence **for**, because MB asked for this to land
-early and it was not being said anywhere:
-
-> All programming already does logic — conditionals, guards, control flow. Types
-> do logic **one level up**, where it specifies and constrains the program
-> itself.
-
-Two reasons it belongs here rather than in Act 1. This slide is where four war
-stories turn into the thesis, so a claim about what kind of thing a type *is*
-belongs in the same breath. And Bob's `if (risk != HIGH)` is one slide old — the
-room has just watched program-level logic be correct, compile, and be wrong
-anyway, which is the strongest possible setup for *there is another level*.
-
-C3 in its usual form: **name the frame here, fill it at `A1-connectives`**, where
-`||` and `&&` reappear as `∨` and `∧` over types. An earlier attempt tried to do
-both jobs inside a clause on `A1-connectives` — *Watch which level they land on
-in Java* — which stated neither half, dismissed program logic rather than
-affirming it, and was rightly called out.
-
-The spoken version is deliberately the short one — **the slide carries the full
-statement**, so the speaker names the level and moves on rather than reading it
-out. Paragraph three was also tightened by twelve words (it was restating the
-slide almost verbatim), which is where most of the new airtime came from.
-
-Revert freely if the wording is not yours; the claim has to stay somewhere in
-this minute. If the cap needs to move to hold it, `A0-turn` is the slide to move
-it for, and the time comes from Act 4 (Part 3's standing rule for overage).
 NOTES ON THE WORDING
 - PART 10, three corrections applied here.
   1. »every call site« is gone. **Types do not have call sites**, and they are
@@ -83,13 +53,13 @@ NOTES ON THE WORDING
      progression where each supplants or improves on the last. It is not one.
      They are middots now. A caption spelling that out was tried and cut — a
      slide should not explain its own punctuation, and the sentence was the
-     kind of balanced nothing Part 12 exists to catch.
+     kind of balanced nothing the linter exists to catch.
   3. The arithmetic/algebraic turn is NOT what makes logic mechanically
      checkable — **Aristotle's insight already does**, because a form can be
      checked by inspection. What the algebra buys is numerical *calculability*,
      which is later and different, and is where Leibniz and binary belong.
      Nothing on this slide claims otherwise; the claim lived on
-     `A1-connectives` and is corrected there (Part 10/F1). Recorded here so the
+     `A1-connectives` and is corrected there. Recorded here so the
      two slides cannot drift apart again.
 - The opening no longer explains how a test would have caught Alice's. Slide 2
   already showed exactly that (the first two-line order in the test data), so

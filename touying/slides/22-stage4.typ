@@ -1,13 +1,3 @@
-// A3-stage4 · cap 1:45 · Act 3 beat 6 of 8 · REWORK of v1 22-stage4
-//
-// v1 was a stage-opener with the three-line happy path and a signature card.
-// The happy path is not the point: nothing on it can go wrong, so it shows the
-// mechanism and hides the argument. Charlie's incident is the argument, and
-// Part 3 puts his actual code here, next to the family of signatures that makes
-// it unwriteable.
-//
-// The bridge from Bob is two spoken sentences (Part 4 deleted 21-bridge): Bob's
-// bug was a missing CASE; Charlie's is a wrong ORDER, which no sum type catches.
 #import "../theme.typ": *
 #import "../components.typ": *
 #import "../code-pane.typ": *

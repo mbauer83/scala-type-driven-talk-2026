@@ -25,7 +25,7 @@ BACKUPS=()
 # PaymentDemo.scala; with a single restore at the end they shared one
 # `.demobak` path, so demo 4's backup was a copy of the file with demo 3's edit
 # already in it — demo 4 then compiled the wrong source AND the tree was left
-# dirty. Found 19 Aug, one renumber after the second Scala demo was added. The
+# dirty.. The
 # EXIT trap stays as the safety net for a failure mid-block.
 restore() {
   for (( i=${#BACKUPS[@]}-1; i>=0; i-- )); do

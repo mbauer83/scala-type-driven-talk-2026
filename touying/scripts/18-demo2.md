@@ -73,7 +73,7 @@ As Demo 1. Advance, say the same words, do not mention it.
 THIS ONE IS FASTER THAN DEMO 1, DELIBERATELY
 Demo 1 establishes the pattern and cashes out Gentzen. This is a confirmation —
 the room already knows what a live edit looks like here and what the error means.
-Do not re-explain the mechanism. Part 6b's cut list has this as the fourth thing
+Do not re-explain the mechanism. The cut list has this as the fourth thing
 to drop if the clock demands it: skip the IDE entirely, run slides 21 and 22, and
 narrate over them. Nothing in the argument is lost.
 
@@ -104,7 +104,7 @@ sentence tying it to the rule, then undo visibly. Do not narrate the typing.
 WHY THIS ONE IS SHORTER THAN DEMO 1
 Demo 1 had to establish the pattern and cash out Gentzen. This one is a
 confirmation: the room already knows what a live edit looks like and what a
-compile error means here. Part 6b's cut list has it as the fourth thing to go if
+compile error means here. The cut list has it as the fourth thing to go if
 the clock demands it — narrate over the static pane and skip the IDE.
 
 JOIN

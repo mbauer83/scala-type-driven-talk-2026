@@ -14,7 +14,7 @@ TALKING POINTS
 7.   deriving the other side needs types computed from types
 8. That is Danielle's bug, and it is a real ceiling rather than a rhetorical one
 10. Next is a language where all three are cheap. Stop there — do not add the
-    reassurance (MB, 18 Aug: reads condescending)
+    reassurance
 
 VERBATIM
 
@@ -43,18 +43,7 @@ What comes next is a language where all three of these are cheap."
 PREPARATION — background, checks and citations. Not for the night.
 ==========================================================================
 
-»AND YOU DO NOT HAVE TO MOVE TO IT TO LEARN SOMETHING FROM THAT« IS GONE
-MB, 18 Aug: *lose it — reads condescending.* It does: it tells a room of working
-Java developers that they are allowed to take a lesson from something they will
-not adopt, which is a permission nobody asked for. It was on the slide and in the
-spoken line; both stop at *a language where all three of these are cheap*, and
-the beat loses nothing, because A6-cost makes the practical version of the point
-with a price attached.
-
-This one was raised on 18 Aug and was still in the deck on 19 Aug. Flagged here
-so it is not reintroduced as a softener.
-
-WHAT JAVA CAN AND CANNOT ACTUALLY REACH (MB, 18 Aug — checked, one by one)
+WHAT JAVA CAN AND CANNOT ACTUALLY REACH
 An earlier version said *Java can encode all three with enough hand-rolled
 machinery*. That avoided the C2 overclaim in one direction and committed one in
 the other. Per item:
@@ -77,7 +66,7 @@ Say it that way. A room that contains one person who has built a phantom-typed
 state machine in Java will believe the third claim precisely because you conceded
 the first two.
 
-THE CLOSING FRAME (MB, 18 Aug)
+THE CLOSING FRAME
 *Whether a language that gives it to you directly is worth the move* was the
 wrong question: nobody changes language for better types, and framing it that way
 invites the room to dismiss the rest of the talk as impractical. The question
@@ -86,12 +75,12 @@ one costs to encode where you are.** That is also the question `A6-cost` answers
 so this line is its setup.
 
 CHARLIE'S PAYOFF IS A LINE, NOT A SLIDE
-v1's `23-stage4-payoff` carried the nine-row inventory and the four-chip strip
+An earlier payoff slide carried the nine-row inventory and the four-chip strip
 again — the fifth appearance of tracking furniture P5 removed. Deleted; the
 collective view happens once, at the end, on the dark *Unrepresentable* slide.
 
 NO CUBE REVEAL — DECIDED, NOT FORGOTTEN
-Part 2/Device 2 wants `lambda-cube-canvas(reveal: 1)` here, with two more at
+An earlier plan wanted `lambda-cube-canvas(reveal: 1)` here, with two more at
 `A4-ceiling` and `A5-payoff`. `diagrams/lambda-cube.typ:29` is still the fixed
 canvas value it has always been; parameterising it is an hour of component work
 that buys a navigational aid, not an argument. The reveal's job was to name the
@@ -107,7 +96,7 @@ FACTS
 - Danielle's incident is the third one; naming it here is what makes her close
   in Act 4 a payoff rather than a new topic.
 
-BOB IS CLOSED. DO NOT SAY OTHERWISE (MB, 19 Aug)
+BOB IS CLOSED. DO NOT SAY OTHERWISE
 An earlier version of this line said *that one is Bob again* and `A4-ceiling`
 called it *the open half of Bob's bug*. Both were wrong. Bob's incident was the
 missing branch — `if (risk != HIGH)` with a Medium tier added later — and a
@@ -119,5 +108,5 @@ own bug is gone* first, then name the new one.
 
 JOIN
 Backwards: Demo 2, sixty seconds old. Forwards: Act 4 opens on what can still go
-wrong — D-C's option (d), capability-led and motivated by residual failure —
+wrong — capability-led and motivated by residual failure —
 and this slide is the residual failure it is motivated from.

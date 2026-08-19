@@ -1,28 +1,13 @@
-// A4-ceiling · cap 1:20 · Act 4 beat 6 of 6 · MERGE of v1 27-stage5-payoff +
-// scala3-ceiling
-//
-// Same two-part shape as A3-ceiling, deliberately: the claim that closed, then
-// what the language still accepts, so the two ceiling slides rhyme and the room
-// knows what an act ending looks like.
-//
-// BOTH SCOREBOARDS ARE GONE. v1 carried a nine-row test-list with a CLOSES
-// column AND a four-chip story-strip — the furniture P5 removed everywhere else
-// and Part 2 replaced with Device 1. The collective view happens once, on the
-// dark Unrepresentable slide.
-//
-// NO COUNT OF INCIDENTS. A3-ceiling says "two of the four" at the end of Act 3
-// and Alice's closed silently at Stage 1, so any tally stated here relitigates
-// Act 3's bookkeeping on stage. Name what closed instead.
-//
-// NO CUBE REVEAL, and no third axis in words either: the deck has never named
-// an axis out loud. A1-above issues only "there is a map of this territory".
-// v1's script talked about the third axis twice — Part 9/L18.
-//
-// C2 discipline on the two limits, checked one at a time in the script's
-// PREPARATION: the protocol menu is real and is stated as "written out in
-// advance" rather than "impossible"; use-exactly-once is genuinely absent.
-// Dropped from v1: the dual(dual(P)) involution (a proof-assistant point, Q&A)
-// and "open-ended protocol vocabulary" (limit 1 said twice).
+// BOTH SCOREBOARDS ARE GONE. The collective view happens once, on the dark
+// Unrepresentable slide. NO COUNT OF INCIDENTS. A3-ceiling says "two of the
+// four" at the end of Act 3 and Alice's closed silently at Stage 1, so any
+// tally stated here relitigates Act 3's bookkeeping on stage. Name what closed
+// instead. NO CUBE REVEAL, and no third axis in words either: the deck has
+// never named an axis out loud. A1-above issues only "there is a map of this
+// territory". C2 discipline on the two limits, checked one at a time in the
+// script's PREPARATION: the protocol menu is real and is stated as "written
+// out in advance" rather than "impossible"; use-exactly-once is genuinely
+// absent.
 #import "../theme.typ": *
 #import "../components.typ": *
 

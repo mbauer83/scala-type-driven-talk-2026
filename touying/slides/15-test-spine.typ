@@ -1,18 +1,9 @@
-// A2-scenario · cap 0:25 · Act 2 beat 1
-//
-// REBUILT 18 Aug. What was here was untouched v1: the headline "Demo Scenario &
-// Potential Bugs", a nine-row inventory with a CLOSES column that spoils every
-// payoff before its suspense exists (P5), and a note re-explaining the payment
-// flow the room already met on slide 2. Part 2 sent that table to the appendix
-// eight drafts ago and it never moved; it lives at `a10-invariants` now.
-//
-// The slide does three jobs instead:
-//   1. restores the untyped floor. Stage 0 was cut to "one line on A2-scenario"
-//      and the line was never written, so by Stage 1 there is nothing left to
-//      contrast against and Alice's incident has gone cold.
-//   2. keeps the flow diagram, which is the spine of every later stage.
-//   3. states what encoding a rule actually buys — the argument Act 2 owes the
-//      room before the ladder starts.
+// The slide does three jobs instead: 1. restores the untyped floor. Stage 0
+// was cut to "one line on A2-scenario" and the line was never written, so by
+// Stage 1 there is nothing left to contrast against and Alice's incident has
+// gone cold. 2. keeps the flow diagram, which is the spine of every later
+// stage. 3. states what encoding a rule actually buys — the argument Act 2
+// owes the room before the ladder starts.
 #import "../theme.typ": *
 #import "../components.typ": *
 #import "../code-pane.typ": *

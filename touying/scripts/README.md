@@ -71,7 +71,7 @@ Then open all five files in the IDE, at the lines in each script's `FILE`, so no
 demo begins with a file-tree hunt.
 
 **This table is in running order; the filenames are not.** Both numbering
-schemes are inherited — script names from an earlier plan, slide names from v1 —
+schemes are inherited — script names from an earlier plan, slide names from an earlier deck —
 and one pair actually crosses: **`14-stage3.md` runs before `13-gentzen.md`**,
 because Gentzen has to sit sixty seconds before Demo 1 and to pick up the word
 *refusal* that the Stage 3 beat ends on. Trust this table and the `Act N beat M`
@@ -121,7 +121,7 @@ already resolves. Do it after Thursday. Everything from `20-` on is consecutive
 and in deck order.
 
 **Script numbers are consecutive and follow the running order in `deck.typ`.**
-They drifted once, on 18 Aug, when `10-values.md` was cut and its replacement
+They drifted once,, when `10-values.md` was cut and its replacement
 was written as `12-scenario.md`; renumbering is cheap and a gap in the sequence
 is the kind of thing that costs a minute to resolve on the night. If a script is
 added or removed, renumber the rest and fix the `#read()` calls.
@@ -139,8 +139,8 @@ Three sections, always in this order:
   material. Never read on stage.
 
 The script stems and the *slide* stems still do not match — several v2 slides
-reuse a v1 file. **The id column is the name to use in conversation and in the
-plan** (Part 8/C12); slide file names are an implementation detail that has
+reuse an older file. **The id column is the name to use in conversation and in the
+plan**; slide file names are an implementation detail that has
 already drifted twice.
 
 ## The one formatting rule
@@ -172,7 +172,7 @@ which half is treated as speech. The linter now errors on it.
 **And a quoted sentence in a PREPARATION block is counted as speech.** The
 counter reads every `"…"` in the note, not just the ones above the rule, so a
 quotation below it inflates the slide's measured length and lints against the end
-of the real script. Ten scripts had this on 19 Aug — Act 1's numbers were up to
+of the real script. Ten scripts had this — Act 1's numbers were up to
 29 words too high, which is 12 seconds on one slide. Use `»…«` or italics below
 the rule; `make timing` is only as honest as this convention.
 

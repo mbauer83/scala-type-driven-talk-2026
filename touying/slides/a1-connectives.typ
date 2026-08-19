@@ -1,28 +1,20 @@
-// A1-connectives · cap 1:20 · Act 1 beat 2 of 6
-//
-// REBUILT 18 Aug after MB's review. What was wrong with the previous version:
-//   · ∨ got two code panes and ∧ got a trailing clause with no example — the
-//     two connectives were not treated as two things
-//   · a caption ("both panes are this one connective") existed only to explain
-//     the layout, which means the layout was wrong
-//   · the C13 guard was a disclaimer — "none of this is if (a && b)" — which
-//     makes the audience hold the wrong idea in mind while you deny it
-//
-// The through-line that replaces all three: Boole turned logic into ALGEBRA.
-// He wrote OR as `+` and AND as `×`, and those are still the names — sum type,
-// product type — because the arithmetic is literal. Count the inhabitants.
-// A slide about counting the values of a type cannot be confused with a slide
-// about boolean control flow, so the disclaimer is unnecessary.
-//
-// It also carries F1: Aristotle's forms were already checkable by inspection;
-// what the algebra adds is CALCULABILITY.
-//
-// Frege has moved off this slide entirely and onto A1-quantifiers, which is his
-// beat. Two names here, not three.
-//
-// Introduction/elimination — the exhaustive match as ∨E — is NOT here. It is
-// A3-gentzen's job, sixty seconds before the compile error it explains, which
-// is the whole point of P2. This slide is formation: what the connectives build.
+// What was wrong with the previous version: · ∨ got two code panes and ∧ got a
+// trailing clause with no example — the two connectives were not treated as
+// two things · a caption ("both panes are this one connective") existed only
+// to explain the layout, which means the layout was wrong · the C13 guard was
+// a disclaimer — "none of this is if (a && b)" — which makes the audience hold
+// the wrong idea in mind while you deny it  The through-line that replaces all
+// three: Boole turned logic into ALGEBRA. He wrote OR as `+` and AND as `×`,
+// and those are still the names — sum type, product type — because the
+// arithmetic is literal. Count the inhabitants. A slide about counting the
+// values of a type cannot be confused with a slide about boolean control flow,
+// so the disclaimer is unnecessary. It also carries F1: Aristotle's forms were
+// already checkable by inspection; what the algebra adds is CALCULABILITY.
+// Frege has moved off this slide entirely and onto A1-quantifiers, which is
+// his beat. Two names here, not three. Introduction/elimination — the
+// exhaustive match as ∨E — is NOT here. It is A3-gentzen's job, sixty seconds
+// before the compile error it explains, which is the whole point of P2. This
+// slide is formation: what the connectives build.
 #import "../theme.typ": *
 #import "../components.typ": *
 #import "../code-pane.typ": *

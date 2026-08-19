@@ -1,13 +1,8 @@
-// =============================================================================
-// test-classes.typ — Phase 1 validation target.
-//
-// Renders one slide per slide-class with lorem placeholder content, so each
-// of the 9 layout variants can be visually inspected side-by-side with the
-// CSS reference in style_other_presentation.css.
-//
-// Build:
-//   typst compile test-classes.typ test-classes.pdf
-// =============================================================================
+// Renders one slide per slide-class with lorem placeholder content, so each of
+// the 9 layout variants can be visually inspected side-by-side with the CSS
+// reference in style_other_presentation.css. Build: typst compile test-
+// classes.typ test-classes.pdf ===============================================
+// ==============================
 
 #import "theme.typ": *
 #import "components.typ": *

@@ -1,15 +1,3 @@
-// A3-stage12 · cap 1:15 · Act 3 beat 1 · MERGE of v1 17-stage1 + 18-stage2
-//
-// Two stage-opener slides became one. Neither carried a minute of content on its
-// own: Stage 1 is "a name is a constraint, and the constructor is private", and
-// Stage 2 the room has already met on `A1-quantifiers` as ∀ — showing
-// `Validator<T>` again as though it were new spends time re-teaching.
-//
-// The bottom strip is the point of the slide. MB, 18 Aug: by here the contrast
-// to Alice's untyped service had gone cold, and Stage 1 landed against nothing.
-// `A2-scenario` restores the floor; this slide names what these two stages have
-// NOT touched — Bob's branch, still compiling — which is what Gentzen and
-// Stage 3 then close. Without it the act opens on two wins and no tension.
 #import "../theme.typ": *
 #import "../components.typ": *
 #import "../code-pane.typ": *

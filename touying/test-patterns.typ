@@ -1,14 +1,9 @@
-// =============================================================================
-// test-patterns.typ — Phase 3 validation: one slide per pattern component.
-//
-// Slide 1: test-list  — 9 items: 4 gone, 2 just-gone, 3 active
-// Slide 2: story-strip — 4 chips (Alice/Bob/Charlie/Danielle), 2 closed
-// Slide 3: ladder     — encoded-active: true
-// Slide 4: lcube      — lambda-cube-canvas with 3-axis legend
-// Slide 5: beat-grid  — 4 entries with when/what/sub
-//
-// Build: cd touying && typst compile test-patterns.typ test-patterns.pdf
-// =============================================================================
+// Slide 1: test-list  — 9 items: 4 gone, 2 just-gone, 3 active Slide 2: story-
+// strip — 4 chips (Alice/Bob/Charlie/Danielle), 2 closed Slide 3: ladder     —
+// encoded-active: true Slide 4: lcube      — lambda-cube-canvas with 3-axis
+// legend Slide 5: beat-grid  — 4 entries with when/what/sub  Build: cd touying
+// && typst compile test-patterns.typ test-patterns.pdf =======================
+// ======================================================
 
 #import "theme.typ": *
 #import "components.typ": *

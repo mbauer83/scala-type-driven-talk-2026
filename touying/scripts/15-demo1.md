@@ -73,7 +73,7 @@ Nothing. Do not apologise, do not debug, do not explain. Advance. Slides 16 and
 only tell would be you announcing it.
 
 WHY THE NARRATION RULE IS SPLIT
-D-D says »silence during», and that is right about the *result* and wrong about
+The demo discipline says »silence during», and that is right about the *result* and wrong about
 the *navigation*. Thirty seconds of a stranger typing in silence is a long time
 in a room, and the audience does not know whether something has gone wrong.
 Narrating where you are — file, line, what you are about to delete — costs them
@@ -95,12 +95,12 @@ classes to `/tmp/demo1-out`, and `capture-terminal.sh` — the one that produced
 the frame the room will see — uses `/tmp/out`. **Type `/tmp/out` on stage**, so
 the live line and the fallback frame are the same line.
 
-WHY THERE ARE TWO SLIDES (D-D)
+WHY THERE ARE TWO SLIDES
 Dark setup card, then the captured output. The fallback is on the **following**
 slide rather than hidden on this one: a fallback you have to un-hide is one you
 fumble under stress, and a fallback on the next slide is recovered by the forward
 key you are already pressing. When the demo works, that slide is a freeze-frame
-to read the error from — which is what D-D asks for anyway, *read the error
+to read the error from — which the demo discipline asks for anyway, *read the error
 aloud verbatim*.
 
 DELIVERY, and this is the whole discipline

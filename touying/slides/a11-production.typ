@@ -1,17 +1,3 @@
-// APPENDIX · where these features actually run.
-//
-// MB, 19 Aug: for dependent types and session types, name real productive use
-// cases with the best-known solutions, and make them VERIFIABLE. Every row
-// below was checked against a primary source on 19 Aug; the citations are in
-// the speaker note. Claims are deliberately narrow — the value of this slide is
-// that every line survives a sceptic with a laptop.
-//
-// It is a separate slide rather than an addition to a07 (MB's suggestion)
-// because a07 is already four sections across two columns, and "what to read"
-// and "where it ships" are different questions. Flagged, not done quietly.
-//
-// The session-types row is the important one: there is NO production deployment
-// to point at, and saying so is what makes the rest of the slide credible.
 #import "../theme.typ": *
 #import "../components.typ": *
 
@@ -62,7 +48,7 @@
 )
 
 #speaker-note[
-Q&A only. Every claim here was checked against a primary source on 19 Aug 2026.
+Q&A only. Every claim here was checked against a primary source, August 2026.
 
 SOURCES
 - HACL* / EverCrypt — Mozilla Security Blog, "Verified cryptography for Firefox

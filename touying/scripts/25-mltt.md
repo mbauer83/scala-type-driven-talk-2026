@@ -1,4 +1,4 @@
-A5-mltt · cap 1:45 · Act 5 beat 1 of 3 · MERGE of v1 28-stage6-bridge + 29-mltt-running
+A5-mltt · cap 1:45 · Act 5 beat 1 of 3
 
 TALKING POINTS
 1. Two things Scala could not say. Idris 2 says both
@@ -74,7 +74,7 @@ payment flow*:
 by Demo 5. The slide shows the same fragments the primer showed, beside the real
 signatures — that is the payoff, and it is why the row order is Π, Σ, 1.
 
-Reference the SLIDE, never the clock (MB, 18 Aug). `A4-sessions` has already
+Reference the SLIDE, never the clock. `A4-sessions` has already
 reminded the room what the four rows were, so this beat can just say *the first
 of those four* and get on with it.
 
@@ -100,8 +100,8 @@ FACTS — grepped against `06-idris2-payment/src/` (C1, rule 9)
   `receive`, `selectLeft`, `selectRight` and `awaitChoice` all carry the same
   `(1 _ : Session ...)`.
 
-`Send` AND `Receive` ARE CONSTRUCTORS, NOT METHODS (MB, 19 Aug — checked)
-MB asked whether the protocol value holds the send/receive operations, i.e.
+`Send` AND `Receive` ARE CONSTRUCTORS, NOT METHODS
+the review asked whether the protocol value holds the send/receive operations, i.e.
 whether it contains a client. It does not, and the naming is what makes that
 worth one clause on stage:
 
@@ -121,76 +121,7 @@ So: description, endpoint, and operations are three separate things. If someone
 reads `Send` as a method the whole beat collapses, which is why the script now
 says *a description — a little tree … it holds no code and does nothing*.
 
-WHY THE »DESCRIPTION« LINE IS HERE AND NOT BACK IN ACT 4 (MB, 19 Aug)
-Fair question, and the answer is that the word is doing different work in the two
-acts. On `A4-sessions` the protocol is a **type** — `Send[Order, Receive[…]]`,
-built from type constructors — and that beat already reads the tree out loud:
-*send an order, receive the risk snapshot, the authorization, the capture, then
-choose*. The room has the shape by then. What it does not have, and does not need
-yet, is *this is inert data*.
-
-Here it does need it, and for a specific reason recorded above: `Send` is a data
-constructor, and a listener who reads it as a method loses the whole beat. Saying
-*a description and nothing more* one act earlier would be true of the Scala tree
-as well — and it would flatten the thing this act exists to show, which is that
-the tree moved down a level, from the type language into the value language,
-which is exactly what lets an ordinary function compute one.
-
-So it does not move. What was wrong is that it read as a first introduction to
-something the room met several minutes ago. The line now points back — *the same
-little tree you read off the wall in Scala, except that there it was a type and
-here it is a value* — which closes the gap and states the act's thesis in the
-same breath. **Revertible**: the original was *»a description and nothing more —
-a little tree that says send this, then receive that«*.
-
-TWO MORE PRECISIONS IN THE SAME SENTENCE (MB, 19 Aug)
-Both his, both right, and the second one is free.
-
-*»takes a value of type `SessionType`«*, not *»takes a `SessionType`«*. The
-shorthand is idiomatic everywhere else — nobody objects to *takes an Int* — and
-it is the one place in the talk where it costs something, because this beat
-exists to teach the type/value distinction. Do not use the shorthand while
-teaching the thing it elides. The line also now says `Session` *gives back a
-type*, which states the Π-shape outright instead of leaving it to *is a type
-that takes*.
-
-*»there it was a phantom type«*, not *»there it was a type«*. Accurate: in Scala
-the tree is built from `final class Send[A, Next] extends Protocol` and friends,
-never instantiated, carried as `Channel[P]` whose three fields never mention `P`
-(`runtime/Chan.scala:14-17`). And it is a callback the room has already been
-handed — `A3-stage4` says *»which is why the pattern is called phantom typestate.
-Phantom because there is nothing there«* out loud, two acts earlier. One word,
-and the Idris beat lands against a term this audience already owns.
-
-AND SAY »THAT VALUE«, NOT »A SessionType IS A VALUE« (MB, 19 Aug)
-A draft of the line above read *a `SessionType` is … an ordinary value*, which is
-a category error and MB caught it. `SessionType` is the data type; a protocol is
-one of its **values**. The sentence now says *that value* — the one just handed
-to `Session` — which is both correct and shorter.
-
-`protocolFromSnapshot` IS NOT A TYPE-LEVEL FUNCTION (MB, 19 Aug — checked)
-The question was whether it returns a *type* or a *value*. It returns a **value**,
-and the distinction is the whole beat, so it must not blur:
-
-- `data SessionType : Type where End | Send | Receive | Choose | Offer`
-  (`PaymentSessionTypes.idr:7-12`) — an ordinary algebraic data type.
-- `protocolFromSnapshot : (snap : RiskSnapshot) -> (n : Nat) -> (c : Currency)
-  -> SessionType` (`PaymentRules.idr:212-214`) — an ordinary function returning
-  an ordinary value. Nothing dependent about it.
-- `dual : SessionType -> SessionType` (`PaymentSessionTypes.idr:15-20`) —
-  likewise ordinary, and `%default total`.
-- **`data Session : SessionType -> Type`** (`PaymentChannel.idr:66`) — THIS is
-  the dependency. `Session` is a type family *indexed by a value*, so `Session p`
-  is a type determined by which `SessionType` value `p` is.
-- It bites at `openSession : (p : SessionType) -> L1 IO (LPair (Session p)
-  (Session (dual p)))` (`PaymentChannel.idr:73`): the return type mentions the
-  argument value. That is the Π-type, and `p` can be computed at runtime.
-
-So the slide leads with `data Session : SessionType -> Type` and the script says
-so first. Saying *protocolFromSnapshot computes a type* would be plainly false
-and a Scala or Haskell person in the room would catch it.
-
-HOW THE SESSION TYPE MEETS AN ACTUAL CHANNEL (Q&A — MB asked, 19 Aug)
+HOW THE SESSION TYPE MEETS AN ACTUAL CHANNEL (Q&A)
 Same answer as Scala's, and Idris is blunter about it:
 
     data Blob : Type where MkBlob : Blob
@@ -208,14 +139,14 @@ somebody asks whether this works over a socket: yes, but the codec has to be
 derived from the same `SessionType` for the cast to be justified, and that is
 the frontier rather than something this repository does.
 
-WHY `L1 IO` IS WAVED PAST OUT LOUD (MB, 18 Aug)
-It is on the slide because the signature is verbatim, and MB is right that a room
+WHY `L1 IO` IS WAVED PAST OUT LOUD
+It is on the slide because the signature is verbatim, and the speaker is right that a room
 cannot parse it cold. Saying *ignore the linear plumbing; the shape to see is the
 value on the left turning up in the type on the right* costs ten words and tells
 them where to look. Teaching `L1` costs thirty seconds and buys nothing this beat
 needs. The slide carries a dim gloss saying the same.
 
-ALSO MB: *a value computed while the program is running, out of data from
+ALSO the speaker: *a value computed while the program is running, out of data from
 outside* describes almost every program, so it established nothing. The beat now
 concedes the mundane first — an ordinary function returning an ordinary value —
 and the step is the NEXT line, where that value appears inside a type.

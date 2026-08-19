@@ -10,20 +10,20 @@ against the per-slide word budget in tools/budget.tsv.
 Why words and not minutes: a time estimate made by someone who is not speaking
 is a guess. A word count is a fact, and words / rate = minutes is arithmetic.
 
-CALIBRATION — three measurements of Act 0 by MB, 2026-08-17, ALL SOLO:
+CALIBRATION — three measurements of Act 0 by the speaker, 2026-08-17, ALL SOLO:
 
     run 1   547 words / 185 s = 177 wpm
     run 2   700 words / 227 s = 185 wpm
     run 3   701 words / 225 s = 187 wpm   (standing, projecting)
 
-MB's solo delivery rate is 177-187 wpm and the instrument is stable across
+the speaker's solo delivery rate is 177-187 wpm and the instrument is stable across
 sessions. **No comparison between conditions exists** — an earlier version of
 this file labelled runs 1 and 2 as "seated" and drew a standing-vs-seated
 conclusion from it. That labelling was assumed, not reported. There is no
 seated baseline.
 
 What none of these runs can measure, because all three were alone in a room:
-nerves, recovery from a stumble (MB's first attempt at this talk overran badly
+nerves, recovery from a stumble (the speaker's first attempt at this talk overran badly
 on exactly that), interruptions and questions, audience reaction and the pauses
 it creates, and demo overhead beyond the scripted narration. Those are the whole
 justification for the discount below.
@@ -32,7 +32,7 @@ The default is 140 — the measured ~180 minus 22%, covering nerves, recovery
 from a stumble, questions from the floor, and the pauses audience reaction
 creates. Sweep it:
 
-    --wpm 180   what MB produces alone; a ceiling, never a plan
+    --wpm 180   what the speaker produces alone; a ceiling, never a plan
     --wpm 140   default
     --wpm 130   bad night
 
@@ -137,7 +137,7 @@ SCRIPTS = os.path.join(ROOT, "touying", "scripts")
 
 # A script header carries `cap m:ss` so the speaker can see it while rehearsing.
 # budget.tsv is the single source of truth, so the two can disagree — and on
-# 18 Aug they did, by 45 seconds across Act 0, which is a third of the whole
+# They did, by 45 seconds across Act 0, which is a third of the whole
 # talk's slack licensed by a stale comment. Cheap to check, so check it.
 def header_cap_drift(caps, main_slides):
     out = []
@@ -224,7 +224,7 @@ def main():
         if kind == "stub":
             total_cap += cap_s
             planned_unwritten += cap_s
-            print(f"{stem:<26}{w:>6}{'—':>9}{fmt(cap_s):>8}  stub (v1 note present)")
+            print(f"{stem:<26}{w:>6}{'—':>9}{fmt(cap_s):>8}  stub (placeholder note present)")
             continue
         rate = DEMO_WPM if kind == "demo" else args.wpm
         spoken = w / rate * 60.0
