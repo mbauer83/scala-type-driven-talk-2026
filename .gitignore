@@ -67,3 +67,4 @@ slides/*.png
 
 # WSL / Windows interop artefacts
 *:Zone.Identifier
+/presenter/

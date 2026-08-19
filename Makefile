@@ -8,7 +8,7 @@ TYPST_SOURCES := $(shell find touying \( -name '*.typ' -o -name '*.md' \))
 # touying compile — HTML and PPTX exports, and pdfpc sidecar generation.
 #                   Output path uses --output (named flag), not a positional arg.
 
-.PHONY: all talk-notes talk-svg talk-png talk-pptx talk-pptx-touying talk-html watch clean
+.PHONY: all talk-notes talk-svg talk-png talk-pptx talk-pptx-touying talk-html talk-presenter watch clean
 
 all: talk.pdf talk.pdfpc
 
@@ -25,6 +25,16 @@ talk.pdf: $(TYPST_SOURCES)
 # existed. Use the query deck.typ has documented all along; it takes --root.
 talk.pdfpc: $(TYPST_SOURCES)
 	typst query --root . touying/deck.typ "<pdfpc-file>" --field value --one > talk.pdfpc
+
+# talk-presenter: two-window browser presenter that survives this deck.
+# One flat PNG per slide as <img>, no impress.js, no iframes; the audience and
+# presenter windows are two real windows synced over postMessage (cross-origin
+# safe, so it works from file:// too). Verified in Chromium to slide 33 with
+# both windows painting and sync working in both directions — the point where
+# touying's own console has been grey since about slide 13.
+#   make talk-presenter  ->  open presenter/index.html, press P
+talk-presenter: talk.pdfpc
+	python3 tools/make-presenter.py
 
 talk-notes: $(TYPST_SOURCES)
 	typst compile --root . touying/deck.typ --input notes=true talk-with-notes.pdf
@@ -82,6 +92,7 @@ serve: talk.html
 
 clean:
 	rm -f talk.pdf talk-with-notes.pdf talk.pdfpc talk.pptx talk-nonotes.pptx talk.html
+	rm -rf presenter/
 	rm -f slides/svg/*.svg slides/png/*.png
 
 # talk-timing: measure speaker notes as speaking time against tools/budget.tsv.
