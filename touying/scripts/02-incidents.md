@@ -28,13 +28,12 @@ high, take the fast path. Well - medium isn't high... so off to the fast path we
 ... skipping 3-D Secure, which means the liability for those chargebacks stays with
 the merchant instead of moving to the issuer.
 
-Charlie owns the refund approval workflow. A refund moves from requested, through
-review, to approved, and only then out to the payment rail with the next batch.
-Urgent cases have an operator action that sends an approved refund straight away —
-it exists to skip the queue. Whether a refund was approved was checked by the
-screen offering that button, not by the action itself, and the first time somebody
-drove it from a runbook it paid out a refund nobody had reviewed.
-Charlie spent about three hours in the logs working out how.
+Charlie owns the refund approval workflow. A refund goes from requested through
+review to approved, and only then out to the payment rail with the next batch.
+Urgent cases get an operator action that sends one immediately, to skip that
+queue. Only the screen offering the button checked the state — driven from a
+runbook, it paid out a refund nobody had reviewed. Charlie spent about three
+hours in the logs working out how.
 
 Danielle owns the integration between checkout and the payment service. The payment
 side added a challenge step for orders above a value threshold, and the checkout
