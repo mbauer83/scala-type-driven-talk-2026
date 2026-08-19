@@ -93,8 +93,20 @@ def write_note(text_frame, note):
 
     blocks = [b for b in re.split(r"\n\s*\n", note.strip()) if b.strip()]
     text_frame.word_wrap = True
-    for n, block in enumerate(blocks):
-        para = text_frame.paragraphs[0] if n == 0 else text_frame.add_paragraph()
+    first = True
+    for block in blocks:
+        # A SPACER PARAGRAPH, not just space-after. LibreOffice Impress ignores
+        # spcAft on notes text and collapses a genuinely empty paragraph, which
+        # is why the blank lines in the script disappeared entirely. A paragraph
+        # holding one space cannot be collapsed by anything, so the gap survives
+        # every renderer. spcAft stays as well — PowerPoint does honour it.
+        if not first:
+            gap = text_frame.add_paragraph()
+            grun = gap.add_run()
+            grun.text = " "
+            grun.font.size = Pt(8)
+        para = text_frame.paragraphs[0] if first else text_frame.add_paragraph()
+        first = False
         lines = block.split("\n")
         # A block whose lines are aligned into columns — the FILE / DIR / COMMAND
         # header and the runbook table — only reads correctly in a fixed pitch.
