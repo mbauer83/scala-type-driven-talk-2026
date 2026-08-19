@@ -18,10 +18,10 @@ VERBATIM
 Consistency - means no program it accepts hands you a value of a type that has no values
 — Scala's `Nothing`, say. A logician would say: you cannot derive a falsehood.
 
-Sound: if it compiles, what the types claim is true of the values at runtime — as
+Soundness - means if it compiles, what the types claim is true of the values at runtime — as
 far as the escape hatches allow, and `null` is the big one.
 
-Complete: every safe program gets accepted. That is the one we gave up, on
+Completeness - means every safe program gets accepted. That is the one we gave up, on
 purpose.
 
 Here is where you feel it. On the left, a switch statement over three colours,
@@ -30,8 +30,8 @@ Exhaustive, safe, rejected — because a check that has to terminate has to
 approximate, and it approximates on the side that says no.
 
 On the right, the same three cases as a switch expression, which Java fourteen
-gave exhaustiveness checking. Identical logic, and it compiles. Java moved its
-own line between safe and accepted, and every stage after this moves it again."
+gave exhaustiveness checking. Identical logic, and it compiles. Java moved what
+it can safely conclude from the types - which is exactly what this talk is about."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.

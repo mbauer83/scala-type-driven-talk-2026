@@ -24,18 +24,17 @@ Two things you can still write here, and Scala will still take them.
 
 Every protocol the program can ever speak is hardcoded. `ProtocolVariant` spells
 them out — low with a refund, low without, medium, high — and the risk
-assessment picks one of those four while the program runs. Each is checked completely. What the compiler
-cannot do is build the protocol out of the order in front of it, and for that you
-need a type that depends on a value.
+assessment picks one of those four while the program runs. Each is checked completely.
+But what the compiler cannot do is build the protocol out of the order in front of it, 
+and for that you need a type that depends on a value.
 
-And nothing makes you finish the channel. `finish` will not let you hang up
+And - nothing makes you finish the channel. `finish` will not let you hang up
 early — it asks for a proof that the protocol has ended, and mid-way through
 there is none to be had. Drop the channel halfway down and walk away, though, and
-nothing objects. What is missing is a way to write: this has to
-be used exactly once.
+nothing objects. What is missing is a way to write: this has to be used exactly once.
 
 One of them wants a type computed from a value, the other wants the compiler to
-count — and there is a language that does both."
+count — and this brings us to the final language we'll look at this evening."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.

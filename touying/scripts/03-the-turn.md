@@ -17,7 +17,7 @@ VERBATIM
 tests, though, is a case somebody has to think of, write down, and keep correct,
 everywhere the rule applies.
 
-Such rules - business rules - tell us what's valid. Where such a can be encoded 
+Such rules - business rules - tell us what's valid. Where such a rule can be encoded 
 in a type at a reasonable price, the compiler applies it at every use, and nobody 
 has to remember. How we can tell whether something is valid and how we can say 
 what that means - those questions are much older than programming.

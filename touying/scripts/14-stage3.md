@@ -1,4 +1,4 @@
-A3-stage3 · cap 1:05 · Act 3 beat 3 of 8
+A3-stage3 · cap 1:05 · Act 3 beat 2 of 8 · ends on the refusal 13-gentzen names
 
 TALKING POINTS
 1. You have seen BOTH halves already — the shapes at Boole, the refusal at the
@@ -21,13 +21,13 @@ case missing was two slides ago, on the colours. Here they meet, and they meet o
 Bob's actual type — the risk decision his branch got wrong is the sealed one now,
 and the switch will not build without all three.
 
-What is new is the return type. `Result` is sealed over `Ok` and `Err`, so a
+What is new here is the return type. `Result` is sealed over `Ok` and `Err`, so a
 function that can fail says so, and you cannot reach the value without dealing
 with it. Java's `throws` puts failure in the signature too, but it leaves by a
 different door — control jumps somewhere you cannot see — where `Result` hands it
-back as a value you have to open.
+back to the direct caller as a value where you have to deal with both cases.
 
-That is the move this evening makes: something the code only promised is now
+That is the move this evening describes: something the code only promised is now
 something the type states — backed by a compiler that refuses to build until
 every variant has a branch."
 

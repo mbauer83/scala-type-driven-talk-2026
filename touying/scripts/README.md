@@ -70,6 +70,13 @@ works anyway.
 Then open all five files in the IDE, at the lines in each script's `FILE`, so no
 demo begins with a file-tree hunt.
 
+**This table is in running order; the filenames are not.** Both numbering
+schemes are inherited — script names from an earlier plan, slide names from v1 —
+and one pair actually crosses: **`14-stage3.md` runs before `13-gentzen.md`**,
+because Gentzen has to sit sixty seconds before Demo 1 and to pick up the word
+*refusal* that the Stage 3 beat ends on. Trust this table and the `Act N beat M`
+line in each script header, not the number in the filename.
+
 | script | slide | id |
 |---|---|---|
 | `01-title.md` | `slides/01-title.typ` | `A0-title` |
@@ -84,8 +91,8 @@ demo begins with a file-tree hunt.
 | `10-scenario.md` | `slides/15-test-spine.typ` | `A2-scenario` |
 | `11-promises.md` | `slides/a2-promises.typ` | `A2-promises` |
 | `12-stage12.md` | `slides/17-stage1.typ` | `A3-stage12` |
-| `13-gentzen.md` | `slides/10-gentzen-or.typ` | `A3-gentzen` |
 | `14-stage3.md` | `slides/19-stage3.typ` | `A3-stage3` |
+| `13-gentzen.md` | `slides/10-gentzen-or.typ` | `A3-gentzen` |
 | `15-demo1.md` | `slides/a3-demo1.typ` + `-edit` + `-out` | `A3-demo1` |
 | `16-payoff-bob.md` | `slides/20-stage3-payoff.typ` | `A3-payoff-bob` |
 | `17-stage4.md` | `slides/22-stage4.typ` | `A3-stage4` |

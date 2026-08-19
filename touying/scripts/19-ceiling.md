@@ -19,26 +19,25 @@ TALKING POINTS
 VERBATIM
 
 "Charlie's bug is a compile error too, so two of the four are gone, and neither went
-to a test. Bob's needed every case handled. Charlie's needed
-provenance — evidence of where the value had been before it reached the gateway.
+to a test. Bob's needed every case handled. Charlie's needed provenance — 
+evidence of where the value had been before it reached the gateway.
 
 Here is what still gets past. You can approve a medium-risk order with the
 automatic method, because the risk level is nowhere in the authorization's type.
-Bob's own bug is gone — you have to write the medium case now — and what nothing
+Bob's own bug is gone — you have to write the medium case now. But what nothing
 makes you do is put the right thing inside it. Java can fix that
 one properly too, with another phantom parameter: noisy, but it works.
 
-You can build an order with no lines, or a negative quantity. A smart constructor gets
-most of the way. What it cannot do is reject quantity-of-minus-one with the minus
-one sitting there in the source.
+Also - you can build an order with no lines, or a negative quantity. A smart constructor gets
+most of the way, but is inflexible and still noisy.
 
-And you can disagree with the service at the other end about the protocol. That
+And - you can disagree with the service at the other end about your protocol. That
 one Java cannot reach at all: deriving the other side's protocol from yours means
-computing types from types, and Java has nothing of the kind. That gap is
-Danielle's incident.
+computing types from types, and Java has nothing of the kind. That gap is is 
+how Danielle's incident was able to occur.
 
-You can go a long way in Java, and most teams should. What comes next is a
-language where all three of these are cheap."
+You can go a long way in Java, and many teams have no immediate reason to move beyond. 
+What comes next is a language where all three of these are cheap."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.

@@ -13,8 +13,8 @@ TALKING POINTS
 VERBATIM
 
 "So let us start buying guarantees, and stage one is the oldest idea in the
-room: give a thing a name, and the name is a
-constraint. An Order is not an Authorization, and now the compiler knows it. The
+room: give a thing a name, and the name is a constraint. 
+An Order is not an Authorization, and now the compiler knows it. The
 constructor is private, so you cannot fabricate one — the only way in is that
 factory, and the factory takes the previous step as its argument. You cannot have
 an authorization without having had an order.
@@ -22,7 +22,7 @@ an authorization without having had an order.
 Stage two you have already seen, on the Frege slide: write Validator once, and it
 holds for every type it is ever used with.
 
-Two real wins — and Bob's bug survives both of them. The risk level has a type of
+Two real wins — but Bob's bug survives both of them. The risk level has a type of
 its own by now, and still nothing makes you handle every case, so that line
 compiles exactly as it did."
 

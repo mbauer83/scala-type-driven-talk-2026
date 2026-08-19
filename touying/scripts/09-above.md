@@ -23,10 +23,10 @@ because the compiler did the arithmetic. Coquand added polymorphism in
 eighty-eight, and between the two of them you have the kernels of proof assistants 
 and programming languages like Rocq, Lean, Agda and Idris.
 
-Here's a glimpse of what's to come: a type indexed by a runtime
-value; a conversation between two services written down as one type; a value paired 
-with a proof about that value - and an instruction that tells the compiler to verify 
-that a resource is used exactly once; 
+Here's a glimpse of what's to come: a conversation between two services written
+down as one type; a type indexed by a runtime value; a value paired with a proof
+about that value - and an instruction that tells the compiler to verify that a
+resource is used exactly once.
 
 At the end, you'll have seen what each of those can buy, having watched all four run on our
 payment flow. There is a map of this territory, and we fill it in as we go."

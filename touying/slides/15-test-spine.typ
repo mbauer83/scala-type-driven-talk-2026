@@ -139,9 +139,9 @@
            [The rule is applied where it is used, by the compiler.]),
       buys([The failure moves to compile time.],
            [Seconds after you typed it, not hours after you shipped it.]),
-      buys([The error points where the rule lives.],
-           [Clear, small, and at the definition — not a stack trace three
-            services away at 2 a.m.]),
+      buys([The intent is stated where the rule lives.],
+           [Precise and small, at the definition — not a comment that can drift,
+            and not a stack trace three services away at 2 a.m.]),
       buys([The defensive tests go.],
            [The ones that only ask _did somebody remember_. Behavioural tests stay.]),
     )],

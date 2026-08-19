@@ -49,12 +49,14 @@
     #stack(
       dir: ttb,
       spacing: sz(38pt),
-      // Order follows the script, which follows the order the talk pays them
-      // off in (MB, 19 Aug). See scripts/09-above.md.
-      notation([Π], `Approval : RiskLevel -> Type`,
-               [a type indexed by a runtime value]),
+      // ORDER = ORDER OF APPEARANCE IN THE TALK (MB, 19 Aug). ⇄ is paid off on
+      // A4-sessions in Act 4; Π and Σ both land on A5-mltt in Act 5, Π first;
+      // 1 is set up there and fired by Demo 5. Any other order makes
+      // A4-sessions' "here is the first" false. Keep the script in step.
       notation([⇄], `Send[Order, Receive[RiskSnapshot, ...]]`,
                [a whole conversation, as one type]),
+      notation([Π], `Approval : RiskLevel -> Type`,
+               [a type indexed by a runtime value]),
       notation([Σ], `(lvl : RiskLevel ** Assessment lvl n c)`,
                [a value paired with a proof about that value]),
       notation([1], `(1 _ : Session p) -> ...`,

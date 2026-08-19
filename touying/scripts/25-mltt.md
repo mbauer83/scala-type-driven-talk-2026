@@ -20,7 +20,7 @@ TALKING POINTS
 
 VERBATIM
 
-"Two things Scala could not say, and Idris 2 says both.
+"We had two things left Scala could not express, and Idris 2 can express them both.
 
 Start at the top, because that first line is the whole trick. `Session` takes a
 value of type `SessionType` and gives back a type, so which type you get depends

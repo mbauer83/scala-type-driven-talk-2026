@@ -1,4 +1,4 @@
-A3-gentzen · cap 1:15 · Act 3 beat 2 of 8 · sixty seconds before Demo 1
+A3-gentzen · cap 1:15 · Act 3 beat 3 of 8 · sixty seconds before Demo 1
 
 TALKING POINTS
 1. Segue: that refusal has a name and a date
@@ -33,6 +33,18 @@ break it."
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.
 ==========================================================================
+
+THIS FILE'S NUMBER IS NOT ITS RUNNING ORDER (MB, 19 Aug)
+`13-gentzen.md` runs **after** `14-stage3.md`. The deck is
+`19-stage3.typ` -> `10-gentzen-or.typ` -> `a3-demo1.typ`, which is what makes
+the handoff work: `14-stage3` ends on *»a compiler that refuses to build until
+every variant has a branch«* and this beat opens on *»that refusal has a name«*.
+Gentzen also has to sit sixty seconds before Demo 1, and it does.
+
+Both files also carried the wrong beat number until 19 Aug — this one said
+*beat 2 of 8* and `14-stage3` said *beat 3 of 8*, the reverse of the deck. The
+script filenames are numbered from an earlier plan and were never renumbered;
+`scripts/README.md` lists the real running order.
 
 WHY THIS SLIDE IS A THIRD OF WHAT IT WAS
 Inherited at 291 words against a 1:15 cap. It was written for Act 1, where it had

@@ -13,8 +13,8 @@ VERBATIM
 has a branch, so the shape that let medium-risk orders fall through does not
 exist any more — there is no longer an if to get wrong.
 
-And he would have found the bug the second he typed it, rather than three weeks
-later in somebody's chargeback report."
+And, using an exhaustive switch over a sum type, he would have found the bug 
+the second he typed it, rather than three weeks later in somebody's chargeback report."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.

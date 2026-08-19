@@ -22,9 +22,9 @@ handed it to the payment gateway. Nothing in those two lines asked whether it ha
 been approved, and nothing had to.
 
 Now, no type system on earth knows what is in your database, because that row came
-from outside the program — so the type does not try to check it, and does
-something better instead: the gateway demands a refund that is approved, and the
-repository cannot give you one. The only way across is a function that performs
+from outside the program — so we say that we don't know the actual type of its type argument.
+We do something better than guessing: the gateway demands a refund that is approved, and the
+repository cannot give you one. The only way across is a function that actually performs
 the check and hands you back the evidence.
 
 From then on the value carries its provenance — where it has been — in its own
@@ -34,9 +34,9 @@ there.
 That one check at the boundary is a real one, running at runtime, because the row
 came from outside the program. Inside your own code there is no check to run at
 all: a payment of Initiated and a payment of Authorized are the same bytes, and
-the parameter carries no data — only which methods will accept the value. Which
-is why the pattern is called phantom typestate. Phantom because there is nothing
-there."
+the parameter carries no data — but it determines which methods will accept the value. 
+Which is why the pattern is called phantom typestate. Phantom because there is nothing
+there. And typestate, because the state-descriptor of your state-machine now sits in the type itself."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.

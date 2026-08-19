@@ -16,15 +16,14 @@ TALKING POINTS
 VERBATIM
 
 "So we leave Java. Same payment flow, same four incidents, and this is Scala 3,
-where two of those three cost about a line each.
+and closing two of those three gaps from just now cost about a line each.
 
-Each risk level is a type of its own now, and an approval is evidence for one
-particular level.
-`AutoApproved` is an `Approval` of `LowRisk`, and the only way to an `Approval`
-of `MediumRisk` is handing over a three-D-Secure proof — the only constructor
-there is. `authorize` takes an approval at level `R` and gives back an authorized
-payment at the same `R`, so the level travels with the payment for the rest of
-its life.
+Every risk level is a type of its own now, and an approval is evidence for one
+particular level. `AutoApproved` is an `Approval` of `LowRisk`, and the only way 
+to an `Approval` of `MediumRisk` is handing over a three-D-Secure proof — 
+the only constructor there is. `authorize` takes an approval at level `R` 
+and gives back an authorized payment at the same `R`, so the level travels 
+with the payment for the rest of its lifetime.
 
 The second one is the predicate. `NonEmptyLines` is a list of order lines with
 `MinLength` of one in the type, and the payoff is the line underneath:
