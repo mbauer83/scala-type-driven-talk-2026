@@ -51,7 +51,7 @@
         dir: ttb,
         spacing: sz(34pt),
         cost([Stage 3 · sealed ⊕ records],
-             [Java 17, no dependency, an afternoon. ],
+             [Java 17+, no dependency, an afternoon. ],
              [Worth doing regardless.]),
         cost([Stage 4 · phantom typestate],
              [An interface, a private constructor, a conversation in code

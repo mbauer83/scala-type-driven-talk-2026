@@ -100,6 +100,7 @@
 // Extended history (A4–A6) removed — did not add value over the main theory section.
 #include "slides/a07-tracking.typ"
 #include "slides/a11-production.typ"  // where these features actually run — Q&A
+#include "slides/a12-not-covered.typ" // what the talk leaves out — Q&A
 #include "slides/a08-singleton.typ"
 #include "slides/a09-singletons.typ"
 #include "slides/a10-invariants.typ"

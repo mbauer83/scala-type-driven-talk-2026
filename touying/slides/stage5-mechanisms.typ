@@ -12,6 +12,12 @@
 // It is the cheapest thing to add back if the read-through comes in short.
 //
 // Depth for the right-hand half is appendix a01-tracking.
+//
+// MB, 19 Aug, asked whether path-dependent types are explained adequately. The
+// row named them and then described the evidence pattern, which is the row
+// below it; nothing said what makes the type PATH-dependent. The gloss now says
+// `s.Msg` is reached through the value `s` — six words, no extra line, and the
+// only part the name needs to earn itself here. The rest is a12-not-covered.
 #import "../theme.typ": *
 #import "../components.typ": *
 
@@ -50,8 +56,9 @@
             compiler refuses to swap them.]),
       mech([Path-dependent types], `def send(using s: CanSend[P])(value: s.Msg)`,
            [`P` is what is left of the protocol; `CanSend[P]` is a claim about it
-            — that it starts with a send. Ask for the claim as evidence and
-            `s.Msg` is the message type that comes with it.]),
+            — that it starts with a send. Ask for the claim as evidence, and
+            `s.Msg` — a type reached through the value `s` — is the message type
+            that comes with it.]),
       mech([Evidence the compiler builds], `def finish()(using ev: P =:= End)`,
            [Evidence of a different claim — that `P` has reached the end. Mid-protocol
             there is none to be had, so you cannot hang up in the middle of the call.]),

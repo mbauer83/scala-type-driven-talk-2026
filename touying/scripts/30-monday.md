@@ -1,31 +1,31 @@
 A6-monday · cap 0:44 · Act 6 beat 3 of 4 · MERGE of v1 where-to-start + 33-horizon
 
 TALKING POINTS
-1. Monday. Each of these is a change one team makes in one service
-2. And can undo in one service. That is the whole blast radius
-3. NOW — sealed interfaces and switch expressions. An afternoon
-4. SOON — phantom typestate, on the one service that has a lifecycle. A sprint
-5. NEXT — Scala 3 and Iron, where tonight's refinements came from. Scaffold is
-   in the repository
-6. HORIZON — Brady's Idris book; Lean if you want the proof end, and it has
-   browser games that teach it
-7. Reading list is in the appendix
+1. If you want to try any of it — cheapest first, and none of it needs a mandate
+2. An afternoon — sealed interfaces and switch expressions
+3. One service — phantom typestate, wherever there is a lifecycle
+4. A weekend — Scala 3 and Iron, where tonight's refinements came from. The
+   scaffold in the repository builds as it stands
+5. A rabbit hole — Brady's Idris book; Lean if you want the proof end, and it
+   teaches itself in a browser
+6. Reading list is in the appendix
 
 VERBATIM
 
-"So, Monday. Every one of these is a change one team can make inside one service,
-and undo inside one service if it turns out to be a mistake.
+"So if any of this looks worth trying, here it is cheapest first — and each one
+is small enough to do on your own, before anybody has to agree to anything.
 
-Now: sealed interfaces and switch expressions, which is an afternoon.
+An afternoon: sealed interfaces and switch expressions, and the compiler starts
+checking that you handled every case.
 
-Soon: phantom typestate, on the one service you have that carries a lifecycle —
-that is a sprint, and it touches nothing else.
+One service: phantom typestate, wherever you have a lifecycle — it comes back out
+as easily as it went in.
 
-Next: Scala three and the Iron library, which is where tonight's refinements came
-from; the scaffold is in the repository.
+A weekend: Scala three and the Iron library, where tonight's refinements came
+from; the scaffold in the repository builds as it stands.
 
-And on the horizon, if you want to see where the proof end of this goes, Brady's
-Idris book is the on-ramp, and Lean will teach you in a browser game."
+And a rabbit hole, if you want the proof end of this: Brady's Idris book is the
+on-ramp, and Lean will teach you in a browser game."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.
@@ -59,7 +59,8 @@ positive version one slide earlier.
 
 FACTS
 - Sealed interfaces and switch expressions: Java 17 (JEP 409 sealed classes,
-  JEP 361 switch expressions). Pattern matching for `switch` finalised in 21;
+  JEP 361 switch expressions). The slide says **Java 17+** (MB, 19 Aug) — the
+  bare version number read as "on 17", and the audience is on 17, 21 or 25. Pattern matching for `switch` finalised in 21;
   Stage 3's code is what `03-java-function-types-sealed/` compiles.
 - *Type-Driven Development with Idris*, Edwin Brady, Manning 2017. Written
   against Idris 1; the ideas carry, the syntax has moved. Say *the on-ramp*, not
@@ -73,11 +74,22 @@ FACTS
 - The full reading list is appendix `a07-tracking`. The slide points at it; do
   not read it out.
 
-WHY THE FOUR RUNGS KEEP THEIR v1 WORDING
-`NOW / SOON / NEXT / HORIZON` and the four one-line costs were already right, and
-they are the one place in the deck where the audience is told to do something.
-What changed is the frame at the top, the horizon row, and the removal of the
-*is this mature?* landing line.
+WHY THE RUNGS ARE LABELLED BY COST NOW (MB, 19 Aug)
+They used to read `NOW / SOON / NEXT / HORIZON`, and MB's objection is the right
+one: that is a schedule, and it is a schedule for a team whose backlog, services
+and hiring you know nothing about. *Soon: phantom typestate — that is a sprint*
+tells a room of strangers how to spend a sprint.
+
+`AN AFTERNOON / ONE SERVICE / A WEEKEND / A RABBIT HOLE` says the same four
+things as a price rather than as a date, and every one of them is now something
+**one person** can do without a decision above their head — which is also the
+honest claim, since nobody in the room can commit their team from a chair at a
+meetup. The title carries the invitation, so the list reads as an offer.
+
+**All of this is reversible.** The old labels and the old lead line —
+*»Every one of these is a change one team can make inside one service, and undo
+inside one service if it turns out to be a mistake«* — are in git, one revert
+away, and the spoken words here are MB's to rewrite in his own register.
 
 JOIN
 Backwards: `A6-cost` ended on the question this slide answers in four steps.

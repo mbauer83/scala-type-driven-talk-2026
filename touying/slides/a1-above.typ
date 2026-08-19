@@ -22,13 +22,17 @@
     // changed was the previous version's whole failure: the slide showed the
     // syntax of dependent types and never said what they buy. This lede is the
     // third rung of A1-quantifiers' ladder — over values, over types, and now
-    // over values with the RESULT TYPE computed from the value.
+    // over values with the RESULT TYPE computed from the value. The lede does not
+    // claim this is *the* step that changes what a type can say (MB, 19 Aug):
+    // every stage in the talk changes that. It draws the distinction instead —
+    // this is the step after which a type can mention one particular value.
     #block(width: 100%)[
       #set text(size: sz(25pt), fill: pal.fg-dim)
       #set par(leading: 0.45em)
       Until now a function's result type was fixed before you called it.
       Martin-Löf let it be #text(fill: pal.fg, weight: 500)[computed from the
-      argument] — which is the step that changes what a type is able to say.
+      argument value] — every step tonight makes a type say more; this is the one
+      that lets it speak about a particular value.
     ]
     #v(sz(24pt))
     #align(center)[

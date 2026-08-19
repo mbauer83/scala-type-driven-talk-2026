@@ -12,6 +12,11 @@
 // nobody reviews, which is untrue and insulting to this room; the real claim is
 // volume and iteration speed.
 //
+// MB, 19 Aug, third pass: the three claims never named their own subject. "A
+// hard constraint" and "a signature" left the room to infer that this slide is
+// about types at all, on the one slide where the argument has to land. Both
+// headings now say the word, and the bodies pick it up as "it".
+//
 // Three claims, MB's own and in his order, one block each. Part 3 merged v1's
 // 32-agentic into the cost slide; that merge is partly undone here, flagged in
 // scripts/29-now.md. +0:35 across Act 6; nothing was shaved to pay for it.
@@ -42,14 +47,14 @@
       columns: (1fr, 1fr),
       column-gutter: sz(72pt),
       row-gutter: sz(46pt),
-      claim([A hard constraint.],
-            [It holds on every line, from every author, on every build, and it
+      claim([A type is a hard constraint.],
+            [It holds at every use, from every author, on every build, and it
              does not care whether a person or a model wrote it. A test only ever
              covers the case somebody thought of.]),
-      claim([The clearest statement of intent.],
-            [A signature says what a thing is for, in a form a model can read,
-             and it cannot drift away from the code, because it is checked every
-             time. The comment above it can.]),
+      claim([A type signature is the clearest statement of intent.],
+            [It says what a thing is for, in a form a model can read, and it
+             cannot drift away from the code, because it is checked every time.
+             The comment above it can.]),
             grid.cell(colspan: 2)[
         #grid(
           columns: (1fr, auto),

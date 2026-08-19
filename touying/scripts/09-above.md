@@ -1,7 +1,7 @@
 A1-above · cap 1:20 · Act 1 beat 6 of 6 · rail: MARTIN-LÖF (+) lit, rail complete
 
 TALKING POINTS
-1. A few more steps up, starting with a big one
+1. A few more steps up, starting with a big one — it changes what a type is ABOUT
 2. So far the result type was fixed before you called the function
 3. Martin-Löf 1972 — compute it from the argument VALUES
 4. A vector carrying its length: three ++ four has type seven
@@ -13,7 +13,7 @@ TALKING POINTS
 
 VERBATIM
 
-"There are a few more steps up, starting with a big one that fundamentally changes what a type can say.
+"There are a few more steps up, starting with a big one that changes what a type can be about.
 
 Everything so far has had the result type completely fixed before you called the function.
 Martin-Löf, in nineteen seventy-two, let it be computed from argument values
@@ -67,6 +67,19 @@ That is the ceiling coming off. Everything below Stage 6 is a way of encoding
 the question stops being *can my type system express this* and becomes *can I
 write down a proof*.
 
+MB, 19 AUG — »CHANGES WHAT A TYPE IS ABLE TO SAY« WAS TRUE OF EVERY STAGE
+The slide said the computed result type *is the step that changes what a type is
+able to say*. Records and sealed change that. Generics change that. Refinement
+changes that. Singling out this one made a claim the rest of the talk disproves,
+and the room has already watched four of the other steps.
+
+What survives is the distinction, not the superlative: this is the step after
+which a type can be **about a particular value** rather than about a shape. The
+slide now says so, and the opening line here says *changes what a type can be
+about* rather than *fundamentally changes what a type can say*. **The spoken
+words are MB's to keep or revert** — the original clause was
+*»starting with a big one that fundamentally changes what a type can say«*.
+
 IT IS ALSO THE THIRD RUNG OF A LADDER THE ROOM HAS ALREADY CLIMBED
 `A1-quantifiers` puts two rungs on the board. This is the third, and saying so
 out loud is what makes the beat land as an arrival rather than as new syntax:
@@ -77,7 +90,7 @@ out loud is what makes the beat land as an arrival rather than as new syntax:
 
 BEATS
 
-- One more step, and it changes what a type is able to say.
+- One more step, and it changes what a type can be about.
 - Martin-Löf 1972: the result type may be computed from the argument.
   › **let the vector carry it** — three ++ four has type seven, because the
     compiler did the arithmetic. Do not generalise that out loud (see below)

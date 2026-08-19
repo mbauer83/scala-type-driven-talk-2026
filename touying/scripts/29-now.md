@@ -5,7 +5,7 @@ TALKING POINTS
 2. People still review, and read carefully. What changes is volume and speed
 3. Ten changes before lunch: attention per line thins, and what scales is what
    needs no attention
-4. A type is a HARD CONSTRAINT — every line, every author, every build
+4. A type is a HARD CONSTRAINT — every use, every author, every build
 5. A test only covers the case somebody thought of
 6. Clearest statement of intent you can hand a model — and it cannot drift,
    because it is checked
@@ -23,12 +23,12 @@ People still review, and they read carefully. What changes is volume and speed:
 when ten changes land before lunch, attention per line thins, and what scales is
 the part that needs no attention at all.
 
-A type is a hard constraint. It holds on every line, from every author, on every
+A type is a hard constraint. It holds at every use, from every author, on every
 build, and it does not care whether a person or a model wrote it. A test only
 ever covers the case somebody thought of.
 
-It is also the clearest statement of intent you can hand a model. A signature
-says what a thing is for in a form it can read, and it cannot drift, because it
+It is also the clearest statement of intent you can hand a model. A type
+signature says what a thing is for in a form it can read, and it cannot drift, because it
 is checked every time.
 
 And the loop is seconds long and it answers by name. `Approval` of `LowRisk`
@@ -38,6 +38,15 @@ test says only that something is wrong."
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.
 ==========================================================================
+
+SAY »TYPE« ON THE SLIDE, NOT ONLY IN THE SCRIPT (MB, 19 Aug)
+The script always said *a type is a hard constraint*; the slide said only
+*a hard constraint* and *a signature*, and left the room to infer the subject on
+the one slide where the practical argument lands. Both headings now name it.
+
+*At every use* rather than *on every line*, in both places: a constraint is not
+checked per line, it is checked wherever the value is used, and MB proposed the
+sharper word. **Reversible** — the original was *»It holds on every line«*.
 
 NAME IT: "AGENTIC SOFTWARE DEVELOPMENT" (MB, 19 Aug)
 That is the term to use — not "LLM-driven", which MB corrected on 19 Aug.
