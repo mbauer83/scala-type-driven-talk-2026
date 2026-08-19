@@ -118,6 +118,36 @@ time, sitting on top of a pipe that carries no type information at all.**
 cannot check. So in both languages the protocol lives entirely in the parameter,
 and the parameter is gone before a single message moves.
 
+HOW MUCH OF THAT IS THE DEMO, AND HOW MUCH IS THE TECHNIQUE (MB, 19 Aug)
+Mostly the demo, and the distinction is worth having straight before answering.
+
+**The unchecked cast is a shortcut.** `asInstanceOf` and `believe_me` are there
+because these are two hundred lines meant to be read on a projector. A real
+implementation replaces each with a decode that can fail, chosen by the same
+evidence that produced `s.Msg` — so the narrowing becomes a checked operation
+with a failure branch, not an assertion. In Idris you can go further and push the
+index into the channel type itself, and drop `believe_me` from the in-memory
+case entirely.
+
+**A dynamically-typed carrier underneath is not a shortcut**, as long as the
+transport is one object: the message type changes at every protocol step, so
+whatever holds the messages is heterogeneous by construction. What a real
+implementation changes is the honesty of the boundary — a sum type you pattern
+match on, or bytes you decode — not the existence of one.
+
+**And across a real process boundary it is unavoidable.** Bytes arrive from a
+socket and something has to check them. Session types do not remove that check;
+they tell you *which* decoder belongs at each step, and they guarantee your own
+program's order of operations. That is the same shape Stage 5 already sold for
+Iron: one real check at the edge, and no checks at all inside. It is also why
+Scribble generates runtime monitors alongside its endpoint APIs — see
+`a11-production`.
+
+So the claim that survives is narrower than the code suggests, and it is still
+the interesting one: **the protocol parameter is erased, and the wire is not
+self-describing.** That is about the type parameter, not about the cast, and it
+holds however carefully the transport is written.
+
 **Why that matters, and it is the honest bound on the whole claim.** A session
 type guarantees that *the program you compiled* uses its end of the channel in
 the right order with the right message types. It does not make the wire
