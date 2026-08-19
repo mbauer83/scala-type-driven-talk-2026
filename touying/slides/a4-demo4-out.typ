@@ -1,17 +1,17 @@
-// A4-demo5-out · captured output for Demo 5, verbatim from `demos/5-term.txt`,
+// A4-demo4-out · captured output for Demo 4, verbatim from `demos/4-term.txt`,
 // produced by tools/capture-terminal.sh against the real `sbt compile`.
 // Fallback, and the freeze-frame to read the error from.
 #import "../theme.typ": *
 #import "../components.typ": *
 
 #light-slide(
-  eyebrow: eyebrow([Demo 5 · recorded · 2 of 2], style: "bad"),
+  eyebrow: eyebrow([Demo 4 · recorded · 2 of 2], style: "bad"),
   body-gap: sz(30pt),
   [The protocol says whose turn it is],
   stack(
     dir: ttb,
     spacing: sz(34pt),
-    terminal-pane(read("../../demos/5-term.txt").trim(), title: "bash", size: 20pt),
+    terminal-pane(read("../../demos/4-term.txt").trim(), title: "bash", size: 20pt),
     // The money line is one clause in the middle of a dark pane. This is that
     // clause, at a size the back row can read, and it is the thing MB points at.
     align(center)[

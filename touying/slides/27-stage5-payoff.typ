@@ -1,4 +1,4 @@
-// A4-ceiling · cap 1:20 · Act 4 beat 5 of 5 · MERGE of v1 27-stage5-payoff +
+// A4-ceiling · cap 1:20 · Act 4 beat 6 of 6 · MERGE of v1 27-stage5-payoff +
 // scala3-ceiling
 //
 // Same two-part shape as A3-ceiling, deliberately: the claim that closed, then

@@ -1,4 +1,4 @@
-A4-opens · cap 1:20 · Act 4 beat 1 of 5
+A4-opens · cap 1:20 · Act 4 beat 1 of 6
 
 TALKING POINTS
 1. So we leave Java. Same flow, same incidents, and this is Scala 3

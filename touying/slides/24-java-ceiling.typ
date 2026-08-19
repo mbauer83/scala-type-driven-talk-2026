@@ -69,8 +69,7 @@
     align(center)[
       #set text(size: sz(24pt), fill: pal.fg-dim)
       You can go a long way in Java. What comes next is a language where all
-      three are cheap — and you do not have to move to it to learn something
-      from that.
+      three of these are cheap.
     ],
   ),
 )

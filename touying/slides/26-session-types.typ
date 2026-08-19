@@ -1,4 +1,4 @@
-// A4-sessions · cap 1:30 · Act 4 beat 3 of 5 · REWORK of v1 26-session-types
+// A4-sessions · cap 1:30 · Act 4 beat 3 of 6 · REWORK of v1 26-session-types
 //
 // This is the fourth of the four things A1-above promised the room it would see
 // running — "a conversation between two services written down as one type" —

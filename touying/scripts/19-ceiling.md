@@ -13,8 +13,8 @@ TALKING POINTS
 6. — protocol disagreement: this one Java CANNOT reach
 7.   deriving the other side needs types computed from types
 8. That is Danielle's bug, and it is a real ceiling rather than a rhetorical one
-10. Next is a language where all three are cheap
-11. You do not have to move to it to learn something from that
+10. Next is a language where all three are cheap. Stop there — do not add the
+    reassurance (MB, 18 Aug: reads condescending)
 
 VERBATIM
 
@@ -38,12 +38,22 @@ computing types from types, and Java has nothing of the kind. That gap is
 Danielle's incident.
 
 You can go a long way in Java, and most teams should. What comes next is a
-language where all three of these are cheap — and you do not have to move to it
-to learn something from that."
+language where all three of these are cheap."
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.
 ==========================================================================
+
+»AND YOU DO NOT HAVE TO MOVE TO IT TO LEARN SOMETHING FROM THAT« IS GONE
+MB, 18 Aug: *lose it — reads condescending.* It does: it tells a room of working
+Java developers that they are allowed to take a lesson from something they will
+not adopt, which is a permission nobody asked for. It was on the slide and in the
+spoken line; both stop at *a language where all three of these are cheap*, and
+the beat loses nothing, because A6-cost makes the practical version of the point
+with a price attached.
+
+This one was raised on 18 Aug and was still in the deck on 19 Aug. Flagged here
+so it is not reintroduced as a softener.
 
 WHAT JAVA CAN AND CANNOT ACTUALLY REACH (MB, 18 Aug — checked, one by one)
 An earlier version said *Java can encode all three with enough hand-rolled

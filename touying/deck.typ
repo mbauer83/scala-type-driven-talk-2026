@@ -63,15 +63,15 @@
 #include "slides/a4-demo3-edit.typ"        // recorded terminal, frame 1
 #include "slides/a4-demo3-out.typ"         // captured sbt output / fallback
 #include "slides/26-session-types.typ"     // A4-sessions
-#include "slides/a4-demo5.typ"              // A4-demo5 — live, dark setup card
-#include "slides/a4-demo5-edit.typ"         // recorded terminal, frame 1
-#include "slides/a4-demo5-out.typ"          // captured sbt output / fallback
+#include "slides/a4-demo4.typ"              // A4-demo4 — live, dark setup card
+#include "slides/a4-demo4-edit.typ"         // recorded terminal, frame 1
+#include "slides/a4-demo4-out.typ"          // captured sbt output / fallback
 #include "slides/stage5-mechanisms.typ"    // A4-mechanisms
 #include "slides/27-stage5-payoff.typ"     // A4-ceiling — MERGE of v1 payoff + scala3-ceiling
 #include "slides/28-stage6-bridge.typ"     // A5-mltt — MERGE of v1 bridge + 29-mltt-running
-#include "slides/a5-demo4.typ"              // A5-demo4 — live, dark setup card
-#include "slides/a5-demo4-edit.typ"         // recorded terminal, frame 1
-#include "slides/a5-demo4-out.typ"          // captured idris2 output / fallback
+#include "slides/a5-demo5.typ"              // A5-demo5 — live, dark setup card
+#include "slides/a5-demo5-edit.typ"         // recorded terminal, frame 1
+#include "slides/a5-demo5-out.typ"          // captured idris2 output / fallback
 #include "slides/30-stage6-payoff.typ"      // A5-payoff — the dark Unrepresentable slide
 // 31-the-climb moved to the appendix (Part 3): the last four minutes otherwise
 // carry three summaries — the dark Unrepresentable slide, the climb table and

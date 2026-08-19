@@ -10,7 +10,7 @@
 //   ⇄  Send[Order, Receive[RiskSnapshot, ...]]   ALREADY PAID OFF at A4-sessions
 //
 // So the row order here is Π, Σ, 1 — the primer's order, minus the one already
-// spent. `1` is set up and NOT fired; Demo 4 fires it.
+// spent. `1` is set up and NOT fired; Demo 5 fires it.
 //
 // v1's 29-mltt-running is gone: it re-taught the Π and Σ inference rules as
 // rule-cards, which Act 1 already did, carried 315 words against no cap, and

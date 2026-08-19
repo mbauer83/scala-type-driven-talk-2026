@@ -5,7 +5,7 @@
 # This script IS the authoritative description of what to type on stage: it is
 # executed, so it cannot drift from the deck the way a prose description can.
 # An earlier plan described Demo 3's edit as producing an error it does not
-# produce, and Demo 4's edit as "comment out the line", which yields a
+# produce, and Demo 5's edit as "comment out the line", which yields a
 # different error entirely. Both were only caught by running them.
 #
 #   ./tools/capture-demos.sh          # capture all five
@@ -21,10 +21,18 @@ mkdir -p "$OUT"
 
 WANT="${1:-all}"
 BACKUPS=()
+# Restore runs after EVERY demo, not once at the end. Demos 3 and 4 both edit
+# PaymentDemo.scala; with a single restore at the end they shared one
+# `.demobak` path, so demo 4's backup was a copy of the file with demo 3's edit
+# already in it — demo 4 then compiled the wrong source AND the tree was left
+# dirty. Found 19 Aug, one renumber after the second Scala demo was added. The
+# EXIT trap stays as the safety net for a failure mid-block.
 restore() {
-  for b in "${BACKUPS[@]:-}"; do
+  for (( i=${#BACKUPS[@]}-1; i>=0; i-- )); do
+    b="${BACKUPS[$i]}"
     [ -n "$b" ] && cp "$b" "${b%.demobak}" && rm -f "$b"
   done
+  BACKUPS=()
 }
 trap restore EXIT
 edit_file() {                       # edit_file <path> <sed-expr>
@@ -40,6 +48,7 @@ if want 1; then
   edit_file "$d/Demo.java" '/case RiskDecision.Medium m ->/d'
   ( cd "$d" && javac -d /tmp/demo1-out *.java ) 2>&1 | sed "s|$ROOT/||g" > "$OUT/1-exhaustiveness.txt"
   echo "  -> demos/1-exhaustiveness.txt"
+  restore
 fi
 
 # ── Demo 2 — Stage 4, phantom typestate ─────────────────────────────────────
@@ -50,6 +59,7 @@ if want 2; then
   edit_file "$d/Demo.java" 's|// *Payment\.capture(init);|Payment.capture(init);|'
   ( cd "$d" && javac -d /tmp/demo2-out *.java ) 2>&1 | sed "s|$ROOT/||g" > "$OUT/2-typestate.txt"
   echo "  -> demos/2-typestate.txt"
+  restore
 fi
 
 # ── Demo 3 — Stage 5, approval indexed by risk ──────────────────────────────
@@ -69,9 +79,10 @@ if want 3; then
   ( cd "$d" && sbt -batch -warn compile ) 2>&1 | grep -v '^\[info\]' \
     | sed "s|$ROOT/||g" > "$OUT/3-risk-indexed-approval.txt"
   echo "  -> demos/3-risk-indexed-approval.txt"
+  restore
 fi
 
-# ── Demo 5 — Stage 5, the protocol refuses the operation ────────────────────
+# ── Demo 4 — Stage 5, the protocol refuses the operation ────────────────────
 # EDIT: serverHighRisk's last step becomes a wait for an acknowledgement that
 # the other side's contract never mentions:
 #
@@ -88,17 +99,18 @@ fi
 # and nobody has ever written that by accident. This one is a mistake a person
 # makes: the payment side decides it should wait for the client to confirm the
 # capture. Untyped, both ends then wait and the call hangs.
-if want 5; then
-  echo "demo 5: serverHighRisk waits for an acknowledgement nobody sends…"
+if want 4; then
+  echo "demo 4: serverHighRisk waits for an acknowledgement nobody sends…"
   d=05-scala3-payment
   edit_file "$d/src/main/scala/demos/PaymentDemo.scala" \
             's|^    ch5.send(captured)$|    val (ack, done)       = ch5.receive()\n    done|'
   ( cd "$d" && sbt -batch -warn compile ) 2>&1 | grep -v '^\[info\]' \
-    | sed "s|$ROOT/||g" > "$OUT/5-protocol-state.txt"
-  echo "  -> demos/5-protocol-state.txt"
+    | sed "s|$ROOT/||g" > "$OUT/4-protocol-state.txt"
+  echo "  -> demos/4-protocol-state.txt"
+  restore
 fi
 
-# ── Demo 4 — Stage 6, QTT linearity ─────────────────────────────────────────
+# ── Demo 5 — Stage 6, QTT linearity ─────────────────────────────────────────
 # EDIT: replace `finish done` with `pure ()`.
 #
 # NOT "comment out the line": `finish done` is the last statement of its do
@@ -106,12 +118,13 @@ fi
 # expression" — a syntax complaint, not the linearity error the slide promises.
 # Replacing it keeps the block well-formed so the linearity checker is what
 # speaks.
-if want 4; then
-  echo "demo 4: replacing 'finish done' with 'pure ()'…"
+if want 5; then
+  echo "demo 5: replacing 'finish done' with 'pure ()'…"
   d=06-idris2-payment
   edit_file "$d/src/Main.idr" '0,/finish done/{s|finish done|pure ()|}'
-  ( cd "$d" && idris2 --build payment.ipkg ) 2>&1 | sed "s|$ROOT/||g" > "$OUT/4-linearity.txt"
-  echo "  -> demos/4-linearity.txt"
+  ( cd "$d" && idris2 --build payment.ipkg ) 2>&1 | sed "s|$ROOT/||g" > "$OUT/5-linearity.txt"
+  echo "  -> demos/5-linearity.txt"
+  restore
 fi
 
 restore; BACKUPS=()

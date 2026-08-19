@@ -32,7 +32,7 @@ linter all read the same file you edit. There is no second copy to keep in sync.
 | `23-mechanisms.md` | `slides/stage5-mechanisms.typ` | `A4-mechanisms` |
 | `24-ceiling.md` | `slides/27-stage5-payoff.typ` | `A4-ceiling` |
 | `25-mltt.md` | `slides/28-stage6-bridge.typ` | `A5-mltt` |
-| `26-demo4.md` | `slides/a5-demo4.typ` + `-edit` + `-out` | `A5-demo4` |
+| `26-demo5.md` | `slides/a5-demo5.typ` + `-edit` + `-out` | `A5-demo5` |
 | `27-payoff.md` | `slides/30-stage6-payoff.typ` | `A5-payoff` |
 | `28-cost.md` | `slides/32-agentic.typ` | `A6-cost` |
 | `29-now.md` | `slides/a6-now.typ` | `A6-now` |

@@ -64,7 +64,7 @@ frame3 () {
 
 frame3
 
-# ── Demo 5 — Stage 5, the protocol refuses the operation (sbt) ───────────────
+# ── Demo 4 — Stage 5, the protocol refuses the operation (sbt) ───────────────
 # EDIT: serverHighRisk's LAST step becomes a wait for an acknowledgement the
 # other side's contract never mentions — `ch5.send(captured)` becomes
 # `val (ack, done) = ch5.receive()` and `done`. A mistake somebody makes; the
@@ -84,7 +84,7 @@ frame3
 #
 # Keep the edit on the LAST operation if this ever has to move to another
 # server; that is what keeps it to one error.
-frame5 () {
+frame4 () {
   local dir=05-scala3-payment file=src/main/scala/demos/PaymentDemo.scala
   local expr='s|^    ch5.send(captured)$|    val (ack, done)       = ch5.receive()\n    done|'
   local src="$ROOT/$dir/$file" bak; bak=$(mktemp)
@@ -92,25 +92,25 @@ frame5 () {
   {
     echo "\$ sed -i '…ch5.send(captured) → wait for an ack…' PaymentDemo.scala"
     echo "\$ git diff -- PaymentDemo.scala"
-  } > "$OUT/5-edit.txt"
+  } > "$OUT/4-edit.txt"
   sed -i "$expr" "$src"
-  diff -u "$bak" "$src" | sed -n '3,$p' | sed 's|^|  |' >> "$OUT/5-edit.txt"
+  diff -u "$bak" "$src" | sed -n '3,$p' | sed 's|^|  |' >> "$OUT/4-edit.txt"
   {
     echo "\$ sbt compile"
     ( cd "$ROOT/$dir" && sbt -batch -warn compile 2>&1 \
         | grep -v '^\[info\]' | sed "s|$ROOT/||g" | head -8 )
-  } > "$OUT/5-term.txt"
+  } > "$OUT/4-term.txt"
   cp "$bak" "$src"; rm -f "$bak"
-  echo "captured 5: $(wc -l < "$OUT/5-edit.txt") + $(wc -l < "$OUT/5-term.txt") lines"
+  echo "captured 4: $(wc -l < "$OUT/4-edit.txt") + $(wc -l < "$OUT/4-term.txt") lines"
 }
 
-frame5
+frame4
 
-# ── Demo 4 — Stage 6, QTT linearity (idris2) ─────────────────────────────────
+# ── Demo 5 — Stage 6, QTT linearity (idris2) ─────────────────────────────────
 # Same edit capture-demos.sh applies. NOT "comment the line out": `finish done`
 # is the last statement of its do block, so deleting it yields a syntax
 # complaint instead of the linearity error the slide promises.
-frame4 () {
+frame5 () {
   local dir=06-idris2-payment file=src/Main.idr
   local expr='0,/finish done/{s|finish done|pure ()|}'
   local src="$ROOT/$dir/$file" bak; bak=$(mktemp)
@@ -118,15 +118,15 @@ frame4 () {
   {
     echo "\$ sed -i '…first finish done → pure ()…' src/Main.idr"
     echo "\$ git diff -- src/Main.idr"
-  } > "$OUT/4-edit.txt"
+  } > "$OUT/5-edit.txt"
   sed -i "$expr" "$src"
-  diff -u "$bak" "$src" | sed -n '3,$p' | sed 's|^|  |' >> "$OUT/4-edit.txt"
+  diff -u "$bak" "$src" | sed -n '3,$p' | sed 's|^|  |' >> "$OUT/5-edit.txt"
   {
     echo "\$ idris2 --build payment.ipkg"
     ( cd "$ROOT/$dir" && idris2 --build payment.ipkg 2>&1 | sed "s|$ROOT/||g" | head -12 )
-  } > "$OUT/4-term.txt"
+  } > "$OUT/5-term.txt"
   cp "$bak" "$src"; rm -f "$bak"
-  echo "captured 4: $(wc -l < "$OUT/4-edit.txt") + $(wc -l < "$OUT/4-term.txt") lines"
+  echo "captured 5: $(wc -l < "$OUT/5-edit.txt") + $(wc -l < "$OUT/5-term.txt") lines"
 }
 
-frame4
+frame5

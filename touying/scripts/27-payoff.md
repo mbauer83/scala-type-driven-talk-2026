@@ -64,6 +64,6 @@ FOUR NAMES, FOUR STAGES — the bookkeeping, if anybody asks
 That is the whole ladder, and it is why no slide before this one runs a tally.
 
 JOIN
-Backwards: Demo 4's error, still on the screen behind you. Forwards: `A6-cost`,
+Backwards: Demo 5's error, still on the screen behind you. Forwards: `A6-cost`,
 which is a change of register — practical, brisk, and deliberately unemotional
 after this.

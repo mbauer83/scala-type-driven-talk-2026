@@ -93,7 +93,7 @@
        which on two strings concatenates. Single-line orders hide it — `reduce` over one
        element returns that element.],
       [12-digit daily total],
-      [survived months of tests],
+      [passed every test it had],
     ),
     divider,
     incident(
@@ -106,8 +106,8 @@
     divider,
     incident(
       [Charlie], [refund approval · java],
-      [An operator shortcut fetches a refund by id and executes it
-       without checking its state. Only _approved_ refunds may reach the payment rail.],
+      [An operator action sends an urgent refund out ahead of the batch. The screen
+       offering it shows only _approved_ refunds; the action itself checks nothing.],
       [unreviewed refund paid],
       [3 h of log archaeology],
     ),

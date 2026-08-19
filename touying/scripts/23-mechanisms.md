@@ -1,10 +1,10 @@
-A4-mechanisms · cap 1:20 · Act 4 beat 4 of 5
+A4-mechanisms · cap 1:20 · Act 4 beat 5 of 6
 
 TALKING POINTS
 1. Everything Scala has been doing for the last few minutes has a name
 2. The predicate in the type — a refined type
 3. AuthCode that cannot go where CaptureId is expected — an opaque type
-4. CanSend[P] — the twin of the CanReceive Demo 5 just failed to find. P is
+4. CanSend[P] — the twin of the CanReceive Demo 4 just failed to find. P is
    what is LEFT of the protocol; CanSend is a claim ABOUT P,
    that it starts with a send. Ask for the claim as evidence, get the message
    type with it — which is why send knows what it accepts
@@ -42,8 +42,8 @@ fail that way, and nothing else."
 PREPARATION — background, checks and citations. Not for the night.
 ==========================================================================
 
-THE SEAM WITH DEMO 5 (19 Aug)
-`A4-demo5` now sits between `A4-sessions` and this slide, and its error is
+THE SEAM WITH DEMO 4 (19 Aug)
+`A4-demo4` now sits between `A4-sessions` and this slide, and its error is
 *»No given instance of CanReceive…«*. So the `CanSend[P]` paragraph opens by
 naming it as the twin of the thing the room has just watched the compiler fail to
 find, instead of introducing it cold. Five words, and it turns a vocabulary row

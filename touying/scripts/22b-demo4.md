@@ -1,4 +1,4 @@
-A4-demo5 · cap 1:35 across three slides · Act 4 beat 4 of 6
+A4-demo4 · cap 1:35 across three slides · Act 4 beat 4 of 6
 
 TERMINAL — the exact directory, the exact command. Same project and the same
 sbt session as Demo 3, so if Demo 3 compiled, this one will.
@@ -124,10 +124,10 @@ Every demo in the deck is arranged; the arrangement is allowed. What is not
 allowed is a bug class the room cannot recognise from its own work.
 
 `tools/capture-demos.sh 5` and `tools/capture-terminal.sh` both apply exactly
-this edit, run the real `sbt -batch -warn compile`, write `demos/5-edit.txt`,
-`demos/5-term.txt` and `demos/5-protocol-state.txt`, and restore the source.
+this edit, run the real `sbt -batch -warn compile`, write `demos/4-edit.txt`,
+`demos/4-term.txt` and `demos/4-protocol-state.txt`, and restore the source.
 
-CAPTURED OUTPUT — verbatim, `demos/5-term.txt`
+CAPTURED OUTPUT — verbatim, `demos/4-term.txt`
 
     $ sbt compile
     [error] -- [E172] Type Error: …/PaymentDemo.scala:141:41
@@ -151,7 +151,7 @@ low-risk server's refund branch — was tried and degrades to `?1.L`, because
 there the channel type comes through the `awaitChoice` evidence.
 
 WHAT TO DO IF IT FAILS
-As Demos 1 to 4. Advance, say the same words, do not mention it. sbt is the risk,
+As Demos 1 to 3. Advance, say the same words, do not mention it. sbt is the risk,
 and it is the same sbt session Demo 3 already used — if that one answered, this
 one will. If nothing has appeared in about twenty seconds, advance to the
 recorded frames and carry on.

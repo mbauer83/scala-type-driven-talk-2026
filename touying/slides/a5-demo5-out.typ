@@ -1,4 +1,4 @@
-// A5-demo4-out · captured output for Demo 4, verbatim from `demos/4-term.txt`,
+// A5-demo5-out · captured output for Demo 5, verbatim from `demos/5-term.txt`,
 // produced by tools/capture-terminal.sh against the real `idris2 --build`.
 // Fallback, and the freeze-frame to read the error from.
 //
@@ -10,13 +10,13 @@
 #import "../code-pane.typ": *
 
 #light-slide(
-  eyebrow: eyebrow([Demo 4 · recorded · 2 of 2], style: "bad"),
+  eyebrow: eyebrow([Demo 5 · recorded · 2 of 2], style: "bad"),
   body-gap: sz(28pt),
   [The compiler counts],
   stack(
     dir: ttb,
     spacing: sz(30pt),
-    terminal-pane(read("../../demos/4-term.txt").trim(), title: "bash", size: 18pt),
+    terminal-pane(read("../../demos/5-term.txt").trim(), title: "bash", size: 18pt),
     align(center)[
       #set text(size: sz(28pt), fill: pal.fg)
       #set par(leading: 0.55em)

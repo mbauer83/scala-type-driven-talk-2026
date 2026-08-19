@@ -1,12 +1,11 @@
-$ sed -i '…ch5.send(captured) → wait for an ack…' PaymentDemo.scala
-$ git diff -- PaymentDemo.scala
-  @@ -138,7 +138,8 @@
-       val authorized        = authorize(order, ReviewerApproved(approval))
-       val ch5               = ch4.send(authorized)
-       val captured          = capture(authorized)
-  -    ch5.send(captured)
-  +    val (ack, done)       = ch5.receive()
-  +    done
-   
-     // ─── Client handlers ────────────────────────────────────────────────────────
-   
+$ sed -i '…first finish done → pure ()…' src/Main.idr
+$ git diff -- src/Main.idr
+  @@ -113,7 +113,7 @@
+     case branch of
+       Left refunding => do
+         done <- sendLogged refunding (refund captured)
+  -      finish done
+  +      pure ()
+       Right done => finish done
+   settleServer False authorized session = do
+     afterAuth    <- sendLogged session authorized

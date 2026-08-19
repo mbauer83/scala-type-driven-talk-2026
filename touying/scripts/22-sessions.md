@@ -1,4 +1,4 @@
-A4-sessions · cap 1:30 · Act 4 beat 3 of 5
+A4-sessions · cap 1:30 · Act 4 beat 3 of 6
 
 TALKING POINTS
 1. The four things a type can do, from the end of the history — here is the first
@@ -11,7 +11,7 @@ TALKING POINTS
 6. Client holds Channel of P, server holds Channel of Dual of P — one definition
 7. Danielle's two services were each correct against their own contract
 8. There was no third thing for them to be correct against. This is it
-9. Hand off into Demo 5 — watch what happens when one side forgets whose turn
+9. Hand off into Demo 4 — watch what happens when one side forgets whose turn
    it is. Do NOT close the point here; the demo closes it
 
 VERBATIM
@@ -41,10 +41,10 @@ happens when one side forgets whose turn it is."
 PREPARATION — background, checks and citations. Not for the night.
 ==========================================================================
 
-THIS BEAT NO LONGER CLOSES DANIELLE — DEMO 5 DOES (19 Aug)
+THIS BEAT NO LONGER CLOSES DANIELLE — DEMO 4 DOES (19 Aug)
 It used to end *»a server that sends where it should receive does not compile, so
 the drift she found three weeks in has nowhere left to happen«*, which asserted
-the one thing in Act 4 the room never got to watch. `A4-demo5` checks it in front
+the one thing in Act 4 the room never got to watch. `A4-demo4` checks it in front
 of them now, and that clause moved there with it. What is left here is the gap
 and the hand-off; closing the point twice, thirty seconds apart, would flatten
 both. The slide still carries the property as written copy — *a server that sends

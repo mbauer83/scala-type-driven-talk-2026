@@ -1,4 +1,4 @@
-A4-ceiling · cap 1:20 · Act 4 beat 5 of 5 · MERGE of v1 27-stage5-payoff + scala3-ceiling
+A4-ceiling · cap 1:20 · Act 4 beat 6 of 6 · MERGE of v1 27-stage5-payoff + scala3-ceiling
 
 TALKING POINTS
 1. Danielle's bug is a compile error now, and so is the demo's — the medium
@@ -104,5 +104,5 @@ language and not two. Do not say *QTT* here — `A5-mltt` teaches it.
 
 JOIN
 Backwards: `A4-mechanisms`. Forwards: `A5-mltt` opens on the type that depends on
-a value, and Demo 4 is the linearity error — `demos/4-linearity.txt`, already
+a value, and Demo 5 is the linearity error — `demos/5-linearity.txt`, already
 captured: *There are 0 uses of linear name done.*

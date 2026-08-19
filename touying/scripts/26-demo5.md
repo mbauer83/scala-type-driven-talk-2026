@@ -1,4 +1,4 @@
-A5-demo4 · cap 2:10 across three slides · Act 5 beat 2 of 3
+A5-demo5 · cap 2:10 across three slides · Act 5 beat 2 of 3
 
 TERMINAL — the exact directory, the exact command. Run it once before the act
 so the `build/` directory is warm; from cold it compiles all five modules.
@@ -76,10 +76,10 @@ This is recorded in `tools/capture-demos.sh` because the plan described the edit
 wrongly once and only running it caught that.
 
 `tools/capture-demos.sh 4` and `tools/capture-terminal.sh` both apply this edit,
-run the real `idris2 --build payment.ipkg`, write `demos/4-edit.txt`,
-`demos/4-term.txt` and `demos/4-linearity.txt`, and restore the source.
+run the real `idris2 --build payment.ipkg`, write `demos/5-edit.txt`,
+`demos/5-term.txt` and `demos/5-linearity.txt`, and restore the source.
 
-CAPTURED OUTPUT — verbatim, `demos/4-term.txt`
+CAPTURED OUTPUT — verbatim, `demos/5-term.txt`
 
     $ idris2 --build payment.ipkg
     5/5: Building Main (src/Main.idr)
@@ -108,7 +108,7 @@ in the primer as *a binding that must be used exactly once*, and once at
 `A4-ceiling` as the thing Scala cannot state. This is the payoff for both.
 
 WHAT TO DO IF IT FAILS
-As Demos 1 to 3. Advance, say the same words, do not mention it. Measured on
+As Demos 1 to 4. Advance, say the same words, do not mention it. Measured on
 this machine it is the *fastest* of the four — 1.5s with `06-idris2-payment/build`
 already populated, which is why the pre-flight run matters. From genuinely cold
 it compiles five modules; if nothing has appeared in about twenty-five seconds,

@@ -1,13 +1,13 @@
-// A4-demo5-edit · recorded terminal frame 1 of 2 — the edit.
-// Verbatim from demos/5-edit.txt, produced by tools/capture-terminal.sh.
+// A4-demo4-edit · recorded terminal frame 1 of 2 — the edit.
+// Verbatim from demos/4-edit.txt, produced by tools/capture-terminal.sh.
 #import "../theme.typ": *
 #import "../components.typ": *
 
 #light-slide(
-  eyebrow: eyebrow([Demo 5 · recorded · 1 of 2], style: "bad"),
+  eyebrow: eyebrow([Demo 4 · recorded · 1 of 2], style: "bad"),
   body-gap: sz(30pt),
   [One side adds a step to the conversation],
-  terminal-pane(read("../../demos/5-edit.txt").trim(), title: "05-scala3-payment", size: 19pt),
+  terminal-pane(read("../../demos/4-edit.txt").trim(), title: "05-scala3-payment", size: 19pt),
 )
 
 #speaker-note[

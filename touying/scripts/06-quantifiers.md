@@ -13,8 +13,9 @@ VERBATIM
 
 "Frege's move, in eighteen seventy-nine: let a proposition contain a variable,
 then say what holds for every value it could take. You already write that — every method signature
-you have ever typed quantifies over the values of its arguments. Assess-risk,
-there on the slide, takes an Order and holds for every order there will ever be.
+you have ever typed quantifies over the values of its arguments. The line on the
+slide is that, in the logician's notation: for every `o` of type `Order`, the
+result of applying assess-risk to it has type RiskDecision.
 
 A generic moves the variable one level up, from values to types. Take max. For
 all T, if T can be compared, then you can pick the larger of two — and the
@@ -28,6 +29,22 @@ ago. The bound is the if: it says which types the claim covers.
 There is a second quantifier, there-exists. Java's wildcards are a weak version
 of it; the strong one hands you a value together with evidence about that value,
 and we come back to it."
+
+WHAT THE JUDGMENT SAYS — MB, 18 Aug, and it took until 19 Aug to land
+The sentence read *»Assess-risk, there on the slide, takes an Order and holds for
+every order there will ever be.«* Two things wrong with it, and MB named both:
+a function is not the kind of thing that holds, and the sentence does not say
+what the notation on the slide says.
+
+    ∀ o : Order.  assessRisk(o) : RiskDecision
+
+is a **typing judgment**: for every `o` of type `Order`, the expression
+`assessRisk(o)` has type `RiskDecision`. That is the whole content, it is what
+the room can read off the wall, and it is what the spoken line says now.
+
+A proposition holds. A function has a type. `holds` is right in the Frege clause
+above — *say what holds for every value it could take* is about propositions —
+and wrong the moment the subject becomes a method.
 
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.

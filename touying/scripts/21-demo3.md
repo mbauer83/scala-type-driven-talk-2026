@@ -1,4 +1,4 @@
-A4-demo3 · cap 1:55 across three slides · Act 4 beat 2 of 5
+A4-demo3 · cap 1:55 across three slides · Act 4 beat 2 of 6
 
 TERMINAL — the exact directory, the exact command, and the one demo where WHEN
 you start the tool matters more than what you type.

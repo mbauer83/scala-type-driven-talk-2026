@@ -1,4 +1,4 @@
-// A4-mechanisms · cap 1:20 · Act 4 beat 4 of 5 · REWORK of v1 stage5-mechanisms
+// A4-mechanisms · cap 1:20 · Act 4 beat 5 of 6 · REWORK of v1 stage5-mechanisms
 //
 // Two halves. The left is the vocabulary for what has just run — names attached
 // to things the room has seen, which is the one shape in which a naming slide

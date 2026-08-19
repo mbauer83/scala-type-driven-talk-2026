@@ -1,4 +1,4 @@
-// A4-opens · cap 1:20 · Act 4 beat 1 of 5 · REWORK of v1 25-stage5
+// A4-opens · cap 1:20 · Act 4 beat 1 of 6 · REWORK of v1 25-stage5
 //
 // D-C option (d): the act is motivated by the residual failure A3-ceiling ends
 // on. That slide names three things Java still accepts; this one takes the

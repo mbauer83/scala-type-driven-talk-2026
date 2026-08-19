@@ -10,7 +10,7 @@ TALKING POINTS
 
 VERBATIM
 
-"Good evening. My name is Michael Bauer. I'm a software and solution architect, and I've
+"Good evening — and welcome to my talk. My name is Michael Bauer. I'm a software and solution architect, and I've
 been in the business for over fifteen years. Tonight I would like to start with four bugs.
 Programmers have made these kinds of mistakes for as long as there has been software, and
 I've certainly been one of them. We have also been given steadily better tools to prevent such bugs

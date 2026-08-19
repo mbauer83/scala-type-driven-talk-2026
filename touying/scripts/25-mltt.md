@@ -67,7 +67,7 @@ payment flow*:
     ⇄   Send[Order, Receive[RiskSnapshot, ...]]   a whole conversation, as one type
 
 ⇄ was paid off at `A4-sessions`. Π and Σ land here, `1` is set up here and fired
-by Demo 4. The slide shows the same fragments the primer showed, beside the real
+by Demo 5. The slide shows the same fragments the primer showed, beside the real
 signatures — that is the payoff, and it is why the row order is Π, Σ, 1.
 
 Reference the SLIDE, never the clock (MB, 18 Aug). `A4-sessions` has already
@@ -200,4 +200,4 @@ needs is the code running, which is what is left.
 
 JOIN
 Backwards: `A4-ceiling` named exactly these two limits and said there is a
-language that does both. Forwards: Demo 4 fires the `1`.
+language that does both. Forwards: Demo 5 fires the `1`.

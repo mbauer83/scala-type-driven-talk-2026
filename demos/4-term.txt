@@ -1,13 +1,7 @@
-$ idris2 --build payment.ipkg
-5/5: Building Main (src/Main.idr)
-Error: While processing right hand side of settleServer. There are 0 uses of linear name done. 
-
-Main:115:7--115:11
- 111 |   afterCapture <- sendLogged afterAuth captured
- 112 |   branch       <- awaitChoice afterCapture
- 113 |   case branch of
- 114 |     Left refunding => do
- 115 |       done <- sendLogged refunding (refund captured)
-             ^^^^
-
-Suggestion: linearly bounded variables must be used exactly once.
+$ sbt compile
+[error] -- [E172] Type Error: 05-scala3-payment/src/main/scala/demos/PaymentDemo.scala:141:41 
+[error] 141 |    val (ack, done)       = ch5.receive()
+[error]     |                                         ^
+[error]     |No given instance of type protocol.CanReceive[protocol.Send[payment.CapturedPayment, protocol.End]] was found for parameter r of method receive in class Channel
+[error] one error found
+[error] (Compile / compileIncremental) Compilation failed

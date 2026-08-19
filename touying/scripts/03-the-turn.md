@@ -95,7 +95,7 @@ NOTES ON THE WORDING
   already showed exactly that (the first two-line order in the test data), so
   re-deriving it here is redundant — and »would have found it in a day« was wrong
   anyway: once written, that test fails immediately. »Alice's was, eventually«
-  references the established fact and carries the months in one word.
+  references the established fact without putting a number on how long it took.
 - The hedged restatement — because-a-good-part-of-what-everyone-in-this-room-does-
   already-sits-at-the-end-of-it — is deliberately GONE. Slide 1 now makes that
   claim, and harder. What follows here — Gentzen, universal quantification — is the
