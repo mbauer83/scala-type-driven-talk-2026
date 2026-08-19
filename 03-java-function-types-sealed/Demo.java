@@ -46,18 +46,18 @@ import java.util.List;
 
 public class Demo {
 
-    static Result<Order> lowRiskCardOrder() {
+    static Result<Order, PaymentError> lowRiskCardOrder() {
         return OrderLine.of("BOOK-TDD-001", 4500, 1)
             .flatMap(l -> Order.of("ord-low", "cust-01", List.of(l), new PaymentMethod.Card("tok_low")));
     }
 
-    static Result<Order> mediumRiskCardOrder() {
+    static Result<Order, PaymentError> mediumRiskCardOrder() {
         return OrderLine.of("LAPTOP-15", 12000, 1).flatMap(l1 ->
             OrderLine.of("MOUSE-PRO", 3500, 2).flatMap(l2 ->
                 Order.of("ord-medium", "cust-02", List.of(l1, l2), new PaymentMethod.Card("tok_3ds"))));
     }
 
-    static Result<Order> highRiskInvoiceOrder() {
+    static Result<Order, PaymentError> highRiskInvoiceOrder() {
         return OrderLine.of("B2B-SERVER-RACK", 120000, 1)
             .flatMap(l -> Order.of("ord-high", "cust-03", List.of(l), new PaymentMethod.Invoice("PO-7788")));
     }
@@ -74,7 +74,7 @@ public class Demo {
             note("Risk: " + risk.label() + ", order total: " + order.totalCents() + "c");
             PaymentService.Capture cap = PaymentService.processOrder(order, log);
             note("Capture: " + cap);
-            Result<PaymentService.Refund> r = PaymentService.refund(cap, order.paymentMethod());
+            Result<PaymentService.Refund, PaymentError> r = PaymentService.refund(cap, order.paymentMethod());
             note("Refund: " + r);
             note("Audit: " + log);
             return cap;
@@ -104,7 +104,7 @@ public class Demo {
             note("Risk: " + risk.label() + ", order total: " + order.totalCents() + "c");
             PaymentService.Capture cap = PaymentService.processOrder(order, log);
             note("Capture: " + cap);
-            Result<PaymentService.Refund> r = PaymentService.refund(cap, order.paymentMethod());
+            Result<PaymentService.Refund, PaymentError> r = PaymentService.refund(cap, order.paymentMethod());
             note("Refund attempt: " + r);
             note("Audit: " + log);
             return cap;
@@ -132,12 +132,12 @@ public class Demo {
         lowRiskCardOrder().map(order -> {
             PaymentService.Capture cap = PaymentService.capture(
                 PaymentService.authorize(order, "auto-approved"));
-            Result<PaymentService.Refund> r = PaymentService.refund(cap, order.paymentMethod());
+            Result<PaymentService.Refund, PaymentError> r = PaymentService.refund(cap, order.paymentMethod());
             String refundOutcome = switch (r) {
-                case Result.Ok<PaymentService.Refund>  ok  -> "refunded: " + ok.value();
-                case Result.Err<PaymentService.Refund> err -> "rejected: " + err.message();
+                case Result.Ok<PaymentService.Refund, PaymentError>  ok  -> "refunded: " + ok.value();
+                case Result.Err<PaymentService.Refund, PaymentError> err -> "rejected: " + err.error().describe();
             };
-            note("Result<Refund> switch → " + refundOutcome);
+            note("Result<Refund, PaymentError> switch → " + refundOutcome);
             return cap;
         });
 

@@ -24,7 +24,7 @@
 
 # ── Act 0 · Open — 4:40 · AUTHORED, SIGNED OFF ─────────────────────────────
 01-title	0:50	prose
-02-alice	2:30	prose   # carries four incidents, one of which needs a sentence
+02-alice	2:25	prose   # carries four incidents, one of which needs a sentence
 #                       saying what Charlie's operator action is for.
 06-pattern	1:25	prose
 
@@ -62,14 +62,15 @@ a2-promises	1:25	prose
 # ── Act 3 · Java ladder — 13:10 ────────────────────────────────────────────
 17-stage1	1:00	prose
 10-gentzen-or	1:15	prose
-19-stage3	1:05	prose
+19-stage3	1:25	prose   # sums of products, and Result<T, E> whose error
+#                       channel is a sum of products too
 # The whole of Demo 1 is scripted on its setup card, so one cap covers all
 # four of its slides; the frames carry only the line to read.
 a3-demo1	1:55	demo
 20-stage3-payoff	0:35	prose
 # 21-bridge is cut — it is two spoken sentences between
 # A3-payoff-bob and A3-stage4; it never earned 1:30 of its own.
-22-stage4	2:05	prose   # carries the phantom parameter, the four-state
+22-stage4	2:00	prose   # carries the phantom parameter, the four-state
 #                       ladder from Payment.java, and the bridge from Charlie's
 #                       refund to it.
 a3-demo2	1:35	demo
@@ -102,7 +103,7 @@ a4-demo3	1:45	demo
 a4-demo4	1:35	demo    # A4-demo4 — Danielle is the one incident
 #                       of the four with no compiler error behind it. Three
 #                       slides, one cap, as with Demos 1-4.
-stage5-mechanisms	2:05	prose   # 1:20 -> 1:50: the higher-kinded
+stage5-mechanisms	2:00	prose   # 1:20 -> 1:50: the higher-kinded
 #                       mechanism is back (documented as the first thing to
 #                       restore if the read-through came in short — it did, at 33
 #                       minutes), and CanSend gained the Demo 4 callback.
@@ -113,7 +114,7 @@ stage5-mechanisms	2:05	prose   # 1:20 -> 1:50: the higher-kinded
 # needed once written, so the header is corrected DOWN to match them. No cap
 # Demo 5's whole script sits on its setup card, as with Demos 1-3, so one cap
 # covers all three of its slides.
-28-stage6-bridge	2:00	prose   # A5-mltt. 1:45 -> 2:00: the opening
+28-stage6-bridge	1:55	prose   # A5-mltt. 1:45 -> 2:00: the opening
 #                       sentence became precise about type-vs-value, which is the
 #                       one beat where the shorthand costs something, and picked
 #                       up the phantom-type callback to Stage 4.

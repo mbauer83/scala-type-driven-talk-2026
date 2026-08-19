@@ -33,24 +33,31 @@ return switch (risk) {
     ),
     line(length: 100%, stroke: 0.5pt + pal.rule),
     grid(
-            columns: (0.92fr, 1fr),
+            columns: (1.18fr, 1fr),
       column-gutter: sz(56pt),
       align: (left + top, left + horizon),
       code-pane(filename: "Result.java", language: "java", code-size: 17pt, pad-y: 12pt)[
 ```java
-public sealed interface Result<T> permits Result.Ok, Result.Err {
-    record Ok<T>(T value)          implements Result<T> {}
-    record Err<T>(String message)  implements Result<T> {}
+public sealed interface Result<T, E> {
+    record Ok <T, E>(T value) implements Result<T, E> {}
+    record Err<T, E>(E error) implements Result<T, E> {}
+}
+public sealed interface PaymentError {          // the failure, also a sum
+    record EmptyOrder()                 implements PaymentError {}
+    record NonPositiveQuantity(int got) implements PaymentError {}
 }
 ```
       ],
       [
         #set text(size: sz(25pt), fill: pal.fg)
         #set par(leading: 0.45em)
-        #text(weight: 600)[And the same construction in the return type.]
+        #text(weight: 600)[And the same construction in the return type —
+        on both sides.]
         #text(fill: pal.fg-dim)[ A function that can fail says so, and you cannot
-        reach the value without handling the failure — there is no `.get()` to
-        skip past it. Scala spells this `Either`, Rust spells it `Result`.]
+        reach the value without handling the failure: there is no `.get()` to skip
+        past it. The failure has a type of its own, and it is a sum of products
+        too, so you switch on it rather than parse a string. Scala spells this
+        `Either[E, T]`, Rust spells it `Result<T, E>`.]
       ],
     ),
   ),

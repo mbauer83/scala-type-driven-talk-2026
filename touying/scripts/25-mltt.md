@@ -1,4 +1,4 @@
-A5-mltt · cap 2:00 · Act 5 beat 1 of 3
+A5-mltt · cap 1:55 · Act 5 beat 1 of 3
 
 TALKING POINTS
 1. Two things Scala could not say. Idris 2 says both

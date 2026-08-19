@@ -19,6 +19,14 @@ ROOT=$(pwd)
 OUT="$ROOT/demos"
 mkdir -p "$OUT"
 
+demo_sums() {
+  find 03-java-function-types-sealed 04-java-advanced-generics-typestate \
+       05-scala3-payment/src 06-idris2-payment/src \
+       -type f \( -name '*.java' -o -name '*.scala' -o -name '*.idr' \) \
+       -exec md5sum {} + 2>/dev/null | sort
+}
+SUMS_BEFORE=$(mktemp); demo_sums > "$SUMS_BEFORE"
+
 WANT="${1:-all}"
 BACKUPS=()
 # Restore runs after EVERY demo, not once at the end. Demos 3 and 4 both edit
@@ -136,15 +144,14 @@ echo "sources restored."
 # A capture run must leave the demo sources exactly as it found them. It did
 # not, once: demos 3 and 4 both edit PaymentDemo.scala and shared one .demobak
 # path, so the "restore" wrote back a copy that already had demo 3's edit in it.
-# The tree was left dirty, the next capture compiled the wrong source, and the
-# broken file reached a commit before anybody noticed. Fail loudly instead.
-dirty=$(git -C "$ROOT" status --porcelain -- \
-          03-java-function-types-sealed 04-java-advanced-generics-typestate \
-          05-scala3-payment 06-idris2-payment)
-if [ -n "$dirty" ]; then
+#
+# Compare against a checksum taken at START, not against git — the tree may
+# legitimately carry uncommitted work, and comparing to HEAD reported that as a
+# restore failure.
+if ! diff -q "$SUMS_BEFORE" <(demo_sums) >/dev/null; then
   echo
-  echo "ERROR: demo sources were not restored. Run 'git checkout --' on:" >&2
-  echo "$dirty" >&2
+  echo "ERROR: capture did not restore the demo sources. Differences:" >&2
+  diff "$SUMS_BEFORE" <(demo_sums) >&2
   exit 1
 fi
-
+rm -f "$SUMS_BEFORE"

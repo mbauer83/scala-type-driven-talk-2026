@@ -82,11 +82,11 @@ public final class Payment<S extends PaymentState> {
     }
 
     /** Refund: ONLY accepts Payment<Captured>. refund(authorized) = compile error. */
-    public static Result<Payment<PaymentState.Refunded>> refund(
+    public static Result<Payment<PaymentState.Refunded>, PaymentError> refund(
             Payment<PaymentState.Captured> captured, RefundMechanism mechanism) {
         return switch (mechanism) {
             case RefundMechanism.CreditNoteRequired r ->
-                Result.err("invoice: credit note required — instant reversal not available");
+                Result.err(new PaymentError.CreditNoteRequired(captured.orderId));
             case RefundMechanism.InstantReversal r -> {
                 List<String> trail = new ArrayList<>(captured.auditTrail);
                 trail.add("refunded:" + captured.amountCents + "c");

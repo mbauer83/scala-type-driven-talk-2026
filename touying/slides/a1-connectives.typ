@@ -52,7 +52,7 @@
     #grid(
       columns: (1.32fr, 1fr),
       column-gutter: sz(36pt),
-      row-gutter: sz(10pt),
+      row-gutter: sz(26pt),
       align: (left + top, left + top),
 
       connective([∨], [+], [a sum], [one of the variants, and the compiler knows which]),

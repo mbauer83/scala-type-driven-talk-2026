@@ -8,9 +8,9 @@ public record Order(String orderId, String customerId, List<OrderLine> lines, Pa
         lines = List.copyOf(lines);
     }
 
-    public static Result<Order> of(String orderId, String customerId, List<OrderLine> lines, PaymentMethod pm) {
+    public static Result<Order, PaymentError> of(String orderId, String customerId, List<OrderLine> lines, PaymentMethod pm) {
         if (lines == null || lines.isEmpty())
-            return Result.err("Order must have at least one line");
+            return Result.err(new PaymentError.EmptyOrder());
         return Result.ok(new Order(orderId, customerId, lines, pm));
     }
 

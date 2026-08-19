@@ -42,9 +42,9 @@ public class PaymentService {
         return new Capture("cap-" + auth.authCode(), auth.orderId(), auth.authorizedAmountCents());
     }
 
-    public static Result<Refund> refund(Capture cap, PaymentMethod method) {
+    public static Result<Refund, PaymentError> refund(Capture cap, PaymentMethod method) {
         return switch (method.refundMechanism()) {
-            case RefundMechanism.CreditNoteRequired r -> Result.err("invoice: credit note required — instant reversal not available");
+            case RefundMechanism.CreditNoteRequired r -> Result.err(new PaymentError.CreditNoteRequired(cap.captureId()));
             case RefundMechanism.InstantReversal    r -> Result.ok(new Refund("ref-" + cap.captureId(), cap.captureId(), cap.capturedAmountCents()));
         };
     }

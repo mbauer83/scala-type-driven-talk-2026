@@ -68,18 +68,18 @@ import java.util.List;
 
 public class Demo {
 
-    static Result<Order> lowRiskCardOrder() {
+    static Result<Order, PaymentError> lowRiskCardOrder() {
         return OrderLine.of("BOOK-TDD-001", 4500, 1)
             .flatMap(l -> Order.of("ord-low", "cust-01", List.of(l), new PaymentMethod.Card("tok_low")));
     }
 
-    static Result<Order> mediumRiskCardOrder() {
+    static Result<Order, PaymentError> mediumRiskCardOrder() {
         return OrderLine.of("LAPTOP-15", 12000, 1).flatMap(l1 ->
             OrderLine.of("MOUSE-PRO", 3500, 2).flatMap(l2 ->
                 Order.of("ord-medium", "cust-02", List.of(l1, l2), new PaymentMethod.Card("tok_3ds"))));
     }
 
-    static Result<Order> highRiskInvoiceOrder() {
+    static Result<Order, PaymentError> highRiskInvoiceOrder() {
         return OrderLine.of("B2B-SERVER-RACK", 120000, 1)
             .flatMap(l -> Order.of("ord-high", "cust-03", List.of(l), new PaymentMethod.Invoice("PO-7788")));
     }
@@ -100,7 +100,7 @@ public class Demo {
             note("Captured: " + captured);
 
             RefundMechanism mechanism = order.paymentMethod().refundMechanism();
-            Result<Payment<PaymentState.Refunded>> refunded = Payment.refund(captured, mechanism);
+            Result<Payment<PaymentState.Refunded>, PaymentError> refunded = Payment.refund(captured, mechanism);
             note("Refund: " + refunded);
             note("Audit: " + captured.getAuditTrail());
             return captured;
@@ -145,7 +145,7 @@ public class Demo {
             note("Captured: " + captured);
 
             RefundMechanism mechanism = order.paymentMethod().refundMechanism(); // CreditNoteRequired for invoice
-            Result<Payment<PaymentState.Refunded>> refunded = Payment.refund(captured, mechanism);
+            Result<Payment<PaymentState.Refunded>, PaymentError> refunded = Payment.refund(captured, mechanism);
             note("Refund attempt: " + refunded + " — invoice, correctly rejected");
             note("Audit: " + captured.getAuditTrail());
             return captured;

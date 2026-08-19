@@ -11,9 +11,9 @@ public record OrderLine(String sku, int unitPriceCents, int quantity) {
 
     public int totalCents() { return unitPriceCents * quantity; }
 
-    public static Result<OrderLine> of(String sku, int priceCents, int qty) {
-        if (qty <= 0)       return Result.err("Quantity must be positive, got " + qty);
-        if (priceCents < 0) return Result.err("Unit price cannot be negative");
+    public static Result<OrderLine, PaymentError> of(String sku, int priceCents, int qty) {
+        if (qty <= 0)       return Result.err(new PaymentError.NonPositiveQuantity(qty));
+        if (priceCents < 0) return Result.err(new PaymentError.NegativeUnitPrice(priceCents));
         return Result.ok(new OrderLine(sku, priceCents, qty));
     }
 }

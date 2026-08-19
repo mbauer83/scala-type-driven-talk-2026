@@ -1,4 +1,4 @@
-A4-mechanisms · cap 2:05 · Act 4 beat 5 of 6
+A4-mechanisms · cap 2:00 · Act 4 beat 5 of 6
 
 TALKING POINTS
 1. Everything Scala has been doing for the last few minutes has a name

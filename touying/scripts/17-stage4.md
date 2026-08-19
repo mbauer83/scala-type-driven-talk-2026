@@ -1,4 +1,4 @@
-A3-stage4 · cap 2:05 · Act 3 beat 6 of 8
+A3-stage4 · cap 2:00 · Act 3 beat 6 of 8
 
 TALKING POINTS
 1. Bob's was a missing case. Charlie's is different, and harder
