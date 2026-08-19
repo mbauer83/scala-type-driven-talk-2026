@@ -139,6 +139,24 @@ So the slide leads with `data Session : SessionType -> Type` and the script says
 so first. Saying *protocolFromSnapshot computes a type* would be plainly false
 and a Scala or Haskell person in the room would catch it.
 
+HOW THE SESSION TYPE MEETS AN ACTUAL CHANNEL (Q&A — MB asked, 19 Aug)
+Same answer as Scala's, and Idris is blunter about it:
+
+    data Blob : Type where MkBlob : Blob
+    packBlob   : a -> Blob ;  packBlob   = believe_me
+    unpackBlob : Blob -> a ;  unpackBlob = believe_me
+
+`PaymentChannel.idr:56-61`. `Session p` is `MkSession (Channel Blob) (Channel
+Blob)` — two `System.Concurrency` channels of untyped blobs (`:66-67`) — and
+`send` is `channelPut out (packBlob value)`, `receive` is `unpackBlob <$>
+channelGet inp` (`:82-101`). `believe_me` is literally *stop checking this*.
+
+So the linearity and the ordering are enforced; the serialisation is not. The
+protocol value is the contract between the two endpoints, not a wire format. If
+somebody asks whether this works over a socket: yes, but the codec has to be
+derived from the same `SessionType` for the cast to be justified, and that is
+the frontier rather than something this repository does.
+
 WHY `L1 IO` IS WAVED PAST OUT LOUD (MB, 18 Aug)
 It is on the slide because the signature is verbatim, and MB is right that a room
 cannot parse it cold. Saying *ignore the linear plumbing; the shape to see is the

@@ -74,6 +74,32 @@ already carries the callback, the protocol, the match type and Danielle. It is o
 the wall for anyone reading ahead, it is the honest answer to »how do you know
 `Dual` is right«, and Q&A is where it gets explained. Do not start it on stage.
 
+HOW THE SESSION TYPE MEETS AN ACTUAL CHANNEL (Q&A — MB asked, 19 Aug)
+It does not. The type is erased, and underneath are two ordinary untyped queues.
+
+    final class Transport:
+      private[runtime] val aToB = new LinkedBlockingQueue[Any](128)
+      private[runtime] val bToA = new LinkedBlockingQueue[Any](128)
+    def open[P <: Protocol]: (Channel[P], Channel[Dual[P]]) =
+      client = new Channel[P](outbox = aToB, inbox = bToA)
+      server = new Channel[Dual[P]](outbox = bToA, inbox = aToB)   -- crossed
+
+`runtime/Transport.scala:9-18`. `P` is a phantom parameter carrying no data;
+`send` is `outbox.put(value)` and `receive` is
+`inbox.take().asInstanceOf[r.Msg]` (`runtime/Chan.scala:25-35`) — **an unchecked
+cast**. So the guarantee is static and local: the types constrain which
+operations *your program* can compile, and duality guarantees the two endpoints
+were derived from one description. Nothing checks the bytes.
+
+Why that is still worth having: the cast can only be wrong if the two sides were
+built from different versions of the protocol, or something outside both programs
+writes to the queue. In one process, sharing one definition, neither can happen —
+which is the whole of Danielle's bug. Across a network it can, so a real
+deployment needs the protocol shared as a build artifact and the codec derived
+from the same definition. That is what Scribble-style toolchains generate, and it
+is the honest answer to *does this work over a socket*: the session type is the
+contract, not the wire format.
+
 WHY »JAVA HAS NO VERSION OF« RATHER THAN A STRONGER CLAIM
 `A3-ceiling` conceded the first two of its three limits and drew the line at this
 one: *deriving the other side's protocol needs types computed from types, and
