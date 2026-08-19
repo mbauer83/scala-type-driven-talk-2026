@@ -2,7 +2,7 @@ A6-now · cap 1:10 · Act 6 beat 2 of 4 · NEW · partly un-merges v1 32-agentic
 
 TALKING POINTS
 1. A great deal of the code we ship is now written by a model. SAY SO
-2. NOT a complaint about review — people still review. It is volume and speed
+2. People still review, and read carefully. What changes is volume and speed
 3. Ten changes before lunch: attention per line thins, and what scales is what
    needs no attention
 4. A type is a HARD CONSTRAINT — every line, every author, every build
@@ -19,15 +19,15 @@ VERBATIM
 "And the arithmetic behind all of this has changed, because a great deal of the
 code we ship is now written by a model.
 
-That is not a complaint about review — people still review. It is volume and
-speed: when ten changes land before lunch, attention per line thins, and what
-scales is the part that needs no attention at all.
+People still review, and they read carefully. What changes is volume and speed:
+when ten changes land before lunch, attention per line thins, and what scales is
+the part that needs no attention at all.
 
 A type is a hard constraint. It holds on every line, from every author, on every
 build, and it does not care whether a person or a model wrote it. A test only
 ever covers the case somebody thought of.
 
-It is also the clearest statement of intent you can hand a model: a signature
+It is also the clearest statement of intent you can hand a model. A signature
 says what a thing is for in a form it can read, and it cannot drift, because it
 is checked every time.
 
