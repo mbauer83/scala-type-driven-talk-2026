@@ -57,3 +57,6 @@ memory/
 Thumbs.db
 *.log
 *:Zone.Identifier
+
+# Playwright MCP scratch output
+.playwright-mcp/

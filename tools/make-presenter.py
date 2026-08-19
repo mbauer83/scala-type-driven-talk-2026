@@ -102,6 +102,8 @@ TEMPLATE = r"""<!doctype html>
            line-height:1.2; cursor:pointer; flex:0 0 auto; }
   button:hover { background:#232a3d; }
   #elapsed.over { color:#e08a4a; }
+  #elapsed.paused { color:#8b8f98; }
+  button.off { color:#8b8f98; border-color:#242a38; }
   kbd { background:#1b2030; border:1px solid #2e3547; border-radius:3px;
         padding:0 .3rem; font-size:.85em; }
   #fallback { position:fixed; left:1rem; bottom:1rem; max-width:52rem;
@@ -135,7 +137,9 @@ TEMPLATE = r"""<!doctype html>
     <span><b id="pos"></b> / __N__</span>
     <span class="grow">elapsed <b id="elapsed">00:00</b></span>
     <span>clock <b id="clock"></b></span>
+    <button id="pauseBtn" onclick="togglePause()">&#9208; pause</button>
     <button onclick="resetTimer()">reset</button>
+    <button id="clickBtn" onclick="toggleClickAdvance()">top-click: on</button>
   </div>
 </div>
 
@@ -148,6 +152,11 @@ const TARGET_MIN = __TARGET__;  // planned run time, for the elapsed colour
 const qs = new URLSearchParams(location.search);
 const isConsole = qs.get('view') === 'console';
 let idx = 0, peer = null, started = null, blacked = false;
+/* Timer: `started` is the epoch it began. `pausedAt` is set while paused, and
+   `pausedTotal` accumulates the time spent paused, so elapsed stays honest
+   across any number of pauses. All three travel in the sync message. */
+let pausedAt = null, pausedTotal = 0;
+let clickAdvance = true;
 
 /* ---------- sync ----------
    postMessage is cross-origin-safe by design, so this works from file:// where
@@ -164,7 +173,8 @@ addEventListener('message', e => {
   if (m.type === 'hello') { if (!isConsole) { helloSeen = helloEver = true;
         peer = e.source; clearTimeout(waitTimer); clearNotice();
         send({type:'goto', i: idx}); } }
-  if (m.type === 'timer') started = m.started;
+  if (m.type === 'timer') { started = m.started; pausedAt = m.pausedAt || null;
+        pausedTotal = m.pausedTotal || 0; paintTimerButton(); }
 });
 
 function preload(i) {
@@ -190,7 +200,7 @@ function go(i) {
   if (i < 0 || i >= N) return;
   render(i);
   send({type:'goto', i: idx});
-  if (!started) { started = Date.now(); send({type:'timer', started}); }
+  if (!started) { started = Date.now(); syncTimer(); paintTimerButton(); }
 }
 
 /* Build the console URL from location.href, never from location.pathname.
@@ -264,8 +274,47 @@ addEventListener('keydown', e => {
   else if (k === 'r' || k === 'R') resetTimer();
 });
 addEventListener('click', e => { if (!isConsole && e.target.tagName !== 'BUTTON') go(idx+1); });
+/* In the console, a click in the empty space around the two thumbnails advances.
+   The target is the grid container itself, so clicks on the images, the notes or
+   the buttons are untouched. Toggleable, because an accidental advance mid-talk
+   is worse than a convenience is good. */
+addEventListener('click', e => {
+  if (isConsole && clickAdvance && e.target.id === 'console') go(idx+1);
+});
 
-function resetTimer() { started = Date.now(); send({type:'timer', started}); }
+function syncTimer() { send({type:'timer', started, pausedAt, pausedTotal}); }
+
+function resetTimer() {
+  started = Date.now(); pausedAt = null; pausedTotal = 0;
+  syncTimer(); paintTimerButton();
+}
+
+function togglePause() {
+  if (!started)        started = Date.now();               // first press starts it
+  else if (pausedAt) { pausedTotal += Date.now() - pausedAt; pausedAt = null; }
+  else                 pausedAt = Date.now();
+  syncTimer(); paintTimerButton();
+}
+
+function elapsedSec() {
+  if (!started) return 0;
+  const now = pausedAt || Date.now();
+  return Math.max(0, Math.floor((now - started - pausedTotal) / 1000));
+}
+
+function paintTimerButton() {
+  const b = document.getElementById('pauseBtn');
+  if (b) b.innerHTML = pausedAt ? '&#9654; resume' : '&#9208; pause';
+  const el = document.getElementById('elapsed');
+  if (el) el.classList.toggle('paused', !!pausedAt);
+}
+
+function toggleClickAdvance() {
+  clickAdvance = !clickAdvance;
+  const b = document.getElementById('clickBtn');
+  if (b) { b.textContent = 'top-click: ' + (clickAdvance ? 'on' : 'off');
+           b.classList.toggle('off', !clickAdvance); }
+}
 function two(n) { return String(n).padStart(2, '0'); }
 setInterval(() => {
   if (!isConsole) return;
@@ -273,7 +322,7 @@ setInterval(() => {
   if (c) { const d = new Date(); c.textContent = two(d.getHours()) + ':' + two(d.getMinutes()); }
   const el = document.getElementById('elapsed');
   if (el) {
-    const s = started ? Math.floor((Date.now() - started) / 1000) : 0;
+    const s = elapsedSec();
     el.textContent = two(Math.floor(s/60)) + ':' + two(s % 60);
     el.classList.toggle('over', s > TARGET_MIN * 60);
   }
