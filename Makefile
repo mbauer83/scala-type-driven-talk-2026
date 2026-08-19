@@ -12,8 +12,13 @@ TYPST_SOURCES := $(shell find touying \( -name '*.typ' -o -name '*.md' \))
 
 all: talk.pdf talk.pdfpc
 
+# Vendored fonts, so a build does not depend on what is installed on the machine.
+# --ignore-system-fonts is the point: without it a machine that happens to have a
+# face installed renders differently from one that does not, silently.
+TYPST_FONTS = --font-path touying/fonts --ignore-system-fonts
+
 talk.pdf: $(TYPST_SOURCES)
-	typst compile --root . touying/deck.typ talk.pdf
+	typst compile --root . $(TYPST_FONTS) touying/deck.typ talk.pdf
 
 # talk.pdfpc: speaker-note sidecar read by pympress presenter view.
 # Requires the pdfpc.pdfpc-file(here()) call at the end of deck.typ.
@@ -27,7 +32,7 @@ talk.pdf: $(TYPST_SOURCES)
 # query used to leave a 0-byte talk.pdfpc that every later step treated as valid
 # and that make then considered up to date.
 talk.pdfpc: $(TYPST_SOURCES)
-	typst query --root . touying/deck.typ "<pdfpc-file>" --field value --one > $@.tmp
+	typst query --root . $(TYPST_FONTS) touying/deck.typ "<pdfpc-file>" --field value --one > $@.tmp
 	test -s $@.tmp
 	mv $@.tmp $@
 
@@ -42,15 +47,15 @@ talk-presenter: talk.pdfpc
 	python3 tools/make-presenter.py
 
 talk-notes: $(TYPST_SOURCES)
-	typst compile --root . touying/deck.typ --input notes=true talk-with-notes.pdf
+	typst compile --root . $(TYPST_FONTS) touying/deck.typ --input notes=true talk-with-notes.pdf
 
 talk-svg: $(TYPST_SOURCES)
 	mkdir -p slides/svg
-	typst compile --root . touying/deck.typ "slides/svg/slide-{0p}.svg"
+	typst compile --root . $(TYPST_FONTS) touying/deck.typ "slides/svg/slide-{0p}.svg"
 
 talk-png: $(TYPST_SOURCES)
 	mkdir -p slides/png
-	typst compile --root . touying/deck.typ "slides/png/slide-{0p}.png" --format png --ppi 144
+	typst compile --root . $(TYPST_FONTS) touying/deck.typ "slides/png/slide-{0p}.png" --format png --ppi 144
 
 # --root . for the same reason talk.pdfpc needs it: nine slides #read() files
 # above touying/ (the recorded demo frames) and the title/close slides read the
@@ -73,7 +78,7 @@ talk-html: $(TYPST_SOURCES)
 	touying compile --root . touying/deck.typ --format html --output talk.html
 
 watch:
-	typst watch --root . touying/deck.typ talk.pdf
+	typst watch --root . $(TYPST_FONTS) touying/deck.typ talk.pdf
 
 # serve: view the HTML deck over http rather than as a file.
 #

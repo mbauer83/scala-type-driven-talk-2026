@@ -7,13 +7,11 @@
 // (= 0.5) at the point of use. The on-page geometry is therefore 960×540pt;
 // sizes the audience perceives are 1× of the slide-plan numbers because the
 // projector itself drives the final magnification. Font availability note: IBM
-// Plex Sans  — install with `sudo apt install fonts-ibm-plex` on Debian 11+ /
-// Ubuntu 22.04+. Falls back to Inter, then to Typst's bundled Libertinus Sans.
-// JetBrains Mono — not packaged in Debian 11 main. On bookworm and Ubuntu
-// 22.04+ use `sudo apt install fonts-jetbrains-mono`. Else unzip the GitHub
-// release into ~/.local/share/fonts/ and run `fc-cache -f`. Falls back to Fira
-// Code, then to Typst's bundled DejaVu Sans Mono. The build succeeds without
-// the preferred fonts; only typography fidelity suffers. =====================
+// Plex Sans and JetBrains Mono are VENDORED in touying/fonts/, and the build
+// passes --font-path with --ignore-system-fonts, so what a machine happens to
+// have installed cannot change the output. Both are SIL OFL 1.1; the licences
+// sit beside the files. DejaVu Sans Mono and the maths faces ship inside typst
+// itself. =====================================================================
 // ========================================================
 
 #import "@preview/touying:0.7.4": *
@@ -78,7 +76,7 @@
 // ─── Font fallback chains ───────────────────────────────────────────────────
 
 #let body-font = ("IBM Plex Sans", "Inter", "Libertinus Sans")
-#let mono-font = ("JetBrains Mono", "Fira Code", "DejaVu Sans Mono")
+#let mono-font = ("JetBrains Mono", "DejaVu Sans Mono")
 
 // Convenience: convert a raw slide-plan size token (e.g. type-scale.body) into
 // the scaled length used on the rendered page.

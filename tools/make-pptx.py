@@ -38,6 +38,9 @@ import tempfile
 
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 DECK = os.path.join("touying", "deck.typ")
+# Vendored fonts — see the note in touying/theme.typ. Keep in step with the
+# TYPST_FONTS variable in the Makefile.
+FONT_ARGS = ["--font-path", os.path.join("touying", "fonts"), "--ignore-system-fonts"]
 PDFPC = os.path.join(ROOT, "talk.pdfpc")
 
 # Scripts are TALKING POINTS -> VERBATIM -> PREPARATION, separated by a rule of
@@ -63,7 +66,8 @@ def render(ppi, outdir):
     """One PNG per page. --root . because slides #read() files above touying/."""
     pattern = os.path.join(outdir, "slide-{0p}.png")
     subprocess.run(
-        ["typst", "compile", "--root", ".", DECK, pattern, "--format", "png", "--ppi", str(ppi)],
+        ["typst", "compile", "--root", ".", *FONT_ARGS, DECK, pattern,
+         "--format", "png", "--ppi", str(ppi)],
         cwd=ROOT, check=True,
     )
     return sorted(

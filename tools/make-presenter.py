@@ -40,6 +40,9 @@ import sys
 
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 DECK = os.path.join("touying", "deck.typ")
+# Vendored fonts — see the note in touying/theme.typ. Keep in step with the
+# TYPST_FONTS variable in the Makefile.
+FONT_ARGS = ["--font-path", os.path.join("touying", "fonts"), "--ignore-system-fonts"]
 PDFPC = os.path.join(ROOT, "talk.pdfpc")
 OUT = os.path.join(ROOT, "presenter")
 
@@ -314,7 +317,7 @@ def main():
     shutil.rmtree(slides_dir, ignore_errors=True)
     os.makedirs(slides_dir, exist_ok=True)
     subprocess.run(
-        ["typst", "compile", "--root", ".", DECK,
+        ["typst", "compile", "--root", ".", *FONT_ARGS, DECK,
          os.path.join(slides_dir, "{0p}.png"), "--format", "png", "--ppi", str(args.ppi)],
         cwd=ROOT, check=True,
     )
