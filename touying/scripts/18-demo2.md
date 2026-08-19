@@ -1,5 +1,14 @@
 A3-demo2 · cap 1:45 across four slides · Act 3 beat 7 of 8
 
+TERMINAL — the exact directory, the exact command. Different directory from
+Demo 1; open it and run the command once before the dark card goes up.
+
+    cd ~/workspace/scala-type-driven-talk/04-java-advanced-generics-typestate
+    javac -d /tmp/out *.java
+
+Same command as Demo 1, one directory over, and it is what the recorded fallback
+frame shows. Measured 0.6s.
+
 RUNBOOK — the four slides, in order, with what you say on each
 
   SLIDE 20  dark card          »Let's try to capture a payment that was never
@@ -11,6 +20,7 @@ RUNBOOK — the four slides, in order, with what you say on each
             »line one seventy … the line that is commented out …»
             uncomment it
             »… and compile.»
+            → TERMINAL: `javac -d /tmp/out *.java`   (↑ Enter)
             → SILENCE until the error appears.
 
   SLIDE 21  recorded, the edit  Advance. »The line is back.»
@@ -21,7 +31,8 @@ RUNBOOK — the four slides, in order, with what you say on each
             Beat. Then:
             »Nobody wrote a test for that, and nobody had to catch it in review.»
 
-  IDE       Comment it out again. Recompile. Green. Say nothing.
+  IDE       Comment it out again. `javac -d /tmp/out *.java` — silent, which is
+            green. Say nothing.
 
   SLIDE 23  ceiling             Charlie closed, then what Java still accepts.
 

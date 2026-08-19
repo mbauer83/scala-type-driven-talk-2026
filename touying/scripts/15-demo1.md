@@ -1,5 +1,17 @@
 A3-demo1 · cap 2:10 across four slides · Act 3 beat 4 of 8
 
+TERMINAL — the exact directory, the exact command. Have this open and warm
+BEFORE the dark card goes up, and run the command once so the room's first
+sight of it is already the second time you have typed it.
+
+    cd ~/workspace/scala-type-driven-talk/03-java-function-types-sealed
+    javac -d /tmp/out *.java
+
+That is the command, character for character. The recorded fallback frame shows
+`$ javac -d /tmp/out *.java`, so if the live compile fails and you advance into
+the recording, the room sees the same line it just watched you type. Measured
+0.6s on this machine.
+
 RUNBOOK — the four slides, in order, with what you say on each
 
   SLIDE 15  dark card          »Let's delete case Medium and watch what the compiler does.»
@@ -10,6 +22,7 @@ RUNBOOK — the four slides, in order, with what you say on each
             »Demo dot java … line one two three … that is the medium case …»
             delete the line
             »… and compile.»
+            → TERMINAL: `javac -d /tmp/out *.java`   (↑ Enter)
             → SILENCE from here until the error appears. Do not fill it.
 
   SLIDE 16  recorded, the edit  Advance. One second. »There is the line, gone.»
@@ -21,7 +34,8 @@ RUNBOOK — the four slides, in order, with what you say on each
             »That is the elimination rule from the Gentzen slide, coming out
              of javac.»
 
-  IDE       Undo. Recompile. Let the room see it go green. Say nothing.
+  IDE       Undo the delete. `javac -d /tmp/out *.java` again — no output at
+            all is what green looks like here. Let the room see it. Say nothing.
 
   SLIDE 18  payoff              Bob's bug is now a compile error.
 
@@ -74,6 +88,11 @@ Then recompile. `tools/capture-demos.sh` applies this same edit, runs the real
 compiler, writes `demos/1-exhaustiveness.txt` and restores the source — it is the
 authoritative description of what to type, because unlike prose it is executed
 and cannot drift.
+
+Note the two scripts use different output directories: `capture-demos.sh` writes
+classes to `/tmp/demo1-out`, and `capture-terminal.sh` — the one that produced
+the frame the room will see — uses `/tmp/out`. **Type `/tmp/out` on stage**, so
+the live line and the fallback frame are the same line.
 
 WHY THERE ARE TWO SLIDES (D-D)
 Dark setup card, then the captured output. The fallback is on the **following**

@@ -1,5 +1,14 @@
 A5-demo4 · cap 2:10 across three slides · Act 5 beat 2 of 3
 
+TERMINAL — the exact directory, the exact command. Run it once before the act
+so the `build/` directory is warm; from cold it compiles all five modules.
+
+    cd ~/workspace/scala-type-driven-talk/06-idris2-payment
+    idris2 --build payment.ipkg
+
+That is what the recorded fallback frame shows, character for character.
+Measured 1.5s warm — the fastest of the four, not the slowest.
+
 RUNBOOK — the three slides, in order, with what you say on each
 
   SLIDE     dark card           »Let's drop the channel without closing it.»
@@ -10,7 +19,9 @@ RUNBOOK — the three slides, in order, with what you say on each
             »the refund branch … the last thing it does is close the session …»
             replace `finish done` with `pure ()`
             »… and build.»
-            → SILENCE. idris2 rebuilds five modules; let it.
+            → TERMINAL: `idris2 --build payment.ipkg`   (↑ Enter)
+            → SILENCE. It rebuilds Main and answers in a second or two if the
+              build directory is warm; do not fill the gap either way.
 
   SLIDE     recorded, the edit  Advance. »The close is gone.»
 
@@ -20,7 +31,8 @@ RUNBOOK — the three slides, in order, with what you say on each
                                  once.»
                                 Beat. Then the two sentences below.
 
-  EDITOR    Put `finish done` back. Rebuild. Green. Say nothing.
+  EDITOR    Put `finish done` back. `idris2 --build payment.ipkg` again — it
+            ends on »Now compiling the executable: paymentdemo«. Say nothing.
 
 TALKING POINTS
 1. Let's drop the channel without closing it
@@ -96,10 +108,11 @@ in the primer as *a binding that must be used exactly once*, and once at
 `A4-ceiling` as the thing Scala cannot state. This is the payoff for both.
 
 WHAT TO DO IF IT FAILS
-As Demos 1 to 3. Advance, say the same words, do not mention it. `idris2 --build`
-rebuilds five modules and is the slowest of the four demos; if nothing has
-appeared in about twenty-five seconds, advance to the recorded frames and keep
-talking.
+As Demos 1 to 3. Advance, say the same words, do not mention it. Measured on
+this machine it is the *fastest* of the four — 1.5s with `06-idris2-payment/build`
+already populated, which is why the pre-flight run matters. From genuinely cold
+it compiles five modules; if nothing has appeared in about twenty-five seconds,
+advance to the recorded frames and keep talking.
 
 JOIN
 Backwards: `A5-mltt` set up the `1` and did not fire it. Forwards: `A5-payoff`,

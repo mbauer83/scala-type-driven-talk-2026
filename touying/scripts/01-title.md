@@ -1,7 +1,7 @@
 VERBATIM · cap 0:50 · word count is computed by `make timing`, not stated here.
 
 TALKING POINTS
-1. Who I am — architect, a dozen years
+1. Who I am — a software and solution architect, over fifteen years in
 2. Tonight starts with four bugs
 3. Everyone makes them; I have made them
 4. Better tools keep arriving — follow that thread back
@@ -10,8 +10,8 @@ TALKING POINTS
 
 VERBATIM
 
-"Good evening. My name is Michael Bauer, and I've spent the last dozen or so years working
-as a software and solution architect. Tonight I would like to start with four bugs.
+"Good evening. My name is Michael Bauer. I'm a software and solution architect, and I've
+been in the business for over fifteen years. Tonight I would like to start with four bugs.
 Programmers have made these kinds of mistakes for as long as there has been software, and
 I've certainly been one of them. We have also been given steadily better tools to prevent such bugs
 - and following that thread leads somewhere a great deal older than any of us. By the end
@@ -22,6 +22,11 @@ Thanks to the organisers for having me."
 ==========================================================================
 PREPARATION — background, checks and citations. Not for the night.
 ==========================================================================
+
+HOW MB IS INTRODUCED (MB, 19 Aug)
+*»A software and solution architect, in the business for over 15 years.«* That is
+his wording and it replaces *»the last dozen or so years«* — which understated it
+and hedged twice in six words.
 
 The framing deliberately promises the size of the real talk. An earlier draft
 opened on a-specific-kind-of-bug, which sets up something much smaller than what

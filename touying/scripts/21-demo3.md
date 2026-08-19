@@ -1,5 +1,24 @@
 A4-demo3 · cap 1:55 across three slides · Act 4 beat 2 of 5
 
+TERMINAL — the exact directory, the exact command, and the one demo where WHEN
+you start the tool matters more than what you type.
+
+    cd ~/workspace/scala-type-driven-talk/05-scala3-payment
+    sbt
+
+Start `sbt` before the act, not on stage, and leave it sitting at its prompt:
+
+    sbt:payment>
+
+On stage you then type one word — `compile` — and it answers in about eight
+seconds. Starting sbt cold in front of the room costs a JVM start and possibly a
+dependency resolution, which is the single largest time risk in the talk.
+
+    sbt:payment> compile
+
+Measured: 4.8s for a warm no-op compile, 8.4s for the edit-and-fail that this
+demo performs. Cold, it is 30s and up, and you cannot tell in advance.
+
 RUNBOOK — the three slides, in order, with what you say on each
 
   SLIDE     dark card           »Let's try to approve a medium-risk order the
@@ -11,6 +30,7 @@ RUNBOOK — the three slides, in order, with what you say on each
             »the medium-risk server … the line that builds the approval …»
             swap `ThreeDSApproved(proof)` for `AutoApproved`
             »… and compile.»
+            → TERMINAL, at the sbt prompt already running: `compile`
             → SILENCE until the error appears. sbt is slower than javac; let it
               be slow, and do not fill the gap.
 
@@ -21,7 +41,8 @@ RUNBOOK — the three slides, in order, with what you say on each
                                  MediumRisk.»
                                 Beat. Then the two sentences below.
 
-  IDE       Put the proof back. Recompile. Green. Say nothing.
+  IDE       Put the proof back. `compile` again at the sbt prompt. Green.
+            Say nothing.
 
 TALKING POINTS
 1. Let's try to approve a medium-risk order the automatic way
@@ -58,9 +79,19 @@ THE EDIT, EXACTLY — AND IT IS EXECUTED, NOT DESCRIBED
       authorize(order, ThreeDSApproved(proof))     ->  authorize(order, AutoApproved)
 
 `tools/capture-demos.sh 3` and `tools/capture-terminal.sh` both apply exactly
-this edit, run the real `sbt compile`, write `demos/3-edit.txt`,
+this edit, run the real `sbt -batch -warn compile`, write `demos/3-edit.txt`,
 `demos/3-term.txt` and `demos/3-risk-indexed-approval.txt`, and restore the
 source. Re-run either after any change to the Scala code.
+
+ONE MISMATCH TO KNOW ABOUT, AND IT IS A DELIBERATE TRADE
+The recorded fallback frame's first line reads `$ sbt compile`, because the
+capture runs non-interactively. If you take the advice above and keep an sbt
+session open, what the room watches you type is `compile` at the `sbt:payment>`
+prompt — and the fallback frame, if you ever need it, says `$ sbt compile`.
+Nobody will notice, and the twenty-plus seconds a cold `sbt compile` can cost in
+front of an audience is a real risk against a cosmetic one. If you would rather
+they match exactly, the line is written by `echo` in `tools/capture-terminal.sh`
+(`frame3`) and can say whatever you decide to type.
 
 DO NOT REMOVE THE ASCRIPTION ON LINE 122
 `val authorized: AuthorizedPayment[MediumRisk] =` is what makes this demo
